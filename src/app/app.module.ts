@@ -62,20 +62,18 @@ const APP_DIRECTIVES = [
 import { AppRoutingModule } from './app.routing';
 
 // Import 3rd party components
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
 
 @NgModule({
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-    ChartsModule,
     BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
     TabsModule.forRoot(),
+    ChartsModule
   ],
   declarations: [
     AppComponent,
