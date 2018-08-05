@@ -65,26 +65,30 @@ import { AppRoutingModule } from './app.routing';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AuthorizationModule } from './modules/authorization/authorization.module';
+import {Ng2Webstorage} from 'ng2-webstorage';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    BsDropdownModule.forRoot(),
-    TabsModule.forRoot(),
-    ChartsModule
-  ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
-  ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        AppRoutingModule,
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        ChartsModule,
+        AuthorizationModule,
+        Ng2Webstorage,
+    ],
+    declarations: [
+        AppComponent,
+        ...APP_CONTAINERS,
+        ...APP_COMPONENTS,
+        ...APP_DIRECTIVES
+    ],
+    providers: [{
+        provide: LocationStrategy,
+        useClass: HashLocationStrategy
+    }],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }
