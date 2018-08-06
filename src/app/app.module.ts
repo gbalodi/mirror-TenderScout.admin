@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -66,12 +68,14 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
-import {Ng2Webstorage} from 'ng2-webstorage';
+import { Ng2Webstorage } from 'ngx-webstorage';
 
 @NgModule({
     imports: [
         BrowserModule,
         BrowserAnimationsModule,
+        FormsModule,
+        HttpModule,
         AppRoutingModule,
         BsDropdownModule.forRoot(),
         TabsModule.forRoot(),

@@ -13,7 +13,7 @@ import { AuthorizationRoutingModule } from './authorization-routing.module';
   ],
   declarations: [
       LoginComponent,
-      ForgotPassComponent
+      ForgotPassComponent,
   ],
   providers: [
       AuthService,
