@@ -55,7 +55,7 @@
     "rxjs": "^6.0.0",
     "rxjs-compat": "^6.2.2",
     "simple-line-icons": "^2.4.1",
-    "spinkit": "1.2.5",
+    "spinkit": "^1.2.5",
     "ts-helpers": "1.1.2",
     "web-animations-js": "^2.3.1",
     "zone.js": "~0.8.26"
