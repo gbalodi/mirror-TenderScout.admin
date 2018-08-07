@@ -1,24 +1,45 @@
+/*modules*/
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LoginComponent } from './components/login/login.component';
-import { ForgotPassComponent } from './components/forgot-pass/forgot-pass.component';
-import { AuthService } from './services/auth.service';
-import { AuthGuard } from './services/auth-guard.service';
+import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
+import { HttpClientModule, HttpClient } from "@angular/common/http";
+
 import { AuthorizationRoutingModule } from './authorization-routing.module';
+import { AuthorizationConfigModule } from './authorization-config.module';
+
+/*services*/
+import { LoginService, AuthConfirmService, RegistrationService } from './services/index';
+import { AuthGuard } from './services/auth-guard.service';
+
+/*components*/
+import { LoginComponent } from './login/index';
+import { RegistrationComponent } from './registration/registration.component';
+import { AuthConfirmComponent } from './auth-confirm/auth-confirm.component';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AuthorizationRoutingModule
-  ],
-  declarations: [
-      LoginComponent,
-      ForgotPassComponent,
-  ],
-  providers: [
-      AuthService,
-      AuthGuard,
-  ]
+    imports: [
+        CommonModule,
+        BrowserModule,
+        FormsModule,
+        HttpClientModule,
+        AuthorizationRoutingModule,
+        AuthorizationConfigModule,
+        ToasterModule,
+    ],
+    declarations: [
+        LoginComponent,
+        RegistrationComponent,
+        AuthConfirmComponent,
+    ],
+    providers: [
+        AuthConfirmService,
+        LoginService,
+        RegistrationService,
+        AuthGuard
+    ],
+    exports: []
 })
 
 export class AuthorizationModule { }

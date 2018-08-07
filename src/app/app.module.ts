@@ -69,6 +69,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { AuthorizationModule } from './modules/authorization/authorization.module';
 import { Ng2Webstorage } from 'ngx-webstorage';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { TokenService } from "./services/token.service";
 
 @NgModule({
     imports: [
@@ -82,6 +84,7 @@ import { Ng2Webstorage } from 'ngx-webstorage';
         ChartsModule,
         AuthorizationModule,
         Ng2Webstorage,
+        NgxPermissionsModule.forRoot()
     ],
     declarations: [
         AppComponent,
@@ -89,10 +92,13 @@ import { Ng2Webstorage } from 'ngx-webstorage';
         ...APP_COMPONENTS,
         ...APP_DIRECTIVES
     ],
-    providers: [{
-        provide: LocationStrategy,
-        useClass: HashLocationStrategy
-    }],
+    providers: [
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
+        },
+        TokenService
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule { }

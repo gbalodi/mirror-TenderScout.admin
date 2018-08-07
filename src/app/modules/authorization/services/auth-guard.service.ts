@@ -2,16 +2,11 @@
 import { Router, CanActivate } from '@angular/router';
 
 import { LocalStorageService } from 'ngx-webstorage';
-import { AuthService } from './auth.service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(
-        private router: Router,
-        private localStorage: LocalStorageService,
-        public auth: AuthService
-    ) { }
+    constructor(private router: Router, private localStorage:LocalStorageService) { }
 
     canActivate() {
         if (this.localStorage.retrieve('access_token')) {
@@ -20,7 +15,7 @@ export class AuthGuard implements CanActivate {
         }
 
         // not logged in so redirect to login page
-        this.auth.login();
+        this.router.navigate(['/login']);
         return false;
     }
 }
