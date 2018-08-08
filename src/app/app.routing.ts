@@ -24,7 +24,11 @@ export const routes: Routes = [
             {
                 path: 'dashboard',
                 loadChildren: './views/dashboard/dashboard.module#DashboardModule'
-            }
+            },
+            {
+                path: 'create-user',
+                loadChildren: './pages/create-user/create-user.module#CreateUserModule'
+            },
         ]
     }
 ];
