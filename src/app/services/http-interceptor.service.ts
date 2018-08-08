@@ -32,7 +32,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         req = req.clone({
             url: url + req.url,
             responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
-            headers: req.headers.set('Authorization', this.localStorage.retrieve('access_token'))
+            headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
         });
         return next.handle(req)
             .do((res: HttpEvent<any>) => {

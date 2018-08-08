@@ -5,6 +5,7 @@ import { CreateUserRoutingModule } from './create-user-routing.module';
 import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 // Import the library
 import { TimezonePickerModule } from 'ng2-timezone-selector';
+import { MainRequestService } from '../../services/main-request.service';
 
 @NgModule({
     imports: [
@@ -14,7 +15,8 @@ import { TimezonePickerModule } from 'ng2-timezone-selector';
         ReactiveFormsModule,
         TimezonePickerModule
     ],
-    declarations: [ CreateUserComponent ]
+    declarations: [ CreateUserComponent ],
+    providers: [ MainRequestService ]
 })
 export class CreateUserModule {
 }

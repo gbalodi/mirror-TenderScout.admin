@@ -1,84 +1,78 @@
-<form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
-
-    <div class="row">
-        <div class="col-xs-12 col-sm-6">
-            <label for="email" class="col-form-label">Email:</label>
-            <div class="">
-                <input type="email" formControlName="email" class="form-control" id="email" placeholder="">
-            </div>
-        </div>
-        <div class="col-xs-12 col-sm-6">
-            <label for="password" class="col-form-label">Password:</label>
-            <div class="">
-                <input type="password" formControlName="password" class="form-control" id="password" placeholder="">
-            </div>
-        </div>
+<div class="card card-accent-primary">
+    <div class="card-header">
+        <h3>Create new user</h3>
     </div>
+    <div class="card-body">
+        <form [formGroup]="profileForm" (ngSubmit)="onSubmit()">
 
-    <div formGroupName="profile">
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <label for="fullName" class="col-form-label">Full name:</label>
-                <div class="">
-                    <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <label for="email" class="col-form-label">Email:</label>
+                    <div class="">
+                        <input type="email" formControlName="email" class="form-control" id="email" placeholder="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <label for="password" class="col-form-label">Password:</label>
+                    <div class="">
+                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
-                <label for="displayName" class="col-form-label">Display name:</label>
-                <div class="">
-                    <input type="text" formControlName="displayName" class="form-control" id="displayName" placeholder="">
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <label for="company" class="col-form-label">Company:</label>
-                <div class="">
-                    <input type="text" formControlName="company" class="form-control" id="company" placeholder="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <label for="fullName" class="col-form-label">Full name:</label>
+                    <div class="">
+                        <input type="text" formControlName="fullName" class="form-control" id="fullName" placeholder="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <label for="displayName" class="col-form-label">Display name:</label>
+                    <div class="">
+                        <input type="text" formControlName="displayName" class="form-control" id="displayName" placeholder="">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
-                <label for="department" class="col-form-label">Department:</label>
-                <div class="">
-                    <input type="text" formControlName="department" class="form-control" id="department" placeholder="">
-                </div>
-            </div>
-        </div>
 
-        <div class="row contacts" formGroupName="contacts">
-            <div class="col-xs-12 col-sm-6">
-                <label for="email" class="col-form-label">Email:</label>
-                <div class="">
-                    <input type="email" formControlName="email" class="form-control" id="email" placeholder="">
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <label for="company" class="col-form-label">Company:</label>
+                    <div class="">
+                        <input type="text" formControlName="company" class="form-control" id="company" placeholder="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <label for="department" class="col-form-label">Department:</label>
+                    <div class="">
+                        <input type="text" formControlName="department" class="form-control" id="department" placeholder="">
+                    </div>
                 </div>
             </div>
-            <div class="col-xs-12 col-sm-6">
-                <label for="phone" class="col-form-label">Phone number:</label>
-                <div class="">
-                    <input type="tel" formControlName="phone" class="form-control" id="phone" placeholder="">
-                </div>
-            </div>
-        </div>
 
-        <div class="row">
-            <div class="col-xs-12 col-sm-6">
-                <label for="time_zone" class="col-form-label">Time Zone:</label>
-                <div class="">
-                    <input type="text" formControlName="time_zone" class="form-control" id="time_zone" placeholder="">
-                    <ng2-timezone-picker
-                            [(timezone)]="timezone"
-                            [placeholder]="placeholderString">
-                    </ng2-timezone-picker>
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <label for="email_contact" class="col-form-label">Email:</label>
+                    <div class="">
+                        <input type="email" formControlName="email_contact" class="form-control" id="email_contact" placeholder="">
+                    </div>
+                </div>
+                <div class="col-xs-12 col-sm-6">
+                    <label class="col-form-label">Time Zone:</label>
+                    <div class="">
+                        <input type="text" formControlName="time_zone" class="form-control" id="time_zone" placeholder="">
+                        <!--<ng2-timezone-picker  (countryChange)="countryIsoCode = $event" [(country)]="countryIsoCode" [(timezone)]="timezone" showOffset="true"></ng2-timezone-picker>-->
+                    </div>
                 </div>
             </div>
-        </div>
+
+            <div class="form-group row margin-t20">
+                <div class="col-12">
+                    <button type="submit" class="btn btn-primary">Create</button>
+                </div>
+            </div>
+
+        </form>
     </div>
+</div>
 
-    <div class="form-group row margin-t20">
-        <div class="col-12">
-            <button type="submit" class="btn btn-primary">Create</button>
-        </div>
-    </div>
-
-</form>

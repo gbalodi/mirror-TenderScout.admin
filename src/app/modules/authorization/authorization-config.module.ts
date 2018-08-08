@@ -17,7 +17,7 @@ export class AuthorizationConfig {
 export const AUTH_DI_CONFIG: AuthorizationConfig = {
     apiRegUrl: '',
     apiRegConfirmUrl: '',
-    apiLoginUrl: 'http://api.dev.tenderscout.braincode.xyz/api/v1/auth/login',
+    apiLoginUrl: 'v1/auth/login',
     apiLoginConfirmUrl: '',
     routeAfterLogin: '/',
     routeAfterRegistration: '/',
