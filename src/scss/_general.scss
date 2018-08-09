@@ -69,6 +69,21 @@ select {
   -webkit-appearance:none !important;
   -moz-appearance: none !important;
 }
+
+.select2-selection{
+  display: block;
+  width: 100%;
+  padding: 3px 2px;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  height: 36px !important;
+  color: #3e515b;
+  background-color: #fff !important;
+  background-clip: padding-box;
+  border: 1px solid #e1e6ef !important;
+  border-radius: 0 !important;
+  transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
 /*end main*/
 
 /*global classes*/
