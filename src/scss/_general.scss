@@ -84,6 +84,11 @@ select {
   border-radius: 0 !important;
   transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
+
+.ng2-smart-page-link.page-link.page-link-prev,
+.ng2-smart-page-link.page-link.page-link-next{
+  font-size: 14px !important;
+}
 /*end main*/
 
 /*global classes*/

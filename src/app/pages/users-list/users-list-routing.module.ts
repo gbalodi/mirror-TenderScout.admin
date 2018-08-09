@@ -9,7 +9,7 @@ const routes: Routes = [
     path: '',
     component: UsersListComponent,
     data: {
-      title: 'Create User'
+      title: 'Users list'
     }
   }
 ];

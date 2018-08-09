@@ -5,7 +5,7 @@ import { MainRequestService } from '../../services/main-request.service';
 @Component({
   selector: 'app-create-user',
   templateUrl: './create-user.component.html',
-  styleUrls: ['./create-user.component.css']
+  styleUrls: ['./create-user.component.scss']
 })
 export class CreateUserComponent implements OnInit {
 

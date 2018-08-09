@@ -123,5 +123,10 @@
       }
     }
   },
-  "defaultProject": "tenderscout-admin-app"
+  "defaultProject": "tenderscout-admin-app",
+  "schematics": {
+    "@schematics/angular:component": {
+      "styleext": "scss"
+    }
+  }
 }
