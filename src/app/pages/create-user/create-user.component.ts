@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
 import { MainRequestService } from '../../services/main-request.service';
 
@@ -65,19 +65,24 @@ export class CreateUserComponent implements OnInit {
     // }
 
     onSubmit() {
+
+        let mail = this.profileForm.value.contacts;
+
         console.log('submit', this.profileForm.value, this.profileForm.value.contacts );//TODO: Delete
 
         this.profileForm.patchValue({
-            contacts: [{ type: 'email', value: 'dsds@ds.ds'}] ,
+            contacts: [{ type: 'email', value: this.profileForm.value.contacts }] ,
             timezone: this.timezone
         });
-        
+
         console.log(this.profileForm.value);//TODO: Delete
 
         // this.contacts.push(this.fb.control(''));
 
         this.request.postData('v1/users', this.profileForm.value ).subscribe( res => {
-            console.log('res', res);
+            this.profileForm.patchValue({
+                contacts: mail ,
+            });
         })
     }
 
