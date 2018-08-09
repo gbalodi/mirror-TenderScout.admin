@@ -9,8 +9,8 @@ export const navigation = [
     }
   },
   {
-    name: 'Create user',
-    url: '/create-user',
+    name: 'Users list',
+    url: '/users-list',
     icon: 'icon-speedometer',
     badge: {
       variant: 'info',

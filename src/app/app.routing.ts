@@ -29,6 +29,10 @@ export const routes: Routes = [
                 path: 'create-user',
                 loadChildren: './pages/create-user/create-user.module#CreateUserModule'
             },
+            {
+                path: 'users-list',
+                loadChildren: './pages/users-list/users-list.module#UsersListModule'
+            },
         ]
     }
 ];

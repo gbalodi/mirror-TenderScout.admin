@@ -36,6 +36,7 @@ export class HttpInterceptorService implements HttpInterceptor {
         }else{
             headers = new HttpHeaders({
                 'Authorization': 'Bearer ' + this.localStorage.retrieve('access_token'),
+                'Accept': 'application/json'
             });
         }
         
