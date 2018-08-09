@@ -59,7 +59,8 @@ export class AuthConfirmService {
     /*authorization finish*/
         setSessionData(authData: any) {
             let token = authData.json().token,
-                access_token = this.tokenService.jwtHelper.decodeToken(token.access_token);
+                // access_token = this.tokenService.jwtHelper.decodeToken(token.access_token);
+                access_token = token.access_token;
 
             /*check for access_token*/
             if (token.access_token) {
