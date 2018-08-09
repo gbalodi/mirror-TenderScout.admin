@@ -1,7 +1,8 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpParams, HttpResponse } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpParams, HttpResponse, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/first';
+import { Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ToasterService } from 'angular2-toaster';
 import { Router } from '@angular/router';
@@ -18,7 +19,8 @@ export class HttpInterceptorService implements HttpInterceptor {
         private localStorage: LocalStorageService,
         private loginService: LoginService,
         private spinner: SpinnerService,
-        toasterService: ToasterService
+        toasterService: ToasterService,
+        private location: Location
     ) {
         this.toasterService = toasterService;
     }
@@ -28,11 +30,25 @@ export class HttpInterceptorService implements HttpInterceptor {
         this.spinner.show = true;
 
         const url = 'http://api.dev.tenderscout.braincode.xyz/api/';
+        let headers;
+
+        if(this.location.path() == '/login'){
+            headers = new HttpHeaders({
+                'Content-Type': 'application/x-www-form-urlencoded'
+            });
+        }else{
+            headers = new HttpHeaders({
+                'Authorization': 'Bearer ' + this.localStorage.retrieve('access_token'),
+            });
+        }
+        
+
 
         req = req.clone({
             url: url + req.url,
             responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
-            headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
+            headers
+            // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
         });
         return next.handle(req)
             .do((res: HttpEvent<any>) => {
@@ -62,7 +78,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                         this.router.navigate(['/login']);
 
                     }if (err.status === 500) {
-                        this.toasterService.pop('error', 'Помилка', 'Сталася невідома помилка');
+                        this.toasterService.pop('error', 'Ooops, error', 'Try again');
                     }
                 }
             });

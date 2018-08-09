@@ -47,23 +47,36 @@ export class CreateUserComponent implements OnInit {
 
     });*/
 
+
     profileForm = new FormGroup({
         email: new FormControl(''),
         password: new FormControl(''),
-        fullName: new FormControl(''),
-        displayName: new FormControl(''),
+        fullname: new FormControl(''),
+        display_name: new FormControl(''),
         company: new FormControl(''),
-        department: new FormControl(''),
-        time_zone: new FormControl(''),
-        email_contact: new FormControl(''),
-        phone: new FormControl('')
+        timezone: new FormControl(''),
+        contacts: new FormControl(''),
     });
 
+    // private cont = [{"type": "email", "value": this.profileForm.get('email_contact')}];
+
+    // get contacts() {
+    //     return this.profileForm.get('contacts') as FormArray;
+    // }
 
     onSubmit() {
-        console.log('submit', this.profileForm.value);//TODO: Delete
+        console.log('submit', this.profileForm.value, this.profileForm.value.contacts );//TODO: Delete
 
-        this.request.postData('v1/users', this.profileForm.value).subscribe( res => {
+        this.profileForm.patchValue({
+            contacts: [{ type: 'email', value: 'dsds@ds.ds'}] ,
+            timezone: this.timezone
+        });
+        
+        console.log(this.profileForm.value);//TODO: Delete
+
+        // this.contacts.push(this.fb.control(''));
+
+        this.request.postData('v1/users', this.profileForm.value ).subscribe( res => {
             console.log('res', res);
         })
     }

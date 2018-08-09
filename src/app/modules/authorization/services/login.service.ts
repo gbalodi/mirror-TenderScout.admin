@@ -48,16 +48,17 @@ export class LoginService {
             })
         };
 
-        return this.http.post(url, this.getFormUrlEncoded(data), httpOptions )
+        return this.http.post(url, this.getFormUrlEncoded(data) )
             .map((response: Response) => {
                 /*one step*/
                 if (!this.config.twoStepsAuthorization) {
 
                     //auth
                     // this.authConfirmService.setSessionData(response); to decode token and set user role
+                    let resp = JSON.parse( response.toString() );
 
-                    for (let key in response) {
-                        this.localStorage.store(key, response[key]);
+                    for (let key in resp) {
+                        this.localStorage.store(key, resp[key]);
                     }
 
                   return true;

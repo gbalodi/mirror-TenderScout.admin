@@ -10,6 +10,7 @@ export class MainRequestService {
     }
 
     public postData(url: string, data: object): Observable<any> {
+        console.log('data', data);//TODO: Delete
         return this.http.post(url, data);
     }
 

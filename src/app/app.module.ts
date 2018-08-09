@@ -71,9 +71,10 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { TokenService } from "./services/token.service";
-import {HttpClientModule, HttpRequest, HTTP_INTERCEPTORS} from '@angular/common/http';
-import {HttpInterceptorService} from './services/http-interceptor.service'
-import {SpinnerModule} from './modules/spinner/spinner.module';
+import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './services/http-interceptor.service'
+import { SpinnerModule } from './modules/spinner/spinner.module';
+import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
     imports: [
@@ -90,6 +91,7 @@ import {SpinnerModule} from './modules/spinner/spinner.module';
         Ng2Webstorage,
         NgxPermissionsModule.forRoot(),
         SpinnerModule,
+        ToasterModule,
     ],
     declarations: [
         AppComponent,
