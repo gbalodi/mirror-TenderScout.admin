@@ -9,7 +9,7 @@ import { LocalStorageService } from 'ngx-webstorage';
 import { AUTH_CONFIG, AuthorizationConfig } from '../authorization-config.module';
 import { NgxPermissionsService } from 'ngx-permissions';
 import { TokenService } from '../../../services/token.service';
-import { ToasterService } from 'angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 
 @Injectable()
 export class AuthConfirmService {
@@ -24,7 +24,7 @@ export class AuthConfirmService {
             private localStorage: LocalStorageService,
             private permissionsService: NgxPermissionsService,
             private tokenService: TokenService,
-            private toasterService: ToasterService,
+            private toasterService: ToastrService,
             @Inject(AUTH_CONFIG) private config: AuthorizationConfig
         ) { }
 
@@ -81,7 +81,7 @@ export class AuthConfirmService {
                             /*return true to indicate successful login*/
                             return true;
                         }else{
-                            this.toasterService.pop('error','Помилка авторизації','Ви не маєте прав доступу');
+                            this.toasterService.error('Authorization Error', 'You do not have permissions');
                             return false;
                         }
                     });
@@ -103,7 +103,7 @@ export class AuthConfirmService {
 
                     /* if in token there is no needed 'azp' - show error */
                 }else{
-                    this.toasterService.pop('error','Помилка токену','Не вірний параметр "azp"');
+                    this.toasterService.error('Token Error', 'Not a valid parameter "azp"');
                     return false;
                 }
 

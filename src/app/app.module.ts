@@ -74,7 +74,7 @@ import { TokenService } from "./services/token.service";
 import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpInterceptorService } from './services/http-interceptor.service'
 import { SpinnerModule } from './modules/spinner/spinner.module';
-import { ToasterModule } from 'angular2-toaster';
+import { ToastrModule } from 'ngx-toastr';
 
 @NgModule({
     imports: [
@@ -91,7 +91,7 @@ import { ToasterModule } from 'angular2-toaster';
         Ng2Webstorage,
         NgxPermissionsModule.forRoot(),
         SpinnerModule,
-        ToasterModule,
+        ToastrModule.forRoot(),
     ],
     declarations: [
         AppComponent,

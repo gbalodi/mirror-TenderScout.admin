@@ -4,7 +4,7 @@ import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse
 import 'rxjs/add/operator/first';
 import { Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
 import { LocalStorageService } from 'ngx-webstorage';
-import { ToasterService } from 'angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { LoginService } from '../modules/authorization/services';
 import { SpinnerService } from '../modules/spinner/spinner.service';
@@ -12,17 +12,14 @@ import { SpinnerService } from '../modules/spinner/spinner.service';
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
 
-    private toasterService: ToasterService;
-
     constructor(
         public router: Router,
         private localStorage: LocalStorageService,
         private loginService: LoginService,
         private spinner: SpinnerService,
-        toasterService: ToasterService,
+        private toasterService: ToastrService,
         private location: Location
     ) {
-        this.toasterService = toasterService;
     }
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -55,6 +52,8 @@ export class HttpInterceptorService implements HttpInterceptor {
                 if (res instanceof HttpResponse) {
 
                     this.spinner.show = false;
+                    this.toasterService.success('Succesfull operation', 'Success');
+
                     // If response is "204 Not Content" then returns an empty array list
                     if (res.status === 204) {
                         const result: any = res;
@@ -77,8 +76,19 @@ export class HttpInterceptorService implements HttpInterceptor {
 
                         this.router.navigate(['/login']);
 
-                    }if (err.status === 500) {
-                        this.toasterService.pop('error', 'Ooops, error', 'Try again');
+                    }
+                    if (err.status === 500) {
+                        this.toasterService.error('Ooops, error', 'Try again');
+                    }
+                    if (err.status === 422) {
+
+                        let errRes = JSON.parse( err.error );
+
+                        if(errRes){
+                            for (let error in errRes.errors){
+                                this.toasterService.error(errRes.errors[error][0], error);
+                            }
+                        }
                     }
                 }
             });

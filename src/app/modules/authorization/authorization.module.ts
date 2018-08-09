@@ -16,7 +16,6 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './login/index';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthConfirmComponent } from './auth-confirm/auth-confirm.component';
-import { ToasterModule } from 'angular2-toaster';
 
 @NgModule({
     imports: [
@@ -26,7 +25,6 @@ import { ToasterModule } from 'angular2-toaster';
         HttpClientModule,
         AuthorizationRoutingModule,
         AuthorizationConfigModule,
-        ToasterModule,
     ],
     declarations: [
         LoginComponent,

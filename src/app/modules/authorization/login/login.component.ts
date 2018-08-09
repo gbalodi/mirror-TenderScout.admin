@@ -5,7 +5,7 @@ import { LoginService } from '../services/login.service';
 import { AUTH_CONFIG, AuthorizationConfig } from '../authorization-config.module';
 import { LocalStorageService } from 'ngx-webstorage';
 import {NgForm} from '@angular/forms';
-import {ToasterService} from 'angular2-toaster';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
     moduleId: module.id,
@@ -24,7 +24,7 @@ export class LoginComponent implements OnInit {
         private localStorage: LocalStorageService,
         private router: Router,
         private loginService: LoginService,
-        private toasterService: ToasterService,
+        private toasterService: ToastrService,
         @Inject(AUTH_CONFIG) private config: AuthorizationConfig
     ) { }
 
@@ -33,7 +33,7 @@ export class LoginComponent implements OnInit {
         this.loginService.logout();
 
         if(this.loginService.authErr){
-            this.toasterService.pop('Error', 'Сессія', 'Час сессії скінчився, будь-ласка авторизуйтесь ще раз.')
+            this.toasterService.error('Session', 'The session time is over, please log in again.')
         }
 
     }
