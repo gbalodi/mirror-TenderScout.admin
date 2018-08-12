@@ -75,7 +75,6 @@ import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/commo
 import { HttpInterceptorService } from './services/http-interceptor.service'
 import { SpinnerModule } from './modules/spinner/spinner.module';
 import { ToastrModule } from 'ngx-toastr';
-
 @NgModule({
     imports: [
         BrowserModule,

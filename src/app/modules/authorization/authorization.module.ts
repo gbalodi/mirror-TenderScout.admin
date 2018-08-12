@@ -25,6 +25,7 @@ import { AuthConfirmComponent } from './auth-confirm/auth-confirm.component';
         HttpClientModule,
         AuthorizationRoutingModule,
         AuthorizationConfigModule,
+
     ],
     declarations: [
         LoginComponent,

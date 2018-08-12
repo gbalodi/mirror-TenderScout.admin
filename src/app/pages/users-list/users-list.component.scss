@@ -1,3 +1,11 @@
-.card-header .btn {
-  margin-top: -34px;
+.card-header {
+  .btn {
+    &.create-user {
+      margin-top: -34px;
+
+      i {
+        margin-right: 10px;
+      }
+    }
+  }
 }
