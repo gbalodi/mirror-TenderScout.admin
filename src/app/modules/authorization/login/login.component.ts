@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
         this.loginService.logout();
 
         if(this.loginService.authErr){
-            this.toasterService.error('Session', 'The session time is over, please log in again.')
+            // this.toasterService.error('Session', 'The session time is over, please log in again.')
         }
 
     }

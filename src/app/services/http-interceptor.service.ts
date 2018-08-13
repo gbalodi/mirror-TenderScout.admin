@@ -39,7 +39,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                 'Accept': 'application/json'
             });
         }
-        
+
 
 
         req = req.clone({
@@ -76,6 +76,8 @@ export class HttpInterceptorService implements HttpInterceptor {
                         this.loginService.authErr = true;
 
                         this.router.navigate(['/login']);
+
+                        this.toasterService.error('Ooops, error', 'Authorization failed. Please login again.');
 
                     }
                     if (err.status === 500) {

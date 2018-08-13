@@ -67,29 +67,6 @@ export class AuthConfirmService {
 
                 /*check where user want to login*/
 
-                /*if sb so check to role 'Cb-admin' and login. in other way with 'Cb-admin' dont give access*/
-                if(access_token.azp == 'broker' && access_token.resource_access.broker.roles){
-
-                    access_token.resource_access.broker.roles.find(item =>{
-                        if(item == 'Cb-admin'){
-                            for (let key in token) {
-                                this.localStorage.store(key, token[key]);
-                            }
-
-                            //setPermissions
-                            this.permissionsService.loadPermissions( ['mainRole']);
-
-                            /*return true to indicate successful login*/
-                            return true;
-                        }else{
-                            this.toasterService.error('Authorization Error', 'You do not have permissions');
-                            return false;
-                        }
-                    });
-
-                    /*if em so set the roles and login*/
-                }else if(access_token.azp == 'emoney-tech-client'){
-
                     for (let key in token) {
                         this.localStorage.store(key, token[key]);
                     }
@@ -102,11 +79,6 @@ export class AuthConfirmService {
                     /*return true to indicate successful login*/
                     return true;
 
-                    /* if in token there is no needed 'azp' - show error */
-                }else{
-                    this.toasterService.error('Token Error', 'Not a valid parameter "azp"');
-                    return false;
-                }
 
             } else {
               return false;

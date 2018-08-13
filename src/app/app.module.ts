@@ -75,6 +75,9 @@ import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/commo
 import { HttpInterceptorService } from './services/http-interceptor.service'
 import { SpinnerModule } from './modules/spinner/spinner.module';
 import { ToastrModule } from 'ngx-toastr';
+import { MainRequestService } from './services/main-request.service';
+import { AuthenticationService } from './modules/authorization/services/authentication.service';
+
 @NgModule({
     imports: [
         BrowserModule,
@@ -108,7 +111,9 @@ import { ToastrModule } from 'ngx-toastr';
             useClass: HttpInterceptorService,
             multi: true
         },
-        TokenService
+        TokenService,
+        MainRequestService,
+        AuthenticationService
     ],
     bootstrap: [AppComponent]
 })
