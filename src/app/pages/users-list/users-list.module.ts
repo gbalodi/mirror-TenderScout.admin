@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { UsersListComponent } from './users-list.component';
+import { UsersListComponent } from './components/users-list.component';
 import { UsersListRoutingModule } from './users-list-routing.module';
 import { FormGroup, FormControl, ReactiveFormsModule, FormsModule } from '@angular/forms';
 // Import the library
