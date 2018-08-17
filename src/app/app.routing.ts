@@ -33,6 +33,10 @@ export const routes: Routes = [
                 path: 'users-list',
                 loadChildren: './pages/users-list/users-list.module#UsersListModule'
             },
+            {
+                path: 'countries-dict',
+                loadChildren: './pages/dictionaries/dictionaries.module#DictionariesModule'
+            },
         ]
     }
 ];
