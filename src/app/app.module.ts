@@ -106,11 +106,6 @@ import { AuthenticationService } from './modules/authorization/services/authenti
             provide: LocationStrategy,
             useClass: HashLocationStrategy
         },
-        {
-            provide: HTTP_INTERCEPTORS,
-            useClass: HttpInterceptorService,
-            multi: true
-        },
         TokenService,
         MainRequestService,
         AuthenticationService
