@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
-import { MainRequestService } from '../../services/main-request.service';
+import { MainRequestService } from '../../../services/main-request.service';
 
 @Component({
   selector: 'app-users-list',
@@ -39,8 +39,6 @@ export class UsersListComponent implements OnInit {
 
     ngOnInit() {
         this.request.getData('v1/users' ).subscribe( res => {
-            console.log(res);//TODO: Delete
-
             this.usersList = JSON.parse(res);
         })
     }

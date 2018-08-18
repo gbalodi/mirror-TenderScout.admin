@@ -1,19 +1,30 @@
 export const navigation = [
-    {
-        name: 'Dashboard',
-        url: '/dashboard',
-        icon: 'fas fa-columns',
-        badge: {
-            variant: 'info',
-        }
-    },
-    {
-        name: 'Users list',
-        url: '/users-list',
-        icon: 'fas fa-users',
-        badge: {
-            variant: 'info',
-            text: 'NEW'
-        }
+  {
+    name: 'Dashboard',
+    url: '/dashboard',
+    icon: 'fas fa-columns',
+    badge: {
+      variant: 'info',
     }
+  },
+  {
+    name: 'Users list',
+    url: '/users-list',
+    icon: 'fas fa-users',
+  },
+  {
+    name: 'Dictionaries',
+    icon: 'fas fa-book',
+    children: [
+      {
+        name: 'Country dict',
+        url: '/countries-dict',
+        icon: 'fas fa-globe-asia',
+        badge: {
+          variant: 'success',
+          text: 'NEW'
+        }
+      },
+    ]
+  },
 ];
