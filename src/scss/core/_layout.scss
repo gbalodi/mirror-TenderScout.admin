@@ -17,6 +17,12 @@ app-root {
 
 .app-header {
   flex: 0 0 $navbar-height;
+  .logout{
+    a{
+      color: #3e515b;
+      font-size: 18px;
+    }
+  }
 }
 
 .app-footer {

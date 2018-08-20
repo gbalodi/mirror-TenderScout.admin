@@ -2,6 +2,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
 import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpModule } from '@angular/http';
 
 import { AppComponent } from './app.component';
 
@@ -62,31 +64,52 @@ const APP_DIRECTIVES = [
 import { AppRoutingModule } from './app.routing';
 
 // Import 3rd party components
-import { ChartsModule } from 'ng2-charts/ng2-charts';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
-import { ModalModule } from 'ngx-bootstrap';
 import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ChartsModule } from 'ng2-charts/ng2-charts';
+import { AuthorizationModule } from './modules/authorization/authorization.module';
+import { Ng2Webstorage } from 'ngx-webstorage';
+import { NgxPermissionsModule } from 'ngx-permissions';
+import { TokenService } from "./services/token.service";
+import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
+import { HttpInterceptorService } from './services/http-interceptor.service'
+import { SpinnerModule } from './modules/spinner/spinner.module';
+import { ToastrModule } from 'ngx-toastr';
+import { MainRequestService } from './services/main-request.service';
+import { AuthenticationService } from './modules/authorization/services/authentication.service';
 
 @NgModule({
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    AppRoutingModule,
-    ChartsModule,
-    BsDropdownModule.forRoot(),
-    ModalModule.forRoot(),
-    TabsModule.forRoot(),
-  ],
-  declarations: [
-    AppComponent,
-    ...APP_CONTAINERS,
-    ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
-  ],
-  providers: [{
-    provide: LocationStrategy,
-    useClass: HashLocationStrategy
-  }],
-  bootstrap: [ AppComponent ]
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientModule,
+        AppRoutingModule,
+        BsDropdownModule.forRoot(),
+        TabsModule.forRoot(),
+        ChartsModule,
+        AuthorizationModule,
+        Ng2Webstorage,
+        NgxPermissionsModule.forRoot(),
+        SpinnerModule,
+        ToastrModule.forRoot(),
+    ],
+    declarations: [
+        AppComponent,
+        ...APP_CONTAINERS,
+        ...APP_COMPONENTS,
+        ...APP_DIRECTIVES
+    ],
+    providers: [
+        {
+            provide: LocationStrategy,
+            useClass: HashLocationStrategy
+        },
+        TokenService,
+        MainRequestService,
+        AuthenticationService
+    ],
+    bootstrap: [AppComponent]
 })
 export class AppModule { }

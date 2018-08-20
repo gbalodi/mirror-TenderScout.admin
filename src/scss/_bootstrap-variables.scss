@@ -20,15 +20,15 @@ $blue:                            #20a8d8;
 $indigo:                          #6610f2 !default;
 $purple:                          #6f42c1 !default;
 $pink:                            #e83e8c !default;
-$red:                             #ff5454;
+$red:                             #d66166;
 $orange:                          #fabb3d;
 $yellow:                          #ffc107 !default;
-$green:                           #79c447;
+$green:                           #5AB251;
 $teal:                            #20c997 !default;
 $cyan:                            #67c2ef;
 
 $colors: (
-  blue:                           $blue,
+  blue:                           $red,
   indigo:                         $indigo,
   purple:                         $purple,
   pink:                           $pink,
@@ -44,7 +44,7 @@ $colors: (
 );
 
 $theme-colors: (
-  primary:                        $blue,
+  primary:                        $red,
   secondary:                      $gray-300,
   success:                        $green,
   info:                           $cyan,
@@ -53,7 +53,7 @@ $theme-colors: (
   light:                          $gray-100,
   dark:                           $gray-800,
 
-  blue:                           $blue,
+  blue:                           $red,
   indigo:                         $indigo,
   purple:                         $purple,
   pink:                           $pink,
@@ -86,7 +86,7 @@ $enable-rounded:                  false;
 //
 // Settings for the `<body>` element.
 
-$body-bg:                         #f2f4f8;
+$body-bg:                         #fff;
 
 // Typography
 //
