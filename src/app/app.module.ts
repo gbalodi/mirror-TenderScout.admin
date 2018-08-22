@@ -71,8 +71,7 @@ import { AuthorizationModule } from './modules/authorization/authorization.modul
 import { Ng2Webstorage } from 'ngx-webstorage';
 import { NgxPermissionsModule } from 'ngx-permissions';
 import { TokenService } from "./services/token.service";
-import { HttpClientModule, HttpRequest, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { HttpInterceptorService } from './services/http-interceptor.service'
+import { HttpClientModule } from '@angular/common/http';
 import { SpinnerModule } from './modules/spinner/spinner.module';
 import { ToastrModule } from 'ngx-toastr';
 import { MainRequestService } from './services/main-request.service';

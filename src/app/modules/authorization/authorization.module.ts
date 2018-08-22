@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule, HttpClient } from "@angular/common/http";
+import { HttpClientModule } from "@angular/common/http";
 
 import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthorizationConfigModule } from './authorization-config.module';
@@ -16,6 +16,7 @@ import { AuthGuard } from './services/auth-guard.service';
 import { LoginComponent } from './login/index';
 import { RegistrationComponent } from './registration/registration.component';
 import { AuthConfirmComponent } from './auth-confirm/auth-confirm.component';
+import { SharedModule } from '../shared.module';
 
 @NgModule({
     imports: [
@@ -25,7 +26,7 @@ import { AuthConfirmComponent } from './auth-confirm/auth-confirm.component';
         HttpClientModule,
         AuthorizationRoutingModule,
         AuthorizationConfigModule,
-
+        SharedModule,
     ],
     declarations: [
         LoginComponent,
