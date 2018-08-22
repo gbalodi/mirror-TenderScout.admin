@@ -22,20 +22,29 @@ export class ReqsListComponent implements OnInit {
             fullname: {
                 title: 'Full Name'
             },
-            display_name: {
-                title: 'Display Name'
-            },
-            email: {
-                title: 'Email'
-            },
             company: {
                 title: 'Company'
+            },
+            company_size: {
+                title: 'Company size'
+            },
+            state: {
+                title: 'State'
+            },
+            city: {
+                title: 'City'
+            },
+            tender_level: {
+                title: 'Tender LVL'
+            },
+            win_rate: {
+                title: 'Win Rate'
             },
         }
     };
 
     ngOnInit() {
-        this.request.getData('v1/users/registration_request' ).subscribe( res => {
+        this.request.getData('v1/user/registration_request' ).subscribe( res => {
             console.log(res);//TODO: Delete
 
             this.requestsList = JSON.parse(res);
