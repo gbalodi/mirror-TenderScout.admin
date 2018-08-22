@@ -53,7 +53,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                 if (res instanceof HttpResponse) {
 
                     this.spinner.show = false;
-                    this.toasterService.success('Succesfull operation', 'Success');
+                    // this.toasterService.success('Succesfull operation', 'Success');
 
                     // If response is "204 Not Content" then returns an empty array list
                     if (res.status === 204) {

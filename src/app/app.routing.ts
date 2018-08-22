@@ -37,6 +37,10 @@ export const routes: Routes = [
                 path: 'countries-dict',
                 loadChildren: './pages/dictionaries/dictionaries.module#DictionariesModule'
             },
+            {
+                path: 'signup-reqs-list',
+                loadChildren: './pages/signup-req/signup-req.module#SignupReqModule'
+            },
         ]
     }
 ];
