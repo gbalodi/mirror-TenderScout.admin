@@ -52,7 +52,7 @@ export class CountriesComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.request.getData('v1/countries').subscribe(res => {
+        this.request.getData('v1/dictionaries/countries').subscribe(res => {
             console.log('res', res);
             this.countriesDict = JSON.parse(res);
         })

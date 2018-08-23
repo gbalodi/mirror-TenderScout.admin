@@ -90,6 +90,22 @@ select {
 .ng2-smart-page-link.page-link.page-link-next{
   font-size: 14px !important;
 }
+
+.nav-dropdown{
+  .nav-link{
+    padding-left: 1.8rem;
+  }
+  .nav-dropdown-toggle {
+    padding-left: 1rem;
+  }
+  &.open{
+    .nav-link{
+      &.nav-dropdown-toggle{
+        border-bottom: 1px solid grey;
+      }
+    }
+  }
+}
 /*end main*/
 
 /*global classes*/

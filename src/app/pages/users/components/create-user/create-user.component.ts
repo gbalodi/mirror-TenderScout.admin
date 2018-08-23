@@ -1,6 +1,6 @@
 import {Component, OnInit, ViewChild} from '@angular/core';
 import { FormGroup, FormControl, FormArray, FormBuilder } from '@angular/forms';
-import { MainRequestService } from '../../../services/main-request.service';
+import { MainRequestService } from '../../../../services/main-request.service';
 
 @Component({
   selector: 'app-create-user',

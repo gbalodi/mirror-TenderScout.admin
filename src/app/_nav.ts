@@ -8,9 +8,23 @@ export const navigation = [
         }
     },
     {
-        name: 'Users list',
-        url: '/users-list',
-        icon: 'fas fa-users',
+        name: 'User tools',
+        icon: 'fas fa-users-cog',
+        children: [
+            {
+                name: 'Users list',
+                url: '/users/list',
+                icon: 'fas fa-users',
+            },
+            {
+                name: 'Sign-up requests',
+                url: '/users/signup-requests',
+                icon: 'fas fa-user-plus',
+                badge: {
+                    variant: 'info',
+                }
+            }
+        ]
     },
     {
         name: 'Dictionaries',
@@ -18,7 +32,7 @@ export const navigation = [
         children: [
             {
                 name: 'Country dict',
-                url: '/countries-dict',
+                url: '/dictionaries/countries',
                 icon: 'fas fa-globe-asia',
                 badge: {
                     variant: 'success',
@@ -27,12 +41,4 @@ export const navigation = [
             },
         ]
     },
-    {
-        name: 'Sign-up requests',
-        url: '/signup-reqs-list',
-        icon: 'fas fa-user-plus',
-        badge: {
-            variant: 'info',
-        }
-    }
 ];

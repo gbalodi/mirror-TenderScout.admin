@@ -26,7 +26,7 @@ export class HttpInterceptorService implements HttpInterceptor {
 
         this.spinner.show = true;
 
-        const url = 'http://api.tenderscout.braincode.xyz/';
+        const url = 'http://api.dev.tenderscout.braincode.xyz/';
         let headers;
 
         if(this.location.path() == '/login'){

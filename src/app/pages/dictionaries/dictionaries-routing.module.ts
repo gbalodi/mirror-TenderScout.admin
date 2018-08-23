@@ -4,13 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { CountriesComponent } from './components/countries/countries.component';
 
 const routes: Routes = [
-  {
-    path: '',
-    component: CountriesComponent,
-    data: {
-      title: 'Countries dictionary'
+    {
+        path: '',
+        data: {
+            title: 'Dictionaries'
+        },
+        children: [
+            {
+                path: 'countries',
+                component: CountriesComponent,
+                data: {
+                    title: 'Countries dictionary'
+                }
+            }
+        ],
     }
-  }
 ];
 
 @NgModule({

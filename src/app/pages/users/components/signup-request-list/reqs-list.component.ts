@@ -6,16 +6,18 @@ import { MainRequestService } from '../../../../services/main-request.service';
   templateUrl: './reqs-list.component.html',
   styleUrls: ['./reqs-list.component.scss']
 })
-export class ReqsListComponent implements OnInit {
+export class SignupReqListComponent implements OnInit {
 
-  constructor(
-      private request: MainRequestService,
-  ) { }
+    constructor(
+        private request: MainRequestService,
+    ) {
+    }
+
     public requestsList;
     public settings = {
         actions: {
-            delete:false,
-            add:false,
+            delete: false,
+            add: false,
             edit: false
         },
         columns: {
@@ -25,20 +27,8 @@ export class ReqsListComponent implements OnInit {
             company: {
                 title: 'Company'
             },
-            company_size: {
-                title: 'Company size'
-            },
-            state: {
-                title: 'State'
-            },
-            city: {
-                title: 'City'
-            },
-            tender_level: {
-                title: 'Tender LVL'
-            },
-            win_rate: {
-                title: 'Win Rate'
+            do_processed: {
+                title: 'Is processed'
             },
         }
     };

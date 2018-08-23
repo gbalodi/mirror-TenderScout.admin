@@ -11,6 +11,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
+        Ng2SmartTableModule
     ],
     providers: [
         MainRequestService,

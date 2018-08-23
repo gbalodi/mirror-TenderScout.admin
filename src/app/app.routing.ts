@@ -26,20 +26,12 @@ export const routes: Routes = [
                 loadChildren: './views/dashboard/dashboard.module#DashboardModule'
             },
             {
-                path: 'create-user',
-                loadChildren: './pages/create-user/create-user.module#CreateUserModule'
-            },
-            {
-                path: 'users-list',
-                loadChildren: './pages/users-list/users-list.module#UsersListModule'
-            },
-            {
-                path: 'countries-dict',
+                path: 'dictionaries',
                 loadChildren: './pages/dictionaries/dictionaries.module#DictionariesModule'
             },
             {
-                path: 'signup-reqs-list',
-                loadChildren: './pages/signup-req/signup-req.module#SignupReqModule'
+                path: 'users',
+                loadChildren: './pages/users/users.module#UsersModule'
             },
         ]
     }
