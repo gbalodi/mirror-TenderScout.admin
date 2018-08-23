@@ -28,7 +28,8 @@ export class SignupReqListComponent implements OnInit {
                 title: 'Company'
             },
             do_processed: {
-                title: 'Is processed'
+                title: 'Is processed',
+                valuePrepareFunction: (value) => { return value === 1 ? 'Yes' : 'No' }
             },
         }
     };
