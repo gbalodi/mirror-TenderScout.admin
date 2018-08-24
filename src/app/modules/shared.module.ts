@@ -5,13 +5,15 @@ import { HTTP_INTERCEPTORS } from '../../../node_modules/@angular/common/http';
 import { HttpInterceptorService } from '../services/http-interceptor.service';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { ModalModule } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
         CommonModule,
         FormsModule,
         ReactiveFormsModule,
-        Ng2SmartTableModule
+        Ng2SmartTableModule,
+        ModalModule,
     ],
     providers: [
         MainRequestService,
@@ -26,6 +28,7 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
         FormsModule,
         ReactiveFormsModule,
         Ng2SmartTableModule,
-    ]
+        ModalModule
+    ],
 })
 export class SharedModule { }

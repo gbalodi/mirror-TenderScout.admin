@@ -1,0 +1,27 @@
+.modal-lg.history-modal {
+    max-width: 90%;
+    .modal-body {
+        overflow-x: scroll;
+        .main-label{
+            border-bottom: 2px solid #d66166;
+            font-size: 16px;
+            font-weight: bold;
+            width: 100%;
+            text-transform: capitalize;
+            margin-top: 15px;
+        }
+    }
+}
+a{
+    display: inline-block;
+    font-size: 18px;
+    cursor: pointer;
+}
+
+.modal-history{
+    .btn{
+        height: 30px;
+        font-size: 13px;
+        color: grey;
+    }
+}
