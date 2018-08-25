@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MainRequestService } from '../../../../services/main-request.service';
 import { DetailsComponent } from './details/details.component';
+import { StatusSwitcherComponent } from './status-switcher/status-switcher.component';
 
 @Component({
   selector: 'app-reqs-list',
@@ -19,6 +20,7 @@ export class SignupReqListComponent implements OnInit {
         actions: {
             delete: false,
             add: false,
+            edit: false,
         },
         columns: {
             fullname: {
@@ -29,7 +31,7 @@ export class SignupReqListComponent implements OnInit {
                 title: 'Company',
                 editable: false,
             },
-            do_processed: {
+            /*do_processed: {
                 title: 'Is processed',
                 type: 'html',
                 editor: {
@@ -39,6 +41,13 @@ export class SignupReqListComponent implements OnInit {
                     }
                 },
                 valuePrepareFunction: (value) => { return value === 1 ? 'Yes' : 'No' },
+            },*/
+            do_processed: {
+                title: 'Is processed',
+                type: 'custom',
+                editable: false,
+                filter: false,
+                renderComponent: StatusSwitcherComponent,
             },
             detailInfo: {
                 title: 'Details',

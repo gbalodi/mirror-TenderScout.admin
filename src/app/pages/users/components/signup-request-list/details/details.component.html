@@ -1,9 +1,9 @@
-<div class="modal-history">
+<div class="modal-details">
     <a class="btn btn-outline-primary" data-toggle="modal" (click)="infoModal.show()" title="Details">
         <i class="fas fa-info-circle margin-r10"></i>Details
     </a>
     <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg history-modal" role="document">
+        <div class="modal-dialog modal-lg details-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">Request details - {{ rowData.fullname }}</h4>

@@ -10,6 +10,8 @@ import { TimezonePickerModule } from 'ng2-timezone-selector';
 import { SharedModule } from '../../modules/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
 import { ModalModule } from 'ngx-bootstrap';
+import { StatusSwitcherComponent } from './components/signup-request-list/status-switcher/status-switcher.component';
+import { UiSwitchModule } from 'ngx-toggle-switch';
 
 @NgModule({
     imports: [
@@ -17,7 +19,8 @@ import { ModalModule } from 'ngx-bootstrap';
         SharedModule,
         UsersRoutingModule,
         TimezonePickerModule,
-        ModalModule
+        ModalModule,
+        UiSwitchModule,
     ],
     declarations: [
         UsersListComponent,
@@ -25,10 +28,12 @@ import { ModalModule } from 'ngx-bootstrap';
         CreateUserComponent,
         UsersListComponent,
         DetailsComponent,
+        StatusSwitcherComponent
     ],
     providers: [ ],
     entryComponents: [
-        DetailsComponent
+        DetailsComponent,
+        StatusSwitcherComponent
     ]
 })
 export class UsersModule {

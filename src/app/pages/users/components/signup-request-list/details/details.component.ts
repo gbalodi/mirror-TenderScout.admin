@@ -1,6 +1,4 @@
 import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ModalDirective} from 'ngx-bootstrap/modal/modal.directive';
-import {LocalDataSource} from 'ng2-smart-table';
 import {ViewCell} from 'ng2-smart-table';
 
 @Component({
