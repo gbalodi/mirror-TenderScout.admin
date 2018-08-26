@@ -35,5 +35,8 @@ a{
         height: 30px;
         font-size: 13px;
         color: grey;
+        &:hover{
+            color: #fff;
+        }
     }
 }
