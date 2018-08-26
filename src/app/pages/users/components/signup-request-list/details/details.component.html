@@ -14,8 +14,8 @@
                 <div class="modal-body row">
                     <div [ngClass]="(request == 'country') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'" *ngFor="let request of reqData">
                         <label class="main-label">{{ request }}</label>
-                        <div *ngIf="request != 'country'">{{ rowData[request] }}</div>
-                        <div class="row" *ngIf="request == 'country'">
+                        <div class="info" *ngIf="request != 'country'">{{ rowData[request] }}</div>
+                        <div class="row info" *ngIf="request == 'country'">
                             <div class="col-xs-12 col-sm-6"><span><label>Code: </label></span><span>{{rowData[request].code}}</span></div>
                             <div class="col-xs-12 col-sm-6"><span><label>Number: </label></span><span>{{rowData[request].number}}</span></div>
                             <div class="col-xs-12 col-sm-6"><span><label>alpha2code: </label></span><span>{{rowData[request].alpha2code}}</span></div>

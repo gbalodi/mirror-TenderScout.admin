@@ -8,12 +8,18 @@
     }
     .modal-body {
         .main-label{
-            border-bottom: 2px solid #d66166;
             font-size: 16px;
-            font-weight: bold;
             width: 100%;
             text-transform: capitalize;
             margin-top: 15px;
+            background: #d66166;
+            color: #fff;
+            padding: 3px 15px 0;
+            margin-bottom: 0;
+        }
+        .info {
+            background: #ecf0f5;
+            padding: 10px 15px;
         }
     }
 }
