@@ -12,10 +12,12 @@
                     </button>
                 </div>
                 <div class="modal-body row">
-                    <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngFor="let request of reqData">
-                        <label class="main-label">{{ request }}</label>
-                        <div class="info">{{ rowData[request] }}</div>
-                    </div>
+                    <ng-container *ngFor="let request of reqData" >
+                        <div class="col-xs-12 col-sm-6 col-md-4 col-lg-3" *ngIf="rowData[request] !== null">
+                            <label class="main-label">{{ request }}</label>
+                            <div class="info">{{ rowData[request] }}</div>
+                        </div>
+                    </ng-container>
                 </div>
             </div><!-- /.modal-content -->
         </div><!-- /.modal-dialog -->
