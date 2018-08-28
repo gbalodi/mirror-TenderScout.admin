@@ -34,11 +34,16 @@ export const navigation = [
                 name: 'Country dict',
                 url: '/dictionaries/countries',
                 icon: 'fas fa-globe-asia',
-                badge: {
+                /*badge: {
                     variant: 'success',
                     text: 'NEW'
-                }
+                }*/
             },
         ]
+    },
+    {
+        name: 'Tenders',
+        url: '/tenders',
+        icon: 'fas fa-gavel',
     },
 ];
