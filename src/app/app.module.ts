@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgModule } from '@angular/core';
-import { LocationStrategy, HashLocationStrategy } from '@angular/common';
+import { LocationStrategy, HashLocationStrategy, DatePipe } from '@angular/common';
 import { FormControl, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 
@@ -107,7 +107,8 @@ import { AuthenticationService } from './modules/authorization/services/authenti
         },
         TokenService,
         MainRequestService,
-        AuthenticationService
+        AuthenticationService,
+        DatePipe
     ],
     bootstrap: [AppComponent]
 })

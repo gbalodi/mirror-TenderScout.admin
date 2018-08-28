@@ -33,6 +33,10 @@ export const routes: Routes = [
                 path: 'users',
                 loadChildren: './pages/users/users.module#UsersModule'
             },
+            {
+                path: 'tenders',
+                loadChildren: './pages/tenders/tenders.module#TendersModule'
+            },
         ]
     }
 ];
