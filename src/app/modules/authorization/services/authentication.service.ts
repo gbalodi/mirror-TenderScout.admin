@@ -1,67 +1,112 @@
-﻿import {Injectable} from '@angular/core';
-import {Http, Headers, Response, HttpModule} from '@angular/http';
-import {HttpClientModule, HttpClient} from '@angular/common/http';
+﻿import { Injectable, Inject } from '@angular/core';
+import { Response } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
-import {Observable} from 'rxjs';
+import { Observable} from 'rxjs';
 import 'rxjs/add/operator/map'
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/catch';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/throw';
 
 import { LocalStorageService } from 'ngx-webstorage';
 import { AuthConfirmService } from './auth-confirm.service';
+import { Router } from '@angular/router';
+import { AUTH_CONFIG, AuthorizationConfig } from '../authorization-config.module';
+import { NgxPermissionsService } from 'ngx-permissions';
 
 @Injectable()
-export class AuthenticationService {
+    export class AuthenticationService {
 
     public token: string;
-    private postUrl = '/auth';
+    private postUrl = this.config.apiLoginUrl;
+    private operationId: string;
 
     constructor(
           private http: HttpClient,
           private localStorage: LocalStorageService,
-          private authConfirmService: AuthConfirmService
+          private authConfirmService: AuthConfirmService,
+          private permissionsService: NgxPermissionsService,
+          private router: Router,
+          @Inject(AUTH_CONFIG) private config: AuthorizationConfig
         ) {
         // set token if saved in local storage
-        const currentUser = JSON.parse(this.localStorage.retrieve('currentUser'));
-        this.token = currentUser && currentUser.token;
+        if(this.localStorage.retrieve('access_token')){
+            this.token = this.localStorage.retrieve('access_token');
+        }
+    }
+
+    getFormUrlEncoded(toConvert) {
+        const formBody = [];
+        for (const property in toConvert) {
+            const encodedKey = encodeURIComponent(property);
+            const encodedValue = encodeURIComponent(toConvert[property]);
+            formBody.push(encodedKey + '=' + encodedValue);
+        }
+        return formBody.join('&');
     }
 
     public login(username: string, password: string): Observable<boolean> {
 
         const data = {
+            grant_type: 'password',
             username: username,
             password: password
         };
 
-        return this.http.post(this.postUrl, JSON.stringify(data))
+        const httpOptions = {
+            headers: new HttpHeaders({
+                'Content-Type':  'application/x-www-form-urlencoded',
+            })
+        };
+
+        return this.http.post( this.postUrl, this.getFormUrlEncoded(data) )
             .map((response: Response) => {
                 // login successful if there's a jwt token in the response
-                const token = response.json() && response.json().token;
+                let resp = JSON.parse( response.toString() ),
+                    token = resp.access_token;
+
                 if (token) {
-                    // set token property
-                    this.token = token;
+                    /*one step*/
+                    if (!this.config.twoStepsAuthorization) {
 
-                    // store username and jwt tokens in session storage to keep user logged in between page refreshes
-                    // this.localStorage.store('currentUser', JSON.stringify({username: username, token: token.access_token}));
+                        //auth
+                        // this.authConfirmService.setSessionData(response); to decode token and set user role
 
-                    this.authConfirmService.setSessionData(response);
+                        for (let key in resp) {
+                            this.localStorage.store(key, resp[key]);
+                        }
 
-                    // this.localStorage.store('currentUser', JSON.stringify(username));
-                    // this.localStorage.store('access_token', JSON.stringify(token.access_token));
-                    // this.localStorage.store('id_token', JSON.stringify(token.id_token));
-                    // this.localStorage.store('refresh_token', JSON.stringify(token.refresh_token));
+                        return true;
+                    }
+                    /*end one step*/
 
-                    // return true to indicate successful login
-                    return true;
+                    /*two steps*/
+                    if (this.config.twoStepsAuthorization) {
+                        /*login successful if there's a jwt token in the response*/
+                        const operationId = response.json() && response.json().operationId;
+                        if (operationId) {
+                            this.authConfirmService.operationId = operationId;
+                            this.authConfirmService.routeMethod = 'login';
+                            return true;
+                        } else {
+                            /*return false to indicate failed login*/
+                            return false;
+                        }
+                    }
+                    /*end two steps*/
                 } else {
                     // return false to indicate failed login
                     return false;
                 }
             });
+
     }
 
     logout(): void {
-        // clear token remove user from local storage to log user out
         this.token = null;
-        // this.localStorage.clear('currentUser');
         this.localStorage.clear();
+        this.permissionsService.flushPermissions();
+        this.router.navigate(['/login']);
     }
 }

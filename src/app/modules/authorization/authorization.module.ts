@@ -9,7 +9,7 @@ import { AuthorizationRoutingModule } from './authorization-routing.module';
 import { AuthorizationConfigModule } from './authorization-config.module';
 
 /*services*/
-import { LoginService, AuthConfirmService, RegistrationService } from './services/index';
+import { AuthenticationService, AuthConfirmService, RegistrationService } from './services/index';
 import { AuthGuard } from './services/auth-guard.service';
 
 /*components*/
@@ -35,7 +35,7 @@ import { SharedModule } from '../shared.module';
     ],
     providers: [
         AuthConfirmService,
-        LoginService,
+        AuthenticationService,
         RegistrationService,
         AuthGuard
     ],
