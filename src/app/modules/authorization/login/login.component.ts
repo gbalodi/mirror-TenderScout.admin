@@ -1,11 +1,11 @@
 ﻿import { Component, OnInit, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { LoginService } from '../services/login.service';
 import { AUTH_CONFIG, AuthorizationConfig } from '../authorization-config.module';
 import { LocalStorageService } from 'ngx-webstorage';
-import {NgForm} from '@angular/forms';
+import { NgForm } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { AuthenticationService } from '../services';
 
 @Component({
     moduleId: module.id,
@@ -24,24 +24,20 @@ export class LoginComponent implements OnInit {
     constructor(
         private localStorage: LocalStorageService,
         private router: Router,
-        private loginService: LoginService,
+        private authService: AuthenticationService,
         private toasterService: ToastrService,
         @Inject(AUTH_CONFIG) private config: AuthorizationConfig
     ) { }
 
     ngOnInit() {
-        // reset login status
-        this.loginService.logout();
-
-        if(this.loginService.authErr){
-            // this.toasterService.error('Session', 'The session time is over, please log in again.')
+        if(this.localStorage.retrieve('access_token')){
+            this.router.navigate(['/']);
         }
-
     }
 
     login(form: NgForm) {
         this.loading = true;
-        this.loginService.login(this.model.username, this.model.password)
+        this.authService.login(this.model.username, this.model.password)
             .subscribe(result => {
                 if (result === true) {
                     if (this.config.twoStepsAuthorization){

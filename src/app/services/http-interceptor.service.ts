@@ -6,7 +6,7 @@ import { Location, LocationStrategy, PathLocationStrategy} from '@angular/common
 import { LocalStorageService } from 'ngx-webstorage';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
-import { LoginService } from '../modules/authorization/services';
+import { AuthenticationService } from '../modules/authorization/services';
 import { SpinnerService } from '../modules/spinner/spinner.service';
 
 @Injectable()
@@ -15,7 +15,7 @@ export class HttpInterceptorService implements HttpInterceptor {
     constructor(
         public router: Router,
         private localStorage: LocalStorageService,
-        private loginService: LoginService,
+        private authService: AuthenticationService,
         private spinner: SpinnerService,
         private toasterService: ToastrService,
         private location: Location
@@ -53,7 +53,6 @@ export class HttpInterceptorService implements HttpInterceptor {
                 if (res instanceof HttpResponse) {
 
                     this.spinner.show = false;
-                    // this.toasterService.success('Succesfull operation', 'Success');
 
                     // If response is "204 Not Content" then returns an empty array list
                     if (res.status === 204) {
@@ -73,9 +72,7 @@ export class HttpInterceptorService implements HttpInterceptor {
                     if (err.status === 401) {
                         this.collectFailedRequest(req);
 
-                        this.loginService.authErr = true;
-
-                        this.router.navigate(['/login']);
+                        this.authService.logout();
 
                         this.toasterService.error('Ooops, error', 'Authorization failed. Please login again.');
 
