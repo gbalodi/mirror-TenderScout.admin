@@ -76,6 +76,7 @@ import { SpinnerModule } from './modules/spinner/spinner.module';
 import { ToastrModule } from 'ngx-toastr';
 import { MainRequestService } from './services/main-request.service';
 import { AuthenticationService } from './modules/authorization/services/authentication.service';
+import { PaginationConfig } from 'ngx-bootstrap';
 
 @NgModule({
     imports: [
@@ -108,7 +109,8 @@ import { AuthenticationService } from './modules/authorization/services/authenti
         TokenService,
         MainRequestService,
         AuthenticationService,
-        DatePipe
+        DatePipe,
+        PaginationConfig,
     ],
     bootstrap: [AppComponent]
 })

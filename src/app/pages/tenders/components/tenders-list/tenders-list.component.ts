@@ -35,12 +35,17 @@ export class TendersListComponent implements OnInit {
             organization_name: {
                 title: 'Buyer',
                 editable: false,
-                filter: false,
             },
             status_cd: {
                 title: 'Status',
                 editable: false,
-                filter: false,
+                /*type: 'html',
+                editor: {
+                    config: {
+                        list: [{ value: '1', title: 'Active' }, { value: '0', title: 'NA' }]
+                    }
+                },
+                valuePrepareFunction: (value) => { if(value ==true){return 'Active'}else{return "NA"} },*/
             },
             created_at: {
                 title: 'Create date',
