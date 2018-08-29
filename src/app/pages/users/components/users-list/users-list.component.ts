@@ -51,7 +51,7 @@ export class UsersListComponent implements OnInit {
     ngOnInit() {
         this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
             let result = JSON.parse(res);
-            this.source.setPaging(1,20,true);
+            this.source.setPaging(1, this.itemsPerPage,true);
             this.source.load( result.data );
             this.totalItems = result.count;
             this.searchResetActive = true;
@@ -61,7 +61,7 @@ export class UsersListComponent implements OnInit {
     pageChanged(event){
         this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
                 let result = JSON.parse(res);
-                this.source.setPaging(1,20,true);
+                this.source.setPaging(1, this.itemsPerPage,true);
                 this.source.load( result.data );
                 this.totalItems = result.count;
             },
