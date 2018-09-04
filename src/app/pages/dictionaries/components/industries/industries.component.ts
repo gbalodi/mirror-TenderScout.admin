@@ -3,17 +3,17 @@ import {MainRequestService} from '../../../../services/main-request.service';
 
 @Component({
     selector: 'app-countries',
-    templateUrl: './codes.component.html',
-    styleUrls: ['./codes.component.scss']
+    templateUrl: './industries.component.html',
+    styleUrls: ['./industries.component.scss']
 })
-export class CodesComponent implements OnInit {
+export class IndustriesComponent implements OnInit {
 
     constructor(
         private request: MainRequestService,
     ) {
     }
 
-    public codesDict;
+    public industriesDict;
     public settings = {
         actions: {
             delete: false,
@@ -24,22 +24,16 @@ export class CodesComponent implements OnInit {
             id: {
                 title: 'ID'
             },
-            code: {
-                title: 'Code'
-            },
-            description: {
-                title: 'Description'
-            },
-            code_name: {
-                title: 'Code name'
+            name: {
+                title: 'Name'
             },
         }
     };
 
     ngOnInit() {
-        this.request.getData('v1/dictionaries/all_codes').subscribe(res => {
+        this.request.getData('v1/dictionaries/industries').subscribe(res => {
             console.log('res', res);
-            this.codesDict = JSON.parse(res);
+            this.industriesDict = JSON.parse(res);
         })
     }
 

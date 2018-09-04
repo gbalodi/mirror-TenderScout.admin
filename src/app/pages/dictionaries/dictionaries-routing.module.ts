@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { CountriesComponent } from './components/countries/countries.component';
 import { CodesComponent } from './components/codes/codes.component';
+import { IndustriesComponent } from './components/industries/industries.component';
 
 const routes: Routes = [
     {
@@ -23,6 +24,13 @@ const routes: Routes = [
                 component: CodesComponent,
                 data: {
                     title: 'Codes dictionary'
+                }
+            },
+            {
+                path: 'industries',
+                component: IndustriesComponent,
+                data: {
+                    title: 'Industries dictionary'
                 }
             }
         ],

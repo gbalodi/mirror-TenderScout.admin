@@ -38,7 +38,12 @@ export const navigation = [
             {
                 name: 'Codes dict',
                 url: '/dictionaries/codes',
-                icon: 'fas fa-globe-asia',
+                icon: 'fas fa-sort-numeric-down',
+            },
+            {
+                name: 'Industies dict',
+                url: '/dictionaries/industries',
+                icon: 'fas fa-industry',
             },
         ]
     },
