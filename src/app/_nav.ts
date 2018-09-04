@@ -34,10 +34,16 @@ export const navigation = [
                 name: 'Country dict',
                 url: '/dictionaries/countries',
                 icon: 'fas fa-globe-asia',
-                /*badge: {
-                    variant: 'success',
-                    text: 'NEW'
-                }*/
+            },
+            {
+                name: 'Codes dict',
+                url: '/dictionaries/codes',
+                icon: 'fas fa-sort-numeric-down',
+            },
+            {
+                name: 'Industies dict',
+                url: '/dictionaries/industries',
+                icon: 'fas fa-industry',
             },
         ]
     },
