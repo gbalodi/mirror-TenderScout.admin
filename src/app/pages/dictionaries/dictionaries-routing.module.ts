@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CountriesComponent } from './components/countries/countries.component';
+import { CodesComponent } from './components/codes/codes.component';
 
 const routes: Routes = [
     {
@@ -15,6 +16,13 @@ const routes: Routes = [
                 component: CountriesComponent,
                 data: {
                     title: 'Countries dictionary'
+                }
+            },
+            {
+                path: 'codes',
+                component: CodesComponent,
+                data: {
+                    title: 'Codes dictionary'
                 }
             }
         ],
