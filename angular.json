@@ -81,6 +81,9 @@
           "configurations": {
             "production": {
               "browserTarget": "tenderscout-admin-app:build:production"
+            },
+            "stage": {
+              "browserTarget": "tenderscout-admin-app:build:stage"
             }
           }
         },
@@ -134,6 +137,9 @@
           "configurations": {
             "production": {
               "devServerTarget": "tenderscout-admin-app:serve:production"
+            },
+            "stage": {
+              "devServerTarget": "tenderscout-admin-app:serve:stage"
             }
           }
         },
