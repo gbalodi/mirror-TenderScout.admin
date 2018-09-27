@@ -1,13 +1,14 @@
 import { Observable } from 'rxjs/Observable';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpParams, HttpResponse, HttpHeaders } from '@angular/common/http';
+import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse, HttpResponse, HttpHeaders } from '@angular/common/http';
 import 'rxjs/add/operator/first';
-import { Location, LocationStrategy, PathLocationStrategy} from '@angular/common';
+import { Location } from '@angular/common';
 import { LocalStorageService } from 'ngx-webstorage';
 import { ToastrService } from 'ngx-toastr';
 import { Router } from '@angular/router';
 import { AuthenticationService } from '../modules/authorization/services';
 import { SpinnerService } from '../modules/spinner/spinner.service';
+import { environment } from '../../environments/environment';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -26,7 +27,6 @@ export class HttpInterceptorService implements HttpInterceptor {
 
         this.spinner.show = true;
 
-        const url = 'http://api.dev.tenderscout.braincode.xyz/';
         let headers;
 
         if(this.location.path() == '/login'){
@@ -40,10 +40,8 @@ export class HttpInterceptorService implements HttpInterceptor {
             });
         }
 
-
-
         req = req.clone({
-            url: url + req.url,
+            url: environment.apiUrl + req.url,
             responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
             headers
             // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
