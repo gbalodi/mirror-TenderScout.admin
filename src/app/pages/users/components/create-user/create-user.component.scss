@@ -13,10 +13,12 @@
   }
   ::ng-deep{
     ng2-timezone-picker{
-      .selection{
-        .select2-selection{
-          opacity: 0.5;
-          background: #e1e6ef !important;
+      .select2-container--disabled{
+        .selection{
+          .select2-selection{
+            opacity: 0.5;
+            background: #e1e6ef !important;
+          }
         }
       }
     }
