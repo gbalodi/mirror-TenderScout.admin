@@ -1,0 +1,24 @@
+.card-body{
+  .contacts{
+    .title{
+      margin-top: 35px;
+    }
+    .col-form-label{
+      text-transform: capitalize;
+    }
+  }
+  input:disabled{
+    opacity: 0.5;
+    background: #e1e6ef !important;
+  }
+  ::ng-deep{
+    ng2-timezone-picker{
+      .selection{
+        .select2-selection{
+          opacity: 0.5;
+          background: #e1e6ef !important;
+        }
+      }
+    }
+  }
+}
