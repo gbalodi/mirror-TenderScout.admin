@@ -66,7 +66,6 @@ export class UsersListComponent implements OnInit {
                 this.totalItems = result.count;
             },
             error => {
-                // error - объект ошибки
                 this.toasterService.error('Error', error);
             });
     }
