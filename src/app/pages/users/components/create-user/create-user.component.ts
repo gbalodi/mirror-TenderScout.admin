@@ -16,6 +16,7 @@ export class CreateUserComponent implements OnInit {
 
     public profileForm: FormGroup;
     public created: boolean;
+    public roles = [ 'admin', 'standart', 'basic', 'free' ];
 
     ngOnInit() {
         this.profileForm = new FormGroup({
@@ -25,6 +26,7 @@ export class CreateUserComponent implements OnInit {
             display_name: new FormControl('', Validators.required),
             company: new FormControl('', Validators.required),
             timezone: new FormControl('', Validators.required),
+            role: new FormControl('', Validators.required),
             contacts: this.fb.array([
                 ...this.contactsTypes.map(( contact_type ) => {
                     return this.fb.group({
