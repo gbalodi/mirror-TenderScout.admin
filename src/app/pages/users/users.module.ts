@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SignupReqListComponent } from './components/signup-request-list/reqs-list.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
-import { DetailsComponent } from './components/signup-request-list/details/details.component';
+import { DetailsComponent } from './components/details/details.component';
 
 // Import the library
 import { TimezonePickerModule } from 'ng2-timezone-selector';
