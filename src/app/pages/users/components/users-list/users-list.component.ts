@@ -22,6 +22,10 @@ export class UsersListComponent implements OnInit {
     public searchResetActive: boolean = false;
     public usersList;
     public settings = {
+        mode: 'inline',
+        edit: {
+            confirmSave: true,
+        },
         actions: {
             delete: false,
             add: false,
@@ -30,11 +34,11 @@ export class UsersListComponent implements OnInit {
         columns: {
             id: {
                 title: 'ID',
-                edit: false
+                editable: false
             },
             email: {
                 title: 'Email',
-                edit: false
+                editable: false
             },
             role: {
                 title: 'Role',//todo: make like component
@@ -43,15 +47,15 @@ export class UsersListComponent implements OnInit {
                     config: {
                         list: [
                             {value: 'admin', title: 'admin'},
-                            {value: 'standard', title: 'standard'},
+                            {value: 'standart', title: 'standard'},
                             {value: 'basic', title: 'basic'},
                             {value: 'free', title: 'free'},
                         ]
                     }
                 },
-                valuePrepareFunction: (value) => {
-                    console.log('v', value);
-                },
+                // valuePrepareFunction: (value) => {
+                //     console.log('v', value);
+                // },
             },
             created_at: {
                 title: 'Created at',
@@ -118,6 +122,18 @@ export class UsersListComponent implements OnInit {
             error => {
                 this.toasterService.error('Error', error);
             });
+    }
+
+    onEditConfirm(event): void {
+        if ( event.data.role !== event.newData.role ) {
+            this.request.putData(`v1/users/${event.data.id}/change_user_role`, { role: event.newData.role }).subscribe( () => {
+                this.toasterService.success('Successful operation', 'Success');
+                event.confirm.resolve();
+            }, () => {
+                this.toasterService.error('Ooops, error', 'Try again');
+                event.confirm.reject();
+            });
+        }
     }
 
 }

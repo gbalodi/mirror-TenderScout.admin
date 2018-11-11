@@ -27,7 +27,7 @@ export class StatusSwitcherComponent implements ViewCell, OnInit {
     onChange(e) {
         this.request.putData(`v1/user/registration_request/${this.rowData.id}/process`, {})
             .subscribe( res => {
-                this.toasterService.success('Succesfull operation', 'Success');
+                this.toasterService.success('Successful operation', 'Success');
                 this.rowData.do_processed = true;
             }, error => {
                 this.toasterService.error('Oops, error', 'Please, try again.');
