@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MainRequestService } from '../../../../services/main-request.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
-import { DetailsComponent } from '../details/details.component';
+import { DetailsComponent } from '../signup-request-list/details/details.component';
 import { DatePipe } from '@angular/common';
 
 @Component({

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MainRequestService } from '../../../../services/main-request.service';
-import { DetailsComponent } from '../details/details.component';
+import { DetailsComponent } from './details/details.component';
 import { StatusSwitcherComponent } from './status-switcher/status-switcher.component';
 
 @Component({
