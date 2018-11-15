@@ -85,14 +85,14 @@ export class TendersListComponent implements OnInit {
 
     ngOnInit() {
         this.request.getData(`v1/marketplace/tenders?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
-            this.tableInit(res);
+            this.tableInit( JSON.parse(res) );
             this.searchResetActive = true;
         })
     }
 
     pageChanged(event) {
         this.request.getData(`v1/marketplace/tenders?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-                this.tableInit(res);
+                this.tableInit( JSON.parse(res) );
             },
             error => {
                 this.toasterService.error('Error', error);

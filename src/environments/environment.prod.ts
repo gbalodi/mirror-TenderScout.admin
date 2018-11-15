@@ -1,4 +1,4 @@
 export const environment = {
     production: true,
-    apiUrl: 'http://api.tenderscout.braincode.xyz/'
+    apiUrl: 'https://api.dev.tenderscout.braincode.xyz/'
 };
