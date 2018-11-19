@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SignupReqListComponent } from './components/signup-request-list/reqs-list.component';
+import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 
 const routes: Routes = [
     {
@@ -31,6 +32,13 @@ const routes: Routes = [
                 component: SignupReqListComponent,
                 data: {
                     title: 'Sign up requests'
+                }
+            },
+            {
+                path: 'assist-requests',
+                component: RequestAssistanceComponent,
+                data: {
+                    title: 'Assistence requests'
                 }
             },
         ],

@@ -23,6 +23,14 @@ export const navigation = [
                 badge: {
                     variant: 'info',
                 }
+            },
+            {
+                name: 'Assistence requests',
+                url: '/users/assist-requests',
+                icon: 'fas fa-user-plus',
+                badge: {
+                    variant: 'info',
+                }
             }
         ]
     },
