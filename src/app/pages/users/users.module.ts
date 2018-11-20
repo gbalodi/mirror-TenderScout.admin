@@ -12,6 +12,7 @@ import { UsersRoutingModule } from './users-routing.module';
 import { ModalModule } from 'ngx-bootstrap';
 import { StatusSwitcherComponent } from './components/signup-request-list/status-switcher/status-switcher.component';
 import { UiSwitchModule } from 'ngx-toggle-switch';
+import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 
 @NgModule({
     imports: [
@@ -28,7 +29,8 @@ import { UiSwitchModule } from 'ngx-toggle-switch';
         CreateUserComponent,
         UsersListComponent,
         DetailsComponent,
-        StatusSwitcherComponent
+        StatusSwitcherComponent,
+        RequestAssistanceComponent
     ],
     providers: [ ],
     entryComponents: [
