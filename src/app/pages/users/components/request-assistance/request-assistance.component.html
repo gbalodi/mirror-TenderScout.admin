@@ -1,7 +1,7 @@
 <div class="card-header">
   <h3>Assistance request</h3>
 </div>
-<ng2-smart-table class="table table-striped" [settings]="settings" [source]="source" (editConfirm)="onEditConfirm($event)"></ng2-smart-table>
+<ng2-smart-table class="table table-striped" [settings]="settings" [source]="source"></ng2-smart-table>
 <pagination *ngIf="totalItems > 20"
             class="pagination-sm"
             (ngModel)="page"
