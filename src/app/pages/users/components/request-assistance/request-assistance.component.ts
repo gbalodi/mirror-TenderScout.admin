@@ -30,30 +30,36 @@ export class RequestAssistanceComponent implements OnInit {
         columns: {
             user_id: {
                 title: 'User ID',
-                editable: false
             },
             fullname: {
                 title: 'Fullname',
-                editable: false
+            },
+            email: {
+                title: 'Email',
             },
             assistance_type: {
                 title: 'Assistance type',
-                editable: false
             },
-            // created_at: {
-            //     title: 'Created at',
-            //     editable: false,
-            //     filter: false,
-            //     sort: false,
-            //     valuePrepareFunction: (date) => {
-            //         if (date) {
-            //             const raw = new Date(date);
-            //
-            //             const formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
-            //             return formatted;
-            //         }
-            //     }
-            // },
+            tender_id: {
+                title: 'TenderId',
+                type: 'html',
+                valuePrepareFunction: (tender_id) => {
+                    return `<a target="_blank" href="http://hub.tenderscout.com/tenders/${tender_id}">${tender_id}</a>`;
+                }
+            },
+            created_at: {
+                title: 'Created at',
+                filter: false,
+                sort: false,
+                valuePrepareFunction: (date) => {
+                    if (date) {
+                        const raw = new Date(date);
+
+                        const formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
+                        return formatted;
+                    }
+                }
+            },
         }
     };
 
@@ -67,20 +73,19 @@ export class RequestAssistanceComponent implements OnInit {
         this.request.getData(`v1/assistances?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
             const result = JSON.parse(res);
 
-            this.changeResult(result);
-
             this.source.setPaging(1, this.itemsPerPage,true );
             this.source.load( result.data );
             this.totalItems = result.count;
             this.searchResetActive = true;
-        })
+        },
+            error => {
+                this.toasterService.error('Error', error);
+            });
     }
 
     pageChanged(event) {
         this.request.getData(`v1/assistances?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
                 const result = JSON.parse(res);
-
-                this.changeResult(result);
 
                 this.source.setPaging(1, this.itemsPerPage,true );
                 this.source.load( result.data );
@@ -89,14 +94,6 @@ export class RequestAssistanceComponent implements OnInit {
             error => {
                 this.toasterService.error('Error', error);
             });
-    }
-
-    changeResult(array) {
-        array.forEach( item => {
-            item['fullname'] = item.profile.fullname;
-            return item;
-        });
-        return array;
     }
 
 
