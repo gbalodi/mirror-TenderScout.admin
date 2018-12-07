@@ -35,8 +35,25 @@ export class RequestUpgradeComponent implements OnInit {
                 title: 'Email',
                 editable: false,
             },
+            role: {
+                title: 'Role',
+                editable: false,
+            },
             created_at: {
-                title: 'Created at',
+                title: 'Created',
+                filter: false,
+                sort: false,
+                valuePrepareFunction: (date) => {
+                    if (date) {
+                        const raw = new Date(date);
+
+                        const formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
+                        return formatted;
+                    }
+                }
+            },
+            upgraded_at: {
+                title: 'Upgraded',
                 filter: false,
                 sort: false,
                 valuePrepareFunction: (date) => {
@@ -65,7 +82,6 @@ export class RequestUpgradeComponent implements OnInit {
             JSON.parse(res).forEach( item => {
                item.user['created_at'] = item.created_at;
                item.user['upgraded_at'] = item.upgraded_at;
-
                this.requestsList.push(item.user);
             });
         })
