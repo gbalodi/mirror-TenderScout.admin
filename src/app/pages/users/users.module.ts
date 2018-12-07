@@ -16,6 +16,7 @@ import { StatusSwitcherComponent } from './components/signup-request-list/status
 import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
 import { UserInfoComponent } from './components/request-upgrade/user-info/user-info.component';
+import { AcceptRequestComponent } from './components/request-upgrade/accept-request/accept-request.component';
 
 
 @NgModule({
@@ -37,12 +38,14 @@ import { UserInfoComponent } from './components/request-upgrade/user-info/user-i
         RequestAssistanceComponent,
         RequestUpgradeComponent,
         UserInfoComponent,
+        AcceptRequestComponent,
     ],
     providers: [ ],
     entryComponents: [
         DetailsComponent,
         StatusSwitcherComponent,
         UserInfoComponent,
+        AcceptRequestComponent,
     ]
 })
 export class UsersModule {

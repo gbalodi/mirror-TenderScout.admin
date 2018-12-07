@@ -4,6 +4,7 @@ import {ToastrService} from 'ngx-toastr';
 import {DatePipe} from '@angular/common';
 import {StatusSwitcherComponent} from '../signup-request-list/status-switcher/status-switcher.component';
 import {UserInfoComponent} from './user-info/user-info.component';
+import {AcceptRequestComponent} from './accept-request/accept-request.component';
 
 @Component({
   selector: 'app-request-assistance',
@@ -27,10 +28,6 @@ export class RequestUpgradeComponent implements OnInit {
             edit: false,
         },
         columns: {
-            id: {
-                title: 'ID',
-                editable: false,
-            },
             email: {
                 title: 'Email',
                 editable: false,
@@ -72,7 +69,15 @@ export class RequestUpgradeComponent implements OnInit {
                 filter: false,
                 sort: false,
                 renderComponent: UserInfoComponent,
-            }
+            },
+            id: {
+                title: 'Accept',
+                type: 'custom',
+                editable: false,
+                filter: false,
+                sort: false,
+                renderComponent: AcceptRequestComponent,
+            },
         }
     };
 
@@ -86,4 +91,5 @@ export class RequestUpgradeComponent implements OnInit {
             });
         })
     }
+
 }
