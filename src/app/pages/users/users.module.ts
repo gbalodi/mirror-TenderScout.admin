@@ -18,6 +18,8 @@ import { RequestUpgradeComponent } from './components/request-upgrade/request-up
 import { UserInfoComponent } from './components/request-upgrade/user-info/user-info.component';
 import { AcceptRequestComponent } from './components/request-upgrade/accept-request/accept-request.component';
 
+import { UsersService } from './components/services/users.service';
+
 
 @NgModule({
     imports: [
@@ -40,7 +42,9 @@ import { AcceptRequestComponent } from './components/request-upgrade/accept-requ
         UserInfoComponent,
         AcceptRequestComponent,
     ],
-    providers: [ ],
+    providers: [
+        UsersService,
+    ],
     entryComponents: [
         DetailsComponent,
         StatusSwitcherComponent,

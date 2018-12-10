@@ -1,10 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MainRequestService} from '../../../../services/main-request.service';
-import {ToastrService} from 'ngx-toastr';
-import {DatePipe} from '@angular/common';
-import {StatusSwitcherComponent} from '../signup-request-list/status-switcher/status-switcher.component';
-import {UserInfoComponent} from './user-info/user-info.component';
-import {AcceptRequestComponent} from './accept-request/accept-request.component';
+import { MainRequestService } from '../../../../services/main-request.service';
+import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
+import { UserInfoComponent } from './user-info/user-info.component';
+import { AcceptRequestComponent } from './accept-request/accept-request.component';
+import { UsersService } from '../services/users.service';
 
 @Component({
   selector: 'app-request-assistance',
@@ -13,14 +13,13 @@ import {AcceptRequestComponent} from './accept-request/accept-request.component'
 })
 export class RequestUpgradeComponent implements OnInit {
 
-
     constructor(
         private request: MainRequestService,
         private toasterService: ToastrService,
         private datePipe: DatePipe,
+        private usersService: UsersService,
     ) { }
 
-    public requestsList;
     public settings = {
         actions: {
             delete: false,
@@ -82,13 +81,8 @@ export class RequestUpgradeComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.request.getData('v1/users/upgrade_requests' ).subscribe( res => {
-            this.requestsList = [];
-            JSON.parse(res).forEach( item => {
-               item.user['created_at'] = item.created_at;
-               item.user['upgraded_at'] = item.upgraded_at;
-               this.requestsList.push(item.user);
-            });
+        this.usersService.getUpgradeRequests().subscribe( res => {
+            this.usersService.getUpgradeList = res;
         })
     }
 

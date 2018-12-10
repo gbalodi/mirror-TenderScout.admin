@@ -1,5 +1,7 @@
-import {Component, Input, OnInit} from '@angular/core';
-import {MainRequestService} from '../../../../../services/main-request.service';
+import { Component, Input, OnInit } from '@angular/core';
+import { MainRequestService } from '../../../../../services/main-request.service';
+import { UsersService } from '../../services/users.service';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
     selector: 'app-accept-request',
@@ -8,11 +10,11 @@ import {MainRequestService} from '../../../../../services/main-request.service';
 })
 export class AcceptRequestComponent implements OnInit {
 
-
     @Input() rowData: any;
 
     constructor(
         private request: MainRequestService,
+        private usersService: UsersService,
     ) {
     }
 
@@ -20,8 +22,11 @@ export class AcceptRequestComponent implements OnInit {
     }
 
     acceptRequest(id) {
-            this.request.postData(`v1/users/upgrade_requests/${id}/approve`, {}).subscribe(res => {
-        })
+            this.request.postData(`v1/users/upgrade_requests/${id}/approve`, {}).pipe(
+                switchMap(() => this.usersService.getUpgradeRequests())
+            ).subscribe( res => {
+                this.usersService.getUpgradeList = res;
+            })
     }
 
 }
