@@ -40,8 +40,12 @@ export class UsersListComponent implements OnInit {
                 title: 'Email',
                 editable: false
             },
+            profile_type: {
+                title: 'Profile type',
+                editable: false
+            },
             role: {
-                title: 'Role',//todo: make like component
+                title: 'Role',
                 editor: {
                     type: 'list',
                     config: {
@@ -53,46 +57,15 @@ export class UsersListComponent implements OnInit {
                         ]
                     }
                 },
-                // valuePrepareFunction: (value) => {
-                //     console.log('v', value);
-                // },
             },
-            created_at: {
-                title: 'Created at',
-                editable: false,
-                filter: false,
-                sort: false,
-                valuePrepareFunction: (date) => {
-                    if (date) {
-                        const raw = new Date(date);
-
-                        const formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
-                        return formatted;
-                    }
-                }
-            },
-            updated_at: {
-                title: 'Updated at',
-                editable: false,
-                filter: false,
-                sort: false,
-                valuePrepareFunction: (date) => {
-                    if (date) {
-                        const raw = new Date(date);
-
-                        const formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
-                        return formatted;
-                    }
-                }
-            },
-            /*detailInfo: {
+            profile: {
                 title: 'Details',
                 type: 'custom',
                 editable: false,
                 filter: false,
                 sort: false,
                 renderComponent: DetailsComponent,
-            }*/
+            }
         }
     };
 
@@ -105,6 +78,12 @@ export class UsersListComponent implements OnInit {
     ngOnInit() {
         this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
             const result = JSON.parse(res);
+            result.data.forEach(user => {
+                user['profile'] = user.profiles[0];
+                user['onlyProfile'] = true;
+                delete user.profiles;
+                return  user;
+            });
             this.source.setPaging(1, this.itemsPerPage,true );
             this.source.load( result.data );
             this.totalItems = result.count;
@@ -115,6 +94,12 @@ export class UsersListComponent implements OnInit {
     pageChanged(event) {
         this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
                 const result = JSON.parse(res);
+                result.data.forEach(user => {
+                    user['profile'] = user.profiles[0];
+                    user['onlyProfile'] = true;
+                    delete user.profiles;
+                    return  user;
+                });
                 this.source.setPaging(1, this.itemsPerPage,true );
                 this.source.load( result.data );
                 this.totalItems = result.count;
