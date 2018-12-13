@@ -9,6 +9,7 @@ import {ViewCell} from 'ng2-smart-table';
 export class DetailsComponent implements ViewCell, OnInit {
 
     public reqData;
+    public blockBtn: boolean = false;
 
     @Input() value;
 
@@ -19,6 +20,20 @@ export class DetailsComponent implements ViewCell, OnInit {
     @Output() save: EventEmitter<any> = new EventEmitter();
 
     ngOnInit() {
-        this.reqData = Object.keys(this.rowData);
+        if(this.rowData && this.rowData.onlyProfile){
+            for(let elem in this.rowData.profile){
+                if(this.rowData.profile[elem] == null || !this.rowData.profile[elem].length || this.rowData.profile[elem] == undefined) {
+                    delete this.rowData.profile[elem];
+                }
+            }
+            if(!this.rowData.profile){
+                this.blockBtn = true;
+            }else{
+                this.reqData = Object.keys(this.rowData.profile);
+                this.rowData = this.rowData.profile;
+            }
+        } else {
+            this.reqData = Object.keys(this.rowData);
+        }
     }
 }
