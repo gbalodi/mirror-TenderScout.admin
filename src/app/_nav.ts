@@ -27,7 +27,15 @@ export const navigation = [
             {
                 name: 'Assistence requests',
                 url: '/users/assist-requests',
-                icon: 'fas fa-user-plus',
+                icon: 'fas fa-question-circle',
+                badge: {
+                    variant: 'info',
+                }
+            },
+            {
+                name: 'Upgrade requests',
+                url: '/users/upgrade-requests',
+                icon: 'fas fa-question-circle',
                 badge: {
                     variant: 'info',
                 }

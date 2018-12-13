@@ -5,6 +5,7 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { SignupReqListComponent } from './components/signup-request-list/reqs-list.component';
 import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
+import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
 
 const routes: Routes = [
     {
@@ -39,6 +40,13 @@ const routes: Routes = [
                 component: RequestAssistanceComponent,
                 data: {
                     title: 'Assistence requests'
+                }
+            },
+            {
+                path: 'upgrade-requests',
+                component: RequestUpgradeComponent,
+                data: {
+                    title: 'User upgrade requests'
                 }
             },
         ],
