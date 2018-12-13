@@ -17,7 +17,7 @@ export class RequestUpgradeComponent implements OnInit {
         private request: MainRequestService,
         private toasterService: ToastrService,
         private datePipe: DatePipe,
-        private usersService: UsersService,
+        public usersService: UsersService,
     ) { }
 
     public settings = {
