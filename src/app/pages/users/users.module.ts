@@ -17,6 +17,7 @@ import { RequestAssistanceComponent } from './components/request-assistance/requ
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
 import { UserInfoComponent } from './components/request-upgrade/user-info/user-info.component';
 import { AcceptRequestComponent } from './components/request-upgrade/accept-request/accept-request.component';
+import { RequestMarketplaceComponent } from './components/request-marketplace/request-marketplace';
 
 import { UsersService } from './components/services/users.service';
 
@@ -41,6 +42,7 @@ import { UsersService } from './components/services/users.service';
         RequestUpgradeComponent,
         UserInfoComponent,
         AcceptRequestComponent,
+        RequestMarketplaceComponent,
     ],
     providers: [
         UsersService,
@@ -50,6 +52,7 @@ import { UsersService } from './components/services/users.service';
         StatusSwitcherComponent,
         UserInfoComponent,
         AcceptRequestComponent,
+        RequestMarketplaceComponent,
     ]
 })
 export class UsersModule {

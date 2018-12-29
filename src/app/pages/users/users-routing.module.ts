@@ -6,6 +6,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { SignupReqListComponent } from './components/signup-request-list/reqs-list.component';
 import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
+import { RequestMarketplaceComponent } from './components/request-marketplace/request-marketplace';
 
 const routes: Routes = [
     {
@@ -47,6 +48,13 @@ const routes: Routes = [
                 component: RequestUpgradeComponent,
                 data: {
                     title: 'User upgrade requests'
+                }
+            },
+            {
+                path: 'marketplace-requests',
+                component: RequestMarketplaceComponent,
+                data: {
+                    title: 'User marketplace requests'
                 }
             },
         ],

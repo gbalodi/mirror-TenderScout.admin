@@ -39,6 +39,14 @@ export const navigation = [
                 badge: {
                     variant: 'info',
                 }
+            },
+            {
+                name: 'Marketplace requests',
+                url: '/users/marketplace-requests',
+                icon: 'fas fa-question-circle',
+                badge: {
+                    variant: 'info',
+                }
             }
         ]
     },
