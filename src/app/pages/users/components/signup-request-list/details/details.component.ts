@@ -25,6 +25,9 @@ export class DetailsComponent implements ViewCell, OnInit {
                 if(this.rowData.profile[elem] == null || !this.rowData.profile[elem].length || this.rowData.profile[elem] == undefined) {
                     delete this.rowData.profile[elem];
                 }
+               /* if(typeof this.rowData.profile[elem] === 'object' && this.rowData.profile[elem] !== null) {
+                    console.log(this.rowData.profile[elem]);//TODO: Delete
+                }*/
             }
             if(!this.rowData.profile){
                 this.blockBtn = true;
