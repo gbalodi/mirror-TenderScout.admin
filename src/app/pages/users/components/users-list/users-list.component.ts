@@ -18,9 +18,6 @@ export class UsersListComponent implements OnInit {
     public maxSize: number = 5;
     public numPages: number = 1;
     public source: LocalDataSource = new LocalDataSource();
-    public searchResetData: Array<object>;
-    public searchResetActive: boolean = false;
-    public usersList;
     public settings = {
         mode: 'inline',
         edit: {
@@ -42,6 +39,10 @@ export class UsersListComponent implements OnInit {
             },
             profile_type: {
                 title: 'Profile type',
+                editable: false
+            },
+            do_marketplace_available: {
+                title: 'Marketplace',
                 editable: false
             },
             role: {
@@ -76,37 +77,11 @@ export class UsersListComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
-            const result = JSON.parse(res);
-            result.data.forEach(user => {
-                user['profile'] = user.profiles[0];
-                user['onlyProfile'] = true;
-                delete user.profiles;
-                return  user;
-            });
-            this.source.setPaging(1, this.itemsPerPage,true );
-            this.source.load( result.data );
-            this.totalItems = result.count;
-            this.searchResetActive = true;
-        })
+        this.getUsersList({});
     }
 
     pageChanged(event) {
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-                const result = JSON.parse(res);
-                result.data.forEach(user => {
-                    user['profile'] = user.profiles[0];
-                    user['onlyProfile'] = true;
-                    delete user.profiles;
-                    return  user;
-                });
-                this.source.setPaging(1, this.itemsPerPage,true );
-                this.source.load( result.data );
-                this.totalItems = result.count;
-            },
-            error => {
-                this.toasterService.error('Error', error);
-            });
+        this.getUsersList(event);
     }
 
     onEditConfirm(event): void {
@@ -119,6 +94,25 @@ export class UsersListComponent implements OnInit {
                 event.confirm.reject();
             });
         }
+    }
+
+    getUsersList(data){
+        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${data.page ? data.page : 1}`).subscribe(res => {
+            const result = JSON.parse(res);
+            result.data.forEach(user => {
+                user['profile'] = user.profiles[0];
+                user['do_marketplace_available'] = user.profiles[0].do_marketplace_available;
+                user['onlyProfile'] = true;
+                delete user.profiles;
+                return  user;
+            });
+            this.source.setPaging(1, this.itemsPerPage,true );
+            this.source.load( result.data );
+            this.totalItems = result.count;
+        },
+        error => {
+            this.toasterService.error('Error', error);
+        });
     }
 
 }
