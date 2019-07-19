@@ -5,13 +5,15 @@ import { DocumentsRoutingModule } from './documents-routing.module';
 import { SharedModule } from '../../modules/shared.module';
 import { ModalModule } from 'ngx-bootstrap';
 import { DocumentsListComponent } from './components/documents-list/documents-list.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 @NgModule({
   imports: [
     CommonModule,
     DocumentsRoutingModule,
     SharedModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgMultiSelectDropDownModule.forRoot()
   ],
   declarations: [
     DocumentsListComponent
