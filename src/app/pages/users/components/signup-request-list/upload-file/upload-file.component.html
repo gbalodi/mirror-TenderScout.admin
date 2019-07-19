@@ -1,0 +1,40 @@
+<div class="modal-details">
+    <button class="btn btn-outline-primary" data-toggle="modal" [disabled]="blockBtn" (click)="infoModal.show()" title="Details">
+      <i class="fas fa-file margin-r10"></i>Upload Results
+  </button>
+    <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal upload-file-modal" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">Upload Results -
+                        <span>{{ rowData.fullname }}</span>
+                    </h4>
+                    <button type="button" class="close" (click)="fileToUpload = null; selectFile.value=''; infoModal.hide()" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+
+                <div class="modal-body">
+                    <label for="file">Choose File</label>
+                    <input #selectFile type="file" id="file" accept=".csv, .xlsx, .xls" (change)="handleFileInput($event.target.files)">
+                </div>
+
+                <div class="model-body">
+                    <p class="this-is-CSV" *ngIf="!thisIsCSV">Please Upload type CSV, XLS and XLSX only file </p>
+                    <p class="this-is-CSV" *ngIf="!underFileSize">File Size must be under 20MB </p>
+                    <p class="upload-file-loading" *ngIf="uploadFileLoading">Please Wait... </p>
+                </div>
+
+                <div class="modal-body">
+                    <div class="upload-btn-holder">
+                        <button class="create-user btn btn-primary upload" [ngClass]="{'upload-disable': !fileToUpload}" [disabled]="!fileToUpload" (click)="uploadFile()">Upload File</button>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- /.modal -->
+</div>

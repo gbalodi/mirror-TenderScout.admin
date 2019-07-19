@@ -1,0 +1,242 @@
+<div class="modal-details">
+    <!-- <button class="btn btn-outline-primary" data-toggle="modal" [disabled]="blockBtn" (click)="infoModal.show()" title="Details">
+    <i class="fas fa-info-circle margin-r10"></i>Details
+    </button> -->
+
+    <div class="dropdown" *ngIf="rowDataObj">
+        <button class="dropbtn"><i class="fas fa-cog"></i></button>
+        <div class="dropdown-content">
+            <a (click)="infoModal.show()">Details</a>
+            <a [routerLink]="['/users',rowDataObj.id, 'edit']">Edit</a>
+            <a (click)="resetPasswordModal.show()">Reset Password</a>
+            <a (click)="uploadToOrbidal=false; uploadResultsModal.show()">Upload Results</a>
+            <a (click)="uploadToOrbidal=true; uploadResultsModal.show()">Upload To Orbidal</a>
+            <a (click)="userStatisticsModal.show()">User Statistics</a>
+        </div>
+    </div>
+
+    <!-- Modal for User Details -->
+    <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal user-details-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">User details - <span *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
+                        <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span></h4>
+                    <button type="button" class="close" [routerLink]="['/users',rowDataObj.id, 'edit']"
+                        aria-label="Close">
+                        <i class="fas fa-edit"></i>
+                    </button>
+                    <button type="button" (click)="infoModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
+                    <label *ngIf="!rowData.fullname">Profile Details hasn't been created yet, please use edit feature
+                        and add them.</label>
+
+                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'"
+                        *ngFor="let request of reqData">
+                        <label class="main-label">{{ request }}</label>
+                        <div class="info"
+                            *ngIf="request != 'countries' && request != 'contacts' && request != 'keywords'">
+                            <span>{{ rowData[request] }} </span>
+                            <!-- <span *ngIf="request!=='profile_type'"><input [value]="rowData[request]"> </span>
+                            <span *ngIf="request==='profile_type'">
+                                    <ng-select [items]="profileType"
+                                    bindLabel="name"
+                                    bindValue="name" multiple="true"
+                                    [(ngModel)]="rowData[request]">
+                         </ng-select>
+                                
+                            </span> -->
+                        </div>
+                        <div class="row info" *ngIf="request == 'countries'">
+                            <div class="col-xs-12 col-sm-6"><span><label>Code: </label></span>
+                                <span>{{rowData[request][0].code}}</span>
+                            </div>
+                            <div class="col-xs-12 col-sm-6"><span><label>Number:
+                                    </label></span><span>{{rowData[request][0].number}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>alpha2code:
+                                    </label></span><span>{{rowData[request][0].alpha2code}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>alpha3code:
+                                    </label></span><span>{{rowData[request][0].alpha3code}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>Name:
+                                    </label></span><span>{{rowData[request][0].name}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>World Region:
+                                    </label></span><span>{{rowData[request][0].world_region}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>World Region:
+                                    </label></span><span>{{rowData[request][0].world_region}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>World Subregion:
+                                    </label></span><span>{{rowData[request][0].world_subregion}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>Other Names:
+                                    </label></span><span>{{rowData[request][0].other_names}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>Currency ID:
+                                    </label></span><span>{{rowData[request][0].currency_id}}</span></div>
+                            <div class="col-xs-12 col-sm-6"><span><label>World region ID:
+                                    </label></span><span>{{rowData[request][0].world_region_id}}</span></div>
+                        </div>
+
+                        <div class="row info" *ngIf="request == 'contacts'">
+                            <div class="col-xs-12 col-sm-12"><span><label>{{rowData[request][0].contact_type}}:
+                                    </label></span><span>{{rowData[request][0].value}}</span></div>
+                        </div>
+
+                        <div class="row info" *ngIf="request == 'keywords'">
+                            <div class="col-xs-12 col-sm-12"><span><label>Name:
+                                    </label></span><span>{{rowData[request][0].name}}</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Password Reset -->
+    <div bsModal #resetPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Reset Password Of User - {{ rowData.fullname }}</h4>
+                    <button type="button" class="close" (click)="resetPasswordModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form [formGroup]="resetPasswordForm" novalidate>
+                    <div class="row info">
+
+                        <div class="col-xs-12 col-sm-6 form-group">
+                            <label>New Password</label>
+                            <input type="password" (input)="matchPassword('new')" formControlName="password">
+                            <span
+                                *ngIf="resetPasswordForm.controls['password'].value && resetPasswordForm.controls['password'].value.length<6">
+                                Password Length should be 6.
+                            </span>
+                        </div>
+
+                        <div class="col-xs-12 col-sm-6 form-group">
+                            <label>Confirm Password</label>
+                            <input type="password" [ngClass]="{'input-validation': matchedPassword === false}"
+                                (input)="matchPassword('confirm')" formControlName="password_confirmation">
+                            <span class="label label-danger matched-password" *ngIf="matchedPassword === false">Password
+                                Not Matched!</span>
+                            <span
+                                *ngIf="resetPasswordForm.controls['password_confirmation'].value && resetPasswordForm.controls['password_confirmation'].value.length<6">
+                                Password Length should be 6.
+                            </span>
+                        </div>
+
+                    </div>
+
+                    <div class="row info">
+                        <div class="col-xs-12 col-sm-6">
+                            <button [disabled]="!resetPasswordForm.valid || !matchedPassword"
+                                (click)="changePassword()">Change</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Upload Results -->
+    <div bsModal #uploadResultsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal upload-file-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <h4 *ngIf="!uploadToOrbidal" class="modal-title">Upload Results -
+                        <div class="email-name-holder">
+                            <span *ngIf="rowData.fullname">{{ rowData.fullname }}
+                                (</span><span>{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
+
+                        </div>
+                    </h4>
+
+                    <h4 *ngIf="uploadToOrbidal" class="modal-title">Upload to Orbidal -
+                        <div class="email-name-holder">
+                            <span *ngIf="rowData.fullname">{{ rowData.fullname }}
+                                (</span><span>{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
+
+                        </div>
+                    </h4>
+
+                    <button type="button" class="close"
+                        (click)="fileToUpload = null; selectFile.value=''; uploadResultsModal.hide()"
+                        aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label for="file">Choose File</label>
+                    <input *ngIf="!uploadToOrbidal" #selectFile type="file" id="file" accept=".csv, .xlsx, .xls"
+                        (change)="handleFileInput($event.target.files)">
+                    <input *ngIf="uploadToOrbidal" #selectFile type="file" id="file"
+                        accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
+                        (change)="handleFileInput($event.target.files)">
+                </div>
+                <div class="model-body">
+                    <p class="this-is-CSV" *ngIf="!uploadToOrbidal && !thisIsCSV">Please Upload type CSV, XLS and XLSX only file </p>
+                    <p class="this-is-CSV" *ngIf="uploadToOrbidal && !thisIsCSV">Please Upload type XLS, XLSX, JPG, JPEG, PNG, PDF, CSV, DOC, DOCX, PPTX, PPt only file </p>
+                    <p class="this-is-CSV" *ngIf="!underFileSize">File Size must be under 20MB </p>
+                    <p class="upload-file-loading" *ngIf="uploadFileLoading">Please Wait... </p>
+                </div>
+                <div class="modal-body">
+
+                    <div class="upload-btn-holder">
+                        <button class="create-user btn btn-primary upload" [ngClass]="{'upload-disable': !fileToUpload}"
+                            [disabled]="!fileToUpload" (click)="uploadFile()">Upload File</button>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for User Statistics -->
+    <div bsModal #userStatisticsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
+        aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal user-details-modal" role="document">
+            <div class="modal-content">
+
+                <div class="modal-header">
+                    <h4 class="modal-title">User Statistics - <span
+                            *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
+                        <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span></h4>
+                    <button type="button" class="close" (click)="userStatisticsModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+
+                <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
+                    <div class="row col-12">
+
+                        <div class="pull-left col-sm-6">
+                            <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
+                                *ngFor="let item of statisticsOf">
+                                <label class="main-label">{{ item.type }}</label>
+                                <div class="info">
+                                    <span>{{ item.count }} </span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pull-left col-sm-6">
+                            <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
+                                style="width: 100%; height: 400px; display: block;">
+                            </highcharts-chart>
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</div>
