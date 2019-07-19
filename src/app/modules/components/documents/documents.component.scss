@@ -1,0 +1,98 @@
+.uploaded-files-holder {
+    float: left;
+    flex: 0 0 100%;
+    max-width: 100%;
+    padding: 0;
+    flex-direction: column;
+    width: 100%;
+    margin-bottom: 15px;
+}
+.uploaded-filesbr {
+    background: #fff;
+    padding: 8px 15px;
+    box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    border: 1px solid transparent;
+}
+.upload-iconbr {
+    width: 9%;
+    float: left;
+}
+.file-icon img {
+    max-width: 42px;
+}
+.upload-txbr {
+    float: left;
+    width: 90%;
+    position: relative;
+}
+.file-name {
+    font-size: 15px;
+    font-weight: 500;
+    color: #222;
+    display: block;
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+    padding-right: 30px;
+}
+.file-size {
+    font-size: 15px;
+    font-weight: 400;
+    color: #a2a2a2;
+}
+.file-cancel {
+    position: static;
+}
+.file-cancel .dropdown {
+    cursor: pointer;
+    position: absolute;
+    right: -20px;
+    display: inline-block;
+    top: 0;
+}
+.file-cancel .dd-button {
+    display: inline-block;
+    border: none;
+    border-radius: 4px;
+    padding: 12px 15px;
+    background-color: transparent;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.file-cancel .dd-button span img {
+    max-width: 5px;
+    transition: .9s;
+    -webkit-transition: .9s;
+}
+.file-cancel .dd-button span .drop-open {
+    -webkit-transform: rotate(90deg);
+    transform: rotate(90deg);
+}
+.file-cancel .dd-button:after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    -webkit-transform: translateY(-50%);
+    transform: translateY(-50%);
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid transparent;
+}
+.file-cancel .dd-input {
+    display: none;
+}
+.list-ctm-row {
+    display: flex;
+    float: left;
+    width: 50%;
+}
+.list-ctm-col {
+    padding: 0 7px;
+}
