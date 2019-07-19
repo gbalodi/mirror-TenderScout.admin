@@ -11,7 +11,7 @@ import { DocumentsListComponent } from './components/documents-list/documents-li
     CommonModule,
     DocumentsRoutingModule,
     SharedModule,
-    ModalModule
+    ModalModule.forRoot()
   ],
   declarations: [
     DocumentsListComponent
