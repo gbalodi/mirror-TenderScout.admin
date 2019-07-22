@@ -8,6 +8,7 @@ import * as _ from 'lodash';
   templateUrl: './documents-list.component.html',
   styleUrls: ['./documents-list.component.scss']
 })
+
 export class DocumentsListComponent implements OnInit {
   public excludeUsersModalRef: BsModalRef;
   public uploadDocsModalRef: BsModalRef;
@@ -16,6 +17,15 @@ export class DocumentsListComponent implements OnInit {
   public fileType: boolean = false;
   public underFileSize: boolean = false;
   public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
+  public usersList: Array<any> = [
+    { item_id: 1, item_text: 'Mumbai' },
+    { item_id: 2, item_text: 'Bangaluru' },
+    { item_id: 3, item_text: 'Pune' },
+    { item_id: 4, item_text: 'Navsari' },
+    { item_id: 5, item_text: 'New Delhi' }
+  ];
+  public selectedUsers = [];
+  public dropdownSettings = {};
 
   constructor(
     private bsModalService: BsModalService,
@@ -33,7 +43,17 @@ export class DocumentsListComponent implements OnInit {
     }, error => {
       this.documentsList = [];
       console.log(error);
-    })
+    });
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'item_id',
+      textField: 'item_text',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
   }
 
   public uploadDocsOpenModal(template: TemplateRef<any>) {
@@ -85,6 +105,13 @@ export class DocumentsListComponent implements OnInit {
    */
   public onCompleteItem($event) {
     console.log($event);
+  }
+
+  public onItemSelect(item: any) {
+    console.log(item);
+  }
+  public onSelectAll(items: any) {
+    console.log(items);
   }
 
 
