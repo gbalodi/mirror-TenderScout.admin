@@ -46,6 +46,10 @@
   <div class="modal-body">
     <div class="used-selectbr repo-used-selectbr">
       <p>Folder:</p>
+
+      <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="usersList" [(ngModel)]="selectedUsers"
+        [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
+      </ng-multiselect-dropdown>
     </div>
     <div class="button-holder">
       <button class="upload_btn" role="button" (click)="uploadDocuments()">Upload Doc</button>

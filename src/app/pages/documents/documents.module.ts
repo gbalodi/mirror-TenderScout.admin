@@ -11,8 +11,6 @@ import { FileUploaderService } from '../../file-uploader.service';
 import { FileUploaderComponent } from '../../file-uploader.component';
 import { FileDropModule } from 'ngx-file-drop';
 
-
-
 @NgModule({
   imports: [
     CommonModule,
