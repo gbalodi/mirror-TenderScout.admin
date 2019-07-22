@@ -9,6 +9,6 @@ export const environment = {
     // apiUrl: 'https://hub.tenderscout.com/api/',
     // apiUrl: 'https://app.orbidalgroup.com/api/'
     // apiUrl: 'https://api.tshub.matrixmarketers.com/api/'
-    // apiUrl: 'http://192.168.10.130:3000/' //@Gaurav
-    apiUrl: 'http://192.168.10.131:3000/' //@Akshita
+    apiUrl: 'http://192.168.10.130:3000/' //@Gaurav
+    // apiUrl: 'http://192.168.10.131:3000/' //@Akshita
 };

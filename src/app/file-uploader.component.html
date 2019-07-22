@@ -64,7 +64,7 @@
 
 		<div>
 			<button class="button button-clear" (click)="uploader.clearQueue(); fileInput.value = ''">Reset</button>
-			<button class="button button-primary" [disabled]="uploader.numberOfUploadedFiles === (queue | async).length" (click)="uploader.uploadAll()">Upload all</button>
+			<button class="button button-primary upload-btn" [disabled]="uploader.numberOfUploadedFiles === (queue | async).length" (click)="uploader.uploadAll()">Upload all</button>
 		</div>
 	</div>
 
