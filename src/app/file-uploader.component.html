@@ -1,9 +1,26 @@
 <div class="row">
 
-	<div class="col-md-3">
+	<file-drop headertext="" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
+		(onFileLeave)="fileLeave($event)" multiple="true">
+
+		<div class="drag-contbx">
+			<h1 class="">Drag & drop</h1>
+			<p class="or"><span>or</span></p>
+			<div class="addfile-btn">
+				<label class="button" for="file-name">Select files</label>
+				<!-- <label class="button" for="file-name" *ngIf="fileToUpload">Choose Different
+					File</label> -->
+				<input multiple type="file" #fileInput data-max-size="32"
+					accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
+					class="upload-file-input" id="file-name" (change)="addToQueue()">
+			</div>
+		</div>
+	</file-drop>
+
+	<!-- <div class="col-md-3">
 		<h3>Select files</h3>
 		<input type="file" #fileInput multiple (change)="addToQueue()" />
-	</div>
+	</div> -->
 
 	<div class="col-md-9">
 		<h3>Upload queue</h3>
@@ -18,7 +35,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of queue | async">
+				<tr *ngFor="let item of queue | async; let i = index;">
 					<td>{{ item?.file?.name }}</td>
 					<td class="text-right">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
 					<td>{{ item.progress + ' %' }}</td>
@@ -29,22 +46,25 @@
 						<span *ngIf="item.isError()" class="tag tag-danger"></span>
 					</td>
 					<td class="text-right">
-						<a tooltip="Upload file" (click)="item.upload()" *ngIf="item.isUploadable()">
+						<button tooltip="Upload file" (click)="upload(item)" *ngIf="item.isUploadable()">
 							<i class="fa fa-upload"></i>
-						</a>
-						<a tooltip="Cancel upload" (click)="item.cancel()" *ngIf="item.inProgress()">
+						</button>
+						<button tooltip="Cancel upload" (click)="item.cancel()" *ngIf="item.inProgress()">
 							<i class="fa fa-times-circle"></i>
-						</a>
-						<a tooltip="Remove from queue" (click)="item.remove()" *ngIf="!item.inProgress()">
+						</button>
+						<button tooltip="Remove from queue" [disabled]="item.inProgress() || item.isSuccess()" (click)="item.remove()">
 							<i class="fa fa-trash"></i>
-						</a>
+						</button>
 					</td>
 				</tr>
 			</tbody>
 		</table>
+
+		<!-- {{uploader.numberOfUploadedFiles}} ------------------- {{(queue | async).length}} -->
+
 		<div>
-			<a class="button button-clear" (click)="uploader.clearQueue()">Clear queue</a>
-			<a class="button button-primary" (click)="uploader.uploadAll()">Upload all</a>
+			<button class="button button-clear" (click)="uploader.clearQueue(); fileInput.value = ''">Reset</button>
+			<button class="button button-primary" [disabled]="uploader.numberOfUploadedFiles === (queue | async).length" (click)="uploader.uploadAll()">Upload all</button>
 		</div>
 	</div>
 

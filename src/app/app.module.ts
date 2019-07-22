@@ -78,6 +78,7 @@ import { MainRequestService } from './services/main-request.service';
 import { AuthenticationService } from './modules/authorization/services/authentication.service';
 import { PaginationConfig } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
     imports: [
@@ -95,7 +96,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
         NgxPermissionsModule.forRoot(),
         SpinnerModule,
         ToastrModule.forRoot(),
-        NgSelectModule
+        NgSelectModule,
+        FileDropModule
     ],
     declarations: [
         AppComponent,

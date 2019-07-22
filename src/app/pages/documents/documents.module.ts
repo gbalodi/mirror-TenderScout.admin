@@ -9,6 +9,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 // import { FileSelectDirective, FileDropDirective, FileUploader } from 'ng2-file-upload/ng2-file-upload';
 import { FileUploaderService } from '../../file-uploader.service';
 import { FileUploaderComponent } from '../../file-uploader.component';
+import { FileDropModule } from 'ngx-file-drop';
 
 
 
@@ -18,7 +19,8 @@ import { FileUploaderComponent } from '../../file-uploader.component';
     DocumentsRoutingModule,
     SharedModule,
     ModalModule.forRoot(),
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    FileDropModule
   ],
   declarations: [
     DocumentsListComponent,

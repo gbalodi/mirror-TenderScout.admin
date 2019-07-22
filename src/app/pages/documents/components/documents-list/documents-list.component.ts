@@ -72,11 +72,19 @@ export class DocumentsListComponent implements OnInit {
       formData.append('uploaded_files[file]', file);
       // formData.append('bid_asset[bid_asset_tags_attributes][][tag_id]', element.id);
     }));
-    this.documentsListService.orbidalDocumentsUpload(formData).subscribe((res: any) =>{
+    this.documentsListService.orbidalDocumentsUpload(formData).subscribe((res: any) => {
       res;
-    }, error =>{
+    }, error => {
 
     })
+  }
+
+  /**
+   * On Complete uploaded Item...
+   * @param $event 
+   */
+  public onCompleteItem($event) {
+    console.log($event);
   }
 
 

@@ -1,10 +1,9 @@
 import * as _ from 'lodash';
-
 import { HttpClient, HttpErrorResponse, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
+import { ToastrService } from 'ngx-toastr';
 
 export enum FileQueueStatus {
   Pending,
@@ -20,7 +19,9 @@ export class FileQueueObject {
   public request: Subscription = null;
   public response: HttpResponse<any> | HttpErrorResponse = null;
 
-  constructor(file: any) {
+  constructor(
+    file: any
+  ) {
     this.file = file;
   }
 
@@ -28,24 +29,24 @@ export class FileQueueObject {
   public upload = () => { /* set in service */ };
   public cancel = () => { /* set in service */ };
   public remove = () => { /* set in service */ };
+  public invalidFile = () =>{ /* set in service */ }
 
   // statuses
   public isPending = () => this.status === FileQueueStatus.Pending;
   public isSuccess = () => this.status === FileQueueStatus.Success;
   public isError = () => this.status === FileQueueStatus.Error;
   public inProgress = () => this.status === FileQueueStatus.Progress;
-  public isUploadable = () => this.status === FileQueueStatus.Pending || this.status === FileQueueStatus.Error;
+  public isUploadable = () => this.status === FileQueueStatus.Pending;
 
 }
 
 // tslint:disable-next-line:max-classes-per-file
 @Injectable()
 export class FileUploaderService {
-
   public url: string = 'v1/bid_library/orbidal_documents/';
-
   private _queue: BehaviorSubject<FileQueueObject[]>;
   private _files: FileQueueObject[] = [];
+  public numberOfUploadedFiles: number = 0;
 
   constructor(private http: HttpClient) {
     this._queue = <BehaviorSubject<FileQueueObject[]>>new BehaviorSubject(this._files);
@@ -88,6 +89,7 @@ export class FileUploaderService {
 
     // set the individual object events
     queueObj.upload = () => this._upload(queueObj);
+    queueObj.invalidFile = () => this._invalidFile(queueObj);
     queueObj.remove = () => this._removeFromQueue(queueObj);
     queueObj.cancel = () => this._cancel(queueObj);
 
@@ -117,6 +119,7 @@ export class FileUploaderService {
           this._uploadProgress(queueObj, event);
         } else if (event instanceof HttpResponse) {
           this._uploadComplete(queueObj, event);
+          this.numberOfUploadedFiles += 1;
         }
       },
       (err: HttpErrorResponse) => {
@@ -131,6 +134,29 @@ export class FileUploaderService {
     );
 
     return queueObj;
+  }
+
+  public _invalidFile(queueObj: FileQueueObject) {
+    // File Validation check...
+    let invalid: boolean = false;
+    let getExtension = queueObj.file.name.split('.').pop();
+    let fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
+    if (fileTypes.find(fileType => fileType === getExtension.toLocaleLowerCase()) !== undefined) {
+      if (queueObj.file.size > 20971520) {
+        invalid = true;
+        queueObj.progress = 0;
+        queueObj.status = FileQueueStatus.Error;
+        return 'size';
+      }
+    } else {
+      invalid = true;
+      queueObj.progress = 0;
+      queueObj.status = FileQueueStatus.Error;
+      return 'type';
+      // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
+    }
+
+    return false;
   }
 
   private _cancel(queueObj: FileQueueObject) {
