@@ -11,7 +11,12 @@
           <span class="file-cancel">
             <label class="dropdown">
               <div class="dd-button">
-                <span><img alt="" src="/assets/img/drop-img-blue.png" class="drop-open"></span>
+                <!-- <span><img alt="" src="/assets/img/drop-img-blue.png" class="drop-open"></span> -->
+
+                <app-dropdown-actions class="show-toggle" label="Monitor actions" [actions]="actions"
+                  (onSelect)="monitorAction($event)" (click)="stopPropagation($event)">
+                  <button class="actions"></button>
+                </app-dropdown-actions>
               </div>
               <!-- <input class="dd-input" id="test" type="checkbox">
                         <ul class="dd-menu">

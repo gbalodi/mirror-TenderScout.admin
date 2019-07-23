@@ -165,7 +165,7 @@
                         </div>
                     </h4>
 
-                    <button type="button" class="close"
+                    <button type="button" *ngIf="selectFile" class="close"
                         (click)="fileToUpload = null; selectFile.value=''; uploadResultsModal.hide()"
                         aria-label="Close">
                         <span aria-hidden="true">&times;</span>

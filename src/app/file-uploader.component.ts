@@ -1,7 +1,8 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
-import { FileQueueObject, FileUploaderService } from './file-uploader.service';
+import { FileQueueObject, FileUploaderService, FailedFileQueueObject } from './file-uploader.service';
 import { Observable } from 'rxjs';
 import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
@@ -14,15 +15,22 @@ export class FileUploaderComponent implements OnInit {
   @Output() onCompleteItem = new EventEmitter();
   @ViewChild('fileInput') fileInput: ElementRef;
   public queue: Observable<FileQueueObject[]>;
+  public failedQueue: Observable<FailedFileQueueObject[]>;
   public queueData: Array<any> = [];
+  public validationFailedFiles: Array<any> = [];
+  public validatedFiles: Array<any> = [];
+  // public fileErrorTitle: string = '';  
 
   constructor(
     public uploader: FileUploaderService,
     private toasterService: ToastrService,
-  ) { }
+  ) {
+    // this.resetArray();
+  }
 
   ngOnInit() {
     this.queue = this.uploader.queue;
+    this.failedQueue = this.uploader.failedQueue;
     this.uploader.queue.subscribe((res: any) => {
       this.queueData = res;
     });
@@ -35,8 +43,18 @@ export class FileUploaderComponent implements OnInit {
 
   addToQueue() {
     const fileBrowser = this.fileInput.nativeElement;
-    this.uploader.addToQueue(fileBrowser.files);
+    // const validatedFiles = fileBrowser.files;
+    this.selectedFilesFiler(fileBrowser.files);
+    // _.each(fileBrowser.files, (file: any) => this.uploadValidationHandling(file));
+    // this.uploader.addToQueue(this.validatedFiles);
+    // this.uploader.addToFailedQueue(this.validationFailedFiles);
     // this.uploader.numberOfUploadedFiles = fileBrowser.files.length;
+  }
+
+  public selectedFilesFiler(files) {
+    _.each(files, (file: any) => this.uploadValidationHandling(file));
+    this.uploader.addToQueue(this.validatedFiles);
+    this.uploader.addToFailedQueue(this.validationFailedFiles);
   }
 
   /**
@@ -64,22 +82,50 @@ export class FileUploaderComponent implements OnInit {
       }
     }
     setTimeout(() => {
-      this.uploader.addToQueue(files);
+      // this.uploader.addToQueue(files);
+      this.selectedFilesFiler(files);
       // this.uploader.numberOfUploadedFiles = files.length;
     }, 2000);
 
   }
 
   public upload(item) {
-    // this.queueData[item]
-    let response = item.invalidFile(item)
+    // let valid: boolean = this.uploadValidationHandling(item);
+    // if (valid) {
+    // item.fileErrorTitle = '';
+    item.upload(item);
+    // }
+  }
+
+  public uploadValidationHandling(item) {
+    let response = this._invalidFile(item)
     if (response === 'size') {
-      this.toasterService.warning('Size should be under 20 MB.', 'Warning');
+      this.toasterService.warning('File Size should be under 20 MB.', 'Warning');
+      item.fileErrorTitle = 'File Size should be under 20 MB.';
+      this.validationFailedFiles.push(item);
     } else if (response === 'type') {
-      this.toasterService.warning(`Type Should be 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'.`, 'Warning');
-    } else if (response === false) {
-      item.upload(item);
+      this.toasterService.warning(`File Type Should be 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'.`, 'Warning');
+      item.fileErrorTitle = `File Type Should be 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'.`;
+      this.validationFailedFiles.push(item);
+    } else if (!response) {
+      this.validatedFiles.push(item);
     }
+  }
+
+  public _invalidFile(queueObj) {
+    // File Validation check...
+    let getExtension = queueObj.name.split('.').pop();
+    let fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
+    if (fileTypes.find(fileType => fileType === getExtension.toLocaleLowerCase()) !== undefined) {
+      if (queueObj.size > 20971520) {
+        return 'size';
+      }
+    } else {
+      return 'type';
+      // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
+    }
+
+    return false;
   }
 
   /**
@@ -88,6 +134,7 @@ export class FileUploaderComponent implements OnInit {
  */
   public fileOver(event) {
     console.log(event);
+    this.resetArray();
   }
 
   /**
@@ -96,5 +143,26 @@ export class FileUploaderComponent implements OnInit {
  */
   public fileLeave(event) {
     console.log(event);
+  }
+
+  // public checkStatus(item) {
+  //   let valid: boolean = this.uploadValidationHandling(item);
+  //   if (valid) {
+  //     let isError: boolean = item.isError();
+  //     if (isError) {
+  //       item.fileErrorTitle = "Current file already exists in orbidal folder for this user";
+  //     } else {
+  //       item.fileErrorTitle = "";
+  //     }
+  //   }
+  //   return true;
+  // }
+
+  public resetArray() {
+    this.uploader.clearQueue();
+  }
+
+  ngOnDestroy(): void {
+    this.resetArray();
   }
 }

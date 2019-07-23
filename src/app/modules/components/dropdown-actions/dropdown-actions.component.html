@@ -1,0 +1,15 @@
+<div class="wrap" (click)="toggle()">
+  <ng-content></ng-content>
+</div>
+<div class="dropdown" *ngIf="show" @dropdown>
+  <div class="label">
+    {{label}}
+  </div>
+  <ul>
+    <li *ngFor="let actionKey of (actions | keys)">
+      <button (click)="select(actionKey)">
+        {{actions[actionKey]}}
+      </button>
+    </li>
+  </ul>
+</div>

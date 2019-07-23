@@ -8,7 +8,8 @@
   <div class="list_contbx-holder">
     <div class="row">
       <div class="col-md-12 cstm_pdng">
-        <app-documents *ngFor="let document of documentsList" [document]="document"></app-documents>
+        <app-documents *ngFor="let document of documentsList" (updateDocumentsList)="callGetOrbidalDocumentsListing()" [document]="document"></app-documents>
+        <p *ngIf="documentsList.length == 0">No Documents available for listing. </p>
       </div>
     </div>
 
@@ -26,33 +27,27 @@
     </button>
   </div>
   <div class="modal-body">
-    <!-- <p class="chose_filetx">Choose Multiple Files</p>
-    <input type="file" name="img" (change)="handleFilesInput($event.target.files)" multiple>
-    <div class="button-holder">
-      <button class="upload_btn" role="button" (click)="uploadDocuments()">Upload Doc</button>
-    </div> -->
-    <file-uploader (onCompleteItem)="onCompleteItem($event)"></file-uploader>
+    <file-uploader (resetArrayEvent)="resetArrayEvent()" (onCompleteItem)="onCompleteItem($event)"></file-uploader>
   </div>
 </ng-template>
 
 <ng-template #excludeUsers>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">UPLOAD TO ORBIDAL -</h4>
-    <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p>
+    <h4 class="modal-title pull-left">EXCLUDE USERS FROM ACCESSING ORBIDAL FOLDER</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="excludeUsersModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <div class="used-selectbr repo-used-selectbr">
-      <p>Folder:</p>
+      <p>Select Users To Exclude:</p>
 
       <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="usersList" [(ngModel)]="selectedUsers"
         [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
       </ng-multiselect-dropdown>
     </div>
     <div class="button-holder">
-      <button class="upload_btn" role="button" (click)="uploadDocuments()">Upload Doc</button>
+      <button class="upload_btn" (click)="excludeUsersEvent()">Save</button>
     </div>
   </div>
 </ng-template>

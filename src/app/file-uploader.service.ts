@@ -18,6 +18,7 @@ export class FileQueueObject {
   public progress: number = 0;
   public request: Subscription = null;
   public response: HttpResponse<any> | HttpErrorResponse = null;
+  public fileErrorTitle: string;
 
   constructor(
     file: any
@@ -29,7 +30,7 @@ export class FileQueueObject {
   public upload = () => { /* set in service */ };
   public cancel = () => { /* set in service */ };
   public remove = () => { /* set in service */ };
-  public invalidFile = () =>{ /* set in service */ }
+  // public invalidFile = () =>{ /* set in service */ }
 
   // statuses
   public isPending = () => this.status === FileQueueStatus.Pending;
@@ -38,6 +39,29 @@ export class FileQueueObject {
   public inProgress = () => this.status === FileQueueStatus.Progress;
   public isUploadable = () => this.status === FileQueueStatus.Pending;
 
+  // Error Title message
+
+}
+
+
+export class FailedFileQueueObject {
+  public file: any;
+  public status: FileQueueStatus = FileQueueStatus.Error;
+  public progress: number = 0;
+  public fileErrorTitle: string;
+
+  constructor(
+    file: any
+  ) {
+    this.file = file;
+  }
+
+  // actions
+  public remove = () => { /* set in service */ };
+  // public invalidFile = () =>{ /* set in service */ }
+
+  // statuses
+  public isError = () => this.status === FileQueueStatus.Error;
 }
 
 // tslint:disable-next-line:max-classes-per-file
@@ -45,16 +69,24 @@ export class FileQueueObject {
 export class FileUploaderService {
   public url: string = 'v1/bid_library/orbidal_documents/';
   private _queue: BehaviorSubject<FileQueueObject[]>;
+  private _failedQueue: BehaviorSubject<FailedFileQueueObject[]>;
   private _files: FileQueueObject[] = [];
+  private _failedFiles: FailedFileQueueObject[] = [];
   public numberOfUploadedFiles: number = 0;
 
   constructor(private http: HttpClient) {
     this._queue = <BehaviorSubject<FileQueueObject[]>>new BehaviorSubject(this._files);
+    this._failedQueue = <BehaviorSubject<FailedFileQueueObject[]>>new BehaviorSubject(this._failedFiles);
   }
 
   // the queue
   public get queue() {
     return this._queue.asObservable();
+  }
+
+  // the queue
+  public get failedQueue() {
+    return this._failedQueue.asObservable();
   }
 
   // public events
@@ -68,10 +100,18 @@ export class FileUploaderService {
     _.each(data, (file: any) => this._addToQueue(file));
   }
 
+  // public functions
+  public addToFailedQueue(data: any) {
+    // add file to the queue
+    _.each(data, (file: any) => this._addToFailedQueue(file));
+  }
+
   public clearQueue() {
     // clear the queue
     this._files = [];
     this._queue.next(this._files);
+    this._failedFiles = [];
+    this._failedQueue.next(this._failedFiles);
   }
 
   public uploadAll() {
@@ -89,7 +129,7 @@ export class FileUploaderService {
 
     // set the individual object events
     queueObj.upload = () => this._upload(queueObj);
-    queueObj.invalidFile = () => this._invalidFile(queueObj);
+    // queueObj.invalidFile = () => this._invalidFile(queueObj);
     queueObj.remove = () => this._removeFromQueue(queueObj);
     queueObj.cancel = () => this._cancel(queueObj);
 
@@ -98,8 +138,27 @@ export class FileUploaderService {
     this._queue.next(this._files);
   }
 
+  // private functions
+  private _addToFailedQueue(file: any) {
+    const queueObj = new FailedFileQueueObject(file);
+
+    // set the individual object events
+    // queueObj.upload = () => this._upload(queueObj);
+    // queueObj.invalidFile = () => this._invalidFile(queueObj);
+    queueObj.remove = () => this._removeFromFailedQueue(queueObj);
+    // queueObj.cancel = () => this._cancel(queueObj);
+
+    // push to the queue
+    this._failedFiles.push(queueObj);
+    this._failedQueue.next(this._failedFiles);
+  }
+
   private _removeFromQueue(queueObj: FileQueueObject) {
     _.remove(this._files, queueObj);
+  }
+
+  private _removeFromFailedQueue(queueObj: FailedFileQueueObject) {
+    _.remove(this._failedFiles, queueObj);
   }
 
   private _upload(queueObj: FileQueueObject) {
@@ -128,6 +187,8 @@ export class FileUploaderService {
           this._uploadFailed(queueObj, err);
         } else {
           // The backend returned an unsuccessful response code.
+          let error = JSON.parse(err.error)
+          queueObj.file.fileErrorTitle = error.errors.file[0];
           this._uploadFailed(queueObj, err);
         }
       }
@@ -136,28 +197,28 @@ export class FileUploaderService {
     return queueObj;
   }
 
-  public _invalidFile(queueObj: FileQueueObject) {
-    // File Validation check...
-    let invalid: boolean = false;
-    let getExtension = queueObj.file.name.split('.').pop();
-    let fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
-    if (fileTypes.find(fileType => fileType === getExtension.toLocaleLowerCase()) !== undefined) {
-      if (queueObj.file.size > 20971520) {
-        invalid = true;
-        queueObj.progress = 0;
-        queueObj.status = FileQueueStatus.Error;
-        return 'size';
-      }
-    } else {
-      invalid = true;
-      queueObj.progress = 0;
-      queueObj.status = FileQueueStatus.Error;
-      return 'type';
-      // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
-    }
+  // public _invalidFile(queueObj: FileQueueObject) {
+  //   // File Validation check...
+  //   let invalid: boolean = false;
+  //   let getExtension = queueObj.file.name.split('.').pop();
+  //   let fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
+  //   if (fileTypes.find(fileType => fileType === getExtension.toLocaleLowerCase()) !== undefined) {
+  //     if (queueObj.file.size > 20971520) {
+  //       invalid = true;
+  //       queueObj.progress = 0;
+  //       queueObj.status = FileQueueStatus.Error;
+  //       return 'size';
+  //     }
+  //   } else {
+  //     invalid = true;
+  //     queueObj.progress = 0;
+  //     queueObj.status = FileQueueStatus.Error;
+  //     return 'type';
+  //     // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
+  //   }
 
-    return false;
-  }
+  //   return false;
+  // }
 
   private _cancel(queueObj: FileQueueObject) {
     // update the FileQueueObject as cancelled

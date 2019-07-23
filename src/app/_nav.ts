@@ -69,7 +69,7 @@ export const navigation = [
         icon: 'fas fa-gavel',
     },
     {
-        name: 'Documents list',
+        name: 'Orbidal Documents List',
         url: '/documents/list',
         icon: 'fa fa-file-text',
     },

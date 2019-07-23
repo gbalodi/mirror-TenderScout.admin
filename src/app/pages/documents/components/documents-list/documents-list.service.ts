@@ -21,7 +21,7 @@ export class DocumentsListService {
   /**
    * API server call to get all Orbidal Documents list...
    */
-  public getTrbidalDocumentsListing() {
+  public getOrbidalDocumentsListing() {
     return this.httpClient.get(`v1/bid_library/orbidal_documents/documents_listing`);
   }
 
@@ -31,6 +31,32 @@ export class DocumentsListService {
    */
   public orbidalDocumentsExcludeUsers(data) {
     return this.httpClient.post(`v1/bid_library/orbidal_documents/exclude_users`, data);
+  }
+
+  /**
+   * API Server call to get all users...
+   */
+  public getUsersInfo() {
+    return this.httpClient.get(`v1/users/users_info`);
+  }
+
+  /**
+   * API server call to exclude users... 
+   * @param data 
+   */
+  public excludeUsers(data) {
+    return this.httpClient.post(`v1/bid_library/orbidal_documents/exclude_users`, data);
+  }
+
+  /**
+   * API server call to get Excluded users...
+   */
+  public getExcludedUsers() {
+    return this.httpClient.get(`v1/bid_library/orbidal_documents/excluded_users`);
+  }
+
+  public deleteOrbidalDocumentsById(id) {
+    return this.httpClient.delete(`v1/bid_library/orbidal_documents/${id}`);
   }
 
 }

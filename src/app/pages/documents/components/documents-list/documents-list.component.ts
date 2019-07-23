@@ -1,7 +1,8 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap';
+import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap';
 import { DocumentsListService } from './documents-list.service';
 import * as _ from 'lodash';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-documents-list',
@@ -17,23 +18,52 @@ export class DocumentsListComponent implements OnInit {
   public fileType: boolean = false;
   public underFileSize: boolean = false;
   public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
-  public usersList: Array<any> = [
-    { item_id: 1, item_text: 'Mumbai' },
-    { item_id: 2, item_text: 'Bangaluru' },
-    { item_id: 3, item_text: 'Pune' },
-    { item_id: 4, item_text: 'Navsari' },
-    { item_id: 5, item_text: 'New Delhi' }
-  ];
+  public usersList: Array<any> = [];
   public selectedUsers = [];
   public dropdownSettings = {};
+  public ngbModalOptions: ModalOptions = {
+    // backdrop: 'static',
+    keyboard: true,
+    class: 'upload_modal-holder'
+  };
 
   constructor(
     private bsModalService: BsModalService,
-    private documentsListService: DocumentsListService
-  ) { }
+    private documentsListService: DocumentsListService,
+    private toasterService: ToastrService
+  ) {
+    // Bootstrap modal On closed/hide/hidden... 
+    // this.bsModalService.onHide.subscribe(result => {
+    //   console.log('results', result);
+    // });
+  }
 
   ngOnInit() {
-    this.documentsListService.getTrbidalDocumentsListing().subscribe((res: any) => {
+    this.callGetOrbidalDocumentsListing();
+
+    this.dropdownSettings = {
+      singleSelection: false,
+      idField: 'id',
+      textField: 'name',
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 3,
+      allowSearchFilter: true
+    };
+
+    this.callGetUsersInfoService();
+    this.callGetExcludedUsersService();
+  }
+
+  call(event){
+    console.log(event);
+  }
+
+  /**
+   * API Service call to get all documents list...
+   */
+  public callGetOrbidalDocumentsListing() {
+    this.documentsListService.getOrbidalDocumentsListing().subscribe((res: any) => {
       if (res) {
         res = JSON.parse(res)
         this.documentsList = res;
@@ -44,58 +74,49 @@ export class DocumentsListComponent implements OnInit {
       this.documentsList = [];
       console.log(error);
     });
+  }
 
-    this.dropdownSettings = {
-      singleSelection: false,
-      idField: 'item_id',
-      textField: 'item_text',
-      selectAllText: 'Select All',
-      unSelectAllText: 'UnSelect All',
-      itemsShowLimit: 3,
-      allowSearchFilter: true
-    };
+  /**
+   * Service call to get users Info list...
+   */
+  public callGetUsersInfoService() {
+    this.documentsListService.getUsersInfo().subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.usersList = res.data;
+    }, error => {
+      this.usersList = [];
+      console.log(error);
+    });
+  }
+
+  /**
+   * Service call to get Excluded users list...
+   */
+  public callGetExcludedUsersService() {
+    this.documentsListService.getExcludedUsers().subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.selectedUsers = res.data;
+    }, error => {
+      console.log(error);
+    });
   }
 
   public uploadDocsOpenModal(template: TemplateRef<any>) {
-    this.uploadDocsModalRef = this.bsModalService.show(template, { class: 'upload_modal-holder' });
+    this.uploadDocsModalRef = this.bsModalService.show(template, this.ngbModalOptions);
   }
   public excludeUsersOpenModal(template: TemplateRef<any>) {
-    this.excludeUsersModalRef = this.bsModalService.show(template, { class: 'exclude_modal-holder' });
+    this.excludeUsersModalRef = this.bsModalService.show(template, this.ngbModalOptions);
   }
 
-  public handleFilesInput(files: FileList) {
-    console.log(files);
-    this.uploadedFiles = [];
-    _.forEach(files, (file => {
-      // looping code
-      let getExtension = file.name.split('.');
-      if (this.fileTypes.find(fileType => fileType === getExtension[getExtension.length - 1].toLocaleLowerCase()) !== undefined) {
-        if (file.size <= 44743292) {
-          this.uploadedFiles.push(file);
-          this.fileType = true;
-          this.underFileSize = true;
-        } else {
-          this.underFileSize = false;
-        }
-      } else {
-        this.fileType = false;
-      }
-    }));
-
-    console.log('this.fileToUpload', this.uploadedFiles)
-  }
-
-  public uploadDocuments() {
-    const formData: FormData = new FormData();
-    _.forEach(this.uploadedFiles, (file => {
-      // looping code
-      formData.append('uploaded_files[file]', file);
-      // formData.append('bid_asset[bid_asset_tags_attributes][][tag_id]', element.id);
-    }));
-    this.documentsListService.orbidalDocumentsUpload(formData).subscribe((res: any) => {
-      res;
+  public excludeUsersEvent() {
+    let userIds: number = _.map(this.selectedUsers, 'id');;
+    this.documentsListService.excludeUsers({ orbidal_document: { user_ids: userIds } }).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.toasterService.success(`${res.success}`, 'Success');
+      this.excludeUsersModalRef.hide();
+      this.callGetExcludedUsersService();
     }, error => {
-
+      console.log(error);
     })
   }
 
@@ -105,6 +126,7 @@ export class DocumentsListComponent implements OnInit {
    */
   public onCompleteItem($event) {
     console.log($event);
+    this.callGetOrbidalDocumentsListing();
   }
 
   public onItemSelect(item: any) {
@@ -113,6 +135,5 @@ export class DocumentsListComponent implements OnInit {
   public onSelectAll(items: any) {
     console.log(items);
   }
-
 
 }

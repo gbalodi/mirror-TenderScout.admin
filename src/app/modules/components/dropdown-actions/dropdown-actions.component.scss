@@ -1,0 +1,77 @@
+// @import '../../../../scss/custom';
+
+:host {
+  display: block;
+  position: relative;
+  z-index: 5;
+
+  &.show {
+    z-index: 8;
+  }
+
+  &.show-toggle {
+    .wrap {
+      position: relative;
+      z-index: 1;
+    }
+
+    .dropdown {
+      top: -10px;
+      right: -5px;
+    }
+  }
+}
+
+.dropdown {
+  font-size: 15px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: white;
+  padding: 15px 10px 19px;
+  box-shadow: 0 10px 15px -5px rgba(#3d5270, .25);
+  border-radius: 4px;
+  min-width: 200px;
+
+  & > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+}
+
+.label {
+  color: #3d5270;
+  opacity: .4;
+  font-weight: bold;
+  padding: 0 27px;
+  margin-bottom: 11px;
+  text-align: left;
+}
+
+button {
+  background: none;
+  color: #424242;
+  box-shadow: none;
+  text-align: left;
+  padding: 10px 27px;
+  display: block;
+  width: 100%;
+  border-radius: 4px;
+  font-size: inherit;
+
+  &:active,
+  &:focus,
+  &:hover {
+    box-shadow: none;
+  }
+
+  &:hover {
+    background: #f4f6f8;
+  }
+
+  &:active,
+  &:focus {
+    background: rgba(#f4f6f8, .8);
+  }
+}

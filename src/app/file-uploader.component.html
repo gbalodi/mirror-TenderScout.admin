@@ -1,9 +1,9 @@
 <div class="row">
 
 	<file-drop headertext="" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-		(onFileLeave)="fileLeave($event)" multiple="true">
+		(onFileLeave)="fileLeave($event)" multiple="true" >
 
-		<div class="drag-contbx">
+		<div class="drag-contbx" (click)="fileInput.click()">
 			<h1 class="">Drag & drop</h1>
 			<p class="or"><span>or</span></p>
 			<div class="addfile-btn">
@@ -12,7 +12,7 @@
 					File</label> -->
 				<input multiple type="file" #fileInput data-max-size="32"
 					accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
-					class="upload-file-input" id="file-name" (change)="addToQueue()">
+					class="upload-file-input" id="file-name" (click)="resetArray()" (change)="addToQueue()">
 			</div>
 		</div>
 	</file-drop>
@@ -35,27 +35,48 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr *ngFor="let item of queue | async; let i = index;">
-					<td>{{ item?.file?.name }}</td>
-					<td class="text-right">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
-					<td>{{ item.progress + ' %' }}</td>
-					<td>
-						<span *ngIf="item.isPending()" class="tag tag-default"></span>
-						<span *ngIf="item.isSuccess()" class="tag tag-success"></span>
-						<span *ngIf="item.inProgress()" class="tag tag-warning"></span>
-						<span *ngIf="item.isError()" class="tag tag-danger"></span>
-					</td>
-					<td class="text-right">
-						<button tooltip="Upload file" (click)="upload(item)" *ngIf="item.isUploadable()">
-							<i class="fa fa-upload"></i>
-						</button>
-						<button tooltip="Cancel upload" (click)="item.cancel()" *ngIf="item.inProgress()">
-							<i class="fa fa-times-circle"></i>
-						</button>
-						<button tooltip="Remove from queue" [disabled]="item.inProgress() || item.isSuccess()" (click)="item.remove()">
-							<i class="fa fa-trash"></i>
-						</button>
-					</td>
+				<tr *ngFor="let item of failedQueue | async; let i = index" [title]="item.file.fileErrorTitle? item.file.fileErrorTitle: ''">
+					<ng-container>
+						{{item | json}}
+						<td>{{ item?.file?.name }}</td>
+						<td class="text-right">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+						<td>0 %</td>
+						<td>
+							<span class="tag tag-danger"></span>
+						</td>
+						<td class="text-right">
+							<button tooltip="Remove from queue" (click)="item.remove()">
+								<i class="fa fa-trash"></i>
+							</button>
+						</td>
+					</ng-container>
+				</tr>
+
+				<tr *ngFor="let item of queue | async; let i = index" [title]="item.file.fileErrorTitle? item.file.fileErrorTitle: ''">
+					<ng-container>
+						<td>{{ item?.file?.name }}</td>
+						<td class="text-right">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
+						<td>{{ item.progress + ' %' }}</td>
+						<td>
+							<span *ngIf="item.isPending()" class="tag tag-default"></span>
+							<span *ngIf="item.isSuccess()" class="tag tag-success"></span>
+							<span *ngIf="item.inProgress()" class="tag tag-warning"></span>
+							<span *ngIf="item.isError()" class="tag tag-danger"></span>
+						</td>
+						<td class="text-right">
+							<button tooltip="Upload file" (click)="upload(item)" *ngIf="item.isUploadable()">
+								<i class="fa fa-upload"></i>
+							</button>
+							<button tooltip="Cancel upload" (click)="item.cancel()" *ngIf="item.inProgress()">
+								<i class="fa fa-times-circle"></i>
+							</button>
+							<button tooltip="Remove from queue"
+								[ngClass]="{'disabled': item.inProgress() || item.isSuccess()}"
+								[disabled]="item.inProgress() || item.isSuccess()" (click)="item.remove()">
+								<i class="fa fa-trash"></i>
+							</button>
+						</td>
+					</ng-container>
 				</tr>
 			</tbody>
 		</table>
@@ -63,8 +84,14 @@
 		<!-- {{uploader.numberOfUploadedFiles}} ------------------- {{(queue | async).length}} -->
 
 		<div>
-			<button class="button button-clear" (click)="uploader.clearQueue(); fileInput.value = ''">Reset</button>
-			<button class="button button-primary upload-btn" [disabled]="uploader.numberOfUploadedFiles === (queue | async).length" (click)="uploader.uploadAll()">Upload all</button>
+			<button class="button button-clear"
+				[ngClass]="{'disabled': (queue | async).length === 0 && (failedQueue | async).length === 0}"
+				[disabled]="(queue | async).length === 0 && (failedQueue | async).length === 0"
+				(click)="uploader.clearQueue(); fileInput.value = ''">Reset</button>
+			<button class="button button-primary upload-btn"
+				[ngClass]="{'disabled': uploader.numberOfUploadedFiles === (queue | async).length}"
+				[disabled]="uploader.numberOfUploadedFiles === (queue | async).length"
+				(click)="uploader.uploadAll()">Upload all</button>
 		</div>
 	</div>
 

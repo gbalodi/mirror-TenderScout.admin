@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { DocumentsComponent } from './components/documents/documents.component';
+import { DropdownActionsComponent } from './components/dropdown-actions/dropdown-actions.component';
+import { KeysPipe } from './pipes/keys.pipe';
 
 @NgModule({
     imports: [
@@ -32,10 +34,14 @@ import { DocumentsComponent } from './components/documents/documents.component';
         Ng2SmartTableModule,
         ModalModule,
         PaginationModule,
-        DocumentsComponent
+        DocumentsComponent,
+        DropdownActionsComponent,
+        KeysPipe
     ],
     declarations: [
-        DocumentsComponent
+        DocumentsComponent,
+        DropdownActionsComponent,
+        KeysPipe
     ],
 })
 export class SharedModule { }

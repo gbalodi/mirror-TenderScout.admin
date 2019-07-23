@@ -100,6 +100,7 @@
   width: 100%;
   padding: 0 15px;
   margin-bottom: 20px;
+  cursor: pointer;
 }
  
 .upload_modal-holder h1 {
@@ -131,10 +132,13 @@
   font-size: 16px;
   color: #545454;
   font-weight: 600;
+  cursor: pointer;
 }
 .upload_modal-holder input, .upload_modal-holder textarea {
   outline: none;
   color: #4e4e4e;
+
+  display: none;
 }
 .upload_modal-holder .col-md-9 {
   flex: 0 0 100%;
