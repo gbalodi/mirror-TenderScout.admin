@@ -32,7 +32,7 @@ export class DocumentsListComponent implements OnInit {
     private documentsListService: DocumentsListService,
     private toasterService: ToastrService
   ) {
-    // Bootstrap modal On closed/hide/hidden... 
+    // // Bootstrap modal On closed/hide/hidden... 
     // this.bsModalService.onHide.subscribe(result => {
     //   console.log('results', result);
     // });
@@ -106,6 +106,7 @@ export class DocumentsListComponent implements OnInit {
   }
   public excludeUsersOpenModal(template: TemplateRef<any>) {
     this.excludeUsersModalRef = this.bsModalService.show(template, this.ngbModalOptions);
+    this.callGetExcludedUsersService();
   }
 
   public excludeUsersEvent() {

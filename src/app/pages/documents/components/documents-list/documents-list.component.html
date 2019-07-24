@@ -1,23 +1,23 @@
 <div class="document_list-holder">
+
   <div class="buttons-holder">
     <button class="exclude_btn" role="button" (click)="excludeUsersOpenModal(excludeUsers)">Exclude Users</button>
     <button class="upload_btn" role="button" (click)="uploadDocsOpenModal(uploadDocs)">Upload Docs</button>
   </div>
 
-
   <div class="list_contbx-holder">
     <div class="row">
       <div class="col-md-12 cstm_pdng">
-        <app-documents *ngFor="let document of documentsList" (updateDocumentsList)="callGetOrbidalDocumentsListing()" [document]="document"></app-documents>
+        <app-documents *ngFor="let document of documentsList" (updateDocumentsList)="callGetOrbidalDocumentsListing()"
+          [document]="document"></app-documents>
         <p *ngIf="documentsList.length == 0">No Documents available for listing. </p>
       </div>
     </div>
-
   </div>
 
 </div>
 
-
+<!-- Modal for Upload Documents -->
 <ng-template #uploadDocs>
   <div class="modal-header">
     <h4 class="modal-title pull-left">UPLOAD TO ORBIDAL FOR ALL USERS</h4>
@@ -31,6 +31,7 @@
   </div>
 </ng-template>
 
+<!-- Modal for Exclude Users -->
 <ng-template #excludeUsers>
   <div class="modal-header">
     <h4 class="modal-title pull-left">EXCLUDE USERS FROM ACCESSING ORBIDAL FOLDER</h4>
