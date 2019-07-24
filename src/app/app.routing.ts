@@ -4,7 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AuthGuard } from './modules/authorization/services/auth-guard.service';
 
 // Import Containers
-import { FullLayoutComponent, SimpleLayoutComponent } from './containers';
+import { FullLayoutComponent } from './containers';
 
 export const routes: Routes = [
     {

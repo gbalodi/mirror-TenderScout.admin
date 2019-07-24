@@ -23,7 +23,6 @@ export class DocumentsListComponent implements OnInit {
   public initialSelectedUsers = [];
   public dropdownSettings = {};
   public ngbModalOptions: ModalOptions = {
-    // backdrop: 'static',
     keyboard: true,
     class: 'upload_modal-holder'
   };
@@ -66,7 +65,6 @@ export class DocumentsListComponent implements OnInit {
   public callGetOrbidalDocumentsListing() {
     this.documentsListService.getOrbidalDocumentsListing().subscribe((res: any) => {
       if (res) {
-        res = JSON.parse(res)
         this.documentsList = res;
       } else {
         this.documentsList = [];
@@ -102,13 +100,25 @@ export class DocumentsListComponent implements OnInit {
     });
   }
 
+  /**
+   * To Show Upload Documents Modal...
+   * @param template 
+   */
   public uploadDocsOpenModal(template: TemplateRef<any>) {
     this.uploadDocsModalRef = this.bsModalService.show(template, this.ngbModalOptions);
   }
+
+  /**
+   * To Show Exclude Users Modal...
+   * @param template 
+   */
   public excludeUsersOpenModal(template: TemplateRef<any>) {
     this.excludeUsersModalRef = this.bsModalService.show(template, this.ngbModalOptions);
   }
 
+  /**
+   * API service call to Exclude users...
+   */
   public excludeUsersEvent() {
     let userIds: number = _.map(this.selectedUsers, 'id');;
     this.documentsListService.excludeUsers({ orbidal_document: { user_ids: userIds } }).subscribe((res: any) => {

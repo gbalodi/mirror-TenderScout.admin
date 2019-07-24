@@ -120,7 +120,6 @@ export class FileUploaderService {
 
     // set the individual object events
     queueObj.upload = () => this._upload(queueObj);
-    // queueObj.invalidFile = () => this._invalidFile(queueObj);
     queueObj.remove = () => this._removeFromQueue(queueObj);
     queueObj.cancel = () => this._cancel(queueObj);
 
@@ -134,10 +133,7 @@ export class FileUploaderService {
     const queueObj = new FailedFileQueueObject(file);
 
     // set the individual object events
-    // queueObj.upload = () => this._upload(queueObj);
-    // queueObj.invalidFile = () => this._invalidFile(queueObj);
     queueObj.remove = () => this._removeFromFailedQueue(queueObj);
-    // queueObj.cancel = () => this._cancel(queueObj);
 
     // push to the queue
     this._failedFiles.push(queueObj);

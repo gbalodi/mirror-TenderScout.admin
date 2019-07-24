@@ -86,6 +86,8 @@ input[type=checkbox], input[type=radio] {
 }
 .modal-header .close:hover, .modal-header .close:focus {
     opacity: 1;
+    background: transparent;
+    border: none;
 }
 .modal-header .close span {
     color: #fff;

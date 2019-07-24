@@ -1,9 +1,9 @@
 <div class="row">
 
 	<file-drop headertext="" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-		(onFileLeave)="fileLeave($event)" multiple="true">
-
-		<div class="drag-contbx" (click)="fileInput.click()">
+		(onFileLeave)="fileLeave($event)" multiple="true" >
+		<label class="button drag_file-holder" for="file-name">
+		<div class="drag-contbx">
 			<h1 class="">Drag & drop</h1>
 			<p class="or"><span>or</span></p>
 			<div class="addfile-btn">
@@ -13,6 +13,7 @@
 					class="upload-file-input" id="file-name" (click)="resetArray()" (change)="addToQueue()">
 			</div>
 		</div>
+		</label>
 	</file-drop>
 
 	<div class="col-md-9">
@@ -31,7 +32,6 @@
 				<tr *ngFor="let item of failedQueue | async; let i = index"
 					[title]="item.file.fileErrorTitle? item.file.fileErrorTitle: ''">
 					<ng-container>
-						{{item | json}}
 						<td>{{ item?.file?.name }}</td>
 						<td class="text-right">{{ item?.file?.size/1024/1024 | number:'.2' }} MB</td>
 						<td>0 %</td>
@@ -76,11 +76,11 @@
 			</tbody>
 		</table>
 
-		<div>
+		<div class="popup_btn-holder">
 			<button class="button button-clear"
 				[ngClass]="{'disabled': (queue | async).length === 0 && (failedQueue | async).length === 0}"
 				[disabled]="(queue | async).length === 0 && (failedQueue | async).length === 0"
-				(click)="uploader.clearQueue(); fileInput.value = ''">Reset</button>
+				(click)="fileInput.value = ''; clearQueue(); resetArray()">Reset</button>
 			<button class="button button-primary upload-btn"
 				[ngClass]="{'disabled': uploader.numberOfUploadedFiles === (queue | async).length}"
 				[disabled]="uploader.numberOfUploadedFiles === (queue | async).length"

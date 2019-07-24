@@ -86,6 +86,10 @@ export class FileUploaderComponent implements OnInit {
     item.upload(item);
   }
 
+  /**
+   * To Show warning alert according to it's response type... 
+   * @param item 
+   */
   public uploadValidationHandling(item) {
     let response = this._invalidFile(item)
     if (response === 'size') {
@@ -93,14 +97,18 @@ export class FileUploaderComponent implements OnInit {
       item.fileErrorTitle = 'File Size should be under 20 MB.';
       this.validationFailedFiles.push(item);
     } else if (response === 'type') {
-      this.toasterService.warning(`File Type Should be 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'.`, 'Warning');
-      item.fileErrorTitle = `File Type Should be 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'.`;
+      this.toasterService.warning(`File Type Should be xls, xlsx, jpg, jpeg, png, pdf, csv, doc, docx, pptx, ppt.`, 'Warning');
+      item.fileErrorTitle = `File Type Should be xls, xlsx, jpg, jpeg, png, pdf, csv, doc, docx, pptx, ppt.`;
       this.validationFailedFiles.push(item);
     } else if (!response) {
       this.validatedFiles.push(item);
     }
   }
 
+  /**
+   * Event to check whether the selected file are under 'Type and Size'...
+   * @param queueObj 
+   */
   public _invalidFile(queueObj) {
     // File Validation check...
     let getExtension = queueObj.name.split('.').pop();
@@ -122,6 +130,7 @@ export class FileUploaderComponent implements OnInit {
   public fileOver(event) {
     console.log(event);
     this.resetArray();
+    this.clearQueue();
   }
 
   /**
@@ -132,11 +141,22 @@ export class FileUploaderComponent implements OnInit {
     console.log(event);
   }
 
+  /**
+   * Just to reset validation files array...
+   */
   public resetArray() {
+    this.validationFailedFiles = [];
+    this.validatedFiles = [];
+  }
+
+  /**
+   * Clear queue from the file uploader service...
+   */
+  public clearQueue() {
     this.uploader.clearQueue();
   }
 
   ngOnDestroy(): void {
-    this.resetArray();
+    this.clearQueue();
   }
 }

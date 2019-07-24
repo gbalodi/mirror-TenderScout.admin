@@ -3,19 +3,19 @@
     <div class="uploaded-files-holder">
       <div class="uploaded-filesbr">
         <div class="upload-iconbr">
-          <span class="file-icon"><img src="assets/img/csv-icon.png"></span>
+          <span class="file-icon"><img [src]="document.img"></span>
         </div>
         <div class="upload-txbr">
           <span class="file-name" title="Active_Condo_s_Nov_13-converted.csv">{{document.file_name}}</span>
           <span class="file-size">{{document.file_size}}</span>
           <span class="file-cancel">
             <label class="dropdown">
-              <div class="dd-button">
+              <div class="controls">
                 <!-- <span><img alt="" src="/assets/img/drop-img-blue.png" class="drop-open"></span> -->
 
-                <app-dropdown-actions class="show-toggle" label="" [actions]="actions"
-                  (onSelect)="performActionsEvent($event)" (click)="stopPropagation($event)">
-                  <button class="actions"></button>
+                <app-dropdown-actions class="show-toggle" [actions]="actions"
+                  (onSelect)="performActionsEvent($event)">
+                  <button class="actions"><i class="fas fa-ellipsis-v"></i></button>
                 </app-dropdown-actions>
               </div>
               <!-- <input class="dd-input" id="test" type="checkbox">

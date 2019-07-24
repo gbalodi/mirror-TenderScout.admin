@@ -7,6 +7,7 @@ interface IDocument {
   file_size: string
   file_url: string
   id: number
+  img: string
 };
 
 @Component({
