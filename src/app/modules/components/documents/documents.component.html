@@ -10,12 +10,12 @@
           <span class="file-size">{{document.file_size}}</span>
           <span class="file-cancel">
             <label class="dropdown">
-              <div class="dd-button">
+              <div class="controls">
                 <!-- <span><img alt="" src="/assets/img/drop-img-blue.png" class="drop-open"></span> -->
 
                 <app-dropdown-actions class="show-toggle" label="" [actions]="actions"
                   (onSelect)="performActionsEvent($event)" (click)="stopPropagation($event)">
-                  <button class="actions"></button>
+                  <button class="actions"><i class="fas fa-ellipsis-v"></i></button>
                 </app-dropdown-actions>
               </div>
               <!-- <input class="dd-input" id="test" type="checkbox">

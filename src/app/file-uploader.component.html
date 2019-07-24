@@ -2,8 +2,8 @@
 
 	<file-drop headertext="" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
 		(onFileLeave)="fileLeave($event)" multiple="true" >
-
-		<div class="drag-contbx" (click)="fileInput.click()">
+		<label class="button drag_file-holder" for="file-name">
+		<div class="drag-contbx">
 			<h1 class="">Drag & drop</h1>
 			<p class="or"><span>or</span></p>
 			<div class="addfile-btn">
@@ -15,6 +15,7 @@
 					class="upload-file-input" id="file-name" (click)="resetArray()" (change)="addToQueue()">
 			</div>
 		</div>
+		</label>
 	</file-drop>
 
 	<!-- <div class="col-md-3">
