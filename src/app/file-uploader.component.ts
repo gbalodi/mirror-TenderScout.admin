@@ -1,10 +1,9 @@
 import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
 import { FileQueueObject, FileUploaderService, FailedFileQueueObject } from './file-uploader.service';
 import { Observable } from 'rxjs';
-import { UploadEvent, UploadFile, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
+import { UploadEvent, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
 import * as _ from 'lodash';
 import { ToastrService } from 'ngx-toastr';
-
 @Component({
   selector: 'file-uploader, [file-uploader]',
   templateUrl: 'file-uploader.component.html',
@@ -19,14 +18,11 @@ export class FileUploaderComponent implements OnInit {
   public queueData: Array<any> = [];
   public validationFailedFiles: Array<any> = [];
   public validatedFiles: Array<any> = [];
-  // public fileErrorTitle: string = '';  
 
   constructor(
     public uploader: FileUploaderService,
     private toasterService: ToastrService,
-  ) {
-    // this.resetArray();
-  }
+  ) { }
 
   ngOnInit() {
     this.queue = this.uploader.queue;
@@ -37,18 +33,13 @@ export class FileUploaderComponent implements OnInit {
     this.uploader.onCompleteItem = this.completeItem;
   }
 
-  completeItem = (item: FileQueueObject, response: any) => {
+  public completeItem = (item: FileQueueObject, response: any) => {
     this.onCompleteItem.emit({ item, response });
   }
 
-  addToQueue() {
+  public addToQueue() {
     const fileBrowser = this.fileInput.nativeElement;
-    // const validatedFiles = fileBrowser.files;
     this.selectedFilesFiler(fileBrowser.files);
-    // _.each(fileBrowser.files, (file: any) => this.uploadValidationHandling(file));
-    // this.uploader.addToQueue(this.validatedFiles);
-    // this.uploader.addToFailedQueue(this.validationFailedFiles);
-    // this.uploader.numberOfUploadedFiles = fileBrowser.files.length;
   }
 
   public selectedFilesFiler(files) {
@@ -82,19 +73,17 @@ export class FileUploaderComponent implements OnInit {
       }
     }
     setTimeout(() => {
-      // this.uploader.addToQueue(files);
       this.selectedFilesFiler(files);
-      // this.uploader.numberOfUploadedFiles = files.length;
     }, 2000);
 
   }
 
+  /**
+   * Upload File...
+   * @param item 
+   */
   public upload(item) {
-    // let valid: boolean = this.uploadValidationHandling(item);
-    // if (valid) {
-    // item.fileErrorTitle = '';
     item.upload(item);
-    // }
   }
 
   public uploadValidationHandling(item) {
@@ -122,9 +111,7 @@ export class FileUploaderComponent implements OnInit {
       }
     } else {
       return 'type';
-      // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
     }
-
     return false;
   }
 
@@ -144,19 +131,6 @@ export class FileUploaderComponent implements OnInit {
   public fileLeave(event) {
     console.log(event);
   }
-
-  // public checkStatus(item) {
-  //   let valid: boolean = this.uploadValidationHandling(item);
-  //   if (valid) {
-  //     let isError: boolean = item.isError();
-  //     if (isError) {
-  //       item.fileErrorTitle = "Current file already exists in orbidal folder for this user";
-  //     } else {
-  //       item.fileErrorTitle = "";
-  //     }
-  //   }
-  //   return true;
-  // }
 
   public resetArray() {
     this.uploader.clearQueue();

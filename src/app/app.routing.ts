@@ -38,7 +38,7 @@ export const routes: Routes = [
                 loadChildren: './pages/tenders/tenders.module#TendersModule'
             },
             {
-                path: 'documents',
+                path: 'orbidal-documents',
                 loadChildren: './pages/documents/documents.module#DocumentsModule'
             },
         ]

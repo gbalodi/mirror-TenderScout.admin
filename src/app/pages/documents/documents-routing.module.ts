@@ -4,10 +4,10 @@ import { DocumentsListComponent } from './components/documents-list/documents-li
 
 const routes: Routes = [
   {
-    path: 'list',
+    path: '',
     component: DocumentsListComponent,
     data: {
-        title: 'Documents List'
+        title: 'Orbidal  Documents'
     },
 
 }

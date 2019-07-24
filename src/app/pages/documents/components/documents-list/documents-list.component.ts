@@ -20,6 +20,7 @@ export class DocumentsListComponent implements OnInit {
   public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
   public usersList: Array<any> = [];
   public selectedUsers = [];
+  public initialSelectedUsers = [];
   public dropdownSettings = {};
   public ngbModalOptions: ModalOptions = {
     // backdrop: 'static',
@@ -33,9 +34,9 @@ export class DocumentsListComponent implements OnInit {
     private toasterService: ToastrService
   ) {
     // // Bootstrap modal On closed/hide/hidden... 
-    // this.bsModalService.onHide.subscribe(result => {
-    //   console.log('results', result);
-    // });
+    this.bsModalService.onHide.subscribe(result => {
+      this.selectedUsers = [...this.initialSelectedUsers];
+    });
   }
 
   ngOnInit() {
@@ -94,8 +95,8 @@ export class DocumentsListComponent implements OnInit {
    */
   public callGetExcludedUsersService() {
     this.documentsListService.getExcludedUsers().subscribe((res: any) => {
-      res = JSON.parse(res);
-      this.selectedUsers = res.data;
+      this.selectedUsers = JSON.parse(res).data;
+      this.initialSelectedUsers = [...this.selectedUsers];
     }, error => {
       console.log(error);
     });
@@ -106,7 +107,6 @@ export class DocumentsListComponent implements OnInit {
   }
   public excludeUsersOpenModal(template: TemplateRef<any>) {
     this.excludeUsersModalRef = this.bsModalService.show(template, this.ngbModalOptions);
-    this.callGetExcludedUsersService();
   }
 
   public excludeUsersEvent() {

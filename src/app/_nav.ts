@@ -70,7 +70,7 @@ export const navigation = [
     },
     {
         name: 'Orbidal Documents List',
-        url: '/documents/list',
+        url: '/orbidal-documents',
         icon: 'fa fa-file-text',
     },
 ];

@@ -28,8 +28,6 @@ import { FileDropModule } from 'ngx-file-drop';
     BsModalRef,
     FileUploaderService
   ],
-  entryComponents: [
-    
-  ]
+  entryComponents: []
 })
 export class DocumentsModule { }

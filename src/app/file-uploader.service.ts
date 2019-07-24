@@ -3,7 +3,6 @@ import { HttpClient, HttpErrorResponse, HttpRequest, HttpResponse } from '@angul
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subscription } from 'rxjs';
 import { HttpEventType } from '@angular/common/http';
-import { ToastrService } from 'ngx-toastr';
 
 export enum FileQueueStatus {
   Pending,
@@ -18,7 +17,6 @@ export class FileQueueObject {
   public progress: number = 0;
   public request: Subscription = null;
   public response: HttpResponse<any> | HttpErrorResponse = null;
-  public fileErrorTitle: string;
 
   constructor(
     file: any
@@ -30,7 +28,6 @@ export class FileQueueObject {
   public upload = () => { /* set in service */ };
   public cancel = () => { /* set in service */ };
   public remove = () => { /* set in service */ };
-  // public invalidFile = () =>{ /* set in service */ }
 
   // statuses
   public isPending = () => this.status === FileQueueStatus.Pending;
@@ -38,17 +35,12 @@ export class FileQueueObject {
   public isError = () => this.status === FileQueueStatus.Error;
   public inProgress = () => this.status === FileQueueStatus.Progress;
   public isUploadable = () => this.status === FileQueueStatus.Pending;
-
-  // Error Title message
-
 }
-
 
 export class FailedFileQueueObject {
   public file: any;
   public status: FileQueueStatus = FileQueueStatus.Error;
   public progress: number = 0;
-  public fileErrorTitle: string;
 
   constructor(
     file: any
@@ -58,7 +50,6 @@ export class FailedFileQueueObject {
 
   // actions
   public remove = () => { /* set in service */ };
-  // public invalidFile = () =>{ /* set in service */ }
 
   // statuses
   public isError = () => this.status === FileQueueStatus.Error;
@@ -196,29 +187,6 @@ export class FileUploaderService {
 
     return queueObj;
   }
-
-  // public _invalidFile(queueObj: FileQueueObject) {
-  //   // File Validation check...
-  //   let invalid: boolean = false;
-  //   let getExtension = queueObj.file.name.split('.').pop();
-  //   let fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
-  //   if (fileTypes.find(fileType => fileType === getExtension.toLocaleLowerCase()) !== undefined) {
-  //     if (queueObj.file.size > 20971520) {
-  //       invalid = true;
-  //       queueObj.progress = 0;
-  //       queueObj.status = FileQueueStatus.Error;
-  //       return 'size';
-  //     }
-  //   } else {
-  //     invalid = true;
-  //     queueObj.progress = 0;
-  //     queueObj.status = FileQueueStatus.Error;
-  //     return 'type';
-  //     // this.toastrService.warning(`${'File type should be any of these "xls,xlsx, jpg, jpeg, png, pdf, csv, doc, docx, .pptx, .ppt"'}`, 'Warning');
-  //   }
-
-  //   return false;
-  // }
 
   private _cancel(queueObj: FileQueueObject) {
     // update the FileQueueObject as cancelled
