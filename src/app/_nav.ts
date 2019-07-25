@@ -71,6 +71,6 @@ export const navigation = [
     {
         name: 'Orbidal Documents List',
         url: '/orbidal-documents',
-        icon: 'fa fa-file-text',
+        icon: 'fas fa-list-ul',
     },
 ];
