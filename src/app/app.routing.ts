@@ -41,6 +41,10 @@ export const routes: Routes = [
                 path: 'orbidal-documents',
                 loadChildren: './pages/documents/documents.module#DocumentsModule'
             },
+            {
+                path: 'scraper',
+                loadChildren: './pages/scraper/scraper.module#ScraperModule'
+            }
         ]
     }
 ];

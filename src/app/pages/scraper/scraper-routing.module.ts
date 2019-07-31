@@ -1,13 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { DocumentsListComponent } from './components/documents-list/documents-list.component';
+import { ScraperListsComponent } from './components/scraper-lists/scraper-lists.component';
 
 const routes: Routes = [
   {
-    path: '',
-    component: DocumentsListComponent,
+    path: 'list',
+    component: ScraperListsComponent,
     data: {
-      title: 'Orbidal  Documents'
+      title: 'Scraper Status'
     }
   }
 ];
@@ -16,4 +16,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class DocumentsRoutingModule { }
+export class ScraperRoutingModule { }

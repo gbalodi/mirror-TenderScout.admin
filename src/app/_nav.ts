@@ -73,4 +73,9 @@ export const navigation = [
         url: '/orbidal-documents',
         icon: 'fas fa-list-ul',
     },
+    {
+        name: 'Scraper Status',
+        url: '/scraper/list',
+        icon: 'fas fa-address-book',
+    }
 ];
