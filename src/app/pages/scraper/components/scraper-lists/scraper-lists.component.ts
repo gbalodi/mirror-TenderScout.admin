@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { LocalDataSource } from 'ng2-smart-table';
+import { ScraperListsService } from './scraper-lists.service';
 
 @Component({
   selector: 'app-scraper-lists',
@@ -20,37 +21,65 @@ export class ScraperListsComponent implements OnInit {
       edit: false
     },
     columns: {
-      source: {
-        title: 'Source',
-        editable: false
+      Source: {
+        title: 'source_name',
+        editable: false,
+        filter: false
       },
       url: {
         title: 'URL',
-        editable: false
+        editable: false,
+        filter: false
       },
-      date_time: {
-        title: 'Date/time (of ingestion)',
-        editable: false
+      ingested_on: {
+        title: 'Ingestion DateTime',
+        editable: false,
+        filter: false
       },
-      records_pulled: {
+      total_scraped_count: {
         title: '# Records pulled',
-        editable: false
+        editable: false,
+        filter: false
       },
-      date_of_most_recent_record_pulled: {
-        title: 'Date of most recent record pulled',
-        editable: false
+      created_count: {
+        title: '# Created Today',
+        editable: false,
+        filter: false
+      },
+      last_scraped_record: {
+        title: 'Recent pulled record',
+        editable: false,
+        filter: false
+      },
+      status: {
+        title: 'Status',
+        editable: false,
+        filter: false
       }
     }
   };
 
-  constructor() { }
+  constructor(
+    private scraperListsService: ScraperListsService
+  ) { }
 
   ngOnInit() {
+    this.getScrappers();
   }
 
   public onEditConfirm(event): void {
     console.log(event);
     if (event.data.role !== event.newData.role) { }
+  }
+
+  public getScrappers() {
+    this.scraperListsService.getScrappers().subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.source.setPaging(1, res.length, true);
+      this.source.load(res);
+    }, error => {
+      console.log(error);
+    })
   }
 
 }
