@@ -9,6 +9,14 @@ import { ModalModule, PaginationModule } from 'ngx-bootstrap';
 import { DocumentsComponent } from './components/documents/documents.component';
 import { DropdownActionsComponent } from './components/dropdown-actions/dropdown-actions.component';
 import { KeysPipe } from './pipes/keys.pipe';
+import { FileDropModule } from 'ngx-file-drop';
+import { InputDropdownComponent } from './components/input-dropdown/input-dropdown.component';
+import { DropdownListComponent } from './components/dropdown-list/dropdown-list.component';
+import { InputErrorsComponent } from './components/input-errors/input-errors.component';
+import { TagInputModule } from 'ngx-chips';
+import { SelectComponent } from './components/select/select.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { UserFilterPipe } from './pipes/user-filter.pipe';
 
 @NgModule({
     imports: [
@@ -17,7 +25,10 @@ import { KeysPipe } from './pipes/keys.pipe';
         ReactiveFormsModule,
         Ng2SmartTableModule,
         ModalModule,
-        PaginationModule
+        PaginationModule,
+        FileDropModule,
+        TagInputModule,
+        NgMultiSelectDropDownModule.forRoot(),
     ],
     providers: [
         MainRequestService,
@@ -36,12 +47,21 @@ import { KeysPipe } from './pipes/keys.pipe';
         PaginationModule,
         DocumentsComponent,
         DropdownActionsComponent,
-        KeysPipe
+        KeysPipe,
+        InputDropdownComponent,
+        DropdownListComponent,
+        InputErrorsComponent,
+        SelectComponent
     ],
     declarations: [
         DocumentsComponent,
         DropdownActionsComponent,
-        KeysPipe
+        KeysPipe,
+        UserFilterPipe,
+        InputDropdownComponent,
+        DropdownListComponent,
+        InputErrorsComponent,
+        SelectComponent
     ],
 })
 export class SharedModule { }

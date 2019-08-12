@@ -1,0 +1,6 @@
+<button class="dropdown-value" type="button" (click)="toggle()" (blur)="onTouched()" (keydown)="onKeydown($event)" [disabled]="disabled">
+  <span class="placeholder" *ngIf="!items || !value">{{placeholder}}</span>
+  <span *ngIf="items && value">{{items[value]}}</span>
+</button>
+<app-dropdown-list *ngIf="show" [items]="items" (onSelect)="select($event)" [myTabIndex]="myTabIndex" [comeFrom]="'select-component'" [inputKey]="inputKey"></app-dropdown-list>
+<app-input-errors *ngIf="errors" [errors]="errors" [errorMessages]="errorMessages"></app-input-errors>

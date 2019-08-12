@@ -77,5 +77,16 @@ export const navigation = [
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',
+    },{
+
+        name: 'Company',
+        icon: 'fas fa-users-cog',
+        children: [
+            {
+                name: 'Companies list',
+                url: '/companies/list',
+                icon: 'fas fa-users',
+            }
+        ]
     }
 ];

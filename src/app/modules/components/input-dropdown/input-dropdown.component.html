@@ -1,0 +1,4 @@
+<input autocomplete="off" class="custom-dropdown" type="text" (keydown)="onKeydown($event)" [attr.id]="id ? id : null" (focus)="show = false" (click)="show = true" (blur)="onBlur($event.relatedTarget, $event.target.value)" (input)="onInput($event.target.value)"
+    [(ngModel)]="inputValue" [placeholder]="placeholder ? placeholder : ''" [disabled]="disabled">
+<app-dropdown-list class="dropdown-list" [items]="filteredItems$ | async" *ngIf="show" (onSelect)="select($event)" [myTabIndex]="myTabIndex" [inputKey]="inputKey"></app-dropdown-list>
+<app-input-errors *ngIf="errors" [errors]="errors" [errorMessages]="errorMessages"></app-input-errors>

@@ -1,0 +1,7 @@
+<ul>
+    <li *ngFor="let itemKey of (items | keys); let i = index" [ngClass]="{'bkk-color': i === myTabIndex}">
+        <button #myInput [id]="'index' + i" type="button" (keydown)="ngOnChanges2($event, myTabIndex, itemKey)" (click)="select(itemKey)" tabindex="-1">
+      {{items[itemKey]}}
+    </button>
+    </li>
+</ul>

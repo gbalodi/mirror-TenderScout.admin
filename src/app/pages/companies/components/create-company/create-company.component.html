@@ -1,0 +1,658 @@
+<div class="social_market-holder"></div>
+
+<form [formGroup]="addEditCompanyDetailsForm" novalidate *ngIf="showEditForm">
+  <div class="container-inner">
+    <div class="company-descpbx-holder">
+      <div class="row justify-content-center">
+        <div class="col-md-8">
+          <div class="upload-bid-library-step1">
+            <div class="">
+              <div class="">
+                <div class="">
+                  <div class="upload-library-header">
+                    <h1 class="upload-heading">Upload Company logo</h1>
+                    <div class="bid-cancel">
+                      <button
+                        class="btn"
+                        type="button"
+                        [disabled]="
+                          !this.addEditCompanyDetailsForm.controls['logoUrl']
+                            .value
+                        "
+                        (click)="deleteLogo()"
+                        title="Delete Logo"
+                      >
+                        <!-- <img
+                          alt=""
+                          class=""
+                          src="assets/img/cancel-white.png"
+                        /> -->
+                        <i aria-hidden="true" class="fa fa-2x fa-trash"></i>
+                      </button>
+                    </div>
+                  </div>
+                  <div class="activity-holder drag-bx">
+                    <file-drop
+                      headertext=""
+                      (onFileDrop)="dropped($event)"
+                      (onFileOver)="fileOver($event)"
+                      (onFileLeave)="fileLeave($event)"
+                    >
+                      <div class="drag-contbx">
+                        <h1 class="">Drag & drop</h1>
+                        <p class="or"><span>or</span></p>
+                        <div class="addfile-btn">
+                          <label class="button" for="file-name"
+                            >Upload Item</label
+                          >
+                          <!-- <label class="button" for="file-name">Choose Different
+                                                      File</label> -->
+                          <input
+                            #inputLogo
+                            type="file"
+                            data-max-size="32"
+                            accept=".jpg, .jpeg, .png"
+                            class="upload-file-input"
+                            id="file-name"
+                            (change)="handleFileInput($event.target.files)"
+                          />
+                          <p
+                            *ngIf="
+                              this.addEditCompanyDetailsForm.controls['logo']
+                                .value
+                            "
+                          >
+                            <span class="selected-filename-color">
+                              {{
+                                this.addEditCompanyDetailsForm.controls["logo"]
+                                  .value.name
+                              }}
+                            </span>
+                            <span> has been selected! </span>
+                          </p>
+                        </div>
+                      </div>
+                    </file-drop>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row justify-content-center">
+        <div class="col-md-10">
+          <div class="row">
+            <div class="col-md-5">
+              <input
+                type="url"
+                name="twitter"
+                class="form-control"
+                id="Twitter"
+                placeholder="Twitter link"
+                formControlName="twitter_url"
+              />
+            </div>
+            <div class="col-md-5">
+              <input
+                type="url"
+                name="linkedin"
+                class="form-control"
+                id="Linkedin"
+                placeholder="Linkedin link"
+                formControlName="linkedin_url"
+              />
+            </div>
+          </div>
+        </div>
+      </div> -->
+
+      <div
+        class="row justify-content-center"
+        *ngIf="this.addEditCompanyDetailsForm.controls['logoUrl'].value"
+      >
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="selected_logo-holder">
+                <ul>
+                  <li class="img-holder">
+                    <img
+                      [src]="this.addEditCompanyDetailsForm.controls['logoUrl']
+                      .value"
+                      alt=""
+                      class="img-responsive"
+                    />
+                  </li>
+                  <li class="selected_imgtx">
+                    <span>{{
+                      addEditCompanyDetailsForm.controls["logo"]?.value?.name
+                    }}</span>
+                    is currently selected
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="Twitter">Twitter link</label>
+              <input
+                type="url"
+                name="twitter"
+                class="form-control"
+                id="Twitter"
+                placeholder="Twitter link"
+                formControlName="twitter_url"
+              />
+            </div>
+            <!-- <span
+              class="validation-error"
+              *ngIf="
+                addEditCompanyDetailsForm.controls['contact_email'].touched &&
+                !addEditCompanyDetailsForm.controls['contact_email'].valid
+              "
+              >Invalid Email!</span
+            > -->
+            <div class="col-md-6">
+              <label for="Linkedin">Linkedin link</label>
+              <input
+                type="url"
+                name="linkedin"
+                class="form-control"
+                id="Linkedin"
+                placeholder="Linkedin link"
+                formControlName="linkedin_url"
+              />
+            </div>
+            <!-- <div class="col-md-3">
+              <input
+                type="url"
+                name="twitter"
+                pattern="https://.*"
+                class="form-control"
+                id="Twitter2"
+                placeholder="Twitter link"
+                formControlName="twitter_url"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="url"
+                name="linkedin"
+                pattern="https://.*"
+                class="form-control"
+                id="Linkedin2"
+                placeholder="Linkedin link"
+                formControlName="linkedin_url"
+              />
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <label for="CompanyName">Company Name</label>
+          <input
+            type="text"
+            class="form-control"
+            id="CompanyName"
+            placeholder="Company Name"
+            formControlName="name"
+          />
+          <span
+            class="validation-error"
+            *ngIf="
+              addEditCompanyDetailsForm.controls['name'].touched &&
+              !addEditCompanyDetailsForm.controls['name'].valid
+            "
+            >Required!</span
+          >
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-4">
+          <label for="Location">Location</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Location"
+            placeholder="Location"
+            formControlName="location"
+          />
+          <span
+            class="validation-error"
+            *ngIf="
+              addEditCompanyDetailsForm.controls['location'].touched &&
+              !addEditCompanyDetailsForm.controls['location'].valid
+            "
+            >Required!</span
+          >
+        </div>
+        <div class="form-group col-md-4 cstm-selectbx" *ngIf="countries">
+          <!-- <input
+            type="text"
+            class="form-control"
+            id="Country"
+            placeholder="Country"
+            formControlName="country_id"
+          /> -->
+          <label for="country">Country</label>
+          <app-input-dropdown
+            formControlName="country_id"
+            id="country"
+            placeholder="Country"
+            [items]="countries"
+            [filterOnInput]="true"
+          ></app-input-dropdown>
+          <span
+            class="validation-error"
+            *ngIf="
+              addEditCompanyDetailsForm.controls['country_id'].touched &&
+              !addEditCompanyDetailsForm.controls['country_id'].valid
+            "
+            >Required!</span
+          >
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <label for="Slogan">Company slogan</label>
+          <input
+            type="text"
+            class="form-control"
+            id="Slogan"
+            formControlName="slogan"
+            placeholder="Company slogan"
+          />
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <label for="CompanyDescription">Description</label>
+          <textarea
+            class="form-control"
+            id="CompanyDescription"
+            placeholder="Company description"
+            rows="5"
+            formControlName="description"
+            maxlength="500"
+          ></textarea>
+          <span
+            class="validation-error"
+            *ngIf="
+              addEditCompanyDetailsForm.controls['description'].touched &&
+              !addEditCompanyDetailsForm.controls['description'].valid
+            "
+            >Required!</span
+          >
+        </div>
+      </div>
+
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <div class="row">
+            <div class="col-md-6">
+              <label for="Website">Website link</label>
+              <input
+                type="url"
+                name="website"
+                class="form-control"
+                id="Website"
+                placeholder="Website link"
+                formControlName="web_url"
+              />
+            </div>
+            <!-- <span
+              class="validation-error"
+              *ngIf="
+                addEditCompanyDetailsForm.controls['contact_email'].touched &&
+                !addEditCompanyDetailsForm.controls['contact_email'].valid
+              "
+              >Invalid Email!</span
+            > -->
+            <div class="col-md-6">
+              <label for="Blog">Blog Link</label>
+              <input
+                type="text"
+                class="form-control"
+                id="Blog"
+                placeholder="Blog Link"
+                formControlName="blog_url"
+              />
+              <span
+                class="validation-error"
+                *ngIf="
+                  addEditCompanyDetailsForm.controls['blog_url'].touched &&
+                  !addEditCompanyDetailsForm.controls['blog_url'].valid
+                "
+                >Invalid Url!</span
+              >
+            </div>
+            <!-- <div class="col-md-3">
+              <input
+                type="url"
+                name="twitter"
+                pattern="https://.*"
+                class="form-control"
+                id="Twitter2"
+                placeholder="Twitter link"
+                formControlName="twitter_url"
+              />
+            </div>
+            <div class="col-md-3">
+              <input
+                type="url"
+                name="linkedin"
+                pattern="https://.*"
+                class="form-control"
+                id="Linkedin2"
+                placeholder="Linkedin link"
+                formControlName="linkedin_url"
+              />
+            </div> -->
+          </div>
+        </div>
+      </div>
+
+      <!-- <div class="row justify-content-center">
+        <div class="form-group col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="btn-holder">
+                <button class="button website-btn" role="button">
+                  WEBSITE
+                </button>
+                <button class="button blog-btn" role="button">BLOG</button>
+              </div>
+              <div class="share-profle">
+                <span class="social_icons">
+                  <a href="#">
+                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                  </a>
+                  <a href="#">
+                    <i class="fa fa-linkedin-square" aria-hidden="true"></i>
+                  </a>
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> -->
+      <div class="row justify-content-center">
+        <div class="col-lg-8">
+          <div class="market-visible-toggle">
+            <label class="toggle-container">
+              <div class="switch" for="checkbox">
+                <input
+                  type="checkbox"
+                  id="checkbox"
+                  formControlName="marketplace"
+                />
+                <div class="slider round"></div>
+              </div>
+              <span
+                *ngIf="addEditCompanyDetailsForm.controls['marketplace'].value"
+              >
+                MARKETPLACE VISIBILITY IS ON</span
+              >
+              <span
+                *ngIf="!addEditCompanyDetailsForm.controls['marketplace'].value"
+              >
+                MARKETPLACE VISIBILITY IS OFF</span
+              >
+            </label>
+            <div class="clearfix"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="tab-contbx-holder">
+      <div class="tabs">
+        <div class="">
+          <div class="content">
+            <h3>EXPERTISE</h3>
+            <div class="row justify-content-center">
+              <div class="form-group col-md-8 search-tag-holder">
+                <label for="SearchByTag">Search By Expertise</label>
+                <tag-input
+                  formControlName="keywords_attributes"
+                  (keypress)="omit_special_char($event)"
+                  (onAdd)="onAddKewwords($event)"
+                  (onRemove)="onItemRemoved($event)"
+                  [onlyFromAutocomplete]="false"
+                  [addOnBlur]="true"
+                >
+                  <tag-input-dropdown
+                    [showDropdownIfEmpty]="false"
+                    [dynamicUpdate]="false"
+                    [autocompleteItems]="extraKeywords"
+                  >
+                  </tag-input-dropdown>
+                </tag-input>
+              </div>
+            </div>
+
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <div class="info-bx">
+                  <div class="row justify-content-center">
+                    <div class="col-md-4 sectorbx-holder">
+                      <div>
+                        <span class="head">Sector</span>
+                        <app-select
+                          class="input-styles"
+                          id="industry"
+                          formControlName="industry_id"
+                          placeholder="Please Select"
+                          [items]="industries"
+                        ></app-select>
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div>
+                        <span class="head">Founded</span>
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="Founded"
+                          placeholder="Year"
+                          formControlName="founded"
+                          maxlength="4"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                        />
+                      </div>
+                    </div>
+
+                    <div class="col-md-4">
+                      <div>
+                        <span class="head">Employees</span>
+                        <!-- <span>[NUMBER]</span> -->
+                        <input
+                          type="text"
+                          class="form-control"
+                          id="Employees"
+                          placeholder="Number"
+                          formControlName="company_size"
+                          maxlength="8"
+                          onkeypress="return event.charCode >= 48 && event.charCode <= 57"
+                        />
+                      </div>
+                    </div>
+                    <div class="col-md-12">
+                      <div>
+                        <div class="row">
+                          <div class="col-md-6">
+                            <span class="head">Headquarters Location</span>
+                            <input
+                              type="text"
+                              class="form-control"
+                              id="Headquarters"
+                              placeholder="Location"
+                              formControlName="headquarter_location"
+                            />
+                          </div>
+                          <div
+                            class="col-md-6 headquater-holder"
+                            *ngIf="countries"
+                          >
+                            <span class="head">Headquarters Country</span>
+                            <!-- <input
+                              type="text"
+                              class="form-control"
+                              id="Headquarters-Country"
+                              placeholder="Country"
+                              formControlName="headquarter_country"
+                            /> -->
+                            <app-input-dropdown
+                              formControlName="headquarter_country"
+                              id="Headquarters-Country"
+                              placeholder="Select"
+                              [items]="countries"
+                              [filterOnInput]="true"
+                            ></app-input-dropdown>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row justify-content-center">
+              <div class="col-md-8">
+                <div class="row">
+                  <div class="col-md-6" *ngIf="setedCountriesId">
+                    <div class="international-select">
+                      <span class="head">International Target Markets</span>
+                      <!-- <span>Country, Country, Country</span> -->
+                      <!-- <input
+                              type="text"
+                              class="form-control"
+                              id="InternationalTarget"
+                              placeholder="Country"
+                              formControlName="internation_target_markets"
+                            /> -->
+                      <ng-multiselect-dropdown
+                        [placeholder]="'Please select multiple'"
+                        [data]="setedCountriesId"
+                        formControlName="target_markets"
+                        [settings]="dropDownSettings"
+                        (onSelectAll)="onSelectAll($event)"
+                      >
+                      </ng-multiselect-dropdown>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="bid-contbx-holder">
+      <h3>BID TEAM</h3>
+      <!-- ########################### Do not Remove for now ##################################### -->
+      <div class="row justify-content-center">
+        <div class="form-group col-md-8 search-tag-holder">
+          <label for="SearchByUser">Search By Users</label>
+          <tag-input
+            (onAdd)="call($event)"
+            formControlName="companies_users_attributes"
+            (keypress)="omit_special_char($event)"
+            (onRemove)="onUserRemoved($event)"
+            [onlyFromAutocomplete]="true"
+            [addOnBlur]="false"
+          >
+            <tag-input-dropdown
+              [showDropdownIfEmpty]="true"
+              [dynamicUpdate]="false"
+              [autocompleteItems]="extraUsers"
+            >
+            </tag-input-dropdown>
+          </tag-input>
+        </div>
+      </div>
+
+      <!-- ########################### New One ##################################### -->
+
+      <!-- <div class="row justify-content-center">
+        <div class="col-md-12">
+
+          <div class="bid-item-holder row">
+              <div class="search-wrap col-md-12" *ngIf="usersList$ | async as usersList">
+                  <app-post-grid
+                    class="search-item"
+                    *ngFor="
+                      let user of usersList.data | userFilter: searchMarketPlace:'all'
+                    "
+                    [user]="user.profiles[0]"
+                  >
+                  </app-post-grid>
+                  <div
+                    class="col-sm-12 text-center"
+                    *ngIf="
+                      (usersList.data | userFilter: searchMarketPlace:'all').length === 0
+                    "
+                  >
+                    <p class="no-user-found">No Users Found!</p>
+                  </div>
+                </div>
+          </div>
+        
+        </div>
+      </div> -->
+
+      
+    </div>
+    <div class="row justify-content-center">
+      <div class="col-md-8">
+        <div class="button-holder savebtn">
+          <button
+            class="button"
+            [disabled]="!addEditCompanyDetailsForm.valid"
+            (click)="save()"
+          >
+            Save Changes
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- <button>Save</button> -->
+
+  <!-- This is for Upload Item Pop Up Modal -->
+  <!-- <div class="cstm-modal">
+    <div [ngClass]="{'overlay':true, 'overlay1':showPopup===false}"
+        (mouseup)="closePopupEvent($event.target.className); addClassToBody()">
+        <div class="popup">
+            <button class="close" (click)="showPopup=false; addClassToBody()">&times;</button>
+            <div>
+                <div>
+                    <div class="activity-holder drag-bx">
+                        <div class="col-12">
+                          <p>Create your company profile and promote yourself to other members.</p>
+                          <button>Get Started</button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div> -->
+</form>

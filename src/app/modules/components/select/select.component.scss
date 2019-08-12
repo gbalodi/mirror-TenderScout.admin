@@ -1,0 +1,187 @@
+// @import '../../../../../scss/common.scss';
+// @import '../custom-inputs.scss';
+$blockBorderRadius: 3px;
+$containerWidth: 1274px;
+$containerPaddingH: 12px;
+$transition: 200ms;
+$backgroundColor: #f4f6f8;
+$colorDusk: #3d5270;
+$colorLightNavy: #424242;
+$colorNiceBlue: #777777;
+$colorSlate: #586d79;
+$colorBlue: #3e5370;
+$colorLightGrey: #edf1f5;
+$colorPaleGrey: #f4f6f8;
+$colorWarmGrey: #8e8e8e;
+$colorSteelGrey: #8a8c8e;
+$colorAlgaeGreen: #80cc80;
+$colorShamrockGreen: #00c853;
+$colorOrange: #f6a13f;
+$colorRed: #d7494d;
+$colorRose: #6a2e8c;
+$shadow: fncBoxShadow(.05);
+$hoverShadow: 0 10px 15px -5px rgba($colorDusk, .25);
+$inputMarginBottom: 20px;
+$blueGradient: linear-gradient(to left, #8341a9, #682d8a);
+$redGradient: linear-gradient(to left, #b04eb5, #c155c7);
+$headerHeight: 90px;
+$headerHeightSm: 70px;
+$headerSmBreakpoint: 560px;
+$sidebarWidth: 90px;
+$sidebarCollapsedWidth: 48px;
+$hideSidebarBreakpoint: 1000px;
+$collapseTransition: 200ms;
+%clearfix {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+%list {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+%inputPlaceholder {
+    color: #0e2529;
+    opacity: .4;
+}
+
+%textOneLine {
+    text-overflow: ellipsis;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+%textContent {
+    line-height: 1.67;
+    color: $colorWarmGrey;
+    letter-spacing: .1px;
+}
+
+%commonValidation {
+    &:before {
+        font-family: 'Material Icons';
+    }
+    &.show-validation {
+        position: relative;
+        &:before {
+            display: block;
+            position: absolute;
+            top: 50%;
+            right: 16px;
+            margin-top: -6px;
+        }
+        &.ng-touched {
+            &.ng-invalid {
+                &:before {
+                    display: block;
+                    color: white;
+                    background: #ed6767;
+                    content: '\e645';
+                    width: 14px;
+                    height: 14px;
+                    border-radius: 50%;
+                    font-size: 14px;
+                    text-align: center;
+                }
+            }
+            &.ng-valid {
+                &:before {
+                    display: block;
+                    right: 12px;
+                    margin-top: -12px;
+                    content: '\e5ca';
+                    color: $colorAlgaeGreen;
+                    font-size: 24px;
+                }
+            }
+        }
+    }
+    &.ng-untouched {
+        app-input-errors {
+            display: none;
+        }
+    }
+}
+
+@function fncBoxShadow($opacity) {
+    @return 0 10px 30px 0 rgba($colorDusk, $opacity);
+}
+
+@function highlightShadow($color, $opactiy: .23) {
+    @return 0 3px 9px 0 rgba($color, $opactiy);
+}
+
+%hostValidation {
+  @extend %commonValidation;
+
+  &.show-validation {
+    &.ng-touched {
+      &.ng-invalid {
+        border: 1px solid rgba(#f31717, .59);
+        button{
+          background: none;
+        }
+      }
+
+      &.ng-valid {
+        border: 1px solid rgba($colorAlgaeGreen, .35);
+        button{
+          background: none;
+        }
+      }
+    }
+  }
+}
+
+%inputValidation {
+  @extend %commonValidation;
+
+  &.show-validation {
+    &.ng-touched {
+      &.ng-invalid {
+        input {
+          border-color: rgba(#f31717, .59);
+        }
+      }
+
+      &.ng-valid {
+        input {
+          border-color: rgba($colorAlgaeGreen, .35);
+        }
+      }
+    }
+  }
+}
+
+:host {
+  position: relative;
+  border: 1px solid rgba(#979797, .27);
+  display: block;
+  margin-bottom: 20px;
+  @extend %hostValidation;
+}
+
+.dropdown-value {
+  color: inherit;
+  width: 100%;
+  display: block;
+  padding: 13px 20px;
+  border-radius: 0;
+  box-shadow: none;
+  text-align: left;
+  margin-bottom: 0;
+  background-image: url("../../../../assets/dd-arrows-down.png");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 15px) center;
+  padding-right: 25px;
+  background-color: transparent;
+}
+
+.placeholder {
+  @extend %inputPlaceholder;
+}

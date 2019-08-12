@@ -65,7 +65,8 @@
         "spinkit": "^1.2.5",
         "ts-helpers": "1.1.2",
         "web-animations-js": "^2.3.2",
-        "zone.js": "~0.8.26"
+        "zone.js": "~0.8.26",
+        "ngx-chips": "^1.9.7"
     },
     "devDependencies": {
         "@angular-devkit/build-angular": "~0.7.0",
