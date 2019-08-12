@@ -21,8 +21,8 @@ export class ScraperListsComponent implements OnInit {
       edit: false
     },
     columns: {
-      Source: {
-        title: 'source_name',
+      source_name: {
+        title: 'Source',
         editable: false,
         filter: false
       },
