@@ -26,7 +26,7 @@ const routes: Routes = [
               }
           },
           {
-            path: 'tender-companies-list',
+            path: 'companies-contacts',
             component: TenderCompaniesInfoListComponent,
             data: {
                 title: 'Tender Companies List'

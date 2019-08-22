@@ -11,6 +11,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { TenderCompaniesInfoListComponent } from './components/tender-companies-info-list/tender-companies-info-list.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
     TagInputModule,
     NgMultiSelectDropDownModule.forRoot(),
     NgSelectModule,
-    NgxPaginationModule
+    NgxPaginationModule,
+    CsvModule
   ],
   declarations: [
     CompaniesListComponent,

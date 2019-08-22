@@ -79,7 +79,7 @@ export const navigation = [
         icon: 'fas fa-address-book',
     },{
 
-        name: 'Company',
+        name: 'Companies',
         icon: 'fas fa-users-cog',
         children: [
             {
@@ -88,8 +88,8 @@ export const navigation = [
                 icon: 'fas fa-users',
             },
             {
-                name: 'Tender Companies Info list',
-                url: '/companies/tender-companies-list',
+                name: 'Companies-Contacts',
+                url: '/companies/companies-contacts',
                 icon: 'fas fa-users',
             }
         ]

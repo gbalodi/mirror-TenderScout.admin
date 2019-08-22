@@ -16,6 +16,7 @@ export class TenderCompaniesInfoListComponent implements OnInit {
   public totalData: number = 0;
   public showWaitingMessage: boolean = false;
   public showNoRecordMessage: boolean = false;
+  res = [];
 
   constructor(
     public formBuilder: FormBuilder,
@@ -77,7 +78,23 @@ export class TenderCompaniesInfoListComponent implements OnInit {
    */
   public getCSV() {
     this.companyService.exportCSV(this.tenderCompanyForm.value).subscribe((res: any) => {
-      res;
+      //console.log(JSON.parse(res));
+      //res = JSON.parse(res)
+      this.res =  JSON.parse(res).data;
+      setTimeout(() => {
+        document.getElementById("abc").click();
+      }, 1500);
+      // let data: any = JSON.parse(res).data
+      
+
+      // const replacer = (key, value) => value === null ? '' : value;
+      // const header = Object.keys(data[0]);
+      // let csv = data.map(row => header.map(fieldName => JSON.stringify(row[fieldName],replacer)).join(','));
+      // csv.unshift(header.join(','));
+      // let csvArray = csv.join('\r\n');
+      // var blob = new Blob([csvArray], {type: 'text/csv' })
+      // saveAs(blob, filename + ".csv");
+      
     }, error => {
       console.log(error);
     })

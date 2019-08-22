@@ -1,8 +1,9 @@
-<div class="container">
-  <div>
-    <button (click)="getCSV()">Export CSV</button>
+<div class="com-tndr-lsthldr">
+  <div class="exp_csvbtn-holder">
+    <button (click)="getCSV()" class="btn btn-primary">Export CSV</button>
+    <a id="abc" csvLink filename="Orbidal-Extract.csv" [data]="res" style="visibility: hidden;width: 1px !important;display: inline-block;">Download</a>
   </div>
-  <div>
+  <div class="country-comp_sel-holder">
     <form [formGroup]="tenderCompanyForm" novalidate>
 
       <div class="row">
@@ -32,31 +33,31 @@
     </form>
 
   </div>
-  <table class="table">
-    <thead>
-      <tr>
-        <th>Company Name</th>
-        <th>Email</th>
-        <th>City</th>
-        <th>Contact Point</th>
-        <th>Address</th>
-        <th>Fax</th>
-        <th>Phone</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let item of tenderCountriesData | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
-        <td>{{item?.company_name}}</td>
-        <td>{{item?.email? item?.email : '-'}}</td>
-        <td>{{item?.city_name}}</td>
-        <td>{{item?.contact_point? item?.contact_point: '-'}}</td>
-        <td>{{item?.address}}</td>
-        <td>{{item?.fax ? item?.fax : '-'}}</td>
-        <td>{{item?.phone? item?.phone: '-'}}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Country</th>
+          <th>Email</th>
+          <th>Contact Point</th>
+          <th>Address</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of tenderCountriesData | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
+          <td>{{item?.company_name}}</td>
+          <td>{{item?.country_name}}</td>
+          <td>{{item?.email? item?.email : '-'}}</td>
+          <td>{{item?.contact_point? item?.contact_point: '-'}}</td>
+          <td>{{item?.address}}</td>
+          <td>{{item?.phone? item?.phone: '-'}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <p *ngIf="showWaitingMessage">Please Wait...</p>
   <p *ngIf="showNoRecordMessage">No record found.</p>
 

@@ -317,3 +317,13 @@ tag:not(.readonly):not(.tag--editing):focus {
   border-color: #e1e6ef !important;
   border-radius: 0 !important;
 }
+.marketplace-pagi-holder .ngx-pagination {
+  padding: 0;
+  text-align: right;
+}
+.marketplace-pagi-holder .ngx-pagination .current {
+  background: #d66166 !important;
+}
+.marketplace-pagi-holder .ngx-pagination a, .marketplace-pagi-holder .ngx-pagination button {
+  text-decoration: none;
+}
