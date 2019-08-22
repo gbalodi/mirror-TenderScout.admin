@@ -12,7 +12,10 @@ export class TenderCompaniesInfoListComponent implements OnInit {
   public tenderCompanyForm: FormGroup;
   public countries: any;
   public page: number = 1;
-  public totalData: number = [1, 5, 5, 41, 4, 5, 4, 4, 54, 45, 51, 54, 54, 54, 5, 4].length;
+  public tenderCountriesData: Array<any> = [];
+  public totalData: number = 0;
+  public showWaitingMessage: boolean = false;
+  public showNoRecordMessage: boolean = false;
 
   constructor(
     public formBuilder: FormBuilder,
@@ -32,6 +35,7 @@ export class TenderCompaniesInfoListComponent implements OnInit {
     this.tenderCompanyForm.valueChanges.subscribe(
       value => {
         console.log(value);
+        this.getCompaniesContact();
         // this.codeFinderHandler(value.codes);
       }
     );
@@ -43,10 +47,19 @@ export class TenderCompaniesInfoListComponent implements OnInit {
    * API service call to get criteria wise companies with pagination...
    */
   public getCompaniesContact() {
+    this.showWaitingMessage = true;
     this.companyService.getCompaniesContact(this.tenderCompanyForm.value, this.page).subscribe((res: any) => {
-      res;
+      res = JSON.parse(res);
+      this.tenderCountriesData = res.data;
+      this.totalData = res.count;
+      this.showWaitingMessage = false;
+      this.tenderCountriesData.length === 0 ? this.showNoRecordMessage = true : this.showNoRecordMessage = false;
     }, error => {
+      this.tenderCountriesData = []
+      this.totalData = 0;
       console.log(error);
+      this.showWaitingMessage = false;
+      this.tenderCountriesData.length === 0 ? this.showNoRecordMessage = true : this.showNoRecordMessage = false;
     });
   }
 
