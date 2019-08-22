@@ -37,7 +37,7 @@ export class CompanyService {
   public industriesKeyValue: { [key: string]: string };
   public industries: any;
 
-  constructor(private httpClient: HttpClient) {}
+  constructor(private httpClient: HttpClient) { }
 
   /**
    * API server service call to get all Keywords of the company profile...
@@ -102,19 +102,19 @@ export class CompanyService {
     if (this.countriesKeyValue) {
       return from([this.countriesKeyValue]);
     } else {
-      return this.httpClient.get( 'v1/dictionaries/countries')
-      .pipe(
-        map(
-          (countries: any) => {
-            countries = JSON.parse(countries);
-            const countryMap: { [key: string]: string } = {};
-            countries.forEach((country: Country) => countryMap[country.id] = country.name);
-            return countryMap;
-          }
-        )
-      ).pipe(
-        tap((coutryMap: {[key: string]: string}) => this.countriesKeyValue = coutryMap)
-      );
+      return this.httpClient.get('v1/dictionaries/countries')
+        .pipe(
+          map(
+            (countries: any) => {
+              countries = JSON.parse(countries);
+              const countryMap: { [key: string]: string } = {};
+              countries.forEach((country: Country) => countryMap[country.id] = country.name);
+              return countryMap;
+            }
+          )
+        ).pipe(
+          tap((coutryMap: { [key: string]: string }) => this.countriesKeyValue = coutryMap)
+        );
     }
   }
 
@@ -122,7 +122,7 @@ export class CompanyService {
     if (this.industries) {
       return from([this.industries]);
     } else {
-      return this.httpClient.get( 'v1/dictionaries/industries')
+      return this.httpClient.get('v1/dictionaries/industries')
         .pipe(
           tap((industries: Industry[]) => this.industries = industries)
         )
@@ -142,13 +142,29 @@ export class CompanyService {
           return industryMap;
         })
       )
-      .pipe(
-        tap((industryMap: {[key: string]: string}) => this.industriesKeyValue = industryMap)
+        .pipe(
+          tap((industryMap: { [key: string]: string }) => this.industriesKeyValue = industryMap)
         )
     }
   }
 
   public getMarketplaceUsers(): Observable<any> {
     return this.httpClient.get(`v1/users/available_in_marketplace?page=1&page_size=20`);
+  }
+
+  /**
+   * API server service call to get export CSV file according to it's filter criterias...
+   * @param data 
+   */
+  public exportCSV(data) {
+    return this.httpClient.get(`v2/contacts/export_csv?contact[country_ids]=${data.country_ids}&contact[company_names]=${data.company_names}`);
+  }
+
+  /**
+   * API server service call to get search criteria wise countries with pagination...
+   * @param data 
+   */
+  public getCompaniesContact(data, page) {
+    return this.httpClient.get(`v2/contacts?contact[country_ids]=${data.country_ids}&contact[company_names]=${data.company_names}&page=${page}&page_size=20`);
   }
 }

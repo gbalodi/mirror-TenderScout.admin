@@ -8,6 +8,9 @@ import { SharedModule } from 'app/modules/shared.module';
 import { FileDropModule } from 'ngx-file-drop';
 import { TagInputModule } from 'ngx-chips';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { TenderCompaniesInfoListComponent } from './components/tender-companies-info-list/tender-companies-info-list.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -17,8 +20,14 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
     SharedModule,
     FileDropModule,
     TagInputModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgSelectModule,
+    NgxPaginationModule
   ],
-  declarations: [CompaniesListComponent, CreateCompanyComponent]
+  declarations: [
+    CompaniesListComponent,
+    CreateCompanyComponent,
+    TenderCompaniesInfoListComponent
+  ]
 })
 export class CompaniesModule { }

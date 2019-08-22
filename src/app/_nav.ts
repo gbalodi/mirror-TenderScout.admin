@@ -86,6 +86,11 @@ export const navigation = [
                 name: 'Companies list',
                 url: '/companies/list',
                 icon: 'fas fa-users',
+            },
+            {
+                name: 'Tender Companies Info list',
+                url: '/companies/tender-companies-list',
+                icon: 'fas fa-users',
             }
         ]
     }

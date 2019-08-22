@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { CompaniesListComponent } from './components/companies-list/companies-list.component';
 import { CreateCompanyComponent } from './components/create-company/create-company.component';
+import { TenderCompaniesInfoListComponent } from './components/tender-companies-info-list/tender-companies-info-list.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,13 @@ const routes: Routes = [
                   title: 'Create Company'
               }
           },
+          {
+            path: 'tender-companies-list',
+            component: TenderCompaniesInfoListComponent,
+            data: {
+                title: 'Tender Companies List'
+            }
+        }
           // {
           //     path: ':id/edit',
           //     component: CreateUserComponent,

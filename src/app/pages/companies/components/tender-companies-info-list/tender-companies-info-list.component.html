@@ -1,0 +1,66 @@
+<div class="container">
+  <div>
+    <button (click)="getCSV()">Export CSV</button>
+  </div>
+  <div>
+    <form [formGroup]="tenderCompanyForm" novalidate>
+
+      <div class="row">
+        <div class="col-xs-12 col-sm-6">
+          <!-- <label for="countries" class="col-form-label">Name/s:</label> -->
+          <div class="">
+
+            <ng-select class="search" [items]="[]" [multiple]="true" [addTag]="true"
+              placeholder="Search by multiple Companies name" formControlName="company_names" [isOpen]="false">
+            </ng-select>
+
+          </div>
+        </div>
+        <div class="col-xs-12 col-sm-6">
+          <!-- <label for="countries" class="col-form-label">Country:</label> -->
+          <div class="">
+
+            <ng-select class="geography" autocomplete=off id="geography" [items]="countries" bindLabel="name"
+              bindValue="id" labelForId="state" [multiple]="true" [hideSelected]="true" formControlName="country_ids"
+              placeholder="Select Countries">
+            </ng-select>
+
+          </div>
+        </div>
+      </div>
+
+    </form>
+
+  </div>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>City Name</th>
+        <th>Contact Point</th>
+        <th>Address</th>
+        <th>Fax</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let item of [1,5,5,41,4,5,4,4,54,45,51,54,54,54,5,4] | paginate: { itemsPerPage: 10, currentPage: page, totalItems: totalData }">
+        <td>John</td>
+        <td>abc@abc.abc</td>
+        <td>Japan</td>
+        <td>Tokio</td>
+        <td>Fugiyama Hill</td>
+        <td>1554545454</td>
+        <td>2332656589</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="marketplace-pagi-holder">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>
