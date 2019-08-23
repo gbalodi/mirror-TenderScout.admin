@@ -77,7 +77,7 @@ export const navigation = [
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',
-    },{
+    }, {
 
         name: 'Companies',
         icon: 'fas fa-users-cog',
@@ -86,12 +86,11 @@ export const navigation = [
                 name: 'Companies list',
                 url: '/companies/list',
                 icon: 'fas fa-users',
-            },
-            {
-                name: 'Companies-Contacts',
-                url: '/companies/companies-contacts',
-                icon: 'fas fa-users',
             }
         ]
+    }, {
+        name: 'Companies-Contacts',
+        url: '/companies-contacts',
+        icon: 'fas fa-users',
     }
 ];

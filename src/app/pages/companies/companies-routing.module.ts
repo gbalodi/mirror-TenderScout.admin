@@ -25,13 +25,13 @@ const routes: Routes = [
                   title: 'Create Company'
               }
           },
-          {
-            path: 'companies-contacts',
-            component: TenderCompaniesInfoListComponent,
-            data: {
-                title: 'Tender Companies List'
-            }
-        }
+        //   {
+        //     path: 'companies-contacts',
+        //     component: TenderCompaniesInfoListComponent,
+        //     data: {
+        //         title: 'Tender Companies List'
+        //     }
+        // }
           // {
           //     path: ':id/edit',
           //     component: CreateUserComponent,
