@@ -327,3 +327,12 @@ tag:not(.readonly):not(.tag--editing):focus {
 .marketplace-pagi-holder .ngx-pagination a, .marketplace-pagi-holder .ngx-pagination button {
   text-decoration: none;
 }
+.multiple_comp-input .ng-arrow-wrapper {
+  display: none;
+}
+.search.multiple_comp-input input {
+  cursor: text !important;
+}
+.geography input {
+  cursor: pointer !important;
+}
