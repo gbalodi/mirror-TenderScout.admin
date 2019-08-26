@@ -36,6 +36,7 @@ export class TenderCompaniesInfoListComponent implements OnInit {
     this.tenderCompanyForm.valueChanges.subscribe(
       value => {
         console.log(value);
+        this.page = 1;
         this.getCompaniesContact();
         // this.codeFinderHandler(value.codes);
       }
@@ -99,5 +100,61 @@ export class TenderCompaniesInfoListComponent implements OnInit {
       console.log(error);
     })
   }
+
+    /**
+ * To Set Filtered search data into cookies...
+ * @param ev 
+ */
+public setSearch(event) {
+  if (this.tenderCompanyForm.controls['company_names'].value.length > 0) {
+    let copyByTitle: any = this.tenderCompanyForm.controls['company_names'].value;
+    let lastTitle: any = this.tenderCompanyForm.controls['company_names'].value[this.tenderCompanyForm.controls['company_names'].value.length - 1];
+    lastTitle = lastTitle.split(',');
+    if (lastTitle.length > 1) {
+      copyByTitle.pop();
+      lastTitle.forEach(element => {
+        copyByTitle.push(element);
+      });
+      this.tenderCompanyForm.controls['company_names'].setValue(copyByTitle);
+    } else {
+      this.tenderCompanyForm.controls['company_names'].setValue(copyByTitle);
+    }
+  }
+  // this.monitorForm.controls['codesDescription'].value;
+  // var codes = [];
+  // codes = _.flatMap(this.monitorForm.controls['codesDescription'].value, (value) => { return value.split(': ')[0] });
+  // this.monitorForm.controls['codes'].setValue(codes);
+  // this.cookieService.set('monitorForm', JSON.stringify(this.monitorForm.value));
+  // this.cookieService.set('advansedSearchShow', JSON.stringify({ advansedSearchShow: this.advansedSearchShow }));
+}
+
+
+
+
+
+
+
+
+
+
+/**
+* Search by Title event handler on blur after typed text... 
+* @param event 
+*/
+public setTitleOnBlurEvent(event) {
+  if (event.type === 'blur' && event.target.value.length > 0) {
+    console.log('event.target.value', event.target.value);
+    if (this.tenderCompanyForm.controls['company_names'].value.length) {
+      this.tenderCompanyForm.controls['company_names'].value.push(event.target.value)
+    } else {
+      this.tenderCompanyForm.controls['company_names'].setValue([]);
+      this.tenderCompanyForm.controls['company_names'].value.push(event.target.value)
+    }
+    setTimeout(() => {
+      this.setSearch(undefined);
+    }, 100)
+    return event.target.value = '';
+  }
+}
 
 }

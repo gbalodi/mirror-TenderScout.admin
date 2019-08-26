@@ -57,7 +57,7 @@ export const navigation = [
                 icon: 'fas fa-sort-numeric-down',
             },
             {
-                name: 'Industies dict',
+                name: 'Industries dict',
                 url: '/dictionaries/industries',
                 icon: 'fas fa-industry',
             },
@@ -77,18 +77,20 @@ export const navigation = [
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',
-    }, {
+    }, 
+    // {
 
-        name: 'Companies',
-        icon: 'fas fa-users-cog',
-        children: [
-            {
-                name: 'Companies list',
-                url: '/companies/list',
-                icon: 'fas fa-users',
-            }
-        ]
-    }, {
+    //     name: 'Companies',
+    //     icon: 'fas fa-users-cog',
+    //     children: [
+    //         {
+    //             name: 'Companies list',
+    //             url: '/companies/list',
+    //             icon: 'fas fa-users',
+    //         }
+    //     ]
+    // }, 
+    {
         name: 'Companies-Contacts',
         url: '/companies-contacts',
         icon: 'fas fa-users',

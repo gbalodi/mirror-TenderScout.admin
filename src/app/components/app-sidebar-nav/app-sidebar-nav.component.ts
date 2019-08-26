@@ -44,9 +44,9 @@ import { Router } from '@angular/router';
       <app-sidebar-nav-link [link]='item'></app-sidebar-nav-link>
     </li>
     <ng-template #dropdown>
-      <li [ngClass]="hasClass() ? 'nav-item nav-dropdown ' + item.class : 'nav-item nav-dropdown'"
-          [class.open]="isActive()"
+      <li [ngClass]="hasClass() ? 'nav-item nav-dropdown ' + item.class : 'nav-item nav-dropdown'"          
           routerLinkActive="open"
+          [class.open]="isActive()"
           appNavDropdown>
         <app-sidebar-nav-dropdown [link]='item'></app-sidebar-nav-dropdown>
       </li>
@@ -68,8 +68,12 @@ export class AppSidebarNavItemComponent {
     return this.item.url
   }
 
+  public isDictionariesURL() {
+    return this.item.name === 'Dictionaries' ? true : false
+  }
+
   public isActive() {
-    return this.router.isActive(this.thisUrl(), false)
+    return this.router.isActive(this.thisUrl(), this.isDictionariesURL());
   }
 
   constructor( private router: Router )  { }

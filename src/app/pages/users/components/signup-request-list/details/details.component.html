@@ -11,7 +11,7 @@
             <a (click)="resetPasswordModal.show()">Reset Password</a>
             <a (click)="uploadToOrbidal=false; uploadResultsModal.show()">Upload Results</a>
             <a (click)="uploadToOrbidal=true; uploadResultsModal.show()">Upload To Orbidal</a>
-            <a (click)="userStatisticsModal.show()">User Statistics</a>
+            <a (click)="getUserSessions('')">User Statistics</a>
         </div>
     </div>
 
@@ -180,8 +180,10 @@
                         (change)="handleFileInput($event.target.files)">
                 </div>
                 <div class="model-body">
-                    <p class="this-is-CSV" *ngIf="!uploadToOrbidal && !thisIsCSV">Please Upload type CSV, XLS and XLSX only file </p>
-                    <p class="this-is-CSV" *ngIf="uploadToOrbidal && !thisIsCSV">Please Upload type XLS, XLSX, JPG, JPEG, PNG, PDF, CSV, DOC, DOCX, PPTX, PPt only file </p>
+                    <p class="this-is-CSV" *ngIf="!uploadToOrbidal && !thisIsCSV">Please Upload type CSV, XLS and XLSX
+                        only file </p>
+                    <p class="this-is-CSV" *ngIf="uploadToOrbidal && !thisIsCSV">Please Upload type XLS, XLSX, JPG,
+                        JPEG, PNG, PDF, CSV, DOC, DOCX, PPTX, PPT only file </p>
                     <p class="this-is-CSV" *ngIf="!underFileSize">File Size must be under 20MB </p>
                     <p class="upload-file-loading" *ngIf="uploadFileLoading">Please Wait... </p>
                 </div>
@@ -214,15 +216,24 @@
                 </div>
 
                 <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
+                    <!-- {{statisticFilterForm?.controls['filter'].value}} -->
+                    <form [formGroup]="statisticFilterForm" novalidate>
+                        <!-- <input type="radio" id="all" name="filter" value="all" formControlName="filter"> <label for="all">ALL</label><br>
+                        <input type="radio" id="30days" name="filter" value="30days" formControlName="filter"><label for="30days">Past 30 Days</label> <br> -->
+                        <input type="radio" id="all" name=filter formControlName="filter" value="all" > <label for="all">ALL</label>
+                        <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label>
+                    </form>
                     <div class="row col-12">
 
                         <div class="pull-left col-sm-6">
                             <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
-                                *ngFor="let item of statisticsOf">
-                                <label class="main-label">{{ item.type }}</label>
-                                <div class="info">
-                                    <span>{{ item.count }} </span>
-                                </div>
+                                *ngFor="let item of userStatisticsData">
+                                <ng-container *ngIf="item.key!=='user_id'">
+                                    <label class="main-label">{{ item.key }}</label>
+                                    <div class="info">
+                                        <span>{{ item.value }} </span>
+                                    </div>
+                                </ng-container>
                             </div>
                         </div>
 

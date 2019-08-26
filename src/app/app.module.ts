@@ -103,7 +103,7 @@ import { FileDropModule } from 'ngx-file-drop';
         AppComponent,
         ...APP_CONTAINERS,
         ...APP_COMPONENTS,
-        ...APP_DIRECTIVES
+        ...APP_DIRECTIVES,
     ],
     providers: [
         {

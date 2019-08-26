@@ -8,3 +8,15 @@
 .country-comp_sel-holder {
     padding: 0 0 20px;
 }
+:host{
+  ::ng-deep {
+    .multiple_comp-input{      
+	    .ng-arrow-wrapper {
+        display: none !important;
+	    }
+	    input {
+        cursor: text !important;
+  	  }
+    }
+  }
+}

@@ -17,6 +17,7 @@ import { TagInputModule } from 'ngx-chips';
 import { SelectComponent } from './components/select/select.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserFilterPipe } from './pipes/user-filter.pipe';
+import { KeyValuePipe } from '../pipe/key-value.pipe';
 
 @NgModule({
     imports: [
@@ -51,7 +52,8 @@ import { UserFilterPipe } from './pipes/user-filter.pipe';
         InputDropdownComponent,
         DropdownListComponent,
         InputErrorsComponent,
-        SelectComponent
+        SelectComponent,
+        KeyValuePipe
     ],
     declarations: [
         DocumentsComponent,
@@ -61,7 +63,8 @@ import { UserFilterPipe } from './pipes/user-filter.pipe';
         InputDropdownComponent,
         DropdownListComponent,
         InputErrorsComponent,
-        SelectComponent
+        SelectComponent,
+        KeyValuePipe
     ],
 })
 export class SharedModule { }

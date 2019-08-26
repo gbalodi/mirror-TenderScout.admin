@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, ViewChild, ElementRef, ChangeDetectorRef } from '@angular/core';
 import { ViewCell } from 'ng2-smart-table';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { MainRequestService } from '../../../../../services/main-request.service';
@@ -6,11 +6,17 @@ import { ToastrService } from 'ngx-toastr';
 import { ModalDirective } from 'ngx-bootstrap';
 import { UploadFileService } from '../upload-file/upload-file.service';
 import * as Highcharts from 'highcharts';
+import { UsersService } from '../../services/users.service';
+import { KeyValuePipe } from '../../../../../pipe/key-value.pipe';
+import * as _ from 'lodash';
 
 @Component({
     selector: 'app-request-details',
     templateUrl: './details.component.html',
-    styleUrls: ['./details.component.scss']
+    styleUrls: ['./details.component.scss'],
+    providers: [
+        KeyValuePipe
+    ]
 })
 export class DetailsComponent implements ViewCell, OnInit {
     @ViewChild('resetPasswordModal') resetPasswordModal;
@@ -24,6 +30,7 @@ export class DetailsComponent implements ViewCell, OnInit {
     public blockBtn: boolean = false;
     public show: boolean = false;
     public resetPasswordForm: FormGroup;
+    public statisticFilterForm: FormGroup;
     public matchedPassword: boolean;
     public lengthPassword: boolean;
     public fileToUpload: File = null;
@@ -32,29 +39,9 @@ export class DetailsComponent implements ViewCell, OnInit {
     public uploadFileLoading: boolean = false;
     public rowDataObj: any;
     public uploadToOrbidal: boolean = false;
-    public statisticsOf: Array<any> = [
-        {
-            type: 'Number of click',
-            count: 5
-        },
-        {
-            type: 'Number of email sent',
-            count: 55
-        },
-        {
-            type: 'Number of opportunities moved to QUALIFY',
-            count: 533
-        },
-        {
-            type: 'Number opportunities moved to COMPETE',
-            count: 55456485
-        },
-        {
-            type: 'Number opportunities added to PERFORM',
-            count: 55456
-        },
-    ];
-    public highChartSeriesData: Array<number> = [5, 55, 533, 555, 6556];
+    public userStatisticsData: any;
+    public highChartSeriesData: Array<number> = [];
+    public highChartSeriesCategoriesType: Array<string> = [];
     public profileType: Array<any> = [
         { name: 'consultant' },
         { name: 'company' },
@@ -66,11 +53,16 @@ export class DetailsComponent implements ViewCell, OnInit {
         private formBuilder: FormBuilder,
         private mainRequestService: MainRequestService,
         private toasterService: ToastrService,
-        private uploadFileService: UploadFileService
+        private uploadFileService: UploadFileService,
+        private usersService: UsersService,
+        private changeDetectorRef: ChangeDetectorRef,
+        private keyValuePipe: KeyValuePipe
     ) { }
 
-
     ngOnInit() {
+        this.statisticFilterForm = this.formBuilder.group({
+            filter: ['all', [Validators.required]],
+        });
         this.resetPasswordForm = this.formBuilder.group({
             password: ['', [Validators.required, Validators.minLength(6)]],
             password_confirmation: ['', [Validators.required, Validators.minLength(6)]],
@@ -94,6 +86,94 @@ export class DetailsComponent implements ViewCell, OnInit {
         } else {
             this.reqData = Object.keys(this.rowData);
         }
+
+        this.statisticFilterForm.valueChanges.subscribe(
+            data => {
+                console.log('Username changed:' + data);
+                data.filter === '30days' ? this.getUserSessions(30) : this.getUserSessions('');
+            }
+        );
+    }
+
+    /**
+     * API service call to get a user session info by it's id...
+     */
+    public getUserSessions(param) {
+        this.highChartSeriesData = [];
+        this.highChartSeriesCategoriesType = [];
+        this.usersService.getUserSessions(this.rowDataObj.id, param).subscribe((res: any) => {
+            this.userStatisticsData = this.keyValuePipe.transform(JSON.parse(res));
+
+            this.userStatisticsData.forEach(element => {
+                if (element.key !== 'user_id') {
+                    this.highChartSeriesData.push(element.value);
+                    // this will replace the underscore with space and first later to uppercase...
+                    this.highChartSeriesCategoriesType.push((element.key.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, (key) => { return key.toUpperCase() })));
+                }
+            });
+
+            this.userStatisticsModal.show();
+            this.highcharts = Highcharts;
+            this.chartOptions = {
+                chart: {
+                    type: 'bar'
+                },
+                title: {
+                    text: ''
+                },
+                legend: {
+                    layout: 'vertical',
+                    align: 'left',
+                    verticalAlign: 'top',
+                    x: 250,
+                    y: 100,
+                    floating: true,
+                    borderWidth: 1,
+
+                    backgroundColor: (
+                        (Highcharts.theme && Highcharts.theme.legendBackgroundColor) ||
+                        '#FFFFFF'), shadow: true
+                },
+                xAxis: {
+                    categories: this.highChartSeriesCategoriesType,
+                    title: {
+                        text: null
+                    }
+                },
+                yAxis: {
+                    min: 0, title: {
+                        // text: 'Population (millions)', 
+                        align: 'high'
+                    },
+                    labels: {
+                        overflow: 'justify'
+                    }
+                },
+                tooltip: {
+                    // valueSuffix: ' '
+                },
+                plotOptions: {
+                    bar: {
+                        dataLabels: {
+                            enabled: true
+                        }
+                    }
+                },
+                credits: {
+                    enabled: false
+                },
+                series: [
+                    {
+                        showInLegend: false,
+                        name: ' ',
+                        data: this.highChartSeriesData
+                    }
+                ]
+            };
+            this.changeDetectorRef.detectChanges();
+        }, error => {
+            console.log(error);
+        });
     }
 
     /**
@@ -213,7 +293,7 @@ export class DetailsComponent implements ViewCell, OnInit {
                 '#FFFFFF'), shadow: true
         },
         xAxis: {
-            categories: ['No. of Click', 'No. of Email Sent', 'No. of Opportunities Moved To QUALIFY', 'No. of Opportunities Moved To COMPETE', 'No. of Opportunities Added To PERFORM'], title: {
+            categories: [], title: {
                 text: null
             }
         },

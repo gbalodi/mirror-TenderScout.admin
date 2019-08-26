@@ -13,7 +13,7 @@ const routes: Routes = [
                 path: '',
                 component: TenderCompaniesInfoListComponent,
                 data: {
-                    title: 'Tender Companies List'
+                    title: 'List'
                 }
             }
         ]
