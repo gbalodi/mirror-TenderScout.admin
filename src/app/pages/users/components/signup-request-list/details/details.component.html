@@ -217,11 +217,26 @@
 
                 <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
                     <!-- {{statisticFilterForm?.controls['filter'].value}} -->
-                    <form [formGroup]="statisticFilterForm" novalidate>
+                    <form [formGroup]="statisticFilterForm" class="static_form-holder" novalidate>
+
                         <!-- <input type="radio" id="all" name="filter" value="all" formControlName="filter"> <label for="all">ALL</label><br>
                         <input type="radio" id="30days" name="filter" value="30days" formControlName="filter"><label for="30days">Past 30 Days</label> <br> -->
-                        <input type="radio" id="all" name=filter formControlName="filter" value="all" > <label for="all">ALL</label>
-                        <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label>
+                        <!-- <input type="radio" id="all" name=filter formControlName="filter" value="all" > <label for="all">ALL</label>
+                        <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label> -->
+
+                        <div class="form-group">
+                            <input class="custom-radio" type="radio" id="all" name="filter" formControlName="filter" value="all" checked>
+                            <label for="all">
+                            <span></span> ALL
+                          </label>
+                        </div>
+                        <div class="form-group">
+                            <input class="custom-radio" type="radio" id="30days" name="filter" formControlName="filter" value="30days">
+                            <label for="30days">
+                                <span></span> Past 30 Days
+                            </label>
+                        </div>
+                        
                     </form>
                     <div class="row col-12">
 
