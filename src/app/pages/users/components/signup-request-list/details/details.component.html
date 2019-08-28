@@ -240,23 +240,25 @@
                     </form>
                     <div class="row col-12">
 
-                        <div class="pull-left col-sm-6">
-                            <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
-                                *ngFor="let item of userStatisticsData">
-                                <ng-container *ngIf="item.key!=='user_id'">
-                                    <label class="main-label">{{ item.key }}</label>
-                                    <div class="info">
-                                        <span>{{ item.value }} </span>
-                                    </div>
-                                </ng-container>
+                        <div class="pull-left col-sm-12">
+                            <div class="row">
+                                <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
+                                    *ngFor="let item of userStatisticsData" class="col-sm-3">
+                                    <ng-container *ngIf="item.key!=='user_id'">
+                                        <label class="main-label">{{ item.key }}</label>
+                                        <div class="info">
+                                            <span>{{ item.value }} </span>
+                                        </div>
+                                    </ng-container>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="pull-left col-sm-6">
+                        <!-- <div class="pull-left col-sm-6">
                             <highcharts-chart [Highcharts]="highcharts" [options]="chartOptions"
                                 style="width: 100%; height: 400px; display: block;">
                             </highcharts-chart>
-                        </div>
+                        </div> -->
 
                     </div>
                 </div>

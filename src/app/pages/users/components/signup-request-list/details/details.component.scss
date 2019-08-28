@@ -8,13 +8,13 @@
     }
     .modal-body {
         .main-label {
-            font-size: 16px;
+            font-size: 14px;
             width: 100%;
             text-transform: capitalize;
             margin-top: 15px;
             background: #d66166;
             color: #fff;
-            padding: 3px 15px 0;
+            padding: 2px 15px;
             margin-bottom: 0;
         }
         .info {
@@ -182,7 +182,7 @@ a {
 }
 
 .modal-header span {
-    font-size: 26px !important;
+    font-size: 20px !important;
     cursor: pointer !important;
 }
 
@@ -213,6 +213,7 @@ a {
     -webkit-border-radius: 50%;
     border-radius: 50%;
     position: relative;
+    top: -1px;
     border: 2px solid #d66166;
   }
 .static_form-holder .custom-radio + label span::before {
