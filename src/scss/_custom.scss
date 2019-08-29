@@ -326,7 +326,7 @@ tag:not(.readonly):not(.tag--editing):focus {
 }
 
 .international-select .multiselect-dropdown .dropdown-btn {
-  background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAJBAMAAAD0ltBnAAAAElBMVEUAAABAWXM+U3FNZoA8Um89UnC2JtVOAAAABnRSTlMAFFYKc2BRl6gWAAAANElEQVR4nGNggAAhAwYGZkUGlWAGBlMnBlNXA+aQYAYgBrKAIq5ADlA+BMQBcoPBWpiBHADLJAald8F+GwAAAABJRU5ErkJggg==") !important;
+  background-image: url("../assets/img/logo-white-transparent.png") !important;
   background-repeat: no-repeat !important;
   background-position: calc(100% - 15px) center;
   border-color: #e1e6ef !important;
@@ -346,6 +346,7 @@ tag:not(.readonly):not(.tag--editing):focus {
 .marketplace-pagi-holder .ngx-pagination button {
   text-decoration: none;
 }
+
 .geography input {
   cursor: pointer !important;
 }

@@ -38,4 +38,13 @@ export class UsersService {
   public getUserSessions(id, param) {
     return this.http.get(`v1/users/${id}/user_sessions?days=${param}`);
   }
+
+  /**
+   * Get Users Statistics with pagination & filter...
+   * @param days 
+   * @param page 
+   */
+  public getUserStatistics(days: string, page: number) {
+    return this.http.get(`/v1/users/user_statistics?days=${days}&page=${page}`);
+  }
 }

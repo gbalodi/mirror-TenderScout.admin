@@ -1,0 +1,43 @@
+<div class="com-tndr-lsthldr">
+
+  <!-- For filter -->
+  <div>
+    <form [formGroup]="statisticFilterForm" novalidate>
+      <input type="radio" id="all" name=filter formControlName="filter" value=""> <label for="all">ALL</label>
+      <input type="radio" id="30days" name=filter formControlName="filter" value="30"> <label for="30days">Past 30
+        Days</label>
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngFor="let item of tableHeadNames">{{item}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of userStatistics | paginate: { itemsPerPage: 24, currentPage: page, totalItems: totalData }">
+          <td>{{item.full_name}}</td>
+          <td>{{item.added_to_perform}}</td>
+          <td>{{item.bid_assets_count}}</td>
+          <td>{{item.emails_opened}}</td>
+          <td>{{item.emails_sent}}</td>
+          <td>{{item.login_sessions}}</td>
+          <td>{{item.monitors_count}}</td>
+          <td>{{item.move_to_complete}}</td>
+          <td>{{item.move_to_qualify}}</td>
+          <td>{{item.sign_in_count}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <p *ngIf="showWaitingMessage">Please Wait...</p>
+
+  <div class="marketplace-pagi-holder" *ngIf="totalData>0">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div>
+</div>

@@ -17,6 +17,11 @@ export const navigation = [
                 icon: 'fas fa-users',
             },
             {
+                name: 'Users statistics',
+                url: '/users/statistics',
+                icon: 'fas fa-users',
+            },
+            {
                 name: 'Sign-up requests',
                 url: '/users/signup-requests',
                 icon: 'fas fa-user-plus',

@@ -61,7 +61,7 @@ export class DetailsComponent implements ViewCell, OnInit {
 
     ngOnInit() {
         this.statisticFilterForm = this.formBuilder.group({
-            filter: ['all', [Validators.required]],
+            filter: ['', [Validators.required]],
         });
         this.resetPasswordForm = this.formBuilder.group({
             password: ['', [Validators.required, Validators.minLength(6)]],
@@ -90,7 +90,7 @@ export class DetailsComponent implements ViewCell, OnInit {
         this.statisticFilterForm.valueChanges.subscribe(
             data => {
                 console.log('Username changed:' + data);
-                data.filter === '30days' ? this.getUserSessions(30) : this.getUserSessions('');
+                this.getUserSessions();
             }
         );
     }
@@ -98,17 +98,17 @@ export class DetailsComponent implements ViewCell, OnInit {
     /**
      * API service call to get a user session info by it's id...
      */
-    public getUserSessions(param) {
+    public getUserSessions() {
         this.highChartSeriesData = [];
         this.highChartSeriesCategoriesType = [];
-        this.usersService.getUserSessions(this.rowDataObj.id, param).subscribe((res: any) => {
+        this.usersService.getUserSessions(this.rowDataObj.id, this.statisticFilterForm.controls['filter'].value).subscribe((res: any) => {
             this.userStatisticsData = this.keyValuePipe.transform(JSON.parse(res));
 
             this.userStatisticsData.forEach(element => {
                 if (element.key !== 'user_id') {
                     this.highChartSeriesData.push(element.value);
                     // this will replace the underscore with space and first later to uppercase...
-                    this.highChartSeriesCategoriesType.push((element.key.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, (key) => { return key.toUpperCase() })));
+                    this.highChartSeriesCategoriesType.push(this.replaceUnderscore(element.key));
                 }
             });
 
@@ -174,6 +174,10 @@ export class DetailsComponent implements ViewCell, OnInit {
         }, error => {
             console.log(error);
         });
+    }
+
+    public replaceUnderscore(string) {
+        return string.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, (key) => { return key.toUpperCase() })
     }
 
     /**

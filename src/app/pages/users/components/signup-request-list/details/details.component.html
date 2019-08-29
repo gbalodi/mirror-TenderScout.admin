@@ -216,12 +216,9 @@
                 </div>
 
                 <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
-                    <!-- {{statisticFilterForm?.controls['filter'].value}} -->
                     <form [formGroup]="statisticFilterForm" novalidate>
-                        <!-- <input type="radio" id="all" name="filter" value="all" formControlName="filter"> <label for="all">ALL</label><br>
-                        <input type="radio" id="30days" name="filter" value="30days" formControlName="filter"><label for="30days">Past 30 Days</label> <br> -->
-                        <input type="radio" id="all" name=filter formControlName="filter" value="all" > <label for="all">ALL</label>
-                        <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label>
+                        <input type="radio" id="all" name=filter formControlName="filter" value="" > <label for="all">ALL</label>
+                        <input type="radio" id="30days" name=filter formControlName="filter" value="30"> <label for="30days">Past 30 Days</label>
                     </form>
                     <div class="row col-12">
 
@@ -229,7 +226,7 @@
                             <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
                                 *ngFor="let item of userStatisticsData">
                                 <ng-container *ngIf="item.key!=='user_id'">
-                                    <label class="main-label">{{ item.key }}</label>
+                                    <label class="main-label">{{ replaceUnderscore(item.key) }}</label>
                                     <div class="info">
                                         <span>{{ item.value }} </span>
                                     </div>

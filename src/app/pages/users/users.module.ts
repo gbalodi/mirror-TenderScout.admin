@@ -22,6 +22,8 @@ import { UsersService } from './components/services/users.service';
 import { UploadFileComponent } from './components/signup-request-list/upload-file/upload-file.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HighchartsChartModule } from 'highcharts-angular';
+import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 
 @NgModule({
@@ -33,7 +35,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
         ModalModule,
         UiSwitchModule,
         NgSelectModule,
-        HighchartsChartModule
+        HighchartsChartModule,
+        NgxPaginationModule
     ],
     declarations: [
         UsersListComponent,
@@ -47,6 +50,7 @@ import { HighchartsChartModule } from 'highcharts-angular';
         UserInfoComponent,
         AcceptRequestComponent,
         UploadFileComponent,
+        UserStatisticsComponent,
         // HighchartsChartComponent
     ],
     exports: [

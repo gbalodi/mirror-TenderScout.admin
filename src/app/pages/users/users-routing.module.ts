@@ -6,6 +6,7 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { SignupReqListComponent } from './components/signup-request-list/reqs-list.component';
 import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
+import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 
 const routes: Routes = [
     {
@@ -19,6 +20,13 @@ const routes: Routes = [
                 component: UsersListComponent,
                 data: {
                     title: 'Users list'
+                }
+            },
+            {
+                path: 'statistics',
+                component: UserStatisticsComponent,
+                data: {
+                    title: 'Users Statistics'
                 }
             },
             {
