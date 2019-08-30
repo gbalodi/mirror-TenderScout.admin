@@ -12,17 +12,17 @@ export const navigation = [
         icon: 'fas fa-users-cog',
         children: [
             {
-                name: 'Users list',
+                name: 'Users List',
                 url: '/users/list',
                 icon: 'fas fa-users',
             },
             {
-                name: 'Users statistics',
+                name: 'Users Statistics',
                 url: '/users/statistics',
                 icon: 'fas fa-users',
             },
             {
-                name: 'Sign-up requests',
+                name: 'Sign-Up Requests',
                 url: '/users/signup-requests',
                 icon: 'fas fa-user-plus',
                 badge: {
@@ -30,7 +30,7 @@ export const navigation = [
                 }
             },
             {
-                name: 'Assistence requests',
+                name: 'Assistence Requests',
                 url: '/users/assist-requests',
                 icon: 'fas fa-question-circle',
                 badge: {
@@ -38,7 +38,7 @@ export const navigation = [
                 }
             },
             {
-                name: 'Upgrade requests',
+                name: 'Upgrade Requests',
                 url: '/users/upgrade-requests',
                 icon: 'fas fa-question-circle',
                 badge: {
@@ -52,17 +52,17 @@ export const navigation = [
         icon: 'fas fa-book',
         children: [
             {
-                name: 'Country dict',
+                name: 'Country Dict',
                 url: '/dictionaries/countries',
                 icon: 'fas fa-globe-asia',
             },
             {
-                name: 'Codes dict',
+                name: 'Codes Dict',
                 url: '/dictionaries/codes',
                 icon: 'fas fa-sort-numeric-down',
             },
             {
-                name: 'Industries dict',
+                name: 'Industries Dict',
                 url: '/dictionaries/industries',
                 icon: 'fas fa-industry',
             },
