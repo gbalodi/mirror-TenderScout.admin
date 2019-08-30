@@ -1,11 +1,17 @@
 <div class="com-tndr-lsthldr">
 
   <!-- For filter -->
-  <div>
+  <div class="com-tndr-formhldr">
     <form [formGroup]="statisticFilterForm" novalidate>
-      <input type="radio" id="all" name=filter formControlName="filter" value=""> <label for="all">ALL</label>
-      <input type="radio" id="30days" name=filter formControlName="filter" value="30"> <label for="30days">Past 30
-        Days</label>
+      <div class="radio">
+          <input id="all" name="filter" type="radio" formControlName="filter" value="" checked>
+          <label for="all" class="radio-label">ALL</label>
+        </div>
+      
+        <div class="radio">
+          <input id="30days" name="filter" type="radio" formControlName="filter" value="30">
+          <label  for="30days" class="radio-label">Past 30 Days</label>
+        </div>
     </form>
   </div>
 

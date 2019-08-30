@@ -350,3 +350,15 @@ tag:not(.readonly):not(.tag--editing):focus {
 .geography input {
   cursor: pointer !important;
 }
+.marketplace-pagi-holder .ngx-pagination li {
+  display: inline-block;
+  border: 1px solid #ddd;
+  margin: 0;
+  margin-left: -1px;
+}
+.marketplace-pagi-holder .ngx-pagination li.current {
+  border-color: #d66166 !important;
+}
+.marketplace-pagi-holder .ngx-pagination li.small-screen {
+  display: none;
+}

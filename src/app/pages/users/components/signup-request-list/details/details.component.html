@@ -225,14 +225,14 @@
                         <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label> -->
 
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" id="all" name="filter" formControlName="filter" value="">
-                            <label for="all">
+                            <input class="custom-radio" type="radio" [id]="'all'+rowDataObj.id" name="filter" formControlName="filter" value="">
+                            <label [for]="'all'+rowDataObj.id">
                             <span></span> ALL
                           </label>
                         </div>
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" id="30days" name="filter" formControlName="filter" value="30">
-                            <label for="30days">
+                            <input class="custom-radio" type="radio" [id]="'days'+rowDataObj.id" name="filter" formControlName="filter" value="30">
+                            <label [for]="'days'+rowDataObj.id">
                                 <span></span> Past 30 Days
                             </label>
                         </div>
