@@ -10,5 +10,9 @@ export const environment = {
     // apiUrl: 'https://app.orbidalgroup.com/api/'
     apiUrl: 'https://api.tshub.matrixmarketers.com/api/'
     // apiUrl: 'http://192.168.10.130:3000/' //@Gaurav
+<<<<<<< HEAD
     //apiUrl: 'http://192.168.10.131:3000/' //@Akshita
+=======
+    // apiUrl: 'http://192.168.10.131:3000/' //@Akshita
+>>>>>>> a0f8e87ddc8603db6561ed90f341b6522ba8e0ed
 };
