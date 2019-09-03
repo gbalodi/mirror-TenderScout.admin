@@ -225,32 +225,35 @@
                         <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label> -->
 
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" [id]="'all'+rowDataObj.id" name="filter" formControlName="filter" value="">
+                            <input class="custom-radio" type="radio" [id]="'all'+rowDataObj.id" name="filter"
+                                formControlName="filter" value="">
                             <label [for]="'all'+rowDataObj.id">
-                            <span></span> ALL
-                          </label>
+                                <span></span> ALL
+                            </label>
                         </div>
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" [id]="'days'+rowDataObj.id" name="filter" formControlName="filter" value="30">
+                            <input class="custom-radio" type="radio" [id]="'days'+rowDataObj.id" name="filter"
+                                formControlName="filter" value="30">
                             <label [for]="'days'+rowDataObj.id">
                                 <span></span> Past 30 Days
                             </label>
                         </div>
-                        
+
                     </form>
                     <div class="row">
 
                         <div class="pull-left col-sm-12">
                             <div class="row">
-                                <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
-                                    *ngFor="let item of userStatisticsData" class="col-sm-3">
-                                    <ng-container *ngIf="item.key!=='user_id'">
+                                <ng-container *ngFor="let item of userStatisticsData">
+                                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
+                                        class="col-sm-3" *ngIf="item.key!=='user_id'">
                                         <label class="main-label">{{ replaceUnderscore(item.key) }}</label>
                                         <div class="info">
                                             <span>{{ item.value }} </span>
                                         </div>
-                                    </ng-container>
-                                </div>
+                                    </div>
+                                </ng-container>
+
                             </div>
                         </div>
 

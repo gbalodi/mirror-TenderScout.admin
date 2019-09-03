@@ -1,0 +1,62 @@
+<!-- <div class="com-tndr-lsthldr">
+
+  <div>
+    <input type="text">
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>User Name</th>
+          <th>User Email</th>
+          <th>Company Name</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of claimsList">
+          <td>{{item?.user_name}}</td>
+          <td>{{item?.user_email ? item?.user_email : '-'}}</td>
+          <td>{{item?.organization_name? item?.organization_name : '-'}}</td>
+          <td [ngClass]="item.status + 'Color'">{{item?.status | uppercase}}</td>
+          <td><button class="btn btn-primary" *ngIf="item.status === 'pending'"
+              (click)="openModal(approveRejectModal, 'approved')">Accept</button><button class="btn btn-primary"
+              *ngIf="item.status === 'pending'" (click)="openModal(approveRejectModal, 'rejected')">Reject</button>
+            {{item.status === 'approved' ? '-': ''}}</td> -->
+
+<!-- Modal for Approve -->
+<!-- <ng-template #approveRejectModal>
+            <div class="modal-header">
+              <h4 *ngIf="isApprove" class="modal-title pull-left">Are you sure you want to approve this claim?</h4>
+              <h4 *ngIf="!isApprove" class="modal-title pull-left">Are you sure you want to reject this claim?</h4>
+              <button class="close pull-right" aria-label="Close" (click)="approveModal.hide()">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div>
+              <button class="btn btn-primary"
+                (click)="onApprove(item.id, isApprove ? 'approved': 'rejected')">Yes</button>
+              <button class="btn btn-primary" (click)="approveModal.hide()">No</button>
+            </div>
+          </ng-template>
+
+
+        </tr>
+      </tbody>
+    </table>
+  </div> -->
+
+<!-- <div class="marketplace-pagi-holder" *ngIf="totalData>0">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div> -->
+
+<!-- </div> -->
+
+<div class="card-header">
+  <h3>Claims list</h3>
+</div>
+<ng2-smart-table class="table table-striped" [settings]="settings" [source]="source"></ng2-smart-table>

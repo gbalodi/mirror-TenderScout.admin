@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { debounceTime, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-statistics',
@@ -8,21 +9,22 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
   styleUrls: ['./user-statistics.component.scss']
 })
 export class UserStatisticsComponent implements OnInit {
+  @ViewChild('abc') csvDownload: ElementRef;
   public page: number = 1;
   public totalData: number = 0;
   public statisticFilterForm: FormGroup;
   public userStatistics: Array<any> = [];
-  public tableHeadNames: Array<string> = [
-    'User Name',
-    'Added To Perform',
-    'Bid Assets Count',
-    'Emails Opened',
-    'Emails Sent',
-    'Login Sessions',
-    'Monitors Count',
-    'Move To Complete',
-    'Move To Qualify',
-    'Sign In Count'
+  public csvData: Array<any> = [];
+  public tableHeadNames: Array<any> = [
+    { title: 'User Name', key: 'full_name' },
+    { title: 'Added To Perform', key: 'added_to_perform' },
+    { title: 'Bid Assets Count', key: 'bid_assets_count' },
+    { title: 'Emails Opened', key: 'emails_opened' },
+    { title: 'Emails Sent', key: 'emails_sent' },
+    { title: 'Login Sessions', key: 'login_sessions' },
+    { title: 'Monitors Count', key: 'monitors_count' },
+    { title: 'Move To Complete', key: 'move_to_complete' },
+    { title: 'Move To Qualify', key: 'move_to_qualify' }
   ]
 
   constructor(
@@ -32,22 +34,33 @@ export class UserStatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.statisticFilterForm = this.formBuilder.group({
-      filter: ['', [Validators.required]],
+      days: ['', [Validators.required]],
+      search_text: [''],
+      added_to_perform: [''],
+      bid_assets_count: [''],
+      emails_opened: [''],
+      emails_sent: [''],
+      login_sessions: [''],
+      monitors_count: [''],
+      move_to_complete: [''],
+      move_to_qualify: [''],
+      page: [1]
     });
 
     this.getUserStatistics();
 
-    this.statisticFilterForm.valueChanges.subscribe(
-      data => {
-        console.log('Username changed:' + data);
-        this.page = 1;
-        this.getUserStatistics()
-      }
-    );
+    this.statisticFilterForm.valueChanges.pipe(
+      debounceTime(700)
+    ).subscribe(data => {
+      console.log(data);
+      // this.page = 1;
+      this.getUserStatistics()
+    });
   }
 
   public getUserStatistics() {
-    this.usersService.getUserStatistics(this.statisticFilterForm.controls['filter'].value, this.page).subscribe((res: any) => {
+    this.statisticFilterForm.value.page = this.page;
+    this.usersService.getUserStatistics(this.statisticFilterForm.value).subscribe((res: any) => {
       res = JSON.parse(res);
       this.totalData = res.count;
       this.userStatistics = res.user_statistics;
@@ -64,8 +77,28 @@ export class UserStatisticsComponent implements OnInit {
   */
   public pageChanged(event) {
     this.page = event;
-    let param = this.statisticFilterForm.controls['filter'].value === '30days'? '30': '';
+    let param = this.statisticFilterForm.controls['days'].value === '30days' ? '30' : '';
     this.getUserStatistics();
+  }
+
+  /**
+   * API service call to get criteria wise export CSV file of user statistics...
+   */
+  public getCSV() {
+    this.statisticFilterForm.value.page = this.page;
+    this.usersService.getExportStatistics(this.statisticFilterForm.value).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.csvData = res.user_statistics;
+      setTimeout(() => {
+        this.csvDownload.nativeElement.click()
+      }, 500);
+    }, error => {
+      console.log(error);
+    })
+  }
+
+  call(){
+    console.log("Bishnu");
   }
 
 }

@@ -99,5 +99,10 @@ export const navigation = [
         name: 'Companies-Contacts',
         url: '/companies-contacts',
         icon: 'fas fa-users',
+    },
+    {
+        name: 'Company Claims',
+        url: '/claims',
+        icon: 'fas fa-users',
     }
 ];

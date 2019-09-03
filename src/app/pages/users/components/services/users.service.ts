@@ -4,6 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map'
 import { ThrowStmt } from '@angular/compiler';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -44,7 +45,15 @@ export class UsersService {
    * @param days 
    * @param page 
    */
-  public getUserStatistics(days: string, page: number) {
-    return this.http.get(`/v1/users/user_statistics?days=${days}&page=${page}`);
+  public getUserStatistics(data: any) {
+    return this.http.post(`v1/users/user_statistics`, data);
+  }
+
+  /**
+   * API server service call to get criteria wise Export Statistics of users...
+   * @param data 
+   */
+  public getExportStatistics(data) {
+    return this.http.post(`v1/users/export_statistics`, data);
   }
 }

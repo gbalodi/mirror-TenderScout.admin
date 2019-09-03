@@ -53,6 +53,10 @@ export const routes: Routes = [
       {
         path: "scraper",
         loadChildren: "./pages/scraper/scraper.module#ScraperModule"
+      },
+      {
+        path: "claims",
+        loadChildren: "./pages/claimed-companies/claimed-companies.module#ClaimedCompaniesModule"
       }
     ]
   }
@@ -62,4 +66,4 @@ export const routes: Routes = [
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
-export class AppRoutingModule {}
+export class AppRoutingModule { }

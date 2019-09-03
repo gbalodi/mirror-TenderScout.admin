@@ -24,6 +24,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HighchartsChartModule } from 'highcharts-angular';
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 import { NgxPaginationModule } from 'ngx-pagination';
+import { CsvModule } from '@ctrl/ngx-csv';
 
 
 @NgModule({
@@ -36,7 +37,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
         UiSwitchModule,
         NgSelectModule,
         HighchartsChartModule,
-        NgxPaginationModule
+        NgxPaginationModule,
+        CsvModule
     ],
     declarations: [
         UsersListComponent,

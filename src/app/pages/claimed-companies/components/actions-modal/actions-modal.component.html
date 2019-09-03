@@ -1,0 +1,30 @@
+<div class="modal-details">
+    <!-- <button class="btn btn-outline-primary" data-toggle="modal" [disabled]="blockBtn" (click)="infoModal.show()" title="Details">
+    <i class="fas fa-info-circle margin-r10"></i>Details
+    </button> -->
+
+    <div class="dropdown" *ngIf="rowData.status === 'pending'">
+        <button class="dropbtn"><i class="fas fa-cog"></i></button>
+        <div class="dropdown-content">
+            <a (click)="openModal(approveRejectModal, 'approved')">Accept</a>
+            <a (click)="openModal(approveRejectModal, 'rejected')">Reject</a>
+        </div>
+    </div>
+
+    <!-- Modal for Approve -->
+    <ng-template #approveRejectModal>
+        <div class="modal-header">
+            <h4 *ngIf="isApprove" class="modal-title pull-left">Are you sure you want to approve this claim?</h4>
+            <h4 *ngIf="!isApprove" class="modal-title pull-left">Are you sure you want to reject this claim?</h4>
+            <button class="close pull-right" aria-label="Close" (click)="approveModal.hide()">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <div>
+            <button class="btn btn-primary"
+                (click)="onApprove(rowData.id, isApprove ? 'approved': 'rejected')">Yes</button>
+            <button class="btn btn-primary" (click)="approveModal.hide()">No</button>
+        </div>
+    </ng-template>
+
+</div>
