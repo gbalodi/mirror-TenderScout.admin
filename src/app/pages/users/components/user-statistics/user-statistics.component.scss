@@ -54,7 +54,7 @@
   cursor: pointer;
 }
 
-.email-set{
+.email-set {
   font-size: 12px;
   color: blue;
 }
@@ -63,6 +63,11 @@
   text-align: right;
   position: relative;
 }
+
 .exp_csvbtn-holder button {
   margin-top: -55px;
+}
+
+.set-cursor {
+  cursor: pointer;
 }

@@ -11,6 +11,10 @@
         </div>
     </div>
 
+    <div class="dropdown" *ngIf="rowData.status !== 'pending'">
+        -
+    </div>
+
     <!-- Modal for Approve -->
     <ng-template #approveRejectModal>
         <div class="modal-header">

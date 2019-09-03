@@ -20,16 +20,16 @@
       </div>
 
       <div class="radio">
-        <input id="all" name="filter" type="radio" formControlName="days" value="" (change)="page=1">
+        <input id="all" name="days" type="radio" formControlName="days" value="">
         <label for="all" class="radio-label">ALL</label>
       </div>
 
       <div class="radio">
-        <input id="30days" name="filter" type="radio" formControlName="days" value="30" (change)="page=1">
+        <input id="30days" name="days" type="radio" formControlName="days" value="30">
         <label for="30days" class="radio-label">Past 30 Days</label>
       </div>
 
-      <button (click)="ngOnInit()" class="btn btn-primary">Reset Filters</button>
+      <button (click)="ngOnInit()" class="btn btn-primary">Clear Filters</button>
 
     </form>
   </div>
@@ -38,11 +38,15 @@
     <table class="table table-striped">
       <thead>
         <tr>
-          <th *ngFor="let item of tableHeadNames; let i=index">{{item.title}} <p *ngIf="i>0"><span
+          <th *ngFor="let item of tableHeadNames; let i=index">{{item.title}}
+            <!-- <p *ngIf="i>0"><span class="set-cursor"
                 *ngIf="statisticFilterForm.controls[item.key].value === '' || statisticFilterForm.controls[item.key].value === 'asc'"
-                (click)="statisticFilterForm.controls[item.key].setValue('desc')">up</span><span
+                (click)="statisticFilterForm.controls[item.key].setValue('desc')"><i class="fa fa-arrow-up"
+                  aria-hidden="true"></i></span><span class="set-cursor"
                 *ngIf="statisticFilterForm.controls[item.key].value === 'desc'"
-                (click)="statisticFilterForm.controls[item.key].setValue('asc')">down</span></p>
+                (click)="statisticFilterForm.controls[item.key].setValue('asc')"><i class="fa fa-arrow-down"
+                  aria-hidden="true"></i></span>
+            </p> -->
           </th>
         </tr>
       </thead>
