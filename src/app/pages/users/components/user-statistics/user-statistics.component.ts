@@ -15,6 +15,7 @@ export class UserStatisticsComponent implements OnInit {
   public statisticFilterForm: FormGroup;
   public userStatistics: Array<any> = [];
   public csvData: Array<any> = [];
+  public selectedSortItem: any;
   public tableHeadNames: Array<any> = [
     { title: 'User Name', key: 'full_name' },
     { title: 'Added To Perform', key: 'added_to_perform' },
@@ -46,6 +47,7 @@ export class UserStatisticsComponent implements OnInit {
       move_to_qualify: [''],
       page: [1]
     });
+    this.selectedSortItem = {};
 
     this.getUserStatistics();
 
@@ -60,7 +62,8 @@ export class UserStatisticsComponent implements OnInit {
 
   public getUserStatistics() {
     this.statisticFilterForm.value.page = this.page;
-    this.usersService.getUserStatistics(this.statisticFilterForm.value).subscribe((res: any) => {
+    this.setFilterParams();
+    this.usersService.getUserStatistics(this.setFilterParams()).subscribe((res: any) => {
       res = JSON.parse(res);
       this.totalData = res.count;
       this.userStatistics = res.user_statistics;
@@ -69,6 +72,19 @@ export class UserStatisticsComponent implements OnInit {
       this.userStatistics = [];
       console.log(error);
     });
+  }
+
+  /**
+   * Get set params for API required Request...  
+   */
+  private setFilterParams() {
+    return {
+      page: this.page,
+      days: this.statisticFilterForm.value.days,
+      search_text: this.statisticFilterForm.value.search_text,
+      sort_by: this.selectedSortItem.hasOwnProperty('sort_by') ? this.selectedSortItem.sort_by : undefined,
+      sort_direction: this.selectedSortItem.hasOwnProperty('sort_direction') ? this.selectedSortItem.sort_direction : undefined,
+    };
   }
 
   /**
@@ -85,8 +101,7 @@ export class UserStatisticsComponent implements OnInit {
    * API service call to get criteria wise export CSV file of user statistics...
    */
   public getCSV() {
-    this.statisticFilterForm.value.page = this.page;
-    this.usersService.getExportStatistics(this.statisticFilterForm.value).subscribe((res: any) => {
+    this.usersService.getExportStatistics(this.setFilterParams()).subscribe((res: any) => {
       res = JSON.parse(res);
       this.csvData = res.user_statistics;
       setTimeout(() => {
@@ -97,8 +112,11 @@ export class UserStatisticsComponent implements OnInit {
     })
   }
 
-  call(){
-    console.log("Bishnu");
+  public selectedSortItemHandler(sort_by, sort_direction) {
+    this.selectedSortItem = {
+      sort_by: sort_by,
+      sort_direction: sort_direction
+    };
   }
 
 }
