@@ -3,8 +3,6 @@ import { Observable } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map'
-import { ThrowStmt } from '@angular/compiler';
-import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -55,5 +53,22 @@ export class UsersService {
    */
   public getExportStatistics(data) {
     return this.http.post(`v1/users/export_statistics`, data);
+  }
+
+  /**
+   * API server service call to get all requested for Admin rating... 
+   */
+  public getAdminRatingRequests() {
+    return this.http.get(`v1/bid_library/repositories/admin_rating_requests`);
+  }
+
+  /**
+   * API server service call to set Rating for the user Document...
+   * @param repository_slug 
+   * @param id 
+   * @param data 
+   */
+  public setAdminRating(repository_slug, id, data) {
+    return this.http.put(`v1/bid_library/repositories/${repository_slug}/bid_assets/${id}`, data);
   }
 }

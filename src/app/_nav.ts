@@ -44,6 +44,11 @@ export const navigation = [
                 badge: {
                     variant: 'info',
                 }
+            },
+            {
+                name: 'Rating Requests',
+                url: '/users/rating-request',
+                icon: 'fas fa-users',
             }
         ]
     },
@@ -83,6 +88,11 @@ export const navigation = [
         url: '/scraper/list',
         icon: 'fas fa-address-book',
     }, 
+    {
+        name: 'Ingestors Status',
+        url: '/ingestors/list',
+        icon: 'fa fa-indent',
+    }, 
     // {
 
     //     name: 'Companies',
@@ -100,9 +110,9 @@ export const navigation = [
         url: '/companies-contacts',
         icon: 'fas fa-users',
     },
-    {
-        name: 'Company Claims',
-        url: '/claims',
-        icon: 'fas fa-users',
-    }
+    // {
+    //     name: 'Company Claims',
+    //     url: '/claims',
+    //     icon: 'fas fa-users',
+    // }
 ];

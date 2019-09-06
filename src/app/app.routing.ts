@@ -55,6 +55,10 @@ export const routes: Routes = [
         loadChildren: "./pages/scraper/scraper.module#ScraperModule"
       },
       {
+        path: "ingestors",
+        loadChildren: "./pages/injestors/injestors.module#InjestorsModule"
+      },
+      {
         path: "claims",
         loadChildren: "./pages/claimed-companies/claimed-companies.module#ClaimedCompaniesModule"
       }

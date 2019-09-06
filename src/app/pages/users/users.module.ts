@@ -25,6 +25,8 @@ import { HighchartsChartModule } from 'highcharts-angular';
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CsvModule } from '@ctrl/ngx-csv';
+import { RatingRequestComponent } from './components/rating-request/rating-request.component';
+import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -38,7 +40,8 @@ import { CsvModule } from '@ctrl/ngx-csv';
         NgSelectModule,
         HighchartsChartModule,
         NgxPaginationModule,
-        CsvModule
+        CsvModule,
+        NgbRatingModule
     ],
     declarations: [
         UsersListComponent,
@@ -53,10 +56,7 @@ import { CsvModule } from '@ctrl/ngx-csv';
         AcceptRequestComponent,
         UploadFileComponent,
         UserStatisticsComponent,
-        // HighchartsChartComponent
-    ],
-    exports: [
-        // HighchartsChartComponent
+        RatingRequestComponent,
     ],
     providers: [
         UsersService,

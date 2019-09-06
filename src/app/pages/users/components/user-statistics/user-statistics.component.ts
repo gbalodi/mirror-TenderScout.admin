@@ -1,7 +1,7 @@
 import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { debounceTime, tap } from 'rxjs/operators';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-statistics',
@@ -20,7 +20,6 @@ export class UserStatisticsComponent implements OnInit {
     { title: 'User Name', key: 'full_name' },
     { title: 'Added To Perform', key: 'added_to_perform' },
     { title: 'Bid Assets Count', key: 'bid_assets_count' },
-    { title: 'Emails Opened', key: 'emails_opened' },
     { title: 'Emails Sent', key: 'emails_sent' },
     { title: 'Login Sessions', key: 'login_sessions' },
     { title: 'Monitors Count', key: 'monitors_count' },
@@ -55,11 +54,13 @@ export class UserStatisticsComponent implements OnInit {
       debounceTime(700)
     ).subscribe(data => {
       console.log(data);
-      // this.page = 1;
       this.getUserStatistics()
     });
   }
 
+  /**
+   * API service call to get User statistic according to filter...
+   */
   public getUserStatistics() {
     this.statisticFilterForm.value.page = this.page;
     this.setFilterParams();
@@ -112,11 +113,32 @@ export class UserStatisticsComponent implements OnInit {
     })
   }
 
+  /**
+   * Handle Sort data...
+   * @param sort_by 
+   * @param sort_direction 
+   */
   public selectedSortItemHandler(sort_by, sort_direction) {
     this.selectedSortItem = {
       sort_by: sort_by,
       sort_direction: sort_direction
     };
+  }
+
+  /**
+   * Set Sort params for get response according to this...
+   * @param selectedColum 
+   */
+  public setSortEventHandler(selectedColum) {
+    if (selectedColum.title !== 'User Name') {
+      if (this.statisticFilterForm.controls[selectedColum.key].value === '' || this.statisticFilterForm.controls[selectedColum.key].value === 'asc') {
+        this.selectedSortItemHandler(selectedColum.key, 'desc');
+        this.statisticFilterForm.controls[selectedColum.key].setValue('desc');
+      } else if (this.statisticFilterForm.controls[selectedColum.key].value === 'desc') {
+        this.selectedSortItemHandler(selectedColum.key, 'asc');
+        this.statisticFilterForm.controls[selectedColum.key].setValue('asc');
+      }
+    }
   }
 
 }

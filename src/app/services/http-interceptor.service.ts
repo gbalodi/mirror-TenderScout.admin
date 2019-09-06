@@ -45,7 +45,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
             headers
             // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
-        });
+        });        
         return next.handle(req)
             .do((res: HttpEvent<any>) => {
                 if (res instanceof HttpResponse) {
@@ -56,6 +56,12 @@ export class HttpInterceptorService implements HttpInterceptor {
                     if (res.status === 204) {
                         const result: any = res;
                         result.body = { data: [] };
+                        return result;
+                    }
+                    
+                    if(req.url.indexOf('fetch_json=1') > -1){
+                        const result: any = res;
+                        result.body = JSON.parse(res.body);
                         return result;
                     }
                 }

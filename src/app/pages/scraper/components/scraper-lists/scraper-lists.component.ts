@@ -7,6 +7,7 @@ import { ScraperListsService } from './scraper-lists.service';
   templateUrl: './scraper-lists.component.html',
   styleUrls: ['./scraper-lists.component.scss', '../../../users/components/users-list/users-list.component.scss']
 })
+
 export class ScraperListsComponent implements OnInit {
   public source: LocalDataSource = new LocalDataSource();
   public settings = {
@@ -69,9 +70,11 @@ export class ScraperListsComponent implements OnInit {
 
   public onEditConfirm(event): void {
     console.log(event);
-    if (event.data.role !== event.newData.role) { }
   }
 
+  /**
+   * API service call to get Scrappers...
+   */
   public getScrappers() {
     this.scraperListsService.getScrappers().subscribe((res: any) => {
       res = JSON.parse(res);
@@ -79,7 +82,7 @@ export class ScraperListsComponent implements OnInit {
       this.source.load(res);
     }, error => {
       console.log(error);
-    })
+    });
   }
 
 }

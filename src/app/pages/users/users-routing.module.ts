@@ -7,6 +7,7 @@ import { SignupReqListComponent } from './components/signup-request-list/reqs-li
 import { RequestAssistanceComponent } from './components/request-assistance/request-assistance.component';
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
+import { RatingRequestComponent } from './components/rating-request/rating-request.component';
 
 const routes: Routes = [
     {
@@ -64,6 +65,13 @@ const routes: Routes = [
                     title: 'User upgrade requests'
                 }
             },
+            {
+                path: 'rating-request',
+                component: RatingRequestComponent,
+                data: {
+                    title: 'Bid-Hub Rating Requests'
+                }
+            }
         ],
     }
 ];

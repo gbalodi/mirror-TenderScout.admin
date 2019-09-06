@@ -1,0 +1,64 @@
+<div class="com-tndr-lsthldr">
+
+  <!-- For filter -->
+  <div class="com-tndr-formhldr">
+
+    <form novalidate>
+
+      <div class="row col-md-4">
+        <input type="text" (input)="page=1" placeholder="Search by username/email" class="form-control">
+      </div>
+
+    </form>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th *ngFor="let item of tableHeadNames">{{item}}
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let item of adminRatingRequestsData | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }; let i=index">
+          <td>{{item.user_name}} <span class="email-set">{{'<' + item.email + '>'}}</span> </td>
+          <td>{{item.file_name}}</td>
+          <td>
+            <ng-template #userRating let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9734;</span>&#9734;
+              </span>
+            </ng-template>
+
+            <ngb-rating [(rate)]="item.rating" [starTemplate]="userRating" [readonly]="true" max="5"></ngb-rating>
+          </td>
+          <td>
+            <ng-template #adminRating let-fill="fill">
+              <span class="star" [class.full]="fill === 100">
+                <span class="half" [style.width.%]="fill">&#9734;</span>&#9734;
+              </span>
+            </ng-template>
+
+            <ngb-rating [(rate)]="item.admin_rating" [starTemplate]="adminRating" max="5"
+              (click)="setAdminRatingEvent(i)">
+            </ngb-rating>
+          </td>
+          <td class="center-align">
+            <i class="fa fa-download" aria-hidden="true" (click)="viewDownloadHandler(item.file_url)">
+            </i>
+          </td>
+        </tr>
+      </tbody>
+      <!-- <span *ngIf="userStatistics.length === 0">No Data Found!</span> -->
+
+    </table>
+  </div>
+
+  <!-- <div class="marketplace-pagi-holder" *ngIf="totalData>0">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next"
+      screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+  </div> -->
+</div>
