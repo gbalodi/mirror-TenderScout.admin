@@ -56,10 +56,11 @@ export class UsersService {
   }
 
   /**
-   * API server service call to get all requested for Admin rating... 
+   * API server service call to get all requested for Admin rating with filter criteria... 
+   * @param data 
    */
-  public getAdminRatingRequests() {
-    return this.http.get(`v1/bid_library/repositories/admin_rating_requests`);
+  public getAdminRatingRequests(data: { search_text: string, page: string }) {
+    return this.http.get(`v1/bid_library/repositories/admin_rating_requests?search_text=${data.search_text}&page=${data.page}`);
   }
 
   /**

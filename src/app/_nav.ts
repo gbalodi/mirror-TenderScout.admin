@@ -45,11 +45,11 @@ export const navigation = [
                     variant: 'info',
                 }
             },
-            {
-                name: 'Rating Requests',
-                url: '/users/rating-request',
-                icon: 'fas fa-users',
-            }
+            // {
+            //     name: 'Rating Requests',
+            //     url: '/users/rating-request',
+            //     icon: 'fas fa-users',
+            // }
         ]
     },
     {

@@ -103,6 +103,7 @@ export class FileUploaderService {
     this._queue.next(this._files);
     this._failedFiles = [];
     this._failedQueue.next(this._failedFiles);
+    this.numberOfUploadedFiles = 0;
   }
 
   public uploadAll() {
