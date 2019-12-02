@@ -18,6 +18,7 @@ export class UserStatisticsComponent implements OnInit {
   public selectedSortItem: any;
   public tableHeadNames: Array<any> = [
     { title: 'User Name', key: 'full_name' },
+    { title: 'Origin Date', key: 'created_at' },
     { title: 'Added To Perform', key: 'added_to_perform' },
     { title: 'Bid Assets Count', key: 'bid_assets_count' },
     { title: 'Emails Sent', key: 'emails_sent' },
@@ -36,6 +37,7 @@ export class UserStatisticsComponent implements OnInit {
     this.statisticFilterForm = this.formBuilder.group({
       days: ['', [Validators.required]],
       search_text: [''],
+      created_at: [''],
       added_to_perform: [''],
       bid_assets_count: [''],
       emails_opened: [''],

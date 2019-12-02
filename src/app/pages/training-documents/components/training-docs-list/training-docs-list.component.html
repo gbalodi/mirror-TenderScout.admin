@@ -1,14 +1,14 @@
 <div class="document_list-holder">
 
   <div class="buttons-holder">
-    <button class="exclude_btn" role="button" (click)="excludeUsersOpenModal(excludeUsers)">Exclude Users</button>
+    <!-- <button class="exclude_btn" role="button" (click)="excludeUsersOpenModal(excludeUsers)">Exclude Users</button> -->
     <button class="upload_btn" role="button" (click)="uploadDocsOpenModal(uploadDocs)">Upload Docs</button>
   </div>
 
   <div class="list_contbx-holder">
     <div class="row">
       <div class="col-md-12 cstm_pdng">
-        <app-documents *ngFor="let document of documentsList" (updateDocumentsList)="callGetOrbidalDocumentsListing()"
+        <app-documents *ngFor="let document of documentsList" (updateDocumentsList)="callGetTrainingDocumentsListing()"
           [document]="document"></app-documents>
         <p *ngIf="documentsList.length == 0">No Documents available for listing. </p>
       </div>
@@ -20,7 +20,7 @@
 <!-- Modal for Upload Documents -->
 <ng-template #uploadDocs>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">UPLOAD TO ORBIDAL FOR ALL USERS</h4>
+    <h4 class="modal-title pull-left">UPLOAD TO TRAINING DOCS FOR ALL USERS</h4>
     <!-- <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry.</p> -->
     <button type="button" class="close pull-right" aria-label="Close" (click)="uploadDocsModalRef.hide()">
       <span aria-hidden="true">&times;</span>
@@ -34,7 +34,7 @@
 <!-- Modal for Exclude Users -->
 <ng-template #excludeUsers>
   <div class="modal-header">
-    <h4 class="modal-title pull-left">EXCLUDE USERS FROM ACCESSING ORBIDAL FOLDER</h4>
+    <h4 class="modal-title pull-left">EXCLUDE USERS FROM ACCESSING TRAINING DOCS</h4>
     <button type="button" class="close pull-right" aria-label="Close" (click)="excludeUsersModalRef.hide()">
       <span aria-hidden="true">&times;</span>
     </button>

@@ -1,6 +1,8 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { DocumentsListService } from '../../../pages/documents/components/documents-list/documents-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { Router } from '@angular/router';
+import { TrainingDocsListService } from '../../../pages/training-documents/components/training-docs-list/training-docs-list.service';
 
 interface IDocument {
   file_name: string
@@ -26,7 +28,9 @@ export class DocumentsComponent implements OnInit {
 
   constructor(
     public documentsListService: DocumentsListService,
-    private toasterService: ToastrService
+    private trainingDocsListService: TrainingDocsListService,
+    private toasterService: ToastrService,
+    private router: Router
   ) { }
 
   ngOnInit() { }
@@ -37,7 +41,9 @@ export class DocumentsComponent implements OnInit {
         window.open(this.document.file_url, '_blank');
         break;
       case 'delete':
-        this.documentsListService.deleteOrbidalDocumentsById(this.document.id).subscribe((res: any) => {
+        
+        let serviceName = this.router.url !== '/training-documents' ? 'documentsListService' : 'trainingDocsListService';
+        this[serviceName].deleteDocumentsById(this.document.id).subscribe((res: any) => {
           res = JSON.parse(res)
           this.toasterService.success(`${res.success}`, 'Success');
           this.updateDocumentsList.emit('update');

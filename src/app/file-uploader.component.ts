@@ -1,4 +1,4 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output, ViewChild, ElementRef, Input } from '@angular/core';
 import { FileQueueObject, FileUploaderService, FailedFileQueueObject } from './file-uploader.service';
 import { Observable } from 'rxjs';
 import { UploadEvent, FileSystemFileEntry, FileSystemDirectoryEntry } from 'ngx-file-drop';
@@ -11,6 +11,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 
 export class FileUploaderComponent implements OnInit {
+  @Input() setUrl: string;
   @Output() onCompleteItem = new EventEmitter();
   @ViewChild('fileInput') fileInput: ElementRef;
   public queue: Observable<FileQueueObject[]>;
@@ -31,6 +32,7 @@ export class FileUploaderComponent implements OnInit {
       this.queueData = res;
     });
     this.uploader.onCompleteItem = this.completeItem;
+    this.uploader.url = this.setUrl;
   }
 
   public completeItem = (item: FileQueueObject, response: any) => {

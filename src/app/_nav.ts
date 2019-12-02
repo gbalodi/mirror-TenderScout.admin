@@ -84,6 +84,11 @@ export const navigation = [
         icon: 'fas fa-list-ul',
     },
     {
+        name: 'Training Docs',
+        url: '/training-documents',
+        icon: 'fas fa-list-alt'
+    },
+    {
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',

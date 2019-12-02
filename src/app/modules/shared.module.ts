@@ -18,6 +18,8 @@ import { SelectComponent } from './components/select/select.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { UserFilterPipe } from './pipes/user-filter.pipe';
 import { KeyValuePipe } from '../pipe/key-value.pipe';
+import { FileUploaderComponent } from '../file-uploader.component';
+import { FileUploaderService } from '../file-uploader.service';
 
 @NgModule({
     imports: [
@@ -29,7 +31,7 @@ import { KeyValuePipe } from '../pipe/key-value.pipe';
         PaginationModule,
         FileDropModule,
         TagInputModule,
-        NgMultiSelectDropDownModule.forRoot(),
+        NgMultiSelectDropDownModule.forRoot()
     ],
     providers: [
         MainRequestService,
@@ -38,6 +40,7 @@ import { KeyValuePipe } from '../pipe/key-value.pipe';
             useClass: HttpInterceptorService,
             multi: true
         },
+        FileUploaderService
     ],
     exports: [
         CommonModule,
@@ -53,7 +56,8 @@ import { KeyValuePipe } from '../pipe/key-value.pipe';
         DropdownListComponent,
         InputErrorsComponent,
         SelectComponent,
-        KeyValuePipe
+        KeyValuePipe,
+        FileUploaderComponent
     ],
     declarations: [
         DocumentsComponent,
@@ -64,7 +68,8 @@ import { KeyValuePipe } from '../pipe/key-value.pipe';
         DropdownListComponent,
         InputErrorsComponent,
         SelectComponent,
-        KeyValuePipe
+        KeyValuePipe,
+        FileUploaderComponent
     ],
 })
 export class SharedModule { }

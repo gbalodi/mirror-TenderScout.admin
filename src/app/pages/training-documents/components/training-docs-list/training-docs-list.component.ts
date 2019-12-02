@@ -1,16 +1,16 @@
 import { Component, OnInit, TemplateRef } from '@angular/core';
-import { BsModalService, BsModalRef, ModalOptions } from 'ngx-bootstrap';
-import { DocumentsListService } from './documents-list.service';
-import * as _ from 'lodash';
+import { BsModalRef, ModalOptions, BsModalService } from 'ngx-bootstrap';
+import { TrainingDocsListService } from './training-docs-list.service';
 import { ToastrService } from 'ngx-toastr';
+import { CompanyService } from '../../../companies/services/company.service';
+import * as _ from 'lodash';
 
 @Component({
-  selector: 'app-documents-list',
-  templateUrl: './documents-list.component.html',
-  styleUrls: ['./documents-list.component.scss']
+  selector: 'app-training-docs-list',
+  templateUrl: './training-docs-list.component.html',
+  styleUrls: ['./training-docs-list.component.scss', '../../../documents/components/documents-list/documents-list.component.scss']
 })
-
-export class DocumentsListComponent implements OnInit {
+export class TrainingDocsListComponent implements OnInit {
   public excludeUsersModalRef: BsModalRef;
   public uploadDocsModalRef: BsModalRef;
   public documentsList = [];
@@ -22,16 +22,16 @@ export class DocumentsListComponent implements OnInit {
   public selectedUsers = [];
   public initialSelectedUsers = [];
   public dropdownSettings = {};
-  public setUrl: string = 'v1/bid_library/orbidal_documents';
+  public setUrl: string = 'v2/admin/training_documents';
   public ngbModalOptions: ModalOptions = {
     keyboard: true,
     class: 'upload_modal-holder'
   };
-
   constructor(
     private bsModalService: BsModalService,
-    private documentsListService: DocumentsListService,
-    private toasterService: ToastrService
+    private trainingDocsListService: TrainingDocsListService,
+    private toasterService: ToastrService,
+    private companyService: CompanyService
   ) {
     // // Bootstrap modal On closed/hide/hidden... 
     this.bsModalService.onHide.subscribe(result => {
@@ -40,7 +40,7 @@ export class DocumentsListComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.callGetOrbidalDocumentsListing();
+    this.callGetTrainingDocumentsListing();
 
     this.dropdownSettings = {
       singleSelection: false,
@@ -53,7 +53,7 @@ export class DocumentsListComponent implements OnInit {
     };
 
     this.callGetUsersInfoService();
-    this.callGetExcludedUsersService();
+    // this.callGetExcludedUsersService();
   }
 
   call(event) {
@@ -63,8 +63,8 @@ export class DocumentsListComponent implements OnInit {
   /**
    * API Service call to get all documents list...
    */
-  public callGetOrbidalDocumentsListing() {
-    this.documentsListService.getOrbidalDocumentsListing().subscribe((res: any) => {
+  public callGetTrainingDocumentsListing() {
+    this.trainingDocsListService.getTrainingDocumentsListing().subscribe((res: any) => {
       if (res) {
         this.documentsList = res;
       } else {
@@ -80,7 +80,7 @@ export class DocumentsListComponent implements OnInit {
    * Service call to get users Info list...
    */
   public callGetUsersInfoService() {
-    this.documentsListService.getUsersInfo().subscribe((res: any) => {
+    this.companyService.getUsersInfo().subscribe((res: any) => {
       res = JSON.parse(res);
       this.usersList = res.data;
     }, error => {
@@ -93,7 +93,7 @@ export class DocumentsListComponent implements OnInit {
    * Service call to get Excluded users list...
    */
   public callGetExcludedUsersService() {
-    this.documentsListService.getExcludedUsers().subscribe((res: any) => {
+    this.trainingDocsListService.getExcludedUsers().subscribe((res: any) => {
       this.selectedUsers = JSON.parse(res).data;
       this.initialSelectedUsers = [...this.selectedUsers];
     }, error => {
@@ -122,7 +122,7 @@ export class DocumentsListComponent implements OnInit {
    */
   public excludeUsersEvent() {
     let userIds: number = _.map(this.selectedUsers, 'id');;
-    this.documentsListService.excludeUsers({ orbidal_document: { user_ids: userIds } }).subscribe((res: any) => {
+    this.trainingDocsListService.excludeUsers({ orbidal_document: { user_ids: userIds } }).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toasterService.success(`${res.success}`, 'Success');
       this.excludeUsersModalRef.hide();
@@ -138,7 +138,7 @@ export class DocumentsListComponent implements OnInit {
    */
   public onCompleteItem($event) {
     console.log($event);
-    this.callGetOrbidalDocumentsListing();
+    this.callGetTrainingDocumentsListing();
   }
 
   public onItemSelect(item: any) {

@@ -51,6 +51,10 @@ export const routes: Routes = [
         loadChildren: "./pages/documents/documents.module#DocumentsModule"
       },
       {
+        path: "training-documents",
+        loadChildren: "./pages/training-documents/training-documents.module#TrainingDocumentsModule"
+      },
+      {
         path: "scraper",
         loadChildren: "./pages/scraper/scraper.module#ScraperModule"
       },
