@@ -20,6 +20,7 @@ import * as _ from 'lodash';
 })
 export class DetailsComponent implements ViewCell, OnInit {
     @ViewChild('resetPasswordModal') resetPasswordModal;
+    @ViewChild('archiveUserModal') archiveUserModal;
     @ViewChild('uploadResultsModal') public uploadResultsModal: ModalDirective;
     @ViewChild('userStatisticsModal') public userStatisticsModal: ModalDirective;
     @ViewChild('selectFile') selectFile: ElementRef;
@@ -204,7 +205,7 @@ export class DetailsComponent implements ViewCell, OnInit {
             this.resetPasswordModal.hide();
         }, error => {
             console.log(error);
-        })
+        });
     }
 
     /**
@@ -331,4 +332,23 @@ export class DetailsComponent implements ViewCell, OnInit {
             }
         ]
     };
+
+    /**
+     * API service call to set a user as Archive...
+     */
+    public archiveUserEvent() {
+        let request = {
+            status: 'archived'
+        };
+        this.usersService.archiveUser(this.rowDataObj.id, request).subscribe((res: any) => {
+            res = JSON.parse(res);
+            if (res.success) {
+                this.toasterService.success(`User is now Archived.`, 'Success');
+            }
+            this.usersService.loading$.next(true);
+            this.archiveUserModal.hide();
+        }, error => {
+            console.log(error);
+        });
+    }
 }

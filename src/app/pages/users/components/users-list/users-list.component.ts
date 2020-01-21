@@ -4,11 +4,12 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
 import { DetailsComponent } from '../signup-request-list/details/details.component';
 import { DatePipe } from '@angular/common';
+import { UsersService } from '../services/users.service';
 
 @Component({
-  selector: 'app-users-list',
-  templateUrl: './users-list.component.html',
-  styleUrls: ['./users-list.component.scss']
+    selector: 'app-users-list',
+    templateUrl: './users-list.component.html',
+    styleUrls: ['./users-list.component.scss']
 })
 export class UsersListComponent implements OnInit {
     public page: number = 1;
@@ -50,10 +51,10 @@ export class UsersListComponent implements OnInit {
                     type: 'list',
                     config: {
                         list: [
-                            {value: 'admin', title: 'admin'},
-                            {value: 'standard', title: 'standard'},
-                            {value: 'basic', title: 'basic'},
-                            {value: 'free', title: 'free'},
+                            { value: 'admin', title: 'admin' },
+                            { value: 'standard', title: 'standard' },
+                            { value: 'basic', title: 'basic' },
+                            { value: 'free', title: 'free' },
                         ]
                     }
                 },
@@ -73,19 +74,31 @@ export class UsersListComponent implements OnInit {
         private request: MainRequestService,
         private toasterService: ToastrService,
         private datePipe: DatePipe,
-    ) { }
+        private usersService: UsersService
+    ) {
+        this.usersService.loading$.subscribe(res => {
+            if (res) {
+                this.getData();
+                this.usersService.loading$.next(false);
+            }
+        });
+    }
 
     ngOnInit() {
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
+        this.getData()
+    }
+
+    getData() {
+        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1`).subscribe(res => {
             const result = JSON.parse(res);
             result.data.forEach(user => {
                 user['profile'] = user.profiles[0];
                 user['onlyProfile'] = true;
                 delete user.profiles;
-                return  user;
+                return user;
             });
-            this.source.setPaging(1, this.itemsPerPage,true );
-            this.source.load( result.data );
+            this.source.setPaging(1, this.itemsPerPage, true);
+            this.source.load(result.data);
             this.totalItems = result.count;
             this.searchResetActive = true;
         })
@@ -93,25 +106,25 @@ export class UsersListComponent implements OnInit {
 
     public pageChanged(event) {
         this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-                const result = JSON.parse(res);
-                result.data.forEach(user => {
-                    user['profile'] = user.profiles[0];
-                    user['onlyProfile'] = true;
-                    delete user.profiles;
-                    return  user;
-                });
-                this.source.setPaging(1, this.itemsPerPage,true );
-                this.source.load( result.data );
-                this.totalItems = result.count;
-            },
+            const result = JSON.parse(res);
+            result.data.forEach(user => {
+                user['profile'] = user.profiles[0];
+                user['onlyProfile'] = true;
+                delete user.profiles;
+                return user;
+            });
+            this.source.setPaging(1, this.itemsPerPage, true);
+            this.source.load(result.data);
+            this.totalItems = result.count;
+        },
             error => {
                 this.toasterService.error('Error', error);
             });
     }
 
     public onEditConfirm(event): void {
-        if ( event.data.role !== event.newData.role ) {
-            this.request.putData(`v1/users/${event.data.id}/change_user_role`, { role: event.newData.role }).subscribe( () => {
+        if (event.data.role !== event.newData.role) {
+            this.request.putData(`v1/users/${event.data.id}/change_user_role`, { role: event.newData.role }).subscribe(() => {
                 this.toasterService.success('Successful operation', 'Success');
                 event.confirm.resolve();
             }, () => {

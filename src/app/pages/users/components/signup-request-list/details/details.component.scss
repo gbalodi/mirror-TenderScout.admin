@@ -136,7 +136,7 @@ a {
     margin-top: 5px !important;
 }
 
-// For Upload file modal 
+// For Upload file modal
 .this-is-CSV {
     color: #ca3a41;
     margin: 0;
@@ -190,19 +190,23 @@ a {
     display: flex;
     align-items: center;
 }
+
 .static_form-holder .form-group {
     display: flex;
     align-items: center;
     margin-right: 25px;
 }
+
 .static_form-holder .custom-radio {
     display: none;
-  }
-.static_form-holder .custom-radio + label {
+}
+
+.static_form-holder .custom-radio+label {
     font-weight: normal;
     cursor: pointer;
-  }
-.static_form-holder .custom-radio + label span {
+}
+
+.static_form-holder .custom-radio+label span {
     display: inline-block;
     vertical-align: middle;
     margin-right: 5px;
@@ -215,8 +219,9 @@ a {
     position: relative;
     top: -1px;
     border: 2px solid #d66166;
-  }
-.static_form-holder .custom-radio + label span::before {
+}
+
+.static_form-holder .custom-radio+label span::before {
     content: "";
     opacity: 0;
     width: 10px;
@@ -238,13 +243,21 @@ a {
     -o-transition: opacity 0.2s;
     -webkit-transition: opacity 0.2s;
     transition: opacity 0.2s;
-  }
-.static_form-holder .custom-radio:checked + label span::before {
+}
+
+.static_form-holder .custom-radio:checked+label span::before {
     opacity: 1;
-  }
-.static_form-holder .custom-radio:disabled + label {
+}
+
+.static_form-holder .custom-radio:disabled+label {
     opacity: 0.5;
-  }
-.static_form-holder .custom-radio:disabled + label, .custom-radio:disabled + label span {
+}
+
+.static_form-holder .custom-radio:disabled+label,
+.custom-radio:disabled+label span {
     cursor: default;
-  }
+}
+
+.btn-yes-margin33 {
+    margin-left: 33px;
+}

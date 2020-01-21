@@ -12,19 +12,18 @@
             <a (click)="uploadToOrbidal=false; uploadResultsModal.show()">Upload Results</a>
             <a (click)="uploadToOrbidal=true; uploadResultsModal.show()">Upload To Orbidal</a>
             <a (click)="getUserSessions('')">User Statistics</a>
+            <a (click)="archiveUserModal.show()">Archive User</a>
         </div>
     </div>
 
     <!-- Modal for User Details -->
-    <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-        aria-hidden="true">
+    <div bsModal #infoModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg details-modal user-details-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h4 class="modal-title">User details - <span *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
                         <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span></h4>
-                    <button type="button" class="close" [routerLink]="['/users',rowDataObj.id, 'edit']"
-                        aria-label="Close">
+                    <button type="button" class="close" [routerLink]="['/users',rowDataObj.id, 'edit']" aria-label="Close">
                         <i class="fas fa-edit"></i>
                     </button>
                     <button type="button" (click)="infoModal.hide()" aria-label="Close">
@@ -36,11 +35,9 @@
                     <label *ngIf="!rowData.fullname">Profile Details hasn't been created yet, please use edit feature
                         and add them.</label>
 
-                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'"
-                        *ngFor="let request of reqData">
+                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'" *ngFor="let request of reqData">
                         <label class="main-label">{{ request }}</label>
-                        <div class="info"
-                            *ngIf="request != 'countries' && request != 'contacts' && request != 'keywords'">
+                        <div class="info" *ngIf="request != 'countries' && request != 'contacts' && request != 'keywords'">
                             <span>{{ rowData[request] }} </span>
                             <!-- <span *ngIf="request!=='profile_type'"><input [value]="rowData[request]"> </span>
                             <span *ngIf="request==='profile_type'">
@@ -94,8 +91,7 @@
     </div>
 
     <!-- Modal for Password Reset -->
-    <div bsModal #resetPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div bsModal #resetPasswordModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -110,20 +106,17 @@
                         <div class="col-xs-12 col-sm-6 form-group">
                             <label>New Password</label>
                             <input type="password" (input)="matchPassword('new')" formControlName="password">
-                            <span
-                                *ngIf="resetPasswordForm.controls['password'].value && resetPasswordForm.controls['password'].value.length<6">
+                            <span *ngIf="resetPasswordForm.controls['password'].value && resetPasswordForm.controls['password'].value.length<6">
                                 Password Length should be 6.
                             </span>
                         </div>
 
                         <div class="col-xs-12 col-sm-6 form-group">
                             <label>Confirm Password</label>
-                            <input type="password" [ngClass]="{'input-validation': matchedPassword === false}"
-                                (input)="matchPassword('confirm')" formControlName="password_confirmation">
+                            <input type="password" [ngClass]="{'input-validation': matchedPassword === false}" (input)="matchPassword('confirm')" formControlName="password_confirmation">
                             <span class="label label-danger matched-password" *ngIf="matchedPassword === false">Password
                                 Not Matched!</span>
-                            <span
-                                *ngIf="resetPasswordForm.controls['password_confirmation'].value && resetPasswordForm.controls['password_confirmation'].value.length<6">
+                            <span *ngIf="resetPasswordForm.controls['password_confirmation'].value && resetPasswordForm.controls['password_confirmation'].value.length<6">
                                 Password Length should be 6.
                             </span>
                         </div>
@@ -132,8 +125,31 @@
 
                     <div class="row info">
                         <div class="col-xs-12 col-sm-6">
-                            <button [disabled]="!resetPasswordForm.valid || !matchedPassword"
-                                (click)="changePassword()">Change</button>
+                            <button [disabled]="!resetPasswordForm.valid || !matchedPassword" (click)="changePassword()">Change</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal for Archive user -->
+    <div bsModal #archiveUserModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure you want to Archive Of this User - {{ rowData.fullname }}</h4>
+                    <button type="button" class="close" (click)="archiveUserModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <form novalidate>
+
+                    <div class="row info">
+                        <div class="col-xs-12 col-sm-12 text-center">
+                            <button (click)="archiveUserModal.hide()">No</button>
+                            <button class="btn-yes-margin33" (click)="archiveUserEvent()">Yes</button>
                         </div>
                     </div>
                 </form>
@@ -143,8 +159,7 @@
     </div>
 
     <!-- Modal for Upload Results -->
-    <div bsModal #uploadResultsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div bsModal #uploadResultsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg details-modal upload-file-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -165,33 +180,25 @@
                         </div>
                     </h4>
 
-                    <button type="button" *ngIf="selectFile" class="close"
-                        (click)="fileToUpload = null; selectFile.value=''; uploadResultsModal.hide()"
-                        aria-label="Close">
+                    <button type="button" *ngIf="selectFile" class="close" (click)="fileToUpload = null; selectFile.value=''; uploadResultsModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                 </div>
                 <div class="modal-body">
                     <label for="file">Choose File</label>
-                    <input *ngIf="!uploadToOrbidal" #selectFile type="file" id="file" accept=".csv, .xlsx, .xls"
-                        (change)="handleFileInput($event.target.files)">
-                    <input *ngIf="uploadToOrbidal" #selectFile type="file" id="file"
-                        accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
-                        (change)="handleFileInput($event.target.files)">
+                    <input *ngIf="!uploadToOrbidal" #selectFile type="file" id="file" accept=".csv, .xlsx, .xls" (change)="handleFileInput($event.target.files)">
+                    <input *ngIf="uploadToOrbidal" #selectFile type="file" id="file" accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt" (change)="handleFileInput($event.target.files)">
                 </div>
                 <div class="model-body">
-                    <p class="this-is-CSV" *ngIf="!uploadToOrbidal && !thisIsCSV">Please Upload type CSV, XLS and XLSX
-                        only file </p>
-                    <p class="this-is-CSV" *ngIf="uploadToOrbidal && !thisIsCSV">Please Upload type XLS, XLSX, JPG,
-                        JPEG, PNG, PDF, CSV, DOC, DOCX, PPTX, PPT only file </p>
+                    <p class="this-is-CSV" *ngIf="!uploadToOrbidal && !thisIsCSV">Please Upload type CSV, XLS and XLSX only file </p>
+                    <p class="this-is-CSV" *ngIf="uploadToOrbidal && !thisIsCSV">Please Upload type XLS, XLSX, JPG, JPEG, PNG, PDF, CSV, DOC, DOCX, PPTX, PPT only file </p>
                     <p class="this-is-CSV" *ngIf="!underFileSize">File Size must be under 20MB </p>
                     <p class="upload-file-loading" *ngIf="uploadFileLoading">Please Wait... </p>
                 </div>
                 <div class="modal-body">
 
                     <div class="upload-btn-holder">
-                        <button class="create-user btn btn-primary upload" [ngClass]="{'upload-disable': !fileToUpload}"
-                            [disabled]="!fileToUpload" (click)="uploadFile()">Upload File</button>
+                        <button class="create-user btn btn-primary upload" [ngClass]="{'upload-disable': !fileToUpload}" [disabled]="!fileToUpload" (click)="uploadFile()">Upload File</button>
                     </div>
 
                 </div>
@@ -201,14 +208,12 @@
     </div>
 
     <!-- Modal for User Statistics -->
-    <div bsModal #userStatisticsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog"
-        aria-labelledby="myModalLabel" aria-hidden="true">
+    <div bsModal #userStatisticsModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-lg details-modal user-details-modal" role="document">
             <div class="modal-content">
 
                 <div class="modal-header">
-                    <h4 class="modal-title">User Statistics - <span
-                            *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
+                    <h4 class="modal-title">User Statistics - <span *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
                         <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span></h4>
                     <button type="button" class="close" (click)="userStatisticsModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -225,15 +230,13 @@
                         <input type="radio" id="30days" name=filter formControlName="filter" value="30days"> <label for="30days">Past 30 Days</label> -->
 
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" [id]="'all'+rowDataObj.id" name="filter"
-                                formControlName="filter" value="">
+                            <input class="custom-radio" type="radio" [id]="'all'+rowDataObj.id" name="filter" formControlName="filter" value="">
                             <label [for]="'all'+rowDataObj.id">
                                 <span></span> ALL
                             </label>
                         </div>
                         <div class="form-group">
-                            <input class="custom-radio" type="radio" [id]="'days'+rowDataObj.id" name="filter"
-                                formControlName="filter" value="30">
+                            <input class="custom-radio" type="radio" [id]="'days'+rowDataObj.id" name="filter" formControlName="filter" value="30">
                             <label [for]="'days'+rowDataObj.id">
                                 <span></span> Past 30 Days
                             </label>
@@ -245,13 +248,10 @@
                         <div class="pull-left col-sm-12">
                             <div class="row">
                                 <ng-container *ngFor="let item of userStatisticsData">
-                                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''"
-                                        class="col-sm-3" *ngIf="item.key!=='user_id'">
-                                        <label
-                                            class="main-label">{{ item.key === 'created_at'?'Origin Date': replaceUnderscore(item.key) }}</label>
+                                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''" class="col-sm-3" *ngIf="item.key!=='user_id'">
+                                        <label class="main-label">{{ item.key === 'created_at'?'Origin Date': replaceUnderscore(item.key) }}</label>
                                         <div class="info">
-                                            <span
-                                                *ngIf="item.key === 'created_at'">{{ item.value | date: 'dd/MM/yyyy' }}
+                                            <span *ngIf="item.key === 'created_at'">{{ item.value | date: 'dd/MM/yyyy' }}
                                             </span>
                                             <span *ngIf="item.key !== 'created_at'">{{ item.value }} </span>
                                         </div>

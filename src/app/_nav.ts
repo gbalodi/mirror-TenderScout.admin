@@ -49,7 +49,12 @@ export const navigation = [
             //     name: 'Rating Requests',
             //     url: '/users/rating-request',
             //     icon: 'fas fa-users',
-            // }
+            // },
+            {
+                name: 'Archived Users List',
+                url: '/users/archives',
+                icon: 'fas fa-user-times'
+            }
         ]
     },
     {
@@ -92,12 +97,12 @@ export const navigation = [
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',
-    }, 
+    },
     {
         name: 'Ingestors Status',
         url: '/ingestors/list',
         icon: 'fa fa-indent',
-    }, 
+    },
     // {
 
     //     name: 'Companies',

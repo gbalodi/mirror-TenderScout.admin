@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Rx';
+import { Observable, BehaviorSubject } from 'rxjs/Rx';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import 'rxjs/add/operator/map'
@@ -8,6 +8,8 @@ import 'rxjs/add/operator/map'
   providedIn: 'root'
 })
 export class UsersService {
+
+  public loading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   constructor(
     private http: HttpClient
@@ -71,5 +73,21 @@ export class UsersService {
    */
   public setAdminRating(repository_slug, id, data) {
     return this.http.put(`v1/bid_library/repositories/${repository_slug}/bid_assets/${id}`, data);
+  }
+
+  /**
+   * API server service call to set/withdraw Archive a user...
+   * @param userId 
+   * @param data 
+   */
+  public archiveUser(userId, data) {
+    return this.http.put(`v1/users/${userId}`, data)
+  }
+
+  /**
+   * I server service call to get all Users Archive list
+   */
+  public getArchiveUsers() {
+    return this.http.get(`v2/users/archived_users`);
   }
 }

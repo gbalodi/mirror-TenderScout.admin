@@ -26,7 +26,7 @@ export class UserStatisticsComponent implements OnInit {
     { title: 'Monitors Count', key: 'monitors_count' },
     { title: 'Move To Complete', key: 'move_to_complete' },
     { title: 'Move To Qualify', key: 'move_to_qualify' }
-  ]
+  ];
 
   constructor(
     private usersService: UsersService,
@@ -112,7 +112,7 @@ export class UserStatisticsComponent implements OnInit {
       }, 500);
     }, error => {
       console.log(error);
-    })
+    });
   }
 
   /**

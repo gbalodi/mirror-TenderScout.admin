@@ -27,6 +27,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { RatingRequestComponent } from './components/rating-request/rating-request.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { UsersArchiveListComponent } from './components/users-archive-list/users-archive-list.component';
+import { DialogComponent } from './components/users-archive-list/dialog/dialog.component';
 
 
 @NgModule({
@@ -47,7 +49,6 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         UsersListComponent,
         SignupReqListComponent,
         CreateUserComponent,
-        UsersListComponent,
         DetailsComponent,
         StatusSwitcherComponent,
         RequestAssistanceComponent,
@@ -57,6 +58,8 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         UploadFileComponent,
         UserStatisticsComponent,
         RatingRequestComponent,
+        UsersArchiveListComponent,
+        DialogComponent,
     ],
     providers: [
         UsersService,
@@ -66,7 +69,8 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         StatusSwitcherComponent,
         UserInfoComponent,
         AcceptRequestComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        DialogComponent
     ]
 })
 export class UsersModule {

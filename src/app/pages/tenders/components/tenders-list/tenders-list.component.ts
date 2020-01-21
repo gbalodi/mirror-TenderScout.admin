@@ -6,9 +6,9 @@ import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({
-  selector: 'app-tenders',
-  templateUrl: './tenders-list.component.html',
-  styleUrls: ['./tenders-list.component.scss']
+    selector: 'app-tenders',
+    templateUrl: './tenders-list.component.html',
+    styleUrls: ['./tenders-list.component.scss']
 })
 export class TendersListComponent implements OnInit {
 
@@ -64,7 +64,7 @@ export class TendersListComponent implements OnInit {
                 editable: false,
                 filter: false,
                 valuePrepareFunction: (date) => {
-                    if(date){
+                    if (date) {
                         var raw = new Date(date);
 
                         var formatted = this.datePipe.transform(raw, 'dd.MM.yyyy');
@@ -84,24 +84,24 @@ export class TendersListComponent implements OnInit {
     };
 
     ngOnInit() {
-        this.request.getData(`v1/marketplace/tenders?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
-            this.tableInit( JSON.parse(res) );
+        this.request.getData(`v1/marketplace/tenders?page_size=${this.itemsPerPage}&page=1`).subscribe(res => {
+            this.tableInit(JSON.parse(res));
             this.searchResetActive = true;
         })
     }
 
     pageChanged(event) {
         this.request.getData(`v1/marketplace/tenders?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-                this.tableInit( JSON.parse(res) );
-            },
+            this.tableInit(JSON.parse(res));
+        },
             error => {
                 this.toasterService.error('Error', error);
             });
     }
 
     tableInit(data) {
-        this.source.setPaging(1, this.itemsPerPage,true);
-        this.source.load( data.data );
+        this.source.setPaging(1, this.itemsPerPage, true);
+        this.source.load(data.data);
         this.totalItems = data.count;
     }
 
