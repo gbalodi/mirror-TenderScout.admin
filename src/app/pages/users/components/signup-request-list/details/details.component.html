@@ -21,19 +21,25 @@
         <div class="modal-dialog modal-lg details-modal user-details-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">User details - <span *ngIf="!rowData.fullname">{{ rowDataObj.email }}</span>
-                        <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span></h4>
-                    <button type="button" class="close" [routerLink]="['/users',rowDataObj.id, 'edit']" aria-label="Close">
+
+                    <h4 class="modal-title">User details - <span *ngIf="!rowData?.fullname">{{ rowDataObj.email }}</span>
+                        <span *ngIf="rowData.fullname">{{ rowData.fullname }}</span>
+                    </h4>
+
+                    <button class="close" type="button" [routerLink]="['/users',rowDataObj.id, 'edit']" aria-label="Close">
                         <i class="fas fa-edit"></i>
                     </button>
-                    <button type="button" (click)="infoModal.hide()" aria-label="Close">
+
+                    <button class="close" type="button" (click)="infoModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
+
                 </div>
 
                 <div class="modal-body" [ngClass]="{'row': rowData.fullname }">
                     <label *ngIf="!rowData.fullname">Profile Details hasn't been created yet, please use edit feature
-                        and add them.</label>
+                        and add them.
+                    </label>
 
                     <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'" *ngFor="let request of reqData">
                         <label class="main-label">{{ request }}</label>
@@ -95,7 +101,7 @@
         <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Reset Password Of User - {{ rowData.fullname }}</h4>
+                    <h4 class="modal-title">Reset Password Of User - {{ rowData.fullname ? rowData.fullname : rowData.email }}</h4>
                     <button type="button" class="close" (click)="resetPasswordModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -139,7 +145,7 @@
         <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h4 class="modal-title">Are you sure you want to Archive this User - {{ rowData.fullname }} ?</h4>
+                    <h4 class="modal-title">Are you sure you want to Archive this User - {{ rowData.fullname ? rowData.fullname :rowData.email }} ?</h4>
                     <button type="button" class="close" (click)="archiveUserModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -166,16 +172,20 @@
 
                     <h4 *ngIf="!uploadToOrbidal" class="modal-title">Upload Results -
                         <div class="email-name-holder">
-                            <span *ngIf="rowData.fullname">{{ rowData.fullname }}
-                                (</span><span>{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
+
+                            <span>{{ rowData.fullname ? rowData.fullname : rowData.email }}
+                                </span> <span *ngIf="rowData.fullname">(</span>
+                            <span *ngIf="rowData.fullname">{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
 
                         </div>
                     </h4>
 
                     <h4 *ngIf="uploadToOrbidal" class="modal-title">Upload to Orbidal -
                         <div class="email-name-holder">
-                            <span *ngIf="rowData.fullname">{{ rowData.fullname }}
-                                (</span><span>{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
+                            <span>{{ rowData.fullname ? rowData.fullname : rowData.email }}
+                            </span> <span *ngIf="rowData.fullname">(</span>
+                            <span *ngIf="rowData.fullname">{{rowDataObj.email}}</span> <span *ngIf="rowData.fullname">)</span>
+
 
                         </div>
                     </h4>
