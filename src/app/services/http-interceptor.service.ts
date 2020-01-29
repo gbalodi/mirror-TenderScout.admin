@@ -29,11 +29,11 @@ export class HttpInterceptorService implements HttpInterceptor {
 
         let headers;
 
-        if(this.location.path() == '/login'){
+        if (this.location.path() == '/login') {
             headers = new HttpHeaders({
                 'Content-Type': 'application/x-www-form-urlencoded'
             });
-        }else{
+        } else {
             headers = new HttpHeaders({
                 'Authorization': 'Bearer ' + this.localStorage.retrieve('access_token'),
                 'Accept': 'application/json'
@@ -45,7 +45,7 @@ export class HttpInterceptorService implements HttpInterceptor {
             responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
             headers
             // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
-        });        
+        });
         return next.handle(req)
             .do((res: HttpEvent<any>) => {
                 if (res instanceof HttpResponse) {
@@ -58,8 +58,8 @@ export class HttpInterceptorService implements HttpInterceptor {
                         result.body = { data: [] };
                         return result;
                     }
-                    
-                    if(req.url.indexOf('fetch_json=1') > -1){
+
+                    if (req.url.indexOf('fetch_json=1') > -1) {
                         const result: any = res;
                         result.body = JSON.parse(res.body);
                         return result;
@@ -86,13 +86,15 @@ export class HttpInterceptorService implements HttpInterceptor {
                     }
                     if (err.status === 422) {
 
-                        let errRes = JSON.parse( err.error );
+                        let errRes = JSON.parse(err.error);
 
-                        if(errRes){
+                        if (!errRes.hasOwnProperty('warning')) {
                             // for (let error in errRes.errors){
-                                let msg = errRes.errors.length>0? errRes.errors[0]:errRes.errors.file[0]
-                                this.toasterService.error(msg, 'Error');
+                            let msg = errRes.errors.length > 0 ? errRes.errors[0] : errRes.errors.file[0]
+                            this.toasterService.error(msg, 'Error');
                             // }
+                        } else if (errRes.hasOwnProperty('warning')) {
+                            this.toasterService.error(errRes.warning, 'Warning');
                         }
                     }
                 }

@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TimezonePickerModule } from 'ng2-timezone-selector';
 import { SharedModule } from '../../modules/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
 import { UsersListComponent } from './components/users-list/users-list.component';
@@ -37,7 +37,7 @@ import { DialogComponent } from './components/users-archive-list/dialog/dialog.c
         SharedModule,
         UsersRoutingModule,
         TimezonePickerModule,
-        ModalModule,
+        ModalModule.forRoot(),
         UiSwitchModule,
         NgSelectModule,
         HighchartsChartModule,
@@ -63,6 +63,7 @@ import { DialogComponent } from './components/users-archive-list/dialog/dialog.c
     ],
     providers: [
         UsersService,
+        BsModalRef
     ],
     entryComponents: [
         DetailsComponent,

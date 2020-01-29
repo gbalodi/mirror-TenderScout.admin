@@ -82,8 +82,8 @@
                         </div>
 
                         <div class="row info" *ngIf="request == 'contacts'">
-                            <div class="col-xs-12 col-sm-12"><span><label>{{rowData[request][0].contact_type}}:
-                                    </label></span><span>{{rowData[request][0].value}}</span></div>
+                            <div class="col-xs-12 col-sm-12" *ngFor="let item of rowData[request]"><span><label>{{item.contact_type}}:
+                                    </label></span><span>{{item.value}}</span></div>
                         </div>
 
                         <div class="row info" *ngIf="request == 'keywords'">
@@ -258,7 +258,7 @@
                         <div class="pull-left col-sm-12">
                             <div class="row">
                                 <ng-container *ngFor="let item of userStatisticsData">
-                                    <div [ngClass]="(request == 'countries') ? 'col-xs-12 padding15': ''" class="col-sm-3" *ngIf="item.key!=='user_id'">
+                                    <div [ngClass]="'col-xs-12 padding15'" class="col-sm-3" *ngIf="item.key!=='user_id'">
                                         <label class="main-label">{{ item.key === 'created_at'?'Origin Date': replaceUnderscore(item.key) }}</label>
                                         <div class="info">
                                             <span *ngIf="item.key === 'created_at'">{{ item.value | date: 'dd/MM/yyyy' }}

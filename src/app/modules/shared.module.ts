@@ -27,7 +27,7 @@ import { FileUploaderService } from '../file-uploader.service';
         FormsModule,
         ReactiveFormsModule,
         Ng2SmartTableModule,
-        ModalModule,
+        ModalModule.forRoot(),
         PaginationModule,
         FileDropModule,
         TagInputModule,

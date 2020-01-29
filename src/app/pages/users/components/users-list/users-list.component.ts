@@ -1,17 +1,40 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, ElementRef, ViewChild } from '@angular/core';
 import { MainRequestService } from '../../../../services/main-request.service';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
 import { DetailsComponent } from '../signup-request-list/details/details.component';
-import { DatePipe } from '@angular/common';
+import { KeyValuePipe } from '@angular/common';
 import { UsersService } from '../services/users.service';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UploadFileService } from '../signup-request-list/upload-file/upload-file.service';
+import { debounceTime, switchMap } from 'rxjs/operators';
+
+interface IUser {
+    id: number;
+    email: string;
+    role: string;
+    flags: Array<string>;
+    marketplace_status: string;
+    full_name: string;
+    companies_status: boolean;
+    agree: boolean;
+    do_marketplace_available: boolean;
+    profile_type: Array<string>;
+    status: string;
+    profiles: Array<any>;
+};
 
 @Component({
     selector: 'app-users-list',
     templateUrl: './users-list.component.html',
-    styleUrls: ['./users-list.component.scss']
+    styleUrls: ['./users-list.component.scss', '../signup-request-list/details/details.component.scss'],
+    providers: [
+        KeyValuePipe
+    ]
 })
 export class UsersListComponent implements OnInit {
+    @ViewChild('selectFile') selectFile: ElementRef;
     public page: number = 1;
     public itemsPerPage: number = 20;
     public totalItems: number;
@@ -21,6 +44,23 @@ export class UsersListComponent implements OnInit {
     public searchResetData: Array<object>;
     public searchResetActive: boolean = false;
     public usersList;
+    public userData: IUser[];
+    public rowData: any;
+    public rowDataObj: any;
+    public approveModal: BsModalRef;
+    public reqData;
+    public resetPasswordForm: FormGroup;
+    public matchedPassword: boolean;
+    public uploadToOrbidal: boolean = false;
+    public fileToUpload: File = null;
+    public thisIsCSV: boolean = true;
+    public underFileSize: boolean = true;
+    public uploadFileLoading: boolean = false;
+    public statisticFilterForm: FormGroup;
+    public searchFilterForm: FormGroup;
+    public userStatisticsData: any;
+    public roles = ['admin', 'standard', 'basic', 'free'];
+    public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
     public settings = {
         mode: 'inline',
         pager: { display: true, perPage: 20 },
@@ -70,11 +110,23 @@ export class UsersListComponent implements OnInit {
         }
     };
 
+    public tableHeadNames: Array<{ title: string; key: string; }> = [
+        { title: 'ID', key: 'id' },
+        { title: 'Email', key: 'email' },
+        { title: 'Profile type', key: 'profile_type' },
+        { title: 'Role', key: 'role' },
+        { title: 'Actions', key: 'actions' }
+    ];
+
     constructor(
         private request: MainRequestService,
         private toasterService: ToastrService,
-        private datePipe: DatePipe,
-        private usersService: UsersService
+        // private datePipe: DatePipe,
+        private usersService: UsersService,
+        private bsModalService: BsModalService,
+        private formBuilder: FormBuilder,
+        private uploadFileService: UploadFileService,
+        private keyValuePipe: KeyValuePipe
     ) {
         this.usersService.loading$.subscribe(res => {
             if (res) {
@@ -85,41 +137,63 @@ export class UsersListComponent implements OnInit {
     }
 
     ngOnInit() {
-        this.getData()
+        this.resetPasswordForm = this.formBuilder.group({
+            password: ['', [Validators.required, Validators.minLength(6)]],
+            password_confirmation: ['', [Validators.required, Validators.minLength(6)]],
+            userId: ['', Validators.required]
+        });
+
+        this.statisticFilterForm = this.formBuilder.group({
+            filter: ['', [Validators.required]],
+        });
+
+        this.searchFilterForm = this.formBuilder.group({
+            email: [''],
+            role: ['']
+        });
+
+        this.statisticFilterForm.valueChanges.subscribe(
+            data => {
+                console.log('Username changed:' + data);
+                this.getUserSessions();
+            }
+        );
+
+        this.searchFilterForm.valueChanges.pipe(
+            debounceTime(700),
+            // switchMap((value) => this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`))
+            // switchMap(() => this.usersService.getUpgradeRequests())
+        ).subscribe(value => {
+            // this.usersResponses(res);
+            this.getData()
+            // this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`).subscribe(res => {
+            //     this.usersResponses(res);
+            // }, error => {
+            //     console.log(error);
+            // });
+        });
+        this.getData();
+
     }
 
     getData() {
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=1`).subscribe(res => {
-            const result = JSON.parse(res);
-            result.data.forEach(user => {
-                user['profile'] = user.profiles[0];
-                user['onlyProfile'] = true;
-                delete user.profiles;
-                return user;
-            });
-            this.source.setPaging(1, this.itemsPerPage, true);
-            this.source.load(result.data);
-            this.totalItems = result.count;
-            this.searchResetActive = true;
-        })
+        let value = this.searchFilterForm.value;
+        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`).subscribe(res => {
+            this.usersResponses(res);
+        }, error => {
+            console.log(error);
+        });
+    }
+
+    public usersResponses(res) {
+        const result = JSON.parse(res);
+        this.userData = result.data;
+        this.totalItems = result.count;
     }
 
     public pageChanged(event) {
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-            const result = JSON.parse(res);
-            result.data.forEach(user => {
-                user['profile'] = user.profiles[0];
-                user['onlyProfile'] = true;
-                delete user.profiles;
-                return user;
-            });
-            this.source.setPaging(1, this.itemsPerPage, true);
-            this.source.load(result.data);
-            this.totalItems = result.count;
-        },
-            error => {
-                this.toasterService.error('Error', error);
-            });
+        this.page = event;
+        this.getData();
     }
 
     public onEditConfirm(event): void {
@@ -132,6 +206,151 @@ export class UsersListComponent implements OnInit {
                 event.confirm.reject();
             });
         }
+    }
+
+    public openModal(template: TemplateRef<any>, item) {
+        this.rowData = item;
+        if (this.rowData) {
+            this.rowDataObj = this.rowData;
+            if (!this.rowData.profiles) {
+            } else {
+                this.reqData = Object.keys(this.rowData.profiles[0]);
+                this.resetPasswordForm.controls['userId'].setValue(this.rowDataObj.id);
+                this.rowData = this.rowData.profiles[0];
+            }
+        } else {
+            this.reqData = Object.keys(this.rowData);
+        }
+        console.log(this.rowData);
+        this.approveModal = this.bsModalService.show(template);
+    }
+
+    /**
+ * Check whether password is matched with password confirmation...
+ * @param param 
+ */
+    public matchPassword(param) {
+        if (this.resetPasswordForm.controls['password_confirmation'].value && this.resetPasswordForm.controls['password'].value !== this.resetPasswordForm.controls['password_confirmation'].value) {
+            this.matchedPassword = false;
+        } else if (this.resetPasswordForm.controls['password'].value === this.resetPasswordForm.controls['password_confirmation'].value) {
+            this.matchedPassword = true;
+        }
+    }
+
+
+    /**
+     * Service call to update reset Password of the specific user...
+     */
+    public changePassword() {
+        console.log(this.resetPasswordForm.value);
+        this.request.updateUserPassword(this.resetPasswordForm.value).subscribe((res: any) => {
+            res = JSON.parse(res);
+            this.toasterService.success(res.success, 'Success');
+            this.approveModal.hide();
+        }, error => {
+            console.log(error);
+        });
+    }
+
+    /**
+    * Event for file upload 
+    * @param files 
+    */
+    public handleFileInput(files: FileList) {
+        this.fileToUpload = File = null;
+        if (!this.uploadToOrbidal) {
+            var a = files.item(0).type;
+            if (files.item(0).type === 'text/csv' || files.item(0).type === 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet') {
+                if (files[0].size <= 44743292) {
+                    this.fileToUpload = files.item(0);
+                    this.thisIsCSV = true;
+                    this.underFileSize = true;
+                } else {
+                    this.underFileSize = false;
+                }
+            } else {
+                this.thisIsCSV = false;
+            }
+        } else {
+            let getExtension = files[0].name.split('.');
+            if (this.fileTypes.find(fileType => fileType === getExtension[getExtension.length - 1].toLocaleLowerCase()) !== undefined) {
+                if (files[0].size <= 44743292) {
+                    this.fileToUpload = files.item(0);
+                    this.thisIsCSV = true;
+                    this.underFileSize = true;
+                } else {
+                    this.underFileSize = false;
+                }
+            } else {
+                this.thisIsCSV = false;
+            }
+        }
+        console.log('this.fileToUpload', this.fileToUpload)
+    }
+
+    /**
+     * Service call to upload to the server...
+     */
+    public uploadFile() {
+        this.uploadFileLoading = true;
+        const formData: FormData = new FormData();
+        if (!this.uploadToOrbidal) {
+            formData.append('import[file]', this.fileToUpload);
+            formData.append('import[user_id]', this.rowDataObj.id);
+        } else {
+            formData.append('orbidal_document[file]', this.fileToUpload);
+            formData.append('orbidal_document[user_id]', this.rowDataObj.id);
+        }
+        let callService = this.uploadToOrbidal ? 'uploadOrbidalDocuments' : 'importCSV_XLS';
+        this.uploadFileService[callService](formData).subscribe((res: any) => {
+            res = JSON.parse(res);
+            this.uploadFileLoading = false;
+            if (res.success) {
+                this.toasterService.success(`${res.success}`, 'Success');
+            }
+            this.selectFile ? this.selectFile.nativeElement.value = '' : null;
+            this.approveModal.hide();
+        }, error => {
+            console.log(error);
+            this.uploadFileLoading = false;
+            if (error.warning) {
+                this.toasterService.warning(`${error.warning}`, 'Warning');
+            }
+        })
+    }
+
+    /**
+     * API service call to get a user session info by it's id...
+     */
+    public getUserSessions() {
+        this.usersService.getUserSessions(this.rowDataObj.id, this.statisticFilterForm.controls['filter'].value).subscribe((res: any) => {
+            this.userStatisticsData = this.keyValuePipe.transform(JSON.parse(res));
+        }, error => {
+            console.log(error);
+        });
+    }
+
+    public replaceUnderscore(string) {
+        return string.replace(/_/g, ' ').replace(/(?: |\b)(\w)/g, (key) => { return key.toUpperCase() })
+    }
+
+    /**
+ * API service call to set a user as Archive...
+ */
+    public archiveUserEvent() {
+        let request = {
+            status: 'archived'
+        };
+        this.usersService.archiveUser(this.rowDataObj.id, request).subscribe((res: any) => {
+            res = JSON.parse(res);
+            if (res.success) {
+                this.toasterService.success(`User is now Archived.`, 'Success');
+            }
+            this.usersService.loading$.next(true);
+            this.approveModal.hide();
+        }, error => {
+            console.log(error);
+        });
     }
 
 }
