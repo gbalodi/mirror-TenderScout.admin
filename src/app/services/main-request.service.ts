@@ -16,6 +16,10 @@ export class MainRequestService {
         return this.http.get(url);
     }
 
+    public getUsers(url: string, params): Observable<any> {
+        return this.http.get(url, { params: params });
+    }
+
     public daleteData(url: string): Observable<any> {
         return this.http.delete(url);
     }

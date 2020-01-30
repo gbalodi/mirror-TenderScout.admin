@@ -9,6 +9,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFileService } from '../signup-request-list/upload-file/upload-file.service';
 import { debounceTime, switchMap } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
 
 interface IUser {
     id: number;
@@ -50,6 +51,7 @@ export class UsersListComponent implements OnInit {
     public approveModal: BsModalRef;
     public reqData;
     public resetPasswordForm: FormGroup;
+    public changeRoleForm: FormGroup;
     public matchedPassword: boolean;
     public uploadToOrbidal: boolean = false;
     public fileToUpload: File = null;
@@ -59,7 +61,8 @@ export class UsersListComponent implements OnInit {
     public statisticFilterForm: FormGroup;
     public searchFilterForm: FormGroup;
     public userStatisticsData: any;
-    public roles = ['admin', 'standard', 'basic', 'free'];
+    public roles = [
+        { type: 'admin', disabled: false }, { type: 'standard', disabled: false }, { type: 'basic', disabled: false }, { type: 'free', disabled: false }];
     public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
     public settings = {
         mode: 'inline',
@@ -143,13 +146,18 @@ export class UsersListComponent implements OnInit {
             userId: ['', Validators.required]
         });
 
+        this.changeRoleForm = this.formBuilder.group({
+            userId: ['', Validators.required],
+            role: ['', Validators.required]
+        });
+
         this.statisticFilterForm = this.formBuilder.group({
             filter: ['', [Validators.required]],
         });
 
         this.searchFilterForm = this.formBuilder.group({
             email: [''],
-            role: ['']
+            role: [[]]
         });
 
         this.statisticFilterForm.valueChanges.subscribe(
@@ -176,9 +184,19 @@ export class UsersListComponent implements OnInit {
 
     }
 
-    getData() {
+    public getData() {
+        let queryString;
         let value = this.searchFilterForm.value;
-        this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`).subscribe(res => {
+        let params = new HttpParams();
+        params = params.append('page_size', this.itemsPerPage.toString());
+        params = params.append('page', this.page.toString());
+        params = params.append('filter[username]', value.email);
+        if (value.role.length > 0) {
+            value.role.map((role) => {
+                params = params.append('filter[role][]', role);
+            })
+        }
+        this.request.getUsers(`v1/users`, params).subscribe(res => {
             this.usersResponses(res);
         }, error => {
             console.log(error);
@@ -208,21 +226,20 @@ export class UsersListComponent implements OnInit {
         }
     }
 
-    public openModal(template: TemplateRef<any>, item) {
+    public openModal(template: TemplateRef<any>, item: any, className : string) {
         this.rowData = item;
         if (this.rowData) {
             this.rowDataObj = this.rowData;
             if (!this.rowData.profiles) {
             } else {
                 this.reqData = Object.keys(this.rowData.profiles[0]);
-                this.resetPasswordForm.controls['userId'].setValue(this.rowDataObj.id);
                 this.rowData = this.rowData.profiles[0];
             }
         } else {
             this.reqData = Object.keys(this.rowData);
         }
         console.log(this.rowData);
-        this.approveModal = this.bsModalService.show(template, { class: 'modal-lg user-details-modal2' });
+        this.approveModal = this.bsModalService.show(template, { class: `modal-lg ${className}` });
     }
 
     /**
@@ -249,6 +266,20 @@ export class UsersListComponent implements OnInit {
             this.approveModal.hide();
         }, error => {
             console.log(error);
+        });
+    }
+
+    /**
+     * Service call to update Role of the specific user...
+     */
+    public changeRole() {
+        console.log(this.changeRoleForm.value);
+        this.request.putData(`v1/users/${this.changeRoleForm.value.userId}/change_user_role`, { role: this.changeRoleForm.value.role }).subscribe(() => {
+            this.toasterService.success('Successful operation', 'Success');
+            this.approveModal.hide();
+            this.getData();
+        }, () => {
+            this.toasterService.error('Ooops, error', 'Try again');
         });
     }
 

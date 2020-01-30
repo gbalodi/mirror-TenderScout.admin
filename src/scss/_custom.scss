@@ -364,14 +364,9 @@ tag:not(.readonly):not(.tag--editing):focus {
 }
 
 
-
-
-
-
 // 
 
-
-.user-details-modal2 {
+.user-details-modal, .user-stat-modal {
   max-width: 80%;
   .modal-header{
       font-weight: bold;
@@ -380,17 +375,23 @@ tag:not(.readonly):not(.tag--editing):focus {
       color: #fff;
       .close{
         font-weight: 700;
-    line-height: 1;
+    line-height: 18px;
     color: #fff;
     text-shadow: unset;
-    opacity: 1;
+    opacity: 1; margin: 0; padding:0;
       }
-      .modal-header .close {
-        padding: 0;
-        margin: 0;
+      button.edit-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 14px;
+        position: absolute;
+        right: 32px;
+        top: 20px;
     }
   }
   .modal-body {
+    padding: 12px 35px;
       .main-label{
           font-size: 14px;
           width: 100%;
@@ -409,6 +410,208 @@ tag:not(.readonly):not(.tag--editing):focus {
       }
   }
 }
+
+.change-role-modal{
+  max-width: 30%;
+  .modal-header{
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: #d66166;
+      color: #fff;
+      .close{
+        font-weight: 700;
+    line-height: 18px;
+    color: #fff;
+    text-shadow: unset;
+    opacity: 1; margin: 0; padding:0;
+      }
+      button.edit-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 16px;
+    }
+  }
+  .modal-body {
+    padding: 20px; }
+      label{
+          font-size: 16px;
+          width: 100%;
+          text-transform: capitalize;
+          margin-top: 15px;
+          color: #242424;
+          padding:0;
+          margin-bottom: 0;
+      }
+      select {
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+      .info {
+        padding: 0 20px;
+    }
+      button{background: #d66066;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 5px 35px;
+        margin-bottom: 20px;}
+  
+}
+
+/* upload result popup css */
+.upload-result-modal{
+  max-width: 30%;
+  .modal-header{
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: #d66166;
+      color: #fff;
+      .close{
+        font-weight: 700;
+    line-height: 18px;
+    color: #fff;
+    text-shadow: unset;
+    opacity: 1; margin: 0; padding:0;
+      }
+      button.edit-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 16px;
+    }
+    span{font-size: 14px; text-transform: capitalize;}
+  }
+  .modal-body {
+    padding: 20px; }
+      label{
+          font-size: 14px;
+          width: 100%;
+          text-transform: uppercase;
+          margin-top: 15px;
+          color: #242424;
+          padding:0;
+          margin-bottom: 0;
+      }
+      select {
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+      .info {
+        padding: 0 20px;
+    }
+      button{background: #d66066;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 5px 35px;
+        margin-bottom: 20px;}
+  
+}
+
+/* upload result popup css close */
+
+/* upload to orbidal popup css */
+.upload-orbidal-modal, .undefined{
+  max-width: 40%;
+  .modal-header{
+      font-weight: bold;
+      text-transform: uppercase;
+      background-color: #d66166;
+      color: #fff;
+      .close{
+        font-weight: 700;
+    line-height: 18px;
+    color: #fff;
+    text-shadow: unset;
+    opacity: 1; margin: 0; padding:0;
+      }
+      button.edit-btn {
+        border: none;
+        background: none;
+        color: #fff;
+        font-size: 16px;
+    }
+    span{font-size: 14px; text-transform: capitalize;}
+  }
+  .modal-body {
+    padding: 20px; }
+      label{
+          font-size: 14px;
+          width: 100%;
+          text-transform: uppercase;
+          margin-top: 15px;
+          color: #242424;
+          padding:0;
+          margin-bottom: 0;
+      }
+      select {
+        width: 100%;
+        border: 1px solid #ddd;
+        font-size: 15px;
+        padding: 8px 10px;
+    }
+      .info {
+        padding: 0 20px;
+    }
+      button{background: #d66066;
+        border: none;
+        color: #fff;
+        font-size: 14px;
+        font-weight: 600;
+        padding: 5px 35px;
+        margin-bottom: 20px;}
+  .text-center{margin:20px 0 0 0;}
+}
+
+/* upload to orbidal popup css close */
+
+.user-password-detail {
+  max-width: 50%;
+  .modal-header{font-weight: 700;
+    text-transform: uppercase;
+    background-color: #d66166;
+    color: #fff;}
+    .close{padding: 0; margin: 0; font-size: 1.3125rem;
+      font-weight: 700;
+      line-height: 1;
+      color: #fff;
+      text-shadow: unset; opacity:1;}
+ form {
+  padding: 20px 20px 40px;
+}
+span{font-size: 14px; text-transform: capitalize;}
+ label {
+  display: block;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+ input {
+  width: 100%;
+  outline: none;
+  padding: 8px; margin: 4px 0 0 0;
+}
+
+ form button {
+  background: #d66066;
+  border: 1px solid #c75358;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 5px 35px;
+  margin-top: 5px !important;
+}
+
+}
+
+
 a{
   display: inline-block;
   font-size: 18px;
@@ -425,3 +628,39 @@ a{
       }
   }
 }
+
+
+/* password css */
+.user-password-modal {
+  max-width: 50%;
+}
+
+.user-password-modal form {
+  padding: 20px 20px 40px;
+}
+
+.user-password-modal label {
+  display: block;
+  margin-bottom: 0;
+  font-size: 13px;
+}
+
+.user-password-modal input {
+  width: 100%;
+  outline: none;
+  padding: 5px;
+}
+
+.user-password-modal form button {
+  background: #d66066;
+  border: 1px solid #c75358;
+  color: #fff !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  padding: 5px 35px;
+  margin-top: 5px !important;
+}
+/* password css close */
+
+
+
