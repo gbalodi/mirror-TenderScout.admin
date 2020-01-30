@@ -258,7 +258,6 @@ export class UsersListComponent implements OnInit {
      * Service call to update reset Password of the specific user...
      */
     public changePassword() {
-        console.log(this.resetPasswordForm.value);
         this.request.updateUserPassword(this.resetPasswordForm.value).subscribe((res: any) => {
             res = JSON.parse(res);
             this.toasterService.success(res.success, 'Success');
@@ -272,11 +271,10 @@ export class UsersListComponent implements OnInit {
      * Service call to update Role of the specific user...
      */
     public changeRole() {
-        console.log(this.changeRoleForm.value);
         this.request.putData(`v1/users/${this.changeRoleForm.value.userId}/change_user_role`, { role: this.changeRoleForm.value.role }).subscribe(() => {
-            this.toasterService.success('Successful operation', 'Success');
-            this.approveModal.hide();
             this.getData();
+            this.approveModal.hide();
+            this.toasterService.success('Successful operation', 'Success');            
         }, () => {
             this.toasterService.error('Ooops, error', 'Try again');
         });

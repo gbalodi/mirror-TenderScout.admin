@@ -15,15 +15,23 @@
                 <input type="text" formControlName="search_text" (input)="page=1" placeholder="Search by username/email" class="form-control">
             </div>
 
-            <div class="radio">
-                <input id="all" name="days" type="radio" formControlName="days" value="">
-                <label for="all" class="radio-label">ALL</label>
+            <div class="row col-md-4">
+                <!-- <label for="days" class="col-form-label">Days:</label> -->
+                <select class="form-control" id="days" formControlName="days">
+                    <option value="all">All Days</option >
+                    <option value="30">Past 30 days</option >
+                    <option value="60"> Past 60 days</option >
+                    <option value="90" > Past 90 days</option >
+                </select>
+
+                <!-- <input id="all" name="days" type="radio" formControlName="days" value=""> -->
+                <!-- <label for="all" class="radio-label">ALL</label> -->
             </div>
 
-            <div class="radio">
+            <!-- <div class="radio">
                 <input id="30days" name="days" type="radio" formControlName="days" value="30">
                 <label for="30days" class="radio-label">Past 30 Days</label>
-            </div>
+            </div> -->
 
             <button (click)="ngOnInit()" class="btn btn-primary">Reset</button>
 
@@ -49,12 +57,16 @@
                     <td>{{item.full_name}} <span class="email-set">{{'<' + item.email + '>'}}</span> </td>
                     <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
                     <td>{{item.added_to_perform}}</td>
-                    <td>{{item.bid_assets_count}}</td>
+                    <td>{{item.blocks_created}}</td>
                     <td>{{item.emails_sent}}</td>
                     <td>{{item.login_sessions}}</td>
                     <td>{{item.monitors_count}}</td>
-                    <td>{{item.move_to_complete}}</td>
+                    <td>{{item.tenders_submitted}}</td>
                     <td>{{item.move_to_qualify}}</td>
+                    <td>{{item.search_results}}</td>
+                    <td>{{item.support_requests}}</td>
+                    <td>{{item.tenders_viewed}}</td>
+                    <td>{{item.documents_downloaded}}</td>
                 </tr>
             </tbody>
             <span *ngIf="userStatistics.length === 0">No Data Found!</span>

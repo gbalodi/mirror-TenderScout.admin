@@ -3,6 +3,43 @@ import { UsersService } from '../services/users.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 
+// class UserStat {
+//   constructor(
+//     public userId: number = null,
+//     public fullName: string = null,
+//     public email: string = null,
+//     public createdAt: string = null,
+//     public moveToComplete: number = null,
+//     public moveToQualify: number = null,
+//     public addedToPerform: number = null,
+//     public loginSessions: number = null,
+//     public emailsSent: number = null,
+//     public emailsOpened: number = null,
+//     public monitorsCount: number = null,
+//     public bidAssetsCount: number = null,
+//   ) { }
+// }
+
+interface IUserStatistics {
+  user_id?: number;
+  full_name: string;
+  email: string;
+  created_at: string;
+  tenders_submitted: number;
+  move_to_qualify: number;
+  added_to_perform: number;
+  login_sessions: number;
+  emails_sent: number;
+  emails_opened: number;
+  monitors_count: number;
+  searches_executed: number;
+  search_results: number;
+  support_requests: number;
+  tenders_viewed: number;
+  blocks_created: number;
+  documents_downloaded: number;
+}
+
 @Component({
   selector: 'app-user-statistics',
   templateUrl: './user-statistics.component.html',
@@ -13,19 +50,25 @@ export class UserStatisticsComponent implements OnInit {
   public page: number = 1;
   public totalData: number = 0;
   public statisticFilterForm: FormGroup;
-  public userStatistics: Array<any> = [];
+  public userStatistics: IUserStatistics[] = [];
   public csvData: Array<any> = [];
   public selectedSortItem: any;
   public tableHeadNames: Array<any> = [
     { title: 'User Name', key: 'full_name' },
     { title: 'Origin Date', key: 'created_at' },
     { title: 'Added To Perform', key: 'added_to_perform' },
-    { title: 'Bid Assets Count', key: 'bid_assets_count' },
+    { title: 'Blocks Created', key: 'blocks_created' },
     { title: 'Emails Sent', key: 'emails_sent' },
     { title: 'Login Sessions', key: 'login_sessions' },
     { title: 'Monitors Count', key: 'monitors_count' },
-    { title: 'Move To Complete', key: 'move_to_complete' },
-    { title: 'Move To Qualify', key: 'move_to_qualify' }
+    { title: 'Tenders Submitted', key: 'tenders_submitted' },
+    { title: 'Move To Qualify', key: 'move_to_qualify' },
+
+    { title: 'Search Results', key: 'search_results' },
+    { title: 'Support Requests', key: 'support_requests' },
+    { title: 'Tenders Viewed', key: 'tenders_viewed' },
+    { title: 'Documents Downloaded', key: 'documents_downloaded' },
+
   ];
 
   constructor(
@@ -35,17 +78,22 @@ export class UserStatisticsComponent implements OnInit {
 
   ngOnInit() {
     this.statisticFilterForm = this.formBuilder.group({
-      days: ['', [Validators.required]],
+      days: ['all', [Validators.required]],
       search_text: [''],
       created_at: [''],
-      added_to_perform: [''],
-      bid_assets_count: [''],
-      emails_opened: [''],
-      emails_sent: [''],
-      login_sessions: [''],
-      monitors_count: [''],
-      move_to_complete: [''],
+      tenders_submitted: [''],
       move_to_qualify: [''],
+      added_to_perform: [''],
+      login_sessions: [''],
+      emails_sent: [''],
+      emails_opened: [''],
+      monitors_count: [''],
+      searches_executed: [''],
+      search_results: [''],
+      support_requests: [''],
+      tenders_viewed: [''],
+      blocks_created: [''],
+      documents_downloaded: [''],
       page: [1]
     });
     this.selectedSortItem = {};
@@ -65,9 +113,9 @@ export class UserStatisticsComponent implements OnInit {
    */
   public getUserStatistics() {
     this.statisticFilterForm.value.page = this.page;
-    this.setFilterParams();
     this.usersService.getUserStatistics(this.setFilterParams()).subscribe((res: any) => {
       res = JSON.parse(res);
+      // res.user_statistics = res.user_statistics.map((user) => new UserStat(user));
       this.totalData = res.count;
       this.userStatistics = res.user_statistics;
     }, error => {
