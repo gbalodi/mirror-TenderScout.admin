@@ -222,7 +222,7 @@ export class UsersListComponent implements OnInit {
             this.reqData = Object.keys(this.rowData);
         }
         console.log(this.rowData);
-        this.approveModal = this.bsModalService.show(template);
+        this.approveModal = this.bsModalService.show(template, { class: 'modal-lg user-details-modal2' });
     }
 
     /**

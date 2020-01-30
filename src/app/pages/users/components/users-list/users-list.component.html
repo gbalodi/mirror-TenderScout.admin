@@ -4,8 +4,15 @@
     <div>
 
         <form [formGroup]="searchFilterForm">
-            <input type="text" formControlName="email">
+            
+
+            <div class="col-xs-12 col-sm-6">
+                <label for="role" class="col-form-label">Email:</label>
+                <div>
+                    <input type="text" formControlName="email">
             <!-- <input type="text" formControlName="role"> -->
+                </div>
+            </div>
 
             <div class="col-xs-12 col-sm-6">
                 <label for="role" class="col-form-label">Role:</label>
