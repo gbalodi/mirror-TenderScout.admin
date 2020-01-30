@@ -4,15 +4,19 @@
     <div>
 
         <form [formGroup]="searchFilterForm">
-            <input type="text" formControlName="email">
-            <!-- <input type="text" formControlName="role"> -->
+            <div class="row">
+                <div class="col-xs-12 col-sm-6">
+                    <input type="text" formControlName="email">
+                    <!-- <input type="text" formControlName="role"> -->
+                </div>
+            </div>
 
             <div class="col-xs-12 col-sm-6">
                 <label for="role" class="col-form-label">Role:</label>
                 <div>
-                    <select class="form-control" id="role" formControlName="role">
-                        <option *ngFor="let role of roles" [value]="role" >{{ role }}</option>
-                    </select>
+                    <ng-select [multiple]="true" formControlName="role">
+                        <ng-option *ngFor="let role of roles" [value]="role.type" [disabled]="role.disabled">{{role.type}}</ng-option>
+                    </ng-select>
                 </div>
             </div>
         </form>
@@ -45,7 +49,8 @@
                         <div class="dropdown-content">
                             <a (click)="openModal(infoModal, item)">Details</a>
                             <a [routerLink]="['/users',item.id, 'edit']">Edit</a>
-                            <a (click)="openModal(resetPasswordModal, item)">Reset Password</a>
+                            <a (click)="openModal(editRoleModal, item); changeRoleForm.patchValue({userId:item.id,role:item.role})">Change Role</a>
+                            <a (click)="openModal(resetPasswordModal, item); resetPasswordForm.controls['userId'].setValue(item.id)">Reset Password</a>
                             <a (click)="uploadToOrbidal=false; openModal(uploadResultsModal, item)">Upload Results</a>
                             <a (click)="uploadToOrbidal=true; openModal(uploadResultsModal, item)">Upload To Orbidal</a>
                             <a (click)="this.openModal(userStatisticsModal, item); getUserSessions('')">User Statistics</a>
@@ -73,6 +78,9 @@
             <span *ngIf="rowData.full_name">{{ rowData.full_name }}</span>
         </h4>
 
+        <button class="close" type="button" [routerLink]="['/users',rowData.id, 'edit']" aria-label="Close">
+                        <i class="fas fa-edit"></i>
+                    </button>
         <button class="close" type="button" [routerLink]="['/users',rowData.id, 'edit']" aria-label="Close">
                         <i class="fas fa-edit"></i>
                     </button>
@@ -140,6 +148,34 @@
             </div>
         </div>
     </div>
+</ng-template>
+
+<!--For Edit Role of the User... -->
+<ng-template #editRoleModal>
+    <div class="modal-header">
+        <h4 class="modal-title">Change role Of User - {{ rowData.fullname ? rowData.fullname : rowData.email }}</h4>
+        <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+    </div>
+    <form [formGroup]="changeRoleForm" novalidate>
+        <div class="row info">
+
+            <div class="col-xs-12 col-sm-6 form-group">
+                <label>Role</label>
+                <select formControlName="role">
+                    <option *ngFor="let role of roles" [value]="role.type" [disabled]="role.disabled">{{role.type}}</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="row info">
+            <div class="col-xs-12 col-sm-6">
+                <button [disabled]="!changeRoleForm.valid" (click)="changeRole()">Change</button>
+            </div>
+        </div>
+    </form>
 </ng-template>
 
 <!--For reset password... -->
