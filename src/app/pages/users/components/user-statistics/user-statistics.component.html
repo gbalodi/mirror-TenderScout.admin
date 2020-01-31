@@ -11,30 +11,30 @@
 
         <form [formGroup]="statisticFilterForm" novalidate>
             <div class="row top-bar">
-            <div class="col-md-5">
-                <input type="text" formControlName="search_text" (input)="page=1" placeholder="Search by username/email" class="form-control">
-            </div>
+                <div class="col-md-5">
+                    <input type="text" formControlName="search_text" (input)="page=1" placeholder="Search by username/email" class="form-control">
+                </div>
 
-            <div class="col-md-5">
-                <!-- <label for="days" class="col-form-label">Days:</label> -->
-                <select class="form-control" id="days" formControlName="days">
+                <div class="col-md-5">
+                    <!-- <label for="days" class="col-form-label">Days:</label> -->
+                    <select class="form-control" id="days" formControlName="days">
                     <option value="all">All Days</option >
                     <option value="30">Past 30 days</option >
                     <option value="60"> Past 60 days</option >
                     <option value="90" > Past 90 days</option >
                 </select>
 
-                <!-- <input id="all" name="days" type="radio" formControlName="days" value=""> -->
-                <!-- <label for="all" class="radio-label">ALL</label> -->
-            </div>
+                    <!-- <input id="all" name="days" type="radio" formControlName="days" value=""> -->
+                    <!-- <label for="all" class="radio-label">ALL</label> -->
+                </div>
 
-            <!-- <div class="radio">
+                <!-- <div class="radio">
                 <input id="30days" name="days" type="radio" formControlName="days" value="30">
                 <label for="30days" class="radio-label">Past 30 Days</label>
             </div> -->
 
-           <div class="col-md-2"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
-        </div>
+                <div class="col-md-2"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
+            </div>
         </form>
     </div>
 
@@ -63,7 +63,7 @@
                     <td>{{item.monitors_count}}</td>
                     <td>{{item.tenders_submitted}}</td>
                     <td>{{item.move_to_qualify}}</td>
-                    <td>{{item.search_results}}</td>
+                    <td>{{item.moved_to_compete}}</td>
                     <td>{{item.support_requests}}</td>
                     <td>{{item.tenders_viewed}}</td>
                     <td>{{item.documents_downloaded}}</td>

@@ -33,11 +33,11 @@ interface IUserStatistics {
   emails_opened: number;
   monitors_count: number;
   searches_executed: number;
-  search_results: number;
   support_requests: number;
   tenders_viewed: number;
   blocks_created: number;
   documents_downloaded: number;
+  moved_to_compete: number;
 }
 
 @Component({
@@ -64,7 +64,7 @@ export class UserStatisticsComponent implements OnInit {
     { title: 'Tenders Submitted', key: 'tenders_submitted' },
     { title: 'Move To Qualify', key: 'move_to_qualify' },
 
-    { title: 'Search Results', key: 'search_results' },
+    { title: 'Moved To Compete', key: 'moved_to_compete' },
     { title: 'Support Requests', key: 'support_requests' },
     { title: 'Tenders Viewed', key: 'tenders_viewed' },
     { title: 'Documents Downloaded', key: 'documents_downloaded' },
@@ -89,11 +89,11 @@ export class UserStatisticsComponent implements OnInit {
       emails_opened: [''],
       monitors_count: [''],
       searches_executed: [''],
-      search_results: [''],
       support_requests: [''],
       tenders_viewed: [''],
       blocks_created: [''],
       documents_downloaded: [''],
+      moved_to_compete: [''],
       page: [1]
     });
     this.selectedSortItem = {};
