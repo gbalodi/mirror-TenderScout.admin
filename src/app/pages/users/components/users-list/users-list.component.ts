@@ -62,7 +62,11 @@ export class UsersListComponent implements OnInit {
     public searchFilterForm: FormGroup;
     public userStatisticsData: any;
     public roles = [
-        { type: 'admin', disabled: false }, { type: 'standard', disabled: false }, { type: 'basic', disabled: false }, { type: 'free', disabled: false }];
+        { type: 'admin', disabled: false },
+        { type: 'standard', disabled: false },
+        { type: 'basic', disabled: false },
+        { type: 'free', disabled: false }
+    ];
     public fileTypes: String[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
     public settings = {
         mode: 'inline',
@@ -157,28 +161,18 @@ export class UsersListComponent implements OnInit {
 
         this.searchFilterForm = this.formBuilder.group({
             email: [''],
-            role: [[]]
+            role: [["admin", "standard", "basic", "free"]]
         });
 
-        this.statisticFilterForm.valueChanges.subscribe(
-            data => {
-                console.log('Username changed:' + data);
-                this.getUserSessions();
-            }
-        );
+        this.statisticFilterForm.valueChanges.subscribe(data => {
+            console.log('Username changed:' + data);
+            this.getUserSessions();
+        });
 
         this.searchFilterForm.valueChanges.pipe(
             debounceTime(700),
-            // switchMap((value) => this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`))
-            // switchMap(() => this.usersService.getUpgradeRequests())
         ).subscribe(value => {
-            // this.usersResponses(res);
-            this.getData()
-            // this.request.getData(`v1/users?page_size=${this.itemsPerPage}&page=${this.page}&filter[email]=${value.email}&filter[role]=${value.role}`).subscribe(res => {
-            //     this.usersResponses(res);
-            // }, error => {
-            //     console.log(error);
-            // });
+            this.getData();
         });
         this.getData();
 
@@ -226,11 +220,12 @@ export class UsersListComponent implements OnInit {
         }
     }
 
-    public openModal(template: TemplateRef<any>, item: any, className : string) {
+    public openModal(template: TemplateRef<any>, item: any, className: string) {
         this.rowData = item;
         if (this.rowData) {
             this.rowDataObj = this.rowData;
-            if (!this.rowData.profiles) {
+            if (this.rowData.profiles.length === 0) {
+                
             } else {
                 this.reqData = Object.keys(this.rowData.profiles[0]);
                 this.rowData = this.rowData.profiles[0];
@@ -275,7 +270,7 @@ export class UsersListComponent implements OnInit {
         this.request.putData(`v1/users/${this.changeRoleForm.value.userId}/change_user_role`, { role: this.changeRoleForm.value.role }).subscribe(() => {
             this.getData();
             this.approveModal.hide();
-            this.toasterService.success('Successful operation', 'Success');            
+            this.toasterService.success('Successful operation', 'Success');
         }, () => {
             this.toasterService.error('Ooops, error', 'Try again');
         });
