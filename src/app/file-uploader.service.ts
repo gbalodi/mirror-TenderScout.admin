@@ -103,6 +103,7 @@ export class FileUploaderService {
     this._queue.next(this._files);
     this._failedFiles = [];
     this._failedQueue.next(this._failedFiles);
+    this.numberOfUploadedFiles = 0;
   }
 
   public uploadAll() {
@@ -151,7 +152,7 @@ export class FileUploaderService {
   private _upload(queueObj: FileQueueObject) {
     // create form data for file
     const form = new FormData();
-    form.append('orbidal_document[file]', queueObj.file, queueObj.file.name);
+    form.append(this.url.split('/').pop() === 'orbidal_documents' ? 'orbidal_document[file]' : 'training_document[file]', queueObj.file, queueObj.file.name);
 
     // upload file and report progress
     const req = new HttpRequest('POST', this.url, form, {

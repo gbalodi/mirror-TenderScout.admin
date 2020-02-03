@@ -45,10 +45,15 @@ export const navigation = [
                     variant: 'info',
                 }
             },
+            // {
+            //     name: 'Rating Requests',
+            //     url: '/users/rating-request',
+            //     icon: 'fas fa-users',
+            // },
             {
-                name: 'Rating Requests',
-                url: '/users/rating-request',
-                icon: 'fas fa-users',
+                name: 'Archived Users List',
+                url: '/users/archives',
+                icon: 'fas fa-user-times'
             }
         ]
     },
@@ -84,15 +89,20 @@ export const navigation = [
         icon: 'fas fa-list-ul',
     },
     {
+        name: 'Training Docs',
+        url: '/training-documents',
+        icon: 'fas fa-list-alt'
+    },
+    {
         name: 'Scraper Status',
         url: '/scraper/list',
         icon: 'fas fa-address-book',
-    }, 
+    },
     {
         name: 'Ingestors Status',
         url: '/ingestors/list',
         icon: 'fa fa-indent',
-    }, 
+    },
     // {
 
     //     name: 'Companies',

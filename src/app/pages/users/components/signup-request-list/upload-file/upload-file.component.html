@@ -8,7 +8,7 @@
 
                 <div class="modal-header">
                     <h4 class="modal-title">Upload Results -
-                        <span>{{ rowData.fullname }}</span>
+                        <span>{{ rowData.fullname ? rowData.fullname : rowData.email }}</span>
                     </h4>
                     <button type="button" class="close" (click)="fileToUpload = null; selectFile.value=''; infoModal.hide()" aria-label="Close">
                       <span aria-hidden="true">&times;</span>

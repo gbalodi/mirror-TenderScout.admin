@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UsersService } from '../services/users.service';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { ToastrService } from 'ngx-toastr';
+import { debounceTime } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rating-request',
@@ -29,10 +30,24 @@ export class RatingRequestComponent implements OnInit {
       page: [1]
     });
 
-    this.usersService.getAdminRatingRequests().subscribe((res: any) => {
+    this.getAdminRatingRequests();
+
+    this.ratingFilterForm.valueChanges.pipe(
+      debounceTime(700)
+    ).subscribe(data => {
+      console.log(data);
+      this.getAdminRatingRequests();
+    });
+  }
+
+  public getAdminRatingRequests() {
+    this.usersService.getAdminRatingRequests(this.ratingFilterForm.value).subscribe((res: any) => {
       res = JSON.parse(res);
-      this.adminRatingRequestsData = res;
+      this.adminRatingRequestsData = res.data;
+      this.totalData = res.count;
     }, error => {
+      this.adminRatingRequestsData = [];
+      this.totalData = 0;
       console.log(error);
     });
   }
@@ -65,6 +80,15 @@ export class RatingRequestComponent implements OnInit {
         console.log(error);
       });
     }, 500);
+  }
+
+  /**
+ * Pagination handler...
+ * @param event 
+ */
+  public pageChanged(event) {
+    this.page = event;
+    this.ratingFilterForm.controls['page'].setValue(this.page);
   }
 
 }

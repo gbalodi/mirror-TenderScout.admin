@@ -5,7 +5,7 @@ import { CommonModule } from '@angular/common';
 import { TimezonePickerModule } from 'ng2-timezone-selector';
 import { SharedModule } from '../../modules/shared.module';
 import { UsersRoutingModule } from './users-routing.module';
-import { ModalModule } from 'ngx-bootstrap';
+import { ModalModule, BsModalRef } from 'ngx-bootstrap';
 import { UiSwitchModule } from 'ngx-toggle-switch';
 
 import { UsersListComponent } from './components/users-list/users-list.component';
@@ -27,6 +27,8 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { RatingRequestComponent } from './components/rating-request/rating-request.component';
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
+import { UsersArchiveListComponent } from './components/users-archive-list/users-archive-list.component';
+import { DialogComponent } from './components/users-archive-list/dialog/dialog.component';
 
 
 @NgModule({
@@ -35,7 +37,7 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         SharedModule,
         UsersRoutingModule,
         TimezonePickerModule,
-        ModalModule,
+        ModalModule.forRoot(),
         UiSwitchModule,
         NgSelectModule,
         HighchartsChartModule,
@@ -47,7 +49,6 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         UsersListComponent,
         SignupReqListComponent,
         CreateUserComponent,
-        UsersListComponent,
         DetailsComponent,
         StatusSwitcherComponent,
         RequestAssistanceComponent,
@@ -57,16 +58,20 @@ import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
         UploadFileComponent,
         UserStatisticsComponent,
         RatingRequestComponent,
+        UsersArchiveListComponent,
+        DialogComponent,
     ],
     providers: [
         UsersService,
+        BsModalRef
     ],
     entryComponents: [
         DetailsComponent,
         StatusSwitcherComponent,
         UserInfoComponent,
         AcceptRequestComponent,
-        UploadFileComponent
+        UploadFileComponent,
+        DialogComponent
     ]
 })
 export class UsersModule {

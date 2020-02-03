@@ -1,18 +1,18 @@
 <div class="row">
 
 	<file-drop headertext="" (onFileDrop)="dropped($event)" (onFileOver)="fileOver($event)"
-		(onFileLeave)="fileLeave($event)" multiple="true" >
+		(onFileLeave)="fileLeave($event)" multiple="true">
 		<label class="button drag_file-holder" for="file-name">
-		<div class="drag-contbx">
-			<h1 class="">Drag & drop</h1>
-			<p class="or"><span>or</span></p>
-			<div class="addfile-btn">
-				<label class="button" for="file-name">Select files</label>
-				<input multiple type="file" #fileInput data-max-size="32"
-					accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
-					class="upload-file-input" id="file-name" (click)="resetArray()" (change)="addToQueue()">
+			<div class="drag-contbx">
+				<h1 class="">Drag & drop</h1>
+				<p class="or"><span>or</span></p>
+				<div class="addfile-btn">
+					<label class="button" for="file-name">Select files</label>
+					<input multiple type="file" #fileInput data-max-size="32"
+						accept=".xls,.xlsx, .jpg, .jpeg, .png, .pdf, .csv, .doc, .docx, .pptx, .ppt"
+						class="upload-file-input" id="file-name" (click)="resetArray()" (change)="addToQueue()">
+				</div>
 			</div>
-		</div>
 		</label>
 	</file-drop>
 
@@ -75,7 +75,6 @@
 				</tr>
 			</tbody>
 		</table>
-
 		<div class="popup_btn-holder">
 			<button class="button button-clear"
 				[ngClass]="{'disabled': (queue | async).length === 0 && (failedQueue | async).length === 0}"

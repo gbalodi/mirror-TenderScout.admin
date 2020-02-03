@@ -8,6 +8,7 @@ import { RequestAssistanceComponent } from './components/request-assistance/requ
 import { RequestUpgradeComponent } from './components/request-upgrade/request-upgrade.component';
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 import { RatingRequestComponent } from './components/rating-request/rating-request.component';
+import { UsersArchiveListComponent } from './components/users-archive-list/users-archive-list.component';
 
 const routes: Routes = [
     {
@@ -70,6 +71,13 @@ const routes: Routes = [
                 component: RatingRequestComponent,
                 data: {
                     title: 'Bid-Hub Rating Requests'
+                }
+            },
+            {
+                path: 'archives',
+                component: UsersArchiveListComponent,
+                data: {
+                    title: 'Users Archive list'
                 }
             }
         ],

@@ -3,10 +3,10 @@
   <!-- For filter -->
   <div class="com-tndr-formhldr">
 
-    <form class=" row" novalidate>
+    <form [formGroup]="ratingFilterForm" novalidate>
 
-      <div class="col-md-4">
-        <input type="text" (input)="page=1" placeholder="Search by username/email" class="form-control">
+      <div class="row col-md-4">
+        <input type="text" formControlName="search_text" placeholder="Search by username/email" class="form-control">
       </div>
 
     </form>
@@ -56,9 +56,9 @@
     </table>
   </div>
 
-  <!-- <div class="marketplace-pagi-holder" *ngIf="totalData>0">
+  <div class="marketplace-pagi-holder" *ngIf="totalData>0">
     <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next"
       screenReaderCurrentLabel="You're on page">
     </pagination-controls>
-  </div> -->
+  </div>
 </div>

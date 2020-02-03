@@ -1,0 +1,30 @@
+<div class="modal-details">
+
+    <a class="btn btn-outline-primary" data-toggle="modal" (click)="archiveUserModal.show()" title="Restore User">
+        <i class="fas fa-undo"></i>
+    </a>
+
+    <div bsModal #archiveUserModal="bs-modal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-lg details-modal user-pass-modal" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Are you sure you want to Restore Activity Of this User - {{ rowData.full_name }} ? </h4>
+                    <button type="button" class="close" (click)="archiveUserModal.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                </div>
+                <form novalidate>
+
+                    <div class="row info">
+                        <div class="col-xs-12 col-sm-12 text-center margin-button8">
+                            <button class="set-button" (click)="archiveUserModal.hide()">No</button>
+                            <button class="btn-yes-margin33 set-button" (click)="archiveUserEvent()">Yes</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+
+</div>

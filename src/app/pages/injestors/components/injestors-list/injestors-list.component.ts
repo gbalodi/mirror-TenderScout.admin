@@ -19,6 +19,11 @@ export class InjestorsListComponent implements OnInit {
       edit: false
     },
     columns: {
+      id: {
+        title: 'Id',
+        editable: false,
+        filter: true
+      },
       source_name: {
         title: 'Source',
         editable: false,
