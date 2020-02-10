@@ -35,3 +35,19 @@
     height: 100%;
     background: #ecf0f5;
 }
+
+.table-responsive {
+    padding-bottom: 250px;
+}
+
+.note-set {
+    color: mediumvioletred;
+    margin: 0 auto;
+    display: table;
+    padding: 10px;
+    text-align: center;
+}
+
+.note-set span {
+    color: #3331b9 !important;
+}

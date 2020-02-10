@@ -10,6 +10,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { UploadFileService } from '../signup-request-list/upload-file/upload-file.service';
 import { debounceTime, switchMap } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
+import { environment } from '../../../../../environments/environment';
 
 interface IUser {
     id: number;
@@ -61,6 +62,8 @@ export class UsersListComponent implements OnInit {
     public statisticFilterForm: FormGroup;
     public searchFilterForm: FormGroup;
     public userStatisticsData: any;
+    public selectedUserId: number;
+    public evn = environment
     public roles = [
         { type: 'admin', disabled: false },
         { type: 'standard', disabled: false },
@@ -122,7 +125,8 @@ export class UsersListComponent implements OnInit {
         { title: 'Email', key: 'email' },
         { title: 'Profile type', key: 'profile_type' },
         { title: 'Role', key: 'role' },
-        { title: 'Actions', key: 'actions' }
+        { title: 'Actions', key: 'actions' },
+        { title: 'Login', key: 'login' },
     ];
 
     constructor(
@@ -225,7 +229,7 @@ export class UsersListComponent implements OnInit {
         if (this.rowData) {
             this.rowDataObj = this.rowData;
             if (this.rowData.profiles.length === 0) {
-                
+
             } else {
                 this.reqData = Object.keys(this.rowData.profiles[0]);
                 this.rowData = this.rowData.profiles[0];
@@ -326,7 +330,8 @@ export class UsersListComponent implements OnInit {
             formData.append('orbidal_document[user_id]', this.rowDataObj.id);
         }
         let callService = this.uploadToOrbidal ? 'uploadOrbidalDocuments' : 'importCSV_XLS';
-        this.uploadFileService[callService](formData).subscribe((res: any) => {
+        this.uploadFileService[callService](formData).subscribe((res: any) =>
+ {
             res = JSON.parse(res);
             this.uploadFileLoading = false;
             if (res.success) {
@@ -374,6 +379,19 @@ export class UsersListComponent implements OnInit {
             this.approveModal.hide();
         }, error => {
             console.log(error);
+        });
+    }
+
+    /**
+     * To open a user to the new tab... 
+     */
+    public adminSession() {
+        this.usersService.adminSession(this.selectedUserId).subscribe((res: any) => {
+            res = JSON.parse(res);
+            window.open(`${environment.frontEnd}/auth/admin-access/` + res.token, "_blank");
+            this.approveModal.hide();
+        }, error => {
+            console.error(error);
         });
     }
 

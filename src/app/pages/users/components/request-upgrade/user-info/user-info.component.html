@@ -12,23 +12,26 @@
                     </button>
                 </div>
                 <div class="modal-body row">
-                    <div [ngClass]="(request == 'country') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'" *ngFor="let request of reqData">
-                        <label class="main-label">{{ request }}</label>
-                        <div class="info" *ngIf="request != 'country'">{{ rowData[request] }}</div>
-                        <div class="row info" *ngIf="request == 'country'">
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].code"><span><label>Code: </label></span><span>{{rowData[request].code}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].number"><span><label>Number: </label></span><span>{{rowData[request].number}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].alpha2code"><span><label>alpha2code: </label></span><span>{{rowData[request].alpha2code}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].alpha3code"><span><label>alpha3code: </label></span><span>{{rowData[request].alpha3code}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].name"><span><label>Name: </label></span><span>{{rowData[request].name}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region"><span><label>World Region: </label></span><span>{{rowData[request].world_region}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region"><span><label>World Region: </label></span><span>{{rowData[request].world_region}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_subregion"><span><label>World Subregion: </label></span><span>{{rowData[request].world_subregion}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].other_names"><span><label>Other Names: </label></span><span>{{rowData[request].other_names}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].currency_id"><span><label>Currency ID: </label></span><span>{{rowData[request].currency_id}}</span></div>
-                            <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region_id"><span><label>World region ID: </label></span><span>{{rowData[request].world_region_id}}</span></div>
+                    <ng-container *ngFor="let request of reqData">
+                        <div *ngIf="rowData[request] && request !== 'cover_img' && request !== 'industries' && request !== 'contacts' && request !== 'keywords' && request !== 'avatar' && request !== 'countries'" [ngClass]="(request == 'country') ? 'col-xs-12 padding15': 'col-xs-12 col-sm-6 col-md-4 col-lg-3'">
+                            <label class="main-label">{{ request }}</label>
+                            <div class="info" *ngIf="request != 'country' && request !== 'industry'">{{ rowData[request] }}</div>
+                            <div class="info" *ngIf="request == 'industry' && rowData[request]">{{ rowData[request]?.name }}</div>
+                            <div class="row info" *ngIf="request == 'country' && rowData[request]">
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].code"><span><label>Code: </label></span><span>{{rowData[request].code}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].number"><span><label>Number: </label></span><span>{{rowData[request].number}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].alpha2code"><span><label>alpha2code: </label></span><span>{{rowData[request].alpha2code}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].alpha3code"><span><label>alpha3code: </label></span><span>{{rowData[request].alpha3code}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].name"><span><label>Name: </label></span><span>{{rowData[request].name}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region"><span><label>World Region: </label></span><span>{{rowData[request].world_region}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region"><span><label>World Region: </label></span><span>{{rowData[request].world_region}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_subregion"><span><label>World Subregion: </label></span><span>{{rowData[request].world_subregion}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].other_names"><span><label>Other Names: </label></span><span>{{rowData[request].other_names}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].currency_id"><span><label>Currency ID: </label></span><span>{{rowData[request].currency_id}}</span></div>
+                                <div class="col-xs-12 col-sm-6" *ngIf="rowData[request].world_region_id"><span><label>World region ID: </label></span><span>{{rowData[request].world_region_id}}</span></div>
+                            </div>
                         </div>
-                    </div>
+                    </ng-container>
                 </div>
             </div>
             <!-- /.modal-content -->

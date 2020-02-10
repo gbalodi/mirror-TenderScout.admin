@@ -90,4 +90,12 @@ export class UsersService {
   public getArchiveUsers() {
     return this.http.get(`v2/users/archived_users`);
   }
+
+  /**
+   * APi server call to get admin login access to the user...
+   * @param userId 
+   */
+  public adminSession(userId) {
+    return this.http.post(`v2/users/${userId}/admin_session`, {})
+  }
 }

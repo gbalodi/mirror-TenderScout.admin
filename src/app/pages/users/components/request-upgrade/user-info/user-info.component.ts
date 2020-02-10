@@ -1,5 +1,5 @@
-import {Component, OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ViewCell} from 'ng2-smart-table';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { ViewCell } from 'ng2-smart-table';
 
 @Component({
     selector: 'app-request-details',
@@ -12,7 +12,7 @@ export class UserInfoComponent implements ViewCell, OnInit {
 
     @Input() value;
 
-    constructor() {  }
+    constructor() { }
 
     @Input() rowData: any;
 
