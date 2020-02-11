@@ -98,4 +98,12 @@ export class UsersService {
   public adminSession(userId) {
     return this.http.post(`v2/users/${userId}/admin_session`, {})
   }
+
+  /**
+   * API server call to get confirm an user by admin...
+   * @param userId 
+   */
+  public confirmUser(userId) {
+    return this.http.post(`v2/users/${userId}/confirm_user`, {});
+  }
 }

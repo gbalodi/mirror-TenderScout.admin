@@ -121,12 +121,12 @@ export class UsersListComponent implements OnInit {
     };
 
     public tableHeadNames: Array<{ title: string; key: string; }> = [
-        { title: 'ID', key: 'id' },
+        { title: '', key: 'edit' },
         { title: 'Email', key: 'email' },
         { title: 'Profile type', key: 'profile_type' },
         { title: 'Role', key: 'role' },
-        { title: 'Actions', key: 'actions' },
-        { title: 'Login', key: 'login' },
+        { title: 'Actions', key: 'actions' }
+        // { title: 'Login', key: 'login' },
     ];
 
     constructor(
@@ -330,8 +330,7 @@ export class UsersListComponent implements OnInit {
             formData.append('orbidal_document[user_id]', this.rowDataObj.id);
         }
         let callService = this.uploadToOrbidal ? 'uploadOrbidalDocuments' : 'importCSV_XLS';
-        this.uploadFileService[callService](formData).subscribe((res: any) =>
- {
+        this.uploadFileService[callService](formData).subscribe((res: any) => {
             res = JSON.parse(res);
             this.uploadFileLoading = false;
             if (res.success) {
@@ -388,8 +387,24 @@ export class UsersListComponent implements OnInit {
     public adminSession() {
         this.usersService.adminSession(this.selectedUserId).subscribe((res: any) => {
             res = JSON.parse(res);
-            window.open(`${environment.frontEnd}/auth/admin-access/` + res.token, "_blank");
+            setTimeout(() => {
+                window.open(`${environment.frontEnd}/auth/admin-access/` + res.token, "_blank");
+            }, 1000);
             this.approveModal.hide();
+        }, error => {
+            console.error(error);
+        });
+    }
+
+    /**
+     * API server service call to confirm an user by Admin...
+     */
+    public confirmUser() {
+        this.usersService.confirmUser(this.selectedUserId).subscribe((res: any) => {
+            res = JSON.parse(res);
+            this.toasterService.success(`${res.success}`, 'Success');
+            this.approveModal.hide();
+            this.getData();
         }, error => {
             console.error(error);
         });

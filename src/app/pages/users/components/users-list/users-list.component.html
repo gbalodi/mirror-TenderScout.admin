@@ -43,26 +43,29 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of userData | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }">
-                <td>{{item?.id}}</td>
+                <td>
+                    <i class="fas fa-pencil-alt set-cursor" [routerLink]="['/users',item.id, 'edit']" title="Edit User"></i>
+                </td>
                 <td>{{item?.email }}</td>
                 <td>{{item?.profile_type ? item?.profile_type[0] : '--'}}</td>
                 <td>{{item?.role}}</td>
                 <td>
+                    <span class="iconn"><i class="fas fa-check-circle set-cursor" *ngIf="!item?.confirmed" (click)="selectedUserId=item.id; openModal(confirmUserModal, item, 'archieve-modal')" title="Confirm User"></i></span>
+                    <span class="iconn"><i class="fas fa-sign-in-alt set set-cursor" (click)="selectedUserId = item.id; openModal(adminAccessUserAccountModal, item, 'archieve-modal')" title="Access User"></i></span>
+                    <span class="iconn"><i class="fas fa-archive set-cursor" (click)="openModal(archiveUserModal, item, 'archieve-modal')" title="Archive User"></i></span>
                     <div class="dropdown">
                         <button class="dropbtn"><i class="fas fa-cog"></i></button>
                         <div class="dropdown-content">
                             <a (click)="openModal(infoModal, item, 'user-details-modal')">Details</a>
-                            <a [routerLink]="['/users',item.id, 'edit']">Edit</a>
                             <a (click)="openModal(editRoleModal, item, 'change-role-modal'); changeRoleForm.patchValue({userId:item.id,role:item.role})">Change Role</a>
                             <a (click)="openModal(resetPasswordModal, item, 'user-password-detail'); resetPasswordForm.controls['userId'].setValue(item.id)">Reset Password</a>
                             <a (click)="uploadToOrbidal=false; openModal(uploadResultsModal, item, 'upload-result-modal')">Upload Results</a>
                             <a (click)="uploadToOrbidal=true; openModal(uploadResultsModal, item, 'upload-orbidal-modal')">Upload To Orbidal</a>
                             <a (click)="this.openModal(userStatisticsModal, item, 'user-stat-modal'); getUserSessions('')">User Statistics</a>
-                            <a (click)="openModal(archiveUserModal, item, 'archieve-modal')">Archive User</a>
                         </div>
                     </div>
                 </td>
-                <td><i class="fas fa-sign-in-alt set set-cursor" (click)="selectedUserId = item.id; openModal(adminAccessUserAccountModal, item, 'archieve-modal')"></i></td>
+                <!-- <td><i class="fas fa-sign-in-alt set set-cursor" (click)="selectedUserId = item.id; openModal(adminAccessUserAccountModal, item, 'archieve-modal')"></i></td> -->
             </tr>
         </tbody>
         <span *ngIf="userData?.length === 0">No Data Found!</span>
@@ -102,17 +105,9 @@
                 <div class="info-detail-holder">
                     <label class="main-label">{{ request }}</label>
                     <div class="info">
-                        <span>{{ rowData[request] }} </span>
+                        <span *ngIf="request !== 'industry' && request !== 'country'">{{ rowData[request] }} </span>
                         <span *ngIf="request === 'industry' && rowData[request]">{{ rowData[request].name }} </span>
-                        <!-- <span *ngIf="request!=='profile_type'"><input [value]="rowData[request]"> </span>
-                            <span *ngIf="request==='profile_type'">
-                                    <ng-select [items]="profileType"
-                                    bindLabel="name"
-                                    bindValue="name" multiple="true"
-                                    [(ngModel)]="rowData[request]">
-                         </ng-select>
-                                
-                            </span> -->
+                        <span *ngIf="request === 'country' && rowData[request]">{{ rowData[request].name }} </span>
                     </div>
                 </div>
                 <div class="row info" *ngIf="request === 'country' && rowData[request]">
@@ -399,6 +394,8 @@
     </form>
 </ng-template>
 
+<!-- ******************* Modal for admin access user account ******************** -->
+
 <ng-template #adminAccessUserAccountModal>
 
     <div class="modal-header">
@@ -417,5 +414,27 @@
             </div>
         </div>
         <p class="note-set">NOTE: Any existing running session on <span>{{evn.frontEnd}}</span>, will be getting revoked by this operation.</p>
+    </form>
+</ng-template>
+
+<!-- ******************* Modal for Make an user confirm by admin authorized ************************** -->
+
+<ng-template #confirmUserModal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+    </div>
+    <div class="modal-body"><label>Are you sure you want to Confirm this User - {{ rowData.email }} ?</label></div>
+    <form novalidate>
+
+        <div class="row info">
+            <div class="col-xs-12 col-sm-12 text-left">
+                <button (click)="approveModal.hide()">No</button>
+                <button class="btn-yes-margin33" (click)="confirmUser()">Yes</button>
+            </div>
+        </div>
     </form>
 </ng-template>

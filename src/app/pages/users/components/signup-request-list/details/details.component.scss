@@ -48,19 +48,25 @@ a {
     }
 }
 
+// .dropbtn {
+//     background-color: transparent;
+//     color: #d66066;
+//     padding: 6px 15px;
+//     font-size: 16px;
+//     border: 1px solid #d66066;
+// }
 .dropbtn {
     background-color: transparent;
     color: #d66066;
-    padding: 6px 15px;
+    padding: 0px 0px;
     font-size: 16px;
-    border: 1px solid #d66066;
+    border: 1px solid transparent;
 }
 
-.dropdown:hover .dropbtn {
-    background-color: #d66066;
-    color: #fff;
-}
-
+// .dropdown:hover .dropbtn {
+//     background-color: #d66066;
+//     color: #fff;
+// }
 .dropdown {
     position: relative;
     display: inline-block;

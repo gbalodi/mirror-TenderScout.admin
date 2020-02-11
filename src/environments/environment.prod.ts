@@ -3,6 +3,6 @@ export const environment = {
     // apiUrl: 'https://hub.tenderscout.com/api/'
     // apiUrl: 'https://admin.orbidalgroup.com/api/'
     apiUrl: 'https://app.orbidalgroup.com/api/',
-    frontEnd: 'http://app.orbidalgroup.com/'
+    frontEnd: 'https://app.orbidalgroup.com'
     // apiUrl: 'https://api.tshub.matrixmarketers.com/api/'
 };
