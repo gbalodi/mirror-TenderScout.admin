@@ -1,15 +1,77 @@
 <div class="card-header">
-  <h3>Assistance request</h3>
+    <h3>Assistance request</h3>
+
+
+    <form [formGroup]="searchFilterForm">
+        <div class="row">
+
+            <div class="col-sm-6">
+                <label for="role" class="col-form-label">Email:</label>
+                <div>
+                    <input type="text" formControlName="email">
+                    <!-- <input type="text" formControlName="role"> -->
+                </div>
+            </div>
+
+            <div class="col-sm-6">
+                <label for="role" class="col-form-label">Status:</label>
+                <div>
+                    <select formControlName="status">
+                        <option *ngFor="let status of statuses" [value]="status.type">{{status.name}}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+
+            <div class="col-sm-6">
+                <label for="role" class="col-form-label">All/KR/Tender:</label>
+                <div>
+                    <input type="text" formControlName="all">
+                </div>
+            </div>
+
+        </div>
+    </form>
+
 </div>
+
+<div class="table-responsive">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index">
+                    {{item.title}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of requestAssistances | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }">
+                <td>{{item?.user.fullname }} {{item?.user?.email}}
+                </td>
+                <td>{{item?.status}}</td>
+                <td>{{item?.message}}</td>
+                <td>
+                    <a class="set-cursor anchor-color" [routerLink]="['/tenders/details', item.tender_id]">
+                        <strong>{{item?.custom_id}} </strong> {{item?.tender_title}}
+                    </a>
+                </td>
+                <td><i class="far fa-comments set-cursor" title="Go To Chart"></i></td>
+            </tr>
+        </tbody>
+        <span *ngIf="requestAssistances?.length === 0">No Data Found!</span>
+
+    </table>
+</div>
+
+<div class="marketplace-pagi-holder" *ngIf="totalItems>0">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+</div>
+
+<!--
 <ng2-smart-table class="table table-striped" [settings]="settings" [source]="source"></ng2-smart-table>
-<pagination *ngIf="totalItems > 20"
-            class="pagination-sm"
-            (ngModel)="page"
-            [totalItems]="totalItems"
-            [itemsPerPage]="itemsPerPage"
-            [maxSize]="maxSize"
-            [boundaryLinks]="true"
-            [rotate]="false"
-            (pageChanged)="pageChanged($event)"
-            (numPages)="numPages = $event">
+<pagination *ngIf="totalItems > 20" class="pagination-sm" (ngModel)="page" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)" (numPages)="numPages = $event">
 </pagination>
+-->

@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import {LocalDataSource} from 'ng2-smart-table';
-import {MainRequestService} from '../../../../services/main-request.service';
-import {ToastrService} from 'ngx-toastr';
-import {DatePipe} from '@angular/common';
+import { LocalDataSource } from 'ng2-smart-table';
+import { MainRequestService } from '../../../../services/main-request.service';
+import { ToastrService } from 'ngx-toastr';
+import { DatePipe } from '@angular/common';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Component({
-  selector: 'app-request-assistance',
-  templateUrl: './request-assistance.component.html',
-  styleUrls: ['./request-assistance.component.scss']
+    selector: 'app-request-assistance',
+    templateUrl: './request-assistance.component.html',
+    styleUrls: ['./request-assistance.component.scss', '../users-list/users-list.component.scss']
 })
 export class RequestAssistanceComponent implements OnInit {
-
+    public searchFilterForm: FormGroup;
     public page: number = 1;
     public itemsPerPage: number = 20;
     public totalItems: number;
@@ -19,7 +20,12 @@ export class RequestAssistanceComponent implements OnInit {
     public source: LocalDataSource = new LocalDataSource();
     public searchResetData: Array<object>;
     public searchResetActive: boolean = false;
-    public usersList;
+    public requestAssistances: Array<any> = [];
+    public statuses = [
+        { name: 'All', type: 'all' },
+        { name: 'Opened', type: 'opened' },
+        { name: 'Closed', type: 'closed' },
+    ];
     public settings = {
         mode: 'inline',
         actions: {
@@ -62,35 +68,50 @@ export class RequestAssistanceComponent implements OnInit {
             },
         }
     };
+    public tableHeadNames: Array<{ title: string; key: string; }> = [
+        { title: 'User', key: 'user' },
+        { title: 'Status', key: 'status' },
+        { title: 'Message', key: 'message' },
+        { title: 'Tender', key: 'tender' },
+        { title: 'Action', key: 'action' }
+    ];
 
     constructor(
         private request: MainRequestService,
         private toasterService: ToastrService,
         private datePipe: DatePipe,
+        public formBuilder: FormBuilder
     ) { }
 
     ngOnInit() {
-        this.request.getData(`v1/assistances?page_size=${this.itemsPerPage}&page=1` ).subscribe( res => {
+        this.searchFilterForm = this.formBuilder.group({
+            email: [''],
+            status: [''],
+            all: ['']
+        });
+        this.request.getData(`v2/assistances/requests?page_size=${this.itemsPerPage}&page=1`).subscribe(res => {
             const result = JSON.parse(res);
 
-            this.source.setPaging(1, this.itemsPerPage,true );
-            this.source.load( result.data );
+            this.source.setPaging(1, this.itemsPerPage, true);
+            this.source.load(result.data);
             this.totalItems = result.count;
             this.searchResetActive = true;
+            this.requestAssistances = result.data;
         },
             error => {
                 this.toasterService.error('Error', error);
             });
     }
 
-    pageChanged(event) {
-        this.request.getData(`v1/assistances?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
-                const result = JSON.parse(res);
+    public pageChanged(event) {
+        this.request.getData(`v2/assistances/requests?page_size=${this.itemsPerPage}&page=${event.page}`).subscribe(res => {
+            const result = JSON.parse(res);
+            this.requestAssistances = result.data;
 
-                this.source.setPaging(1, this.itemsPerPage,true );
-                this.source.load( result.data );
-                this.totalItems = result.count;
-            },
+            this.source.setPaging(1, this.itemsPerPage, true);
+            this.source.load(result.data);
+            this.totalItems = result.count;
+        },
             error => {
                 this.toasterService.error('Error', error);
             });

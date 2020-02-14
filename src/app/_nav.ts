@@ -80,8 +80,15 @@ export const navigation = [
     },
     {
         name: 'Tenders',
-        url: '/tenders',
+        // url: '/tenders',
         icon: 'fas fa-gavel',
+        children: [
+            {
+                name: 'Tenders List',
+                url: '/tenders/list',
+                icon: 'fas fa-gavel',
+            }
+        ]
     },
     {
         name: 'Orbidal Documents List',
