@@ -30,7 +30,7 @@ export const navigation = [
                 }
             },
             {
-                name: 'Assistence Requests',
+                name: 'Assistance Requests',
                 url: '/users/assist-requests',
                 icon: 'fas fa-question-circle',
                 badge: {

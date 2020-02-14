@@ -56,7 +56,7 @@ const routes: Routes = [
                 path: 'assist-requests',
                 component: RequestAssistanceComponent,
                 data: {
-                    title: 'Assistence requests'
+                    title: 'Assistance requests'
                 }
             },
             {
