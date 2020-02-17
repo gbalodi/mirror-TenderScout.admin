@@ -81,41 +81,42 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FileDropModule } from 'ngx-file-drop';
 
 @NgModule({
-    imports: [
-        BrowserModule,
-        BrowserAnimationsModule,
-        FormsModule,
-        ReactiveFormsModule,
-        HttpClientModule,
-        AppRoutingModule,
-        BsDropdownModule.forRoot(),
-        TabsModule.forRoot(),
-        ChartsModule,
-        AuthorizationModule,
-        Ng2Webstorage,
-        NgxPermissionsModule.forRoot(),
-        SpinnerModule,
-        ToastrModule.forRoot(),
-        NgSelectModule,
-        FileDropModule
-    ],
-    declarations: [
-        AppComponent,
-        ...APP_CONTAINERS,
-        ...APP_COMPONENTS,
-        ...APP_DIRECTIVES,
-    ],
-    providers: [
-        {
-            provide: LocationStrategy,
-            useClass: HashLocationStrategy
-        },
-        TokenService,
-        MainRequestService,
-        AuthenticationService,
-        DatePipe,
-        PaginationConfig,
-    ],
-    bootstrap: [AppComponent]
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    AppRoutingModule,
+    BsDropdownModule.forRoot(),
+    TabsModule.forRoot(),
+    ChartsModule,
+    AuthorizationModule,
+    Ng2Webstorage,
+    NgxPermissionsModule.forRoot(),
+    SpinnerModule,
+    ToastrModule.forRoot(),
+    NgSelectModule,
+    FileDropModule
+  ],
+  declarations: [
+    AppComponent,
+    ...APP_CONTAINERS,
+    ...APP_COMPONENTS,
+    ...APP_DIRECTIVES
+  ],
+  providers: [
+    {
+      provide: LocationStrategy,
+      useClass: HashLocationStrategy
+    },
+    TokenService,
+    MainRequestService,
+    AuthenticationService,
+    DatePipe,
+    PaginationConfig,
+  ],
+  exports: [],
+  bootstrap: [AppComponent]
 })
 export class AppModule { }

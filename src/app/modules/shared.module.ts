@@ -20,6 +20,10 @@ import { UserFilterPipe } from './pipes/user-filter.pipe';
 import { KeyValuePipe } from '../pipe/key-value.pipe';
 import { FileUploaderComponent } from '../file-uploader.component';
 import { FileUploaderService } from '../file-uploader.service';
+import { ChatBoxComponent } from './components/chat-box/chat-box.component';
+import { MessageComponent } from './components/chat-box/message/message.component';
+import { MessageTypeComponent } from './components/chat-box/message-type/message-type.component';
+import { CustomTitlePipe } from 'app/pipe/custom-title.pipe';
 
 @NgModule({
     imports: [
@@ -57,7 +61,11 @@ import { FileUploaderService } from '../file-uploader.service';
         InputErrorsComponent,
         SelectComponent,
         KeyValuePipe,
-        FileUploaderComponent
+        FileUploaderComponent,
+        ChatBoxComponent,
+        MessageComponent,
+        MessageTypeComponent,
+        CustomTitlePipe
     ],
     declarations: [
         DocumentsComponent,
@@ -69,7 +77,11 @@ import { FileUploaderService } from '../file-uploader.service';
         InputErrorsComponent,
         SelectComponent,
         KeyValuePipe,
-        FileUploaderComponent
+        FileUploaderComponent,
+        ChatBoxComponent,
+        MessageComponent,
+        MessageTypeComponent,
+        CustomTitlePipe
     ],
 })
 export class SharedModule { }

@@ -57,7 +57,7 @@
                         <strong>{{item?.custom_id}} </strong> {{item?.tender_title}}
                     </a>
                 </td>
-                <td><i class="far fa-comments set-cursor" title="Go To Chart"></i></td>
+                <td><i class="far fa-comments set-cursor" title="Go To Chart" [routerLink]="['./',item.id, 'chat']"></i></td>
             </tr>
         </tbody>
         <span *ngIf="requestAssistances?.length === 0">No Data Found!</span>

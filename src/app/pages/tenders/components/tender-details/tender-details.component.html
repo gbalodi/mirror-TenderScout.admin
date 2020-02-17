@@ -1,1 +1,23 @@
-{{tenderDetails | json}}
+<!-- {{tenderDetails | json}} -->
+
+<table class="table">
+    <ng-container *ngFor="let key of tenderDetails | keys">
+        <tr *ngIf="typeOfChecking(key)">
+            <th>{{(key === 'organization_name' ? 'buyer' : key) | customTitle | titlecase}}: </th>
+            <td>
+                <span *ngIf="keyChecking(key)">{{tenderDetails[key] ? tenderDetails[key] : 'N/A'}} </span>
+                <span *ngIf="key === 'country'">{{tenderDetails[key] ? tenderDetails[key].name : 'N/A'}} </span>
+                <span *ngIf="dateChecking(key)">{{tenderDetails[key] ? (tenderDetails[key] | date: 'dd/MM/yyyy') : 'N/A'}} </span>
+                <a *ngIf="(key === 'tender_urls' || key === 'award_urls') && tenderDetails[key]" (click)="navigate(tenderDetails[key])">{{tenderDetails[key]}} 
+            </a>
+                <span *ngIf="(key === 'tender_urls' || key === 'award_urls') && tenderDetails[key].length == 0">
+N/A
+            </span>
+                <span *ngIf="(key === 'cpvs' || key === 'naicses' || key === 'ngips' || key === 'unspsces' || key === 'gsins') && tenderDetails[key].length>0" [innerHTML]="tenderDetails[key].length>0 ? codesHandler(tenderDetails[key]) : 'N/A'"> 
+            </span>
+                <span *ngIf="key === 'keywords' && tenderDetails[key].length>0"></span>
+                <span *ngIf="key === 'keywords' && tenderDetails[key].length===0">N/A</span>
+            </td>
+        </tr>
+    </ng-container>
+</table>

@@ -9,6 +9,7 @@ import { RequestUpgradeComponent } from './components/request-upgrade/request-up
 import { UserStatisticsComponent } from './components/user-statistics/user-statistics.component';
 import { RatingRequestComponent } from './components/rating-request/rating-request.component';
 import { UsersArchiveListComponent } from './components/users-archive-list/users-archive-list.component';
+import { ChatBoxComponent } from 'app/modules/components/chat-box/chat-box.component';
 
 const routes: Routes = [
     {
@@ -57,6 +58,13 @@ const routes: Routes = [
                 component: RequestAssistanceComponent,
                 data: {
                     title: 'Assistance requests'
+                }
+            },
+            {
+                path: 'assist-requests/:id/chat',
+                component: ChatBoxComponent,
+                data: {
+                    title: 'Assistance requests Chat'
                 }
             },
             {
