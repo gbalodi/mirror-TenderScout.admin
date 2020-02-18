@@ -53,9 +53,10 @@
                 <td>{{item?.status}}</td>
                 <td>{{item?.message}}</td>
                 <td>
-                    <a class="set-cursor anchor-color" [routerLink]="['/tenders/details', item.tender_id]">
+                    <a *ngIf="item.tender_id" class="set-cursor anchor-color" [routerLink]="['/tenders/details', item?.tender_id]">
                         <strong>{{item?.custom_id}} </strong> {{item?.tender_title}}
                     </a>
+                    <span *ngIf="!item.tender_id">N/A</span>
                 </td>
                 <td><i class="far fa-comments set-cursor" title="Go To Chart" [routerLink]="['./',item.id, 'chat']"></i></td>
             </tr>
