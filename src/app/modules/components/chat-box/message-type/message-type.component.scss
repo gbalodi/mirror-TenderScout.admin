@@ -1,1 +1,9 @@
-.message-section{width: 100%; display: inline-block;}
+.message-section{width: 100%; border:1px solid #ddd; border-radius: 10px; margin: 15px 0 0 0;
+    form{width: 100%; display: flex;
+    textarea{width: 100%; border:none; font-size: 14px; border-radius:10px 0 0 10px; resize: none; padding:12px 10px; height: 45px;}
+    button{background: #13161d; font-size: 14px; height: 45px; border: none; color: #fff; width: 85px; border-radius: 0 10px 10px 0; text-transform: uppercase; font-weight: 400;
+        letter-spacing: 0.6px; transition: 0.4s;}
+        button:hover{background: #d66166; transition: 0.4s;}
+    }
+.message-txt{flex: 0 0 calc(100% - 85px); resize:none; border:none; border-radius: 10px; height: 45px;}
+}
