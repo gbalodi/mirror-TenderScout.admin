@@ -2,33 +2,11 @@
     <div class="all-messages">
         <p class="chat-date"> <strong>Today</strong> </p>
         <!-- <p class="message-loading"> <strong>Loading...</strong> </p> -->
-        <div class="message-item">
-            <div class="message-wrap">I've found some cool photos for our travel app.</div>
+        <div *ngFor="let message of messages" class="message-item" [ngClass]="{'message-item-right': message.replier}">
+            <div class="message-wrap" [ngClass]="{'right-box': message.replier}">{{message.body}}</div>
         </div>
-        <div class="message-item message-item-right">
+        <!-- <div class="message-item message-item-right">
             <div class="message-wrap right-box">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item">
-            <div class="message-wrap">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item message-item-right">
-            <div class="message-wrap right-box">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item">
-            <div class="message-wrap">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item message-item-right">
-            <div class="message-wrap right-box">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item">
-            <div class="message-wrap">I've found some cool photos for our travel app.</div>
-        </div>
-        <div class="message-item message-item-right">
-            <div class="message-wrap right-box">I've found some cool photos for our travel app.</div>
-        </div>
-        
-        
-        
-
+        </div> -->
     </div>
 </div>

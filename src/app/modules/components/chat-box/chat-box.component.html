@@ -1,10 +1,10 @@
 <div class="chat-section">
-    
+
     <div>
-        <message></message>
+        <message [messages]="messages"></message>
     </div>
 
     <div>
-        <message-type></message-type>
+        <message-type [assistanceId]="assistanceId" (passMessage)="getNewMessage($event)"></message-type>
     </div>
 </div>

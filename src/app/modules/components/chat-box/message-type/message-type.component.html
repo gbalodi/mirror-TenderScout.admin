@@ -1,6 +1,6 @@
 <div class="message-section">
-    <form action="#">
-        <div class="message-txt"><textarea placeholder="Text Message"></textarea></div>
-        <button class="icon send"><i class="fas fa-paper-plane"></i></button>
+    <form [formGroup]="textMessageForm" novalidate>
+        <div class="message-txt"><textarea placeholder="Text Message" formControlName="body" row="5"></textarea></div>
+        <button class="icon send" [disabled]="!textMessageForm.valid" (click)="createAssistanceComments()"><i class="fas fa-paper-plane"></i></button>
     </form>
 </div>

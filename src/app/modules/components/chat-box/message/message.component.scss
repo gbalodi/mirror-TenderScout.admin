@@ -1,17 +1,58 @@
-.message-section{
-.message-item{max-width: 40%;
-.message-wrap{background: #fff; padding:15px; font-size: 14px; display: inline-block; box-shadow: 0 0 15px rgba(0,0,0,0.15); border-radius: 15px;}
-}
-.all-messages{overflow-x: auto; height: 65vh; padding: 0 15px;
-    .chat-date{text-align: center; position: relative; font-size: 13px; color: #364253;
-        strong{font-weight: 400; position: relative; z-index: 1; background: rgba(25,73,181,0.15); display: inline-block; padding: 2px 18px; border-radius: 6px;}
+.message-section {
+    .message-item {
+        max-width: 40%;
+        .message-wrap {
+            background: #fff;
+            padding: 15px;
+            font-size: 14px;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+            border-radius: 15px;
         }
-        .message-loading{text-align: center; position: relative; font-size: 13px; color: #364253;
-            strong{font-weight: 400; position: relative; z-index: 1; background: rgba(25,73,181,0.15); display: inline-block; padding: 2px 18px; border-radius: 6px;}
+    }
+    .all-messages {
+        overflow-x: auto;
+        height: 65vh;
+        padding: 0 15px;
+        .chat-date {
+            text-align: center;
+            position: relative;
+            font-size: 13px;
+            color: #364253;
+            strong {
+                font-weight: 400;
+                position: relative;
+                z-index: 1;
+                background: rgba(25, 73, 181, 0.15);
+                display: inline-block;
+                padding: 2px 18px;
+                border-radius: 6px;
             }
-}
+        }
+        .message-loading {
+            text-align: center;
+            position: relative;
+            font-size: 13px;
+            color: #364253;
+            strong {
+                font-weight: 400;
+                position: relative;
+                z-index: 1;
+                background: rgba(25, 73, 181, 0.15);
+                display: inline-block;
+                padding: 2px 18px;
+                border-radius: 6px;
+            }
+        }
+    }
 }
 
-.message-item-right{margin-left: auto; margin-right: 0; text-align: right;
-    .right-box{background: #d66166 !important; color: #fff;}
+.message-item-right {
+    margin-left: auto;
+    margin-right: 0;
+    text-align: right;
+    .right-box {
+        background: #d66166 !important;
+        color: #fff;
+    }
 }
