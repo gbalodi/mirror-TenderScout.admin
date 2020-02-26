@@ -1,10 +1,82 @@
 <div class="message-section">
-    <div class="all-messages">
+    <div class="all-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <p class="chat-date"> <strong>Today</strong> </p>
         <!-- <p class="message-loading"> <strong>Loading...</strong> </p> -->
-        <div *ngFor="let message of messages" class="message-item" [ngClass]="{'message-item-right': message.replier}">
-            <div class="message-wrap" [ngClass]="{'right-box': message.replier}">{{message.body}}</div>
+        <div *ngFor="let message of messages" class="message-item" [ngClass]="{'message-item-right': message.admin}">
+            <div class="message-wrap" [ngClass]="{'right-box': message.admin}">
+                <span *ngIf="message.body">{{message.body}}
+                    <span class="msg-time">{{message.created_at | date: 'h:mm a'}}</span>
+                </span>
+
+                <span *ngIf="!message.body && message.attachments.length>0">
+                    <img [src]="message.attachments[0]?.file?.url" width="100px" alt="">
+                    <div class="download"><a [href]="message.attachments[0].file.url" target="_blank"><i class="fas fa-cloud-download-alt"></i></a></div>
+                </span>
+            </div>
+
+
         </div>
+
+        <!-- <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item message-item-right">
+            <div class="message-wrap right-box">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        
+        <div class="message-item message-item-right">
+            <div class="message-wrap right-box">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item message-item-right">
+            <div class="message-wrap right-box">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item">
+            <div class="message-wrap">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item message-item-right">
+            <div class="message-wrap right-box">I've found some cool photos for our travel app.
+                <span class="msg-time">04:27 pm</span>
+            </div>
+        </div>
+        <div class="message-item message-item-right">
+            <div class="message-wrap right-box"><img src="assets/img/logo-symbol.png" width="100px" alt=""> <div class="download"><a href="#"><i class="fas fa-cloud-download-alt"></i></a></div> </div>
+        </div> -->
+
         <!-- <div class="message-item message-item-right">
             <div class="message-wrap right-box">I've found some cool photos for our travel app.</div>
         </div> -->

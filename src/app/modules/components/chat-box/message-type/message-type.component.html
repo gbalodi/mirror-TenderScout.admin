@@ -1,6 +1,16 @@
 <div class="message-section">
     <form [formGroup]="textMessageForm" novalidate>
-        <div class="message-txt"><textarea placeholder="Text Message" formControlName="body" row="5"></textarea></div>
-        <button class="icon send" [disabled]="!textMessageForm.valid" (click)="createAssistanceComments()"><i class="fas fa-paper-plane"></i></button>
+        <div class="message-txt"><textarea placeholder="Text Message" formControlName="body" (keydown.enter)="createAssistanceComments(undefined)" row="5"></textarea></div>
+        <!-- <button class="icon send" [disabled]="!textMessageForm.valid" (click)="createAssistanceComments()"><i class="fas fa-paper-plane"></i></button> -->
     </form>
+</div>
+<div class="all-buttons">
+    <ul>
+        <li></li>
+        <li> <label><i class="fas fa-paperclip"></i>
+            <input type="file" size="60" (change)="handleFileInput($event.target.files)">
+            </label>
+        </li>
+        <li> <button class="send-btn" [disabled]="!textMessageForm.valid" (click)="createAssistanceComments(undefined)"><i class="fas fa-paper-plane"></i></button> </li>
+    </ul>
 </div>

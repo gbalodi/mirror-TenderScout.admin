@@ -24,6 +24,7 @@ import { ChatBoxComponent } from './components/chat-box/chat-box.component';
 import { MessageComponent } from './components/chat-box/message/message.component';
 import { MessageTypeComponent } from './components/chat-box/message-type/message-type.component';
 import { CustomTitlePipe } from 'app/pipe/custom-title.pipe';
+import { WebSocketService } from 'app/services/web-socket.service';
 
 @NgModule({
     imports: [
@@ -44,7 +45,8 @@ import { CustomTitlePipe } from 'app/pipe/custom-title.pipe';
             useClass: HttpInterceptorService,
             multi: true
         },
-        FileUploaderService
+        FileUploaderService,
+        WebSocketService
     ],
     exports: [
         CommonModule,

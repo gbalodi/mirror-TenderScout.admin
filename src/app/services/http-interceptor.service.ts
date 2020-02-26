@@ -40,12 +40,13 @@ export class HttpInterceptorService implements HttpInterceptor {
             });
         }
 
-        req = req.clone({
-            url: environment.apiUrl + req.url,
-            responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
-            headers
-            // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
-        });
+            req = req.clone({
+                // url: req.url.split('/')[0] !== 'channel' ? environment.apiUrl + req.url: environment.socket + req.url,
+                url: environment.apiUrl + req.url,
+                responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
+                headers
+                // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
+            });
         return next.handle(req)
             .do((res: HttpEvent<any>) => {
                 if (res instanceof HttpResponse) {

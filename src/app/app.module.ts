@@ -79,6 +79,8 @@ import { AuthenticationService } from './modules/authorization/services/authenti
 import { PaginationConfig } from 'ngx-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { FileDropModule } from 'ngx-file-drop';
+import { WebSocketService } from './services/web-socket.service';
+import { ScrollToBottomDirective } from './directives/scroll-to-bottom.directive';
 
 @NgModule({
   imports: [
@@ -103,7 +105,8 @@ import { FileDropModule } from 'ngx-file-drop';
     AppComponent,
     ...APP_CONTAINERS,
     ...APP_COMPONENTS,
-    ...APP_DIRECTIVES
+    ...APP_DIRECTIVES,
+    ScrollToBottomDirective
   ],
   providers: [
     {
@@ -115,8 +118,11 @@ import { FileDropModule } from 'ngx-file-drop';
     AuthenticationService,
     DatePipe,
     PaginationConfig,
+    WebSocketService
   ],
-  exports: [],
+  exports: [
+    Ng2Webstorage
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

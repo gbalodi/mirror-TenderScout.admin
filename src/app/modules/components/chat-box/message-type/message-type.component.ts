@@ -10,7 +10,6 @@ import { ChatBoxService } from '../chat-box.service';
 })
 export class MessageTypeComponent implements OnInit {
   @Input() public assistanceId: number;
-  @Output() public passMessage: EventEmitter<IChatMessage> = new EventEmitter();
   public textMessageForm: FormGroup;
 
   constructor(
@@ -23,22 +22,34 @@ export class MessageTypeComponent implements OnInit {
     });
   }
 
-  public createAssistanceComments() {
-    let request: any = {
-      body: this.textMessageForm.controls['body'].value,
-      commentable_id: this.assistanceId,
-      commentable_type: "Assistance"
-      // "attachment_attributes":
-      //   [{ "file": "file_name" }]
+  public createAssistanceComments(requestParams) {
+    if (!requestParams) {
+      let request: any = {
+        body: this.textMessageForm.controls['body'].value,
+        commentable_id: this.assistanceId,
+        commentable_type: "Assistance"
+      };
+
+      requestParams = { assistance_comment: request }
     }
-    this.chatBoxService.createAssistanceComments(this.assistanceId, { assistance_comment: request }).subscribe((res: any) => {
+    this.chatBoxService.createAssistanceComments(this.assistanceId, requestParams).subscribe((res: any) => {
       res = JSON.parse(res);
       this.textMessageForm.controls['body'].setValue('');
-      this.passMessage.emit(res);
     }, error => {
       console.error(error);
     });
+  }
 
 
+  /**
+   * to Handle the selected file...
+   * @param files
+   */
+  public handleFileInput(files: File) {
+    const formData: FormData = new FormData();
+    formData.append(`assistance_comment[attachments_attributes][][file]`, files[0]);
+    formData.append('assistance_comment[commentable_id]', this.assistanceId.toString());
+    formData.append('assistance_comment[commentable_type]', "Assistance");
+    this.createAssistanceComments(formData);
   }
 }
