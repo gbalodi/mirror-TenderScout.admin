@@ -111,10 +111,9 @@ export class RequestAssistanceComponent implements OnInit {
             this.source.setPaging(1, this.itemsPerPage, true);
             this.source.load(result.data);
             this.totalItems = result.count;
-        },
-            error => {
-                this.toasterService.error('Error', error);
-            });
+        }, error => {
+            this.toasterService.error('Error', error);
+        });
     }
 
 

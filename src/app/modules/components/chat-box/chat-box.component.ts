@@ -12,7 +12,7 @@ import { WebSocketService } from 'app/services/web-socket.service';
   providers: [WebSocketService]
 })
 export class ChatBoxComponent implements OnInit {
-
+  public assistanceDetails: any;
   public assistanceId: number;
   public messages: Array<IChatMessage> = [];
   public closeSubject: Subject<any> = new Subject();
@@ -38,10 +38,20 @@ export class ChatBoxComponent implements OnInit {
       if (params.id) {
         this.assistanceId = +params.id;
         this.webSocketService.callChatStream(this.assistanceId);
+        this.getAssistanceById();
         this.getAssistanceComments();
         this.webSocketService.setChatSubscription();
         this.webSocketService.chatSubscribe();
       }
+    });
+  }
+
+  public getAssistanceById() {
+    this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.assistanceDetails = res;
+    }, error => {
+      console.error(error);
     });
   }
 

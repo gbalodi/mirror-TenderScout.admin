@@ -8,7 +8,7 @@
     "license": "https://genesisui.com/license.html",
     "scripts": {
         "ng": "ng",
-        "start": "ng serve",
+        "start": "ng serve --port 4201",
         "build": "ng build",
         "test": "ng test",
         "lint": "ng lint",

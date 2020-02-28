@@ -25,4 +25,12 @@ export class ChatBoxService {
   public createAssistanceComments(assistanceId, data) {
     return this.httpClient.post(`v2/assistances/${assistanceId}/assistance_comments/reply_to_assistance`, data);
   }
+
+  /**
+   * API service call to get Assistance request details...
+   * @param id 
+   */
+  public getAssistance(id) {
+    return this.httpClient.get(`v2/assistances/${id}/show_details`);
+  }
 }
