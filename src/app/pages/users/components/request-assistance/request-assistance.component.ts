@@ -4,6 +4,8 @@ import { MainRequestService } from '../../../../services/main-request.service';
 import { ToastrService } from 'ngx-toastr';
 import { DatePipe } from '@angular/common';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { debounceTime, switchMap, tap } from 'rxjs/operators';
+import { HttpParams } from '@angular/common/http';
 
 @Component({
     selector: 'app-request-assistance',
@@ -21,8 +23,9 @@ export class RequestAssistanceComponent implements OnInit {
     public searchResetData: Array<object>;
     public searchResetActive: boolean = false;
     public requestAssistances: Array<any> = [];
+    public paramRequest: any;
     public statuses = [
-        { name: 'All', type: 'all' },
+        { name: 'Select Status', type: '' },
         { name: 'Opened', type: 'opened' },
         { name: 'Closed', type: 'closed' },
     ];
@@ -72,7 +75,7 @@ export class RequestAssistanceComponent implements OnInit {
         { title: 'User', key: 'user' },
         { title: 'Status', key: 'status' },
         { title: 'Message', key: 'message' },
-        { title: 'Tender', key: 'tender' },
+        { title: 'Tender/Knowledge Request', key: 'tender' },
         { title: 'Action', key: 'action' }
     ];
 
@@ -89,6 +92,23 @@ export class RequestAssistanceComponent implements OnInit {
             status: [''],
             all: ['']
         });
+
+        this.searchFilterForm.valueChanges.pipe(
+            debounceTime(700),
+            tap((value) => this.paramRequest = new HttpParams()
+                .set('page_size', this.itemsPerPage.toString())
+                .set('page', this.page.toString())
+                .set('[filter][username]', value.email)
+                .set('[filter][status]', value.status)
+                .set('[filter][request_type]', value.all)
+            ),
+            switchMap(() => this.request.getDataWithParams(`v2/assistances/requests`, this.paramRequest))
+        ).subscribe((res: any) => {
+            res = JSON.parse(res);
+            console.log(res);
+        })
+
+
         this.request.getData(`v2/assistances/requests?page_size=${this.itemsPerPage}&page=1`).subscribe(res => {
             const result = JSON.parse(res);
 

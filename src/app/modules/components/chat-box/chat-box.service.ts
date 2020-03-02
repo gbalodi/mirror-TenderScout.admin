@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { BehaviorSubject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,8 @@ export class ChatBoxService {
   constructor(
     public httpClient: HttpClient
   ) { }
+
+  public messageLoading$: BehaviorSubject<boolean> = new BehaviorSubject(false);
 
   /**
    * API server call to get all Assistance comments by selected assistance ID...
@@ -32,5 +35,9 @@ export class ChatBoxService {
    */
   public getAssistance(id) {
     return this.httpClient.get(`v2/assistances/${id}/show_details`);
+  }
+
+  public closeAssistance(id, data) {
+    return this.httpClient.patch(`v2/assistances/${id}`, data);
   }
 }

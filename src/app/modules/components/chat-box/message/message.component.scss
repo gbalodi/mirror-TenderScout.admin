@@ -51,6 +51,7 @@
     .all-messages {
         overflow-x: auto;
         height: 65vh;
+        position: relative;
         padding: 15px 15px 0 15px;
         .chat-date {
             text-align: center;
@@ -92,6 +93,7 @@
     .all-messages {
         overflow-x: auto;
         height: 65vh;
+        position: relative;
         padding: 0 15px;
         .chat-date {
             text-align: center;
@@ -122,6 +124,18 @@
                 padding: 2px 18px;
                 border-radius: 6px;
             }
+        }
+        .start-chat {
+            position: absolute;
+            bottom: 0;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 24px;
+            color: #000;
+            opacity: 0.2;
+            width: 94%;
+            font-weight: 600;
         }
     }
 }
@@ -159,4 +173,13 @@
         overflow: hidden;
         text-overflow: ellipsis;
     }
+}
+
+.support {
+    position: absolute;
+    font-size: 11px;
+    bottom: 4px;
+    right: 56px;
+    color: #929292;
+    font-weight: bolder;
 }

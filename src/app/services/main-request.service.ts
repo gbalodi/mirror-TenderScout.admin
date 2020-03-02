@@ -16,6 +16,16 @@ export class MainRequestService {
         return this.http.get(url);
     }
 
+
+    /**
+     * API request to get data...
+     * @param url 
+     * @param params | Using HttpParams... 
+     */
+    public getDataWithParams(url: string, params): Observable<any> {
+        return this.http.get(url, { params });
+    }
+
     public getUsers(url: string, params): Observable<any> {
         return this.http.get(url, { params: params });
     }

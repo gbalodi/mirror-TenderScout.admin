@@ -5,5 +5,5 @@ export const environment = {
     apiUrl: 'https://app.orbidalgroup.com/api/',
     frontEnd: 'https://app.orbidalgroup.com',
     // apiUrl: 'https://api.tshub.matrixmarketers.com/api/'
-    socket: "ws://app.orbidalgroup.com/"
+    socket: "wss://app.orbidalgroup.com/"
 };

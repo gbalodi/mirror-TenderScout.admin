@@ -4,6 +4,7 @@ import { Subject, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChatBoxService } from './chat-box.service';
 import { WebSocketService } from 'app/services/web-socket.service';
+import * as _ from "lodash" 
 
 @Component({
   selector: 'app-chat-box',
@@ -16,6 +17,9 @@ export class ChatBoxComponent implements OnInit {
   public assistanceId: number;
   public messages: Array<IChatMessage> = [];
   public closeSubject: Subject<any> = new Subject();
+  public Object: any = Object;
+  public actions: { [key: string]: string } = {};
+  public toggle: boolean = false;
 
   constructor(
     private chatBoxService: ChatBoxService,
@@ -50,6 +54,12 @@ export class ChatBoxComponent implements OnInit {
     this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
       res = JSON.parse(res);
       this.assistanceDetails = res;
+      //  Set to Download/Attached files in the chat box...
+      if (this.assistanceDetails.assistance_assets) {
+        this.assistanceDetails.assistance_assets.forEach(element => {
+          this.actions[element.file_name] = element.file_name;
+        });
+      }
     }, error => {
       console.error(error);
     });
@@ -64,12 +74,17 @@ export class ChatBoxComponent implements OnInit {
     });
   }
 
-  public getNewMessage(message) {
-    this.messages.push(message);
-  }
-
   public ngOnDestroy(): void {
     this.routerSub.unsubscribe();
+  }
+
+  /**
+ * To Download Attached file...
+ * @param file 
+ */
+  public downloadFile(file) {
+    let found = _.find(this.assistanceDetails.assistance_assets, ['file_name', file]);
+    window.open(found.file_url, '_blank');
   }
 
 }

@@ -1,6 +1,14 @@
 <div class="chat-section">
-    <h3> <strong>{{assistanceDetails.custom_id}}</strong> {{assistanceDetails.tender_title}} </h3>
-    <label>{{assistanceDetails.message}}</label>
+    <h3> <strong>{{assistanceDetails?.custom_id}}</strong> {{assistanceDetails?.tender_title}} </h3>
+    <label> Requested by: <span class="request-by-text"> {{assistanceDetails?.user?.fullname}} <{{assistanceDetails?.user?.email}}> </span> </label>
+    <label> <strong>Message: </strong> <span class="request-by-text"> {{assistanceDetails?.message}} </span></label>
+
+    <div class="ch-head-btn">
+        <app-dropdown-actions title="Download Attached" *ngIf="Object.keys(actions).length" label="Download File" [fileDownload]="true" class="op-dots" [actions]="actions" (onSelect)="downloadFile($event)" (mouseleave)="toggle=false">
+            <!-- <button class="actions"></button> -->
+            <button class="actions" (mouseleave)="toggle=false"><i class="fas fa-cloud-download-alt"></i></button>
+        </app-dropdown-actions>
+    </div>
 
     <div>
         <message [messages]="messages"></message>
