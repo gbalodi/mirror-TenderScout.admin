@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IChatMessage } from 'app/modules/interfaces/chat-message';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChatBoxService } from '../chat-box.service';
 
@@ -37,7 +36,6 @@ export class MessageTypeComponent implements OnInit {
   public createAssistanceComments(requestParams, event) {
     let valid: boolean = true;
     if (event) {
-      console.log(event);
       // Check Whether the written text it empty or Not...
       let found = this.textMessageForm.controls['body'].value.replace(/[^a-z0-9]/gi, '');
       if (!found) {

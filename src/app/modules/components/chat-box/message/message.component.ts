@@ -42,16 +42,15 @@ export class MessageComponent implements OnInit, AfterViewInit {
   public showDate(date) {
     let generateDate = new Date(this.getDate(date)).getTime();
     let currentDate = new Date();
-    //let yesterday =  new Date().setDate(new Date().getDate() - 1);
     let yesterday = moment(currentDate.setDate(currentDate.getDate() - 1)).format();
-    moment(date, "DD-MM-YYYY").format("MM/DD/YYYY")
+    moment(date, "DD-MM-YYYY").format("MM/DD/YYYY");
 
     if (moment(generateDate).format("DD-MM-YYYY") === moment(new Date()).format("DD-MM-YYYY")) {
       return 'Today';
     } else if (moment(generateDate).format("DD-MM-YYYY") === moment(yesterday).format("DD-MM-YYYY")) {
       return 'Yesterday';
     } else {
-      return this.getDate(date, 'dd MMM yyyy'); //this.datePipe.transform(date, 'dd MMM yyyy');
+      return this.getDate(date, 'dd MMM yyyy');
     }
   }
 

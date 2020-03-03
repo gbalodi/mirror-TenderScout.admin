@@ -1,6 +1,5 @@
 <div class="message-section">
     <div class="all-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
-        <!-- <p  class="chat-date"> <strong>Today</strong> </p> -->
         <p *ngIf="chatBoxService.messageLoading$ | async" class="message-loading"> <strong>Loading...</strong> </p>
         <div *ngFor="let message of messages; let i = index" class="message-item" [ngClass]="{'message-item-right': message.admin}">
             <p class="chat-date" *ngIf="i === 0 || lastDate !== getDate(message?.created_at)"> <strong *ngIf="setLastDate(message?.created_at)"> {{showDate(message?.created_at)}}</strong> </p>
@@ -13,11 +12,6 @@
                     <img [src]="message.attachments[0]?.file?.url" width="100px" alt="">
                     <div class="download"><a [href]="message.attachments[0].file.url" target="_blank"><i class="fas fa-cloud-download-alt"></i></a></div>
                 </span>
-                <!-- <div *ngIf="!message.body && message.attachments.length>0" class="chat-attach-file-mt">
-                    <div class="download"><a [href]="message.attachments[0].file.url" target="_blank"><i class="fas fa-cloud-download-alt"></i></a></div>
-                    <span class="fl-icon"><i class="far fa-file-image ng-star-inserted" aria-hidden="true"></i></span>
-                    <span class="fl-name">test file name here test file name here</span>
-                </div> -->
 
                 <div *ngIf="!message.body && message.attachments.length>0" class="chat-attach-file-mt">
                     <div class="download"><a [href]="message.attachments[0].file_url" target="_blank"><i class="fas fa-cloud-download-alt"></i></a></div>

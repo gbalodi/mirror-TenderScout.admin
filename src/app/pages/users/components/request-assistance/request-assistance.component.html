@@ -1,47 +1,20 @@
 <div class="card-header">
-    <!-- <h3>Assistance request</h3> -->
-
 
     <form [formGroup]="searchFilterForm">
-        <!-- <div class="row">
-
-            <div class="col-sm-6">
-                <div>
-                    <input type="text" formControlName="email" placeholder="Search by User name or Email">
-                </div>
-            </div>
-
-            <div class="col-sm-3">
-                <label for="role" class="col-form-label">Status:</label>
-                <div>
-                    <select formControlName="status">
-                        <option *ngFor="let status of statuses" [value]="status.type">{{status.name}}</option>
-                    </select>
-                </div>
-            </div>
-            <div class="col-sm-3">
-                <label for="role" class="col-form-label">Status:</label>
-                <div>
-                    <select formControlName="status">
-                        <option *ngFor="let status of statuses" [value]="status.type">{{status.name}}</option>
-                    </select>
-                </div>
-            </div>
-        </div> -->
 
         <div class="row top-bar">
             <div class="col-md-4">
-                <input type="text" formControlName="email" (input)="page=1" placeholder="Search by username/email" class="form-control">
+                <input type="text" formControlName="email" (input)="this.searchFilterForm.controls['page'].setValue(1)" placeholder="Search by username/email" class="form-control">
             </div>
 
             <div class="col-md-3">
-                <select class="form-control" id="days" formControlName="status">
+                <select class="form-control" id="days" formControlName="status" (change)="this.searchFilterForm.controls['page'].setValue(1)">
                     <option *ngFor="let status of statuses" [value]="status.type">{{status.name}}</option>
             </select>
 
             </div>
             <div class="col-md-3">
-                <select class="form-control" id="days" formControlName="all">
+                <select class="form-control" id="days" formControlName="all" (change)="this.searchFilterForm.controls['page'].setValue(1)">
                 <option value="">Select Type of Request</option >
                 <option value="kr">Knowledge Request</option >
                 <option value="tender"> Tender Request</option >
@@ -52,16 +25,6 @@
             <div class="col-md-2"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
         </div>
 
-        <!-- <div class="row">
-
-            <div class="col-sm-6">
-                <label for="role" class="col-form-label">All/KR/Tender:</label>
-                <div>
-                    <input type="text" formControlName="all">
-                </div>
-            </div>
-
-        </div> -->
     </form>
 
 </div>
@@ -76,7 +39,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of requestAssistances | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }">
+            <tr *ngFor="let item of requestAssistances | paginate: { itemsPerPage: 20, currentPage: this.searchFilterForm.controls['page'].value, totalItems: totalItems }">
                 <td>{{item?.user.fullname }} {{item?.user?.email}}
                 </td>
                 <td>{{item?.status}}</td>
@@ -96,12 +59,6 @@
 </div>
 
 <div class="marketplace-pagi-holder" *ngIf="totalItems>0">
-    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next" screenReaderCurrentLabel="You're on page">
+    <pagination-controls (pageChange)="searchFilterForm.controls['page'].setValue($event)" maxSize="5" previousLabel="Previous" nextLabel="Next" screenReaderCurrentLabel="You're on page">
     </pagination-controls>
 </div>
-
-<!--
-<ng2-smart-table class="table table-striped" [settings]="settings" [source]="source"></ng2-smart-table>
-<pagination *ngIf="totalItems > 20" class="pagination-sm" (ngModel)="page" [totalItems]="totalItems" [itemsPerPage]="itemsPerPage" [maxSize]="maxSize" [boundaryLinks]="true" [rotate]="false" (pageChanged)="pageChanged($event)" (numPages)="numPages = $event">
-</pagination>
--->

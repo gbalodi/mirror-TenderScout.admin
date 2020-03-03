@@ -4,7 +4,6 @@
             <textarea *ngIf="assistanceDetails?.status === 'opened'" placeholder="Text Message" formControlName="body" (keyup.enter)="createAssistanceComments(undefined, $event)" (keydown.enter)="$event.preventDefault();" row="5"></textarea>
             <span *ngIf="assistanceDetails?.status === 'closed'">Request Is closed!</span>
         </div>
-        <!-- <button class="icon send" [disabled]="!textMessageForm.valid" (click)="createAssistanceComments()"><i class="fas fa-paper-plane"></i></button> -->
     </form>
 </div>
 <div *ngIf="assistanceDetails?.status === 'opened'" class="all-buttons">
