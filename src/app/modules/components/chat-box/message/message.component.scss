@@ -10,7 +10,8 @@
             display: inline-block;
             position: relative;
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-            border-radius: 10px; min-width: 70px;
+            border-radius: 10px;
+            min-width: 70px;
             max-width: 100%;
             i {
                 width: 50px;
@@ -50,6 +51,7 @@
     .all-messages {
         overflow-x: auto;
         height: 65vh;
+        position: relative;
         padding: 15px 15px 0 15px;
         .chat-date {
             text-align: center;
@@ -91,6 +93,7 @@
     .all-messages {
         overflow-x: auto;
         height: 65vh;
+        position: relative;
         padding: 0 15px;
         .chat-date {
             text-align: center;
@@ -122,6 +125,18 @@
                 border-radius: 6px;
             }
         }
+        .start-chat {
+            position: absolute;
+            bottom: 0;
+            background: #f5f5f5;
+            text-align: center;
+            padding: 20px 0;
+            font-size: 24px;
+            color: #000;
+            opacity: 0.2;
+            width: 94%;
+            font-weight: 600;
+        }
     }
 }
 
@@ -138,19 +153,35 @@
     }
 }
 
-.chat-attach-file-mt{
-max-width: 340px;
-position: relative;
- display: flex; align-items: center;
-.fl-icon{flex: 0 0 30px; text-align: center;
-i{font-size: 18px !important; width: unset !important;}
+.chat-attach-file-mt {
+    max-width: 340px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    .fl-icon {
+        flex: 0 0 30px;
+        text-align: center;
+        i {
+            font-size: 18px !important;
+            width: unset !important;
+        }
+    }
+    .fl-name {
+        flex: 0 0 calc(100% - 55px);
+        text-align: left;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
 }
-.fl-name{flex: 0 0 calc(100% - 55px);
-    text-align: left;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;}
 
+.support {
+    position: absolute;
+    font-size: 11px;
+    bottom: 4px;
+    right: 56px;
+    color: #929292;
+    font-weight: bolder;
 }
 
 @media(max-width:1440px){

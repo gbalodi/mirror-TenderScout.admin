@@ -1,1 +1,35 @@
-.chat-section{position: relative;}
+.chat-section {
+    position: relative;
+}
+
+.request-by-text {
+    text-transform: none;
+}
+
+// .op-dots.dropdown-actions.show .actions {
+//     -webkit-transform: rotate(90deg);
+//     transform: rotate(90deg);
+// }
+.actions {
+    background: 0 0;
+    box-shadow: none;
+    font-family: 'Material Icons';
+    font-size: 24px;
+    display: block;
+    border: none;
+    border-radius: 4px;
+    padding: 0px 10px;
+}
+
+// .actions:hover,
+// .actions:focus {
+//   border: 1px solid #3d4754;
+//   background-color: #3d4754;
+// }
+.controls .dropdown-actions {
+    margin-left: 3px;
+}
+
+.actions i {
+    font-size: 16px;
+}

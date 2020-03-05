@@ -13,5 +13,5 @@ export const environment = {
     // frontEnd: 'http://localhost:4200'
     frontEnd: 'https://prehub.matrixmarketers.com',
     // socket: "ws://192.168.10.133:3000/"
-    socket: 'wss://api.tshub.matrixmarketers.com/api/'
+    socket: 'wss://api.tshub.matrixmarketers.com/'
 };

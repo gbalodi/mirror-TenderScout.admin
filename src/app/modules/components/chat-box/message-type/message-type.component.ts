@@ -1,5 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { IChatMessage } from 'app/modules/interfaces/chat-message';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ChatBoxService } from '../chat-box.service';
 
@@ -11,6 +10,7 @@ import { ChatBoxService } from '../chat-box.service';
 export class MessageTypeComponent implements OnInit {
   @Input() public assistanceId: number;
   public textMessageForm: FormGroup;
+  public assistanceDetails: any;
 
   constructor(
     public chatBoxService: ChatBoxService
@@ -20,10 +20,29 @@ export class MessageTypeComponent implements OnInit {
     this.textMessageForm = new FormGroup({
       body: new FormControl('', [Validators.required])
     });
+
+    this.getAssistanceById();
   }
 
-  public createAssistanceComments(requestParams) {
-    if (!requestParams) {
+  public getAssistanceById() {
+    this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.assistanceDetails = res;
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  public createAssistanceComments(requestParams, event) {
+    let valid: boolean = true;
+    if (event) {
+      // Check Whether the written text it empty or Not...
+      let found = this.textMessageForm.controls['body'].value.replace(/[^a-z0-9]/gi, '');
+      if (!found) {
+        valid = false;
+      }
+    }
+    if (valid && !requestParams && this.textMessageForm.valid) {
       let request: any = {
         body: this.textMessageForm.controls['body'].value,
         commentable_id: this.assistanceId,
@@ -32,12 +51,14 @@ export class MessageTypeComponent implements OnInit {
 
       requestParams = { assistance_comment: request }
     }
-    this.chatBoxService.createAssistanceComments(this.assistanceId, requestParams).subscribe((res: any) => {
-      res = JSON.parse(res);
-      this.textMessageForm.controls['body'].setValue('');
-    }, error => {
-      console.error(error);
-    });
+    if (valid && requestParams) {
+      this.chatBoxService.createAssistanceComments(this.assistanceId, requestParams).subscribe((res: any) => {
+        res = JSON.parse(res);
+        this.textMessageForm.controls['body'].setValue('');
+      }, error => {
+        console.error(error);
+      });
+    }
   }
 
 
@@ -50,6 +71,15 @@ export class MessageTypeComponent implements OnInit {
     formData.append(`assistance_comment[attachments_attributes][][file]`, files[0]);
     formData.append('assistance_comment[commentable_id]', this.assistanceId.toString());
     formData.append('assistance_comment[commentable_type]', "Assistance");
-    this.createAssistanceComments(formData);
+    this.createAssistanceComments(formData, undefined);
+  }
+
+  public closeAssistance() {
+    this.chatBoxService.closeAssistance(this.assistanceId, { assistance: { status: 'closed' } }).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.assistanceDetails = res;
+    }, error => {
+      console.error(error);
+    });
   }
 }

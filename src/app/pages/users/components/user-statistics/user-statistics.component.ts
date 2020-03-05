@@ -63,11 +63,11 @@ export class UserStatisticsComponent implements OnInit {
     { title: 'Monitors Count', key: 'monitors_count' },
     { title: 'Tenders Submitted', key: 'tenders_submitted' },
     { title: 'Move To Qualify', key: 'move_to_qualify' },
-
     { title: 'Moved To Compete', key: 'moved_to_compete' },
     { title: 'Support Requests', key: 'support_requests' },
     { title: 'Tenders Viewed', key: 'tenders_viewed' },
-    { title: 'Documents Downloaded', key: 'documents_downloaded' },
+    { title: 'Bid Hub Docs Downloaded', key: 'bid_hub_docs_downloaded' },
+    { title: 'Bid Academy Docs Downloaded', key: 'bid_academy_docs_downloaded' },
 
   ];
 
@@ -92,7 +92,8 @@ export class UserStatisticsComponent implements OnInit {
       support_requests: [''],
       tenders_viewed: [''],
       blocks_created: [''],
-      documents_downloaded: [''],
+      bid_hub_docs_downloaded: [''],
+      bid_academy_docs_downloaded: [''],
       moved_to_compete: [''],
       page: [1]
     });

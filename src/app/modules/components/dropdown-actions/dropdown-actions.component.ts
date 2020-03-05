@@ -24,7 +24,7 @@ import { trigger, transition, style, animate, keyframes } from '@angular/animati
   ]
 })
 export class DropdownActionsComponent {
-  
+
   constructor(private el: ElementRef) { }
 
   @Output() onSelect: EventEmitter<string> = new EventEmitter();
@@ -37,6 +37,7 @@ export class DropdownActionsComponent {
   @Input() public label: string;
 
   @Input() public actions: { [key: string]: string };
+  @Input() public fileDownload: boolean = false;
 
   @Input() public disabled: boolean = false;
   @Input() public selectedItem: any;
