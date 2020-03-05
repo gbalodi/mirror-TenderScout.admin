@@ -153,5 +153,29 @@ i{font-size: 18px !important; width: unset !important;}
 
 }
 
+@media(max-width:1440px){
+    .message-section{
+.all-messages{height:52vh;
+    .chat-date:before {
+        content: '';
+        width: 45%;
+        height: 1px;
+        background: #efefef;
+        position: absolute;
+        left: 0;
+        top: 11px;
+    }
+    .chat-date:after {
+        content: '';
+        width: 45%;
+        height: 1px;
+        background: #efefef;
+        position: absolute;
+        right: 0;
+        top: 11px;
+    }
+}
 
+}
+}
 
