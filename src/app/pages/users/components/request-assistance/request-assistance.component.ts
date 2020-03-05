@@ -26,6 +26,7 @@ export class RequestAssistanceComponent implements OnInit {
         { title: 'Status', key: 'status' },
         { title: 'Message', key: 'message' },
         { title: 'Tender/Knowledge Request', key: 'tender' },
+        { title: 'Attachments', key: 'attachments' },
         { title: 'Action', key: 'action' }
     ];
 
