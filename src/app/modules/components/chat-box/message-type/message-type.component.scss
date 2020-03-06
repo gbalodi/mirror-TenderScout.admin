@@ -1,37 +1,85 @@
-.message-section{width: 100%; border:1px solid #ddd; border-radius: 10px; margin: 15px 0 0 0;
-    form{width: 100%; display: flex;
-    textarea{width: 100%; border:none; font-size: 14px; border-radius:10px; resize: none; padding:12px 10px;}
+.message-section {
+    width: 100%;
+    margin: 15px 0 0 0;
+    form {
+        width: 100%;
+        display: flex;
+        textarea {
+            width: 100%;
+            border: none;
+            font-size: 14px;
+            transition: 0.4s;
+            border: 1px solid #ddd;
+            border-radius: 2px;
+            resize: none;
+            padding: 12px 10px;
+        }
+        textarea:focus {
+            transition: 0.4s;
+        }
     }
-.message-txt{flex: 0 0 100%; resize:none; border:none; border-radius: 10px;}
+    .message-txt {
+        flex: 0 0 100%;
+        resize: none;
+        border: none;
+        border-radius: 10px;
+    }
 }
 
-.all-buttons{
-text-align: right;
-ul{margin: 0; padding:0;}
-li{display: inline-block; margin: 0 0 0 10px;
-    
-    label{padding: 10px;
-    background: #d8dbde;
-    display: inline-block;
+.all-buttons {
+    text-align: right;
+    ul {
+        margin: 0;
+        padding: 0;
+    }
+    li {
+        display: inline-block;
+        margin: 0 0 0 10px;
+        label {
+            padding: 10px;
+            background: #d8dbde;
+            display: inline-block;
+            width: 45px;
+            height: 45px;
+            color: #13161d;
+            font-size: 20px;
+            text-align: center;
+            align-items: center;
+            border-radius: 5px;
+            position: relative;
+            top: 4px;
+            cursor: pointer;
+        }
+        input[type="file"] {
+            display: none;
+        }
+    }
+    .btn-primary {
+        padding: 10px 20px !important;
+        display: inline-block;
+        position: relative;
+        top: -2px;
+        border-radius: 5px;
+        font-size: 15px;
+        letter-spacing: 0.5px;
+    }
+}
+
+.send-btn {
+    background: #13161d;
+    font-size: 14px;
+    border: none;
+    color: #fff;
+    border-radius: 5px;
     width: 45px;
     height: 45px;
-    color: #13161d;
-    font-size: 20px;
-    text-align: center;
-    align-items: center; border-radius: 5px; position:relative; top:4px; cursor:pointer;
-         }
-    
-    input[type="file"] {
-        display: none;
-    }
-
-
+    text-transform: uppercase;
+    font-weight: 400;
+    letter-spacing: 0.6px;
+    transition: 0.4s;
 }
 
+.send-btn:hover {
+    background: #d66166;
+    transition: 0.4s;
 }
-
-.send-btn{background: #13161d; font-size: 14px; border: none; color: #fff; border-radius:5px; width: 45px; height: 45px; text-transform: uppercase; font-weight: 400;
-    letter-spacing: 0.6px; transition: 0.4s;}
-    .send-btn:hover{background: #d66166; transition: 0.4s;}
-
-

@@ -54,4 +54,8 @@ export class MessageComponent implements OnInit, AfterViewInit {
     }
   }
 
+  public downloadFile(file) {
+    window.open(file, '_blank');
+  }
+
 }

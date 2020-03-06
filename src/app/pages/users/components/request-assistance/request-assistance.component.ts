@@ -23,10 +23,10 @@ export class RequestAssistanceComponent implements OnInit {
     ];
     public tableHeadNames: Array<{ title: string; key: string; }> = [
         { title: 'User', key: 'user' },
-        { title: 'Status', key: 'status' },
         { title: 'Message', key: 'message' },
         { title: 'Tender/Knowledge Request', key: 'tender' },
         { title: 'Attachments', key: 'attachments' },
+        { title: 'Status', key: 'status' },
         { title: 'Action', key: 'action' }
     ];
 
