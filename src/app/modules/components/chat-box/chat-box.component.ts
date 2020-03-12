@@ -4,7 +4,8 @@ import { Subject, Subscription } from 'rxjs';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ChatBoxService } from './chat-box.service';
 import { WebSocketService } from 'app/services/web-socket.service';
-import * as _ from "lodash" 
+import * as _ from "lodash"
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-chat-box',
@@ -25,7 +26,8 @@ export class ChatBoxComponent implements OnInit {
     private chatBoxService: ChatBoxService,
     private router: Router,
     private activatedRoute: ActivatedRoute,
-    private webSocketService: WebSocketService
+    private webSocketService: WebSocketService,
+    private toastrService: ToastrService
   ) {
     this.webSocketService.getChatResponse.subscribe(res => {
       if (res) {
@@ -85,6 +87,24 @@ export class ChatBoxComponent implements OnInit {
   public downloadFile(file) {
     let found = _.find(this.assistanceDetails.assistance_assets, ['file_name', file]);
     window.open(found.file_url, '_blank');
+  }
+
+
+  /**
+   * API server call to deduct Credits limits by one of the user...
+   */
+  public deductCredit() {
+    if (this.assistanceDetails.credits_count > 0) {
+      this.chatBoxService.deductCredit(this.assistanceDetails.id).subscribe((res: any) => {
+        res = JSON.parse(res);
+        this.toastrService.success(`${res.success}`, "Success");
+        this.getAssistanceById();
+      }, error => {
+        console.error(error);
+      });
+    } else {
+      this.toastrService.warning('User has no available credits for deduction', 'Warning');
+    }
   }
 
 }

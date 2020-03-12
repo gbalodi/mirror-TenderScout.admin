@@ -40,4 +40,12 @@ export class ChatBoxService {
   public closeAssistance(id, data) {
     return this.httpClient.patch(`v2/assistances/${id}`, data);
   }
+
+  /**
+   * API server call to deduct credits limits for the assistance request...
+   * @param assistId 
+   */
+  public deductCredit(assistId) {
+    return this.httpClient.patch(`v2/assistances/${assistId}/deduct_credit`, {});
+  }
 }

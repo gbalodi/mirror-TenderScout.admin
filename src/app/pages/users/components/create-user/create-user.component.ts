@@ -41,6 +41,7 @@ export class CreateUserComponent implements OnInit {
             display_name: new FormControl('', Validators.required),
             company: new FormControl('', Validators.required),
             company_size: new FormControl('', Validators.required),
+            assistance_credits: new FormControl(''),
             timezone: new FormControl('', Validators.required),
             role: new FormControl('', Validators.required),
             description: new FormControl('', Validators.required),
@@ -89,6 +90,8 @@ export class CreateUserComponent implements OnInit {
                     this.profileForm.controls['tender_level'].setValue(res.profiles[0].tender_level);
                     this.profileForm.controls['industry_id'].setValue(res.profiles[0].industry ? res.profiles[0].industry.id : []);
                     this.profileForm.controls['marketplace_status'].setValue(res.marketplace_status);
+                    this.profileForm.controls['marketplace_status'].setValue(res.marketplace_status);
+                    this.profileForm.controls['assistance_credits'].setValue(res.assistance_credits);
 
                     let contactFormGroups = res.profiles[0].contacts.map(contact => this.fb.group(contact));
                     var responseContact = [];
@@ -175,6 +178,7 @@ export class CreateUserComponent implements OnInit {
             id: this.userId,
             role: this.profileForm.value.role,
             marketplace_status: this.profileForm.value.marketplace_status,
+            assistance_credits: this.profileForm.value.assistance_credits,
             profiles_attributes: [this.profileForm.value]
         };
         this.request.putData(`v1/users/${this.userId}`, { user: obj }).subscribe((res: any) => {

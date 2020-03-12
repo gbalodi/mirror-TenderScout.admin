@@ -38,6 +38,10 @@ export class MainRequestService {
         return this.http.put(url, data);
     }
 
+    public patchData(url: string, data: object): Observable<any> {
+        return this.http.patch(url, data);
+    }
+
     /**
      * API call to get Specific user data by it's Id...
      * @param userId 

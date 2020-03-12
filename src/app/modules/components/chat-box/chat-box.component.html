@@ -3,6 +3,9 @@
         <app-dropdown-actions title="Download Attached" *ngIf="Object.keys(actions).length" label="Download File" [fileDownload]="true" class="op-dots" [actions]="actions" (onSelect)="downloadFile($event)" (mouseleave)="toggle=false">
             <button class="actions" (mouseleave)="toggle=false"><i class="fas fa-cloud-download-alt"></i></button>
         </app-dropdown-actions>
+        <button class="btn btn-primary" (click)="deductCredit()">
+            Deduct Credit
+        </button>
     </h3>
 
     <label> Requested by: <span class="request-by-text"> {{assistanceDetails?.user?.fullname}} <{{assistanceDetails?.user?.email}}> </span> </label>
