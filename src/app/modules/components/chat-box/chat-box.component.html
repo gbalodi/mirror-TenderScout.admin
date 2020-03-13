@@ -8,12 +8,14 @@
         </button>
     </h3>
 
+    <label *ngIf="assistanceDetails?.submission_date"> tender closing date: <span class="request-by-text"> {{assistanceDetails?.submission_date | date : 'dd-MM-yyyy'}} </span> </label>
+
     <label> Requested by: <span class="request-by-text"> {{assistanceDetails?.user?.fullname}} <{{assistanceDetails?.user?.email}}> </span> </label>
 
     <label> <strong>Message: </strong> <span class="request-by-text"> {{assistanceDetails?.message}} </span></label>
 
     <div>
-        <message [messages]="messages"></message>
+        <message [messages]="messages" [unreadCount]="assistanceDetails?.admin_unreads_count"></message>
     </div>
 
     <div>

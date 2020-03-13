@@ -32,6 +32,7 @@ export class ChatBoxComponent implements OnInit {
     this.webSocketService.getChatResponse.subscribe(res => {
       if (res) {
         this.messages.push(res);
+        this.updateAssistances();
       }
     });
   }
@@ -52,10 +53,24 @@ export class ChatBoxComponent implements OnInit {
     });
   }
 
+  public updateAssistances() {
+    if (this.assistanceId) {
+      this.chatBoxService.updateAssistances(this.assistanceId, {}).subscribe((res: any) => {
+        res;
+      }, error => {
+        console.error(error);
+      });
+    }
+  }
+
   public getAssistanceById() {
     this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
       res = JSON.parse(res);
       this.assistanceDetails = res;
+
+      if (!this.assistanceDetails.read) {
+        this.updateAssistances();
+      }
       //  Set to Download/Attached files in the chat box...
       if (this.assistanceDetails.assistance_assets) {
         this.assistanceDetails.assistance_assets.forEach(element => {
@@ -77,6 +92,7 @@ export class ChatBoxComponent implements OnInit {
   }
 
   public ngOnDestroy(): void {
+    this.webSocketService.chatExportUnsubscribe();
     this.routerSub.unsubscribe();
   }
 

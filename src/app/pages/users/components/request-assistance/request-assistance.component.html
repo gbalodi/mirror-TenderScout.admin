@@ -40,7 +40,8 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of requestAssistances | paginate: { itemsPerPage: 20, currentPage: this.searchFilterForm.controls['page'].value, totalItems: totalItems }">
-                <td>{{item?.user.fullname }} {{item?.user?.email}}
+                <td>{{item?.user.fullname }}
+                    <span class="email-set"> <{{item?.user?.email}}></span>
                 </td>
                 <td>{{item?.message}}</td>
                 <td>
@@ -49,6 +50,7 @@
                     </a>
                     <span *ngIf="!item.tender_id">{{item.custom_id}}</span>
                 </td>
+                <td class="text-center">{{item?.submission_date ? (item?.submission_date | date : 'dd-MM-yyyy') : '--'}}</td>
                 <td class="text-center">{{item?.assistance_assets?.length}}</td>
                 <td>{{item?.status | uppercase}}</td>
                 <td><span class="set-cursor" [routerLink]="['/users/assist-requests/',item.id, 'chat']"><i class="far fa-comments" title="Go To Chart"></i><span class="replies-count">{{item?.replies_count}}</span></span>

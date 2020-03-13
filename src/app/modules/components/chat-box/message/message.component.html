@@ -1,8 +1,9 @@
 <div class="message-section">
     <div class="all-messages" #scrollMe [scrollTop]="scrollMe.scrollHeight">
         <p *ngIf="chatBoxService.messageLoading$ | async" class="message-loading"> <strong>Loading...</strong> </p>
-        <div *ngFor="let message of messages; let i = index" class="message-item" [ngClass]="{'message-item-right': message?.admin}">
+        <div *ngFor="let message of messages; let i = index" class="message-item" [ngClass]="{'message-item-right': message?.admin}" [id]="'target' + i">
             <p class="chat-date" *ngIf="i === 0 || lastDate !== getDate(message?.created_at)"> <strong *ngIf="setLastDate(message?.created_at)"> {{showDate(message?.created_at)}}</strong> </p>
+            <p *ngIf="unreadCount>0 && i === ((this.messages.length - 1) - this.unreadCount)" class="chat-date"> <strong> New Message(s)</strong> </p>
             <div class="message-wrap" [ngClass]="{'right-box': message?.admin}">
                 <span *ngIf="message?.body">{{message?.body}}
                     <span class="msg-time">{{message?.created_at | date: 'h:mm a'}}</span>

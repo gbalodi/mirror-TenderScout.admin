@@ -48,4 +48,13 @@ export class ChatBoxService {
   public deductCredit(assistId) {
     return this.httpClient.patch(`v2/assistances/${assistId}/deduct_credit`, {});
   }
+
+  /**
+  * API server call to update Assistance by it's Id...
+  * @param assistanceId 
+  * @param req 
+  */
+  public updateAssistances(assistanceId, req) {
+    return this.httpClient.patch(`v2/assistances/${assistanceId}/admin_comment_status`, req);
+  }
 }
