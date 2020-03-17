@@ -8,7 +8,7 @@ export const environment = {
     // apiUrl: 'http://api.dev.tenderscout.braincode.xyz/',
     // apiUrl: 'https://hub.tenderscout.com/api/',
     apiUrl: 'https://api.tshub.matrixmarketers.com/api/',
-    // apiUrl: 'http://192.168.10.130:3000/', //@Gaurav
+    // apiUrl: 'http://192.168.10.110:3000/', //@Gaurav
     // apiUrl: 'http://192.168.10.133:3000/', //@Akshita
     // frontEnd: 'http://localhost:4200'
     frontEnd: 'https://prehub.matrixmarketers.com',

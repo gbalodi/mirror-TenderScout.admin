@@ -415,7 +415,7 @@ export class UsersListComponent implements OnInit {
     }
 
     public setCredits() {
-        if (this.selectedUser.assistance_credits > 0) {
+        if (Number(this.selectedUser.assistance_credits)) {
             this.request.patchData(`v1/users/${this.selectedUserId}`, { user: { assistance_credits: this.selectedUser.assistance_credits } }).subscribe((res) => {
                 res = JSON.parse(res);
                 this.toasterService.success(`${res.success}`, 'Success');

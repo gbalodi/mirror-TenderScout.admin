@@ -51,7 +51,7 @@
                 <td>{{item?.role}}</td>
                 <td>
                     <span class="iconn"><i class="fas fa-check-circle set-cursor" *ngIf="!item?.confirmed" (click)="selectedUserId=item.id; openModal(confirmUserModal, item, 'archieve-modal')" title="Confirm User"></i></span>
-                    <span class="iconn"><i class="fas fa-comment-dots set-cursor" (click)="selectedUserId=item.id; openModal(assistCreditIncreaseModal, item, 'archieve-modal')" title="Confirm User"></i></span>
+                    <span class="iconn"><i class="fas fa-comment-dots set-cursor" (click)="selectedUserId=item.id; openModal(assistCreditIncreaseModal, item, 'archieve-modal')" title="Set Assist Credits"></i></span>
                     <span class="iconn"><i class="fas fa-sign-in-alt set set-cursor" (click)="selectedUserId = item.id; openModal(adminAccessUserAccountModal, item, 'archieve-modal')" title="Access User"></i></span>
                     <span class="iconn"><i class="fas fa-archive set-cursor" (click)="openModal(archiveUserModal, item, 'archieve-modal')" title="Archive User"></i></span>
                     <div class="dropdown">
