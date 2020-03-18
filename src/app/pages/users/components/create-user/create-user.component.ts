@@ -242,6 +242,11 @@ export class CreateUserComponent implements OnInit {
         return this.profileForm.get('contacts_attributes') as FormArray;
     }
 
+    public resetEmail() {
+        this.profileForm.controls['user'].controls['email'].setValue(this.userEmail);
+        this.editEmail = false;
+    }
+
     public validEmail() {
         if (this.profileForm.value.user.email.length > 0 && this.userEmail !== this.profileForm.value.user.email) {
             this.request.postData(`v2/admin/users/check_email`, { email: this.profileForm.value.user.email }).subscribe((res: any) => {
@@ -250,7 +255,7 @@ export class CreateUserComponent implements OnInit {
             }, error => {
                 console.error(error);
             });
-        }else{
+        } else {
             this.existsEmail = false;
         }
     }

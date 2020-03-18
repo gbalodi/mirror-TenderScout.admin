@@ -11,10 +11,10 @@
                 <ngb-panel id="static-1" formGroupName="user">
 
                     <!-- **************** DO NOT REMOVE ***************** -->
-                    <ng-template ngbPanelTitle  class="accord-btn">
+                    <ng-template ngbPanelTitle class="accord-btn">
                         <div class="d-flex justify-content-between">
                             <div class="d-flex">User Details</div>
-                            <div class="d-flex b-arw"><i class="fas fa-chevron-down"></i></div>
+                            <div class="d-flex b-arw"><i class="fas fa-chevron-up"></i></div>
                         </div>
                     </ng-template>
 
@@ -27,7 +27,10 @@
                                 <div class="input-group">
                                     <input type="text" class="form-control" [readonly]="!editEmail" formControlName="email" placeholder="" aria-label="email" aria-describedby="email" (blur)="validEmail()">
                                     <div class="input-group-append">
-                                        <span class="input-group-text" [ngClass]="{'disabled' : !userId, 'set-cursor' : userId}" id="email" (click)="userId ? editEmail=true : null"><i class="fas fa-edit"></i></span>
+                                        <span class="input-group-text" [ngClass]="{'disabled' : !userId, 'set-cursor' : userId}" id="email" (click)="userId ? (!editEmail ? editEmail=true : resetEmail()) : null">
+                                            <i *ngIf="!editEmail" class="fas fa-edit"></i>
+                                            <i *ngIf="editEmail" class="fas fa-undo"></i>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -89,7 +92,15 @@
                     </ng-template>
                 </ngb-panel>
 
-                <ngb-panel title="Profile Details" formGroupName="profiles_attributes">
+                <ngb-panel formGroupName="profiles_attributes">
+
+                    <ng-template ngbPanelTitle class="accord-btn">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">Profile Details</div>
+                            <div class="d-flex b-arw"><i class="fas fa-chevron-up"></i></div>
+                        </div>
+                    </ng-template>
+
                     <ng-template ngbPanelContent>
 
                         <!-- <div class="row">
@@ -204,7 +215,15 @@
                     </ng-template>
                 </ngb-panel>
 
-                <ngb-panel title="Contacts Details">
+                <ngb-panel>
+
+                    <ng-template ngbPanelTitle class="accord-btn">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">Contacts Details</div>
+                            <div class="d-flex b-arw"><i class="fas fa-chevron-up"></i></div>
+                        </div>
+                    </ng-template>
+
                     <ng-template ngbPanelContent>
                         <div class="row">
                             <div *ngFor="let type of contactsTypes" class="col-xs-12 col-sm-6">
