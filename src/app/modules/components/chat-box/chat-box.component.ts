@@ -110,17 +110,16 @@ export class ChatBoxComponent implements OnInit {
    * API server call to deduct Credits limits by one of the user...
    */
   public deductCredit() {
-    if (this.assistanceDetails.credits_count > 0) {
-      this.chatBoxService.deductCredit(this.assistanceDetails.id).subscribe((res: any) => {
-        res = JSON.parse(res);
+    this.chatBoxService.deductCredit(this.assistanceDetails.id).subscribe((res: any) => {
+      res = JSON.parse(res);
+      if(res.warning){
+        this.toastrService.warning(`${res.warning}`, 'Warning');
+      }else{
         this.toastrService.success(`${res.success}`, "Success");
-        this.getAssistanceById();
-      }, error => {
-        console.error(error);
-      });
-    } else {
-      this.toastrService.warning('User has no available credits for deduction', 'Warning');
-    }
+      }
+      this.getAssistanceById();
+    }, error => {
+      console.error(error);
+    });
   }
-
 }
