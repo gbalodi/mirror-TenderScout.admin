@@ -6,9 +6,18 @@
     <div class="card-body">
         <form [(formGroup)]="profileForm">
 
-            <ngb-accordion #acc="ngbAccordion" [closeOthers]="true" activeIds="static-1">
+            <ngb-accordion #acc="ngbAccordion" [closeOthers]="false" activeIds="static-1">
 
                 <ngb-panel id="static-1" title="User Details" formGroupName="user">
+
+                    <!-- **************** DO NOT REMOVE ***************** -->
+                    <!-- <ng-template ngbPanelTitle>
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">User Details</div>
+                            <div class="d-flex"><i class="fas fa-sort-up"></i></div>
+                        </div>
+                    </ng-template> -->
+
                     <ng-template ngbPanelContent>
 
                         <div class="row">
