@@ -2,7 +2,7 @@
     <form [formGroup]="textMessageForm" novalidate>
         <div class="message-txt">
             <textarea *ngIf="assistanceDetails?.status === 'opened'" placeholder="Text Message" formControlName="body" (keyup.enter)="createAssistanceComments(undefined, $event)" (keydown.enter)="$event.preventDefault();" row="5"></textarea>
-            <span *ngIf="assistanceDetails?.status === 'closed'">Request Is closed!</span>
+            <span class="req-closed" *ngIf="assistanceDetails?.status === 'closed'">Request Is closed!</span>
         </div>
     </form>
 </div>

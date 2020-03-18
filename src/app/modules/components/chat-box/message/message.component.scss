@@ -1,7 +1,7 @@
 .message-section {
     position: relative;
     .message-item {
-        max-width: 85%;
+        max-width: 100%;
         margin-bottom: 5px;
         .message-wrap {
             background: #fff;
@@ -12,7 +12,7 @@
             box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
             border-radius: 10px;
             min-width: 70px;
-            max-width: 100%;
+            max-width: 85%;
             i {
                 width: 50px;
                 text-align: center;
@@ -75,7 +75,7 @@
             content: '';
             width: 47%;
             height: 1px;
-            background: #efefef;
+            background: #e6e6e6;
             position: absolute;
             left: 0;
             top: 11px;
@@ -84,7 +84,7 @@
             content: '';
             width: 47%;
             height: 1px;
-            background: #efefef;
+            background: #e6e6e6;
             position: absolute;
             right: 0;
             top: 11px;
@@ -104,7 +104,7 @@
                 font-weight: 400;
                 position: relative;
                 z-index: 1;
-                background: #efefef;
+                background: #e6e6e6;
                 display: inline-block;
                 padding: 2px 18px;
                 border-radius: 6px;
@@ -191,7 +191,7 @@
         content: '';
         width: 45%;
         height: 1px;
-        background: #efefef;
+        background: #e6e6e6;
         position: absolute;
         left: 0;
         top: 11px;
@@ -200,7 +200,7 @@
         content: '';
         width: 45%;
         height: 1px;
-        background: #efefef;
+        background: #e6e6e6;
         position: absolute;
         right: 0;
         top: 11px;
