@@ -1,188 +1,240 @@
 <div class="card card-accent-primary">
     <div class="card-header">
         <h3 *ngIf="!userId">Create new user</h3>
-        <h3 *ngIf="userId">Edit user - {{profileForm.controls['fullname'].value}}</h3>
+        <h3 *ngIf="userId">Edit user - {{profileForm.value.user.first_name + ' ' + profileForm.value.user.first_name }}</h3>
     </div>
     <div class="card-body">
         <form [(formGroup)]="profileForm">
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="email" class="col-form-label">Email:</label>
-                    <div class="">
-                        <input type="email" [readonly]="userId" formControlName="email" class="form-control" id="email" placeholder="">
-                        <!-- <span *ngIf="profileForm.controls.email.valid">fswsfswf</span> -->
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6" *ngIf="!userId">
-                    <label for="password" class="col-form-label">Password:</label>
-                    <div class="">
-                        <input type="password" formControlName="password" class="form-control" id="password" placeholder="">
-                    </div>
-                </div>
 
-                <div class="col-xs-12 col-sm-6" *ngIf="userId">
-                    <label for="role" class="col-form-label">Role:</label>
-                    <div>
-                        <select class="form-control" id="role" formControlName="role">
-                            <option *ngFor="let role of roles" [value]="role" >{{ role }}</option>
-                        </select>
-                    </div>
-                </div>
+            <ngb-accordion #acc="ngbAccordion" [closeOthers]="false" activeIds="static-1">
 
-            </div>
+                <ngb-panel id="static-1" formGroupName="user">
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="fullname" class="col-form-label">Full name:</label>
-                    <div class="">
-                        <input type="text" formControlName="fullname" class="form-control" id="fullname" placeholder="">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <label for="display_name" class="col-form-label">Display name:</label>
-                    <div class="">
-                        <input type="text" formControlName="display_name" class="form-control" id="display_name" placeholder="">
-                    </div>
-                </div>
-            </div>
+                    <!-- **************** DO NOT REMOVE ***************** -->
+                    <ng-template ngbPanelTitle  class="accord-btn">
+                        <div class="d-flex justify-content-between">
+                            <div class="d-flex">User Details</div>
+                            <div class="d-flex b-arw"><i class="fas fa-chevron-down"></i></div>
+                        </div>
+                    </ng-template>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="company" class="col-form-label">Company:</label>
-                    <div class="">
-                        <input type="text" formControlName="company" class="form-control" id="company" placeholder="">
-                    </div>
-                </div>
+                    <ng-template ngbPanelContent>
 
-                <div class="col-xs-12 col-sm-6">
-                    <label class="col-form-label">Time Zone:</label>
-                    <div class="">
-                        <ng2-timezone-picker [disabled]="profileForm.disabled" (change)="changeTimezone($event)" [(timezone)]="timezone" showOffset="true"></ng2-timezone-picker>
-                    </div>
-                </div>
-            </div>
+                        <div class="row">
 
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="email" class="col-form-label">Email:</label>
+                                <div class="input-group">
+                                    <input type="text" class="form-control" [readonly]="!editEmail" formControlName="email" placeholder="" aria-label="email" aria-describedby="email" (blur)="validEmail()">
+                                    <div class="input-group-append">
+                                        <span class="input-group-text" [ngClass]="{'disabled' : !userId, 'set-cursor' : userId}" id="email" (click)="userId ? editEmail=true : null"><i class="fas fa-edit"></i></span>
+                                    </div>
+                                </div>
+                            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="company_size" class="col-form-label">Company Size:</label>
-                    <div class="">
-                        <input type="number" formControlName="company_size" class="form-control" id="company_size" placeholder="">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <label for="description" class="col-form-label">Description:</label>
-                    <div class="">
-                        <textarea type="text" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
-                    </div>
-                </div>
-            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="password" class="col-form-label">Password:</label>
+                                <div class="">
+                                    <input type="password" formControlName="password" class="form-control" id="password" placeholder="">
+                                </div>
+                            </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="number_public_contracts" class="col-form-label">Number of existing/ongoing public contracts:</label>
-                    <div class="">
-                        <select class="form-control" id="role" formControlName="number_public_contracts">
-                                    <option *ngFor="let item of contractsNumberItems" [value]="item" >{{ item }}</option>
-                                </select>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <!-- <div class="">
-                        <input type="checkbox" formControlName="do_marketplace_available" class="" id="do_marketplace_available">
-                        <label for="do_marketplace_available" class="col-form-label">Do Marketplace Available:</label>
-                    </div> -->
-                    <label for="marketplace_status" class="col-form-label">Marketplace:</label>
-                    <div class="">
-                        <select class="form-control" id="role" formControlName="marketplace_status">
-                            <option *ngFor="let item of marketPlaceItems" [value]="item" >{{ item | titlecase }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
+                        </div>
 
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="city" class="col-form-label">City:</label>
-                    <div class="">
-                        <input type="city" formControlName="city" class="form-control" id="city" placeholder="">
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <label for="countries" class="col-form-label">Country:</label>
-                    <div class="">
-                        <ng-select [items]="countries" bindLabel="name" bindValue="id" formControlName="country_id">
-                        </ng-select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="tender_level" class="col-form-label">Tender Level:</label>
-                    <div class="">
-                        <select class="form-control" id="role" formControlName="tender_level">
-                                    <option *ngFor="let item of tenderLevel" [value]="item" >{{ item }}</option>
-                                </select>
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <label for="industries" class="col-form-label">Industry:</label>
-                    <div class="">
-                        <ng-select [items]="industries" bindLabel="name" bindValue="id" formControlName="industry_id">
-                        </ng-select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="profile_type" class="col-form-label">Profile Type:</label>
-                    <div class="">
-                        <ng-select [items]="profileType" [multiple]="true" bindLabel="name" bindValue="name" formControlName="profile_type">
-                        </ng-select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row" *ngIf="!userId">
-                <div class="col-xs-12 col-sm-6">
-                    <label for="role" class="col-form-label">Role:</label>
-                    <div>
-                        <select class="form-control" id="role" formControlName="role">
-                            <option *ngFor="let role of roles" [value]="role" >{{ role }}</option>
-                        </select>
-                    </div>
-                </div>
-            </div>
-
-            <div class="row contacts">
-                <div class="title col-xs-12 col-sm-12">
-                    <h3>Contacts</h3>
-                </div>
-                <div *ngFor="let type of contactsTypes" class="col-xs-12 col-sm-6">
-                    <label class="col-form-label">{{ type }}</label>
-                    <div class="contact" formArrayName="contacts_attributes" *ngFor="let contact of profileForm.get('contacts_attributes').controls; let i = index;">
-                        <div *ngIf="contact.value.contact_type == type">
-                            <div class="contact-line" [formGroupName]="i">
-                                <!-- <input class="form-control" type="{{(type == 'phone') ? 'tel' : 'email'}}" formControlName="value"> -->
-                                <input class="form-control" type="text" formControlName="value" value="{{contact.value.value}}" [placeholder]="contact.value.contact_type">
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="first_name" class="col-form-label">First name:</label>
+                                <div class="">
+                                    <input type="text" formControlName="first_name" class="form-control" id="first_name" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="last_name" class="col-form-label">Last name:</label>
+                                <div class="">
+                                    <input type="text" formControlName="last_name" class="form-control" id="last_name" placeholder="">
+                                </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
+
+                        <div class="row">
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="role" class="col-form-label">Role:</label>
+                                <div>
+                                    <select class="form-control" id="role" formControlName="role">
+                                        <option *ngFor="let role of roles" [value]="role" >{{ role }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="marketplace_status" class="col-form-label">Marketplace:</label>
+                                <div class="">
+                                    <select class="form-control" id="marketplace_status" formControlName="marketplace_status">
+                                        <option *ngFor="let item of marketPlaceItems" [value]="item" >{{ item | titlecase }}</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="assistance_credits" class="col-form-label">Assistance Credits:</label>
+                                <div class="">
+                                    <input type="number" formControlName="assistance_credits" class="form-control" id="assistance_credits" placeholder="">
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+
+                <ngb-panel title="Profile Details" formGroupName="profiles_attributes">
+                    <ng-template ngbPanelContent>
+
+                        <!-- <div class="row">
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="display_name" class="col-form-label">Display name:</label>
+                                <div class="">
+                                    <input type="text" formControlName="display_name" class="form-control" id="display_name" placeholder="">
+                                </div>
+                            </div>
+
+                        </div> -->
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="company" class="col-form-label">Company:</label>
+                                <div class="">
+                                    <input type="text" formControlName="company" class="form-control" id="company" placeholder="">
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label class="col-form-label">Time Zone:</label>
+                                <div class="">
+                                    <ng2-timezone-picker [disabled]="profileForm.disabled" (change)="changeTimezone($event)" [(timezone)]="timezone" showOffset="true"></ng2-timezone-picker>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="company_size" class="col-form-label">Company Size:</label>
+                                <div class="">
+                                    <input type="number" formControlName="company_size" class="form-control" id="company_size" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="description" class="col-form-label">Description:</label>
+                                <div class="">
+                                    <textarea type="text" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="number_public_contracts" class="col-form-label">Number of existing/ongoing public contracts:</label>
+                                <div class="">
+                                    <select class="form-control" id="number_public_contracts" formControlName="number_public_contracts">
+                                                <option *ngFor="let item of contractsNumberItems" [value]="item" >{{ item }}</option>
+                                            </select>
+                                </div>
+                            </div>
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="profile_type" class="col-form-label">Profile Type:</label>
+                                <div class="">
+                                    <ng-select [items]="profileType" [multiple]="true" bindLabel="name" bindValue="name" formControlName="profile_type">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="city" class="col-form-label">City:</label>
+                                <div class="">
+                                    <input type="city" formControlName="city" class="form-control" id="city" placeholder="">
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="countries" class="col-form-label">Country:</label>
+                                <div class="">
+                                    <ng-select [items]="countries" bindLabel="name" bindValue="id" formControlName="country_id">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="tender_level" class="col-form-label">Tender Level:</label>
+                                <div class="">
+                                    <select class="form-control" id="tender_level" formControlName="tender_level">
+                                                <option *ngFor="let item of tenderLevel" [value]="item" >{{ item }}</option>
+                                            </select>
+                                </div>
+                            </div>
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="industries" class="col-form-label">Industry:</label>
+                                <div class="">
+                                    <ng-select [items]="industries" bindLabel="name" bindValue="id" formControlName="industry_id">
+                                    </ng-select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="row">
+
+                            <div class="col-xs-12 col-sm-6">
+                                <label for="profile_type" class="col-form-label">Profile Type:</label>
+                                <div class="">
+                                    <ng-select [items]="profileType" [multiple]="true" bindLabel="name" bindValue="name" formControlName="profile_type">
+                                    </ng-select>
+                                </div>
+                            </div>
+
+                        </div> -->
+
+
+                    </ng-template>
+                </ngb-panel>
+
+                <ngb-panel title="Contacts Details">
+                    <ng-template ngbPanelContent>
+                        <div class="row">
+                            <div *ngFor="let type of contactsTypes" class="col-xs-12 col-sm-6">
+                                <label class="col-form-label">{{ type }}</label>
+                                <div class="contact" formArrayName="contacts_attributes" *ngFor="let contact of profileForm.get('contacts_attributes').controls; let i = index;">
+                                    <div *ngIf="contact.value.contact_type == type">
+                                        <div class="contact-line" [formGroupName]="i">
+                                            <!-- <input class="form-control" type="{{(type == 'phone') ? 'tel' : 'email'}}" formControlName="value"> -->
+                                            <input class="form-control" type="text" formControlName="value" value="{{contact.value.value}}" [placeholder]="contact.value.contact_type">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </ng-template>
+                </ngb-panel>
+
+            </ngb-accordion>
 
             <div class="form-group row margin-t20">
                 <div class="col-12" *ngIf="!created">
                     <button type="submit" *ngIf="!userId" [disabled]="profileForm.invalid" class="btn btn-primary" (click)="onSubmit()">Create</button>
-                    <button *ngIf="userId" [disabled]="profileForm.invalid" class="btn btn-primary" (click)="updateUser()">Update</button>
+                    <button *ngIf="userId" [disabled]="profileForm.invalid || existsEmail" class="btn btn-primary" (click)="updateUser()">Update</button>
                     <a routerLink="/users/list" class="btn btn-secondary">Cancel</a>
                 </div>
                 <div class="col-12" *ngIf="created">
                     <a routerLink="/users/list" class="btn btn-secondary">Back</a>
                 </div>
             </div>
+
         </form>
     </div>
 </div>

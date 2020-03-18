@@ -40,9 +40,9 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of requestAssistances | paginate: { itemsPerPage: 20, currentPage: this.searchFilterForm.controls['page'].value, totalItems: totalItems }">
-                <td>{{item?.user.fullname }} {{item?.user?.email}}
+                <td>{{item?.user.fullname }}
+                    <span class="email-set"> <{{item?.user?.email}}></span>
                 </td>
-                <td>{{item?.status}}</td>
                 <td>{{item?.message}}</td>
                 <td>
                     <a *ngIf="item.tender_id" class="set-cursor anchor-color" [routerLink]="['/tenders/details', item?.tender_id]">
@@ -50,7 +50,16 @@
                     </a>
                     <span *ngIf="!item.tender_id">{{item.custom_id}}</span>
                 </td>
-                <td><i class="far fa-comments set-cursor" title="Go To Chart" [routerLink]="['./',item.id, 'chat']"></i></td>
+                <td class="text-center">{{item?.submission_date ? (item?.submission_date | date : 'dd-MM-yyyy') : '--'}}</td>
+                <td class="text-center">{{item?.assistance_assets?.length}}</td>
+                <td>{{item?.status | uppercase}}</td>
+                <td>
+                    <span class="chat-set set-cursor" [routerLink]="['/users/assist-requests/',item.id, 'chat']">
+                        <i class="far fa-comments" title="Go To Chart"></i>
+                        <span class="replies-count">{{item?.replies_count}}</span>
+                    <span *ngIf="item.admin_unreads_count>0" class="new-message">{{item?.admin_unreads_count}}</span>
+                    </span>
+                </td>
             </tr>
         </tbody>
         <span *ngIf="requestAssistances?.length === 0">No Data Found!</span>

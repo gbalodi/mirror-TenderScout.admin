@@ -4,6 +4,7 @@ import { ToastrService } from 'ngx-toastr';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { debounceTime, switchMap, tap } from 'rxjs/operators';
 import { HttpParams } from '@angular/common/http';
+import { WebSocketService } from 'app/services/web-socket.service';
 
 @Component({
     selector: 'app-request-assistance',
@@ -23,17 +24,26 @@ export class RequestAssistanceComponent implements OnInit {
     ];
     public tableHeadNames: Array<{ title: string; key: string; }> = [
         { title: 'User', key: 'user' },
-        { title: 'Status', key: 'status' },
         { title: 'Message', key: 'message' },
         { title: 'Tender/Knowledge Request', key: 'tender' },
+        { title: 'Tender Closing Date', key: 'submissionDate' },
+        { title: 'Attachments', key: 'attachments' },
+        { title: 'Status', key: 'status' },
         { title: 'Action', key: 'action' }
     ];
 
     constructor(
         private request: MainRequestService,
         private toasterService: ToastrService,
-        public formBuilder: FormBuilder
-    ) { }
+        public formBuilder: FormBuilder,
+        private webSocketService: WebSocketService
+    ) {
+        this.webSocketService.changeDetectResponse.subscribe(res => {
+            if (res) {
+                this.searchFilterForm.controls['page'].setValue(this.searchFilterForm.controls['page'].value);
+            }
+        });
+    }
 
     ngOnInit() {
         this.searchFilterForm = this.formBuilder.group({
@@ -63,5 +73,8 @@ export class RequestAssistanceComponent implements OnInit {
         });
 
         this.searchFilterForm.controls['page'].setValue(1);
+        this.webSocketService.callAssistRequestStream();
+        this.webSocketService.setAssistRequestSubscription();
+        this.webSocketService.assistRequestSubscribe();
     }
 }

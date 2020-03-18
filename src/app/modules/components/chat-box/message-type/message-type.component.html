@@ -8,9 +8,16 @@
 </div>
 <div *ngIf="assistanceDetails?.status === 'opened'" class="all-buttons">
     <ul>
-        <li><button class="btn btn-primary" (click)="closeAssistance()">
-            Close Request
-        </button></li>
+        <!-- <li>
+            <button class="btn btn-primary" (click)="deductCredit()">
+                Deduct Credit
+            </button>
+        </li> -->
+        <li>
+            <button class="btn btn-primary" (click)="closeAssistance()">
+                Close Request
+            </button>
+        </li>
         <li>
             <label><i class="fas fa-paperclip"></i>
                 <input type="file" size="60" (change)="handleFileInput($event.target.files)">

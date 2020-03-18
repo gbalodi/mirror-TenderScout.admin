@@ -25,6 +25,7 @@ interface IUser {
     profile_type: Array<string>;
     status: string;
     profiles: Array<any>;
+    assistance_credits: number;
 };
 
 @Component({
@@ -63,6 +64,8 @@ export class UsersListComponent implements OnInit {
     public searchFilterForm: FormGroup;
     public userStatisticsData: any;
     public selectedUserId: number;
+    public selectedUser: IUser;
+    public assistance_credits: number = 0;
     public evn = environment
     public roles = [
         { type: 'admin', disabled: false },
@@ -225,6 +228,7 @@ export class UsersListComponent implements OnInit {
     }
 
     public openModal(template: TemplateRef<any>, item: any, className: string) {
+        this.selectedUser = item;
         this.rowData = item;
         if (this.rowData) {
             this.rowDataObj = this.rowData;
@@ -408,6 +412,21 @@ export class UsersListComponent implements OnInit {
         }, error => {
             console.error(error);
         });
+    }
+
+    public setCredits() {
+        if (Number(this.selectedUser.assistance_credits)) {
+            this.request.patchData(`v1/users/${this.selectedUserId}`, { user: { assistance_credits: this.selectedUser.assistance_credits } }).subscribe((res) => {
+                res = JSON.parse(res);
+                this.toasterService.success(`${res.success}`, 'Success');
+                this.approveModal.hide();
+            }, error => {
+                console.error(error);
+            });
+        } else {
+            this.toasterService.warning(`Minimum 1 is required to be sent Request/set Limits`, 'Warning');
+        }
+
     }
 
 }

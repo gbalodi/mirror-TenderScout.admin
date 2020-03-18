@@ -8,9 +8,9 @@ import { ChatBoxService } from '../chat-box.service';
   styleUrls: ['./message-type.component.scss']
 })
 export class MessageTypeComponent implements OnInit {
-  @Input() public assistanceId: number;
+  // @Input() public assistanceId: number;
   public textMessageForm: FormGroup;
-  public assistanceDetails: any;
+  @Input() public assistanceDetails: any;
 
   constructor(
     public chatBoxService: ChatBoxService
@@ -21,17 +21,17 @@ export class MessageTypeComponent implements OnInit {
       body: new FormControl('', [Validators.required])
     });
 
-    this.getAssistanceById();
+    // this.getAssistanceById();
   }
 
-  public getAssistanceById() {
-    this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
-      res = JSON.parse(res);
-      this.assistanceDetails = res;
-    }, error => {
-      console.error(error);
-    });
-  }
+  // public getAssistanceById() {
+  //   this.chatBoxService.getAssistance(this.assistanceId).subscribe((res: any) => {
+  //     res = JSON.parse(res);
+  //     this.assistanceDetails = res;
+  //   }, error => {
+  //     console.error(error);
+  //   });
+  // }
 
   public createAssistanceComments(requestParams, event) {
     let valid: boolean = true;
@@ -45,14 +45,14 @@ export class MessageTypeComponent implements OnInit {
     if (valid && !requestParams && this.textMessageForm.valid) {
       let request: any = {
         body: this.textMessageForm.controls['body'].value,
-        commentable_id: this.assistanceId,
+        commentable_id: this.assistanceDetails.id,
         commentable_type: "Assistance"
       };
 
       requestParams = { assistance_comment: request }
     }
     if (valid && requestParams) {
-      this.chatBoxService.createAssistanceComments(this.assistanceId, requestParams).subscribe((res: any) => {
+      this.chatBoxService.createAssistanceComments(this.assistanceDetails.id, requestParams).subscribe((res: any) => {
         res = JSON.parse(res);
         this.textMessageForm.controls['body'].setValue('');
       }, error => {
@@ -69,13 +69,13 @@ export class MessageTypeComponent implements OnInit {
   public handleFileInput(files: File) {
     const formData: FormData = new FormData();
     formData.append(`assistance_comment[attachments_attributes][][file]`, files[0]);
-    formData.append('assistance_comment[commentable_id]', this.assistanceId.toString());
+    formData.append('assistance_comment[commentable_id]', this.assistanceDetails.id.toString());
     formData.append('assistance_comment[commentable_type]', "Assistance");
     this.createAssistanceComments(formData, undefined);
   }
 
   public closeAssistance() {
-    this.chatBoxService.closeAssistance(this.assistanceId, { assistance: { status: 'closed' } }).subscribe((res: any) => {
+    this.chatBoxService.closeAssistance(this.assistanceDetails.id, { assistance: { status: 'closed' } }).subscribe((res: any) => {
       res = JSON.parse(res);
       this.assistanceDetails = res;
     }, error => {

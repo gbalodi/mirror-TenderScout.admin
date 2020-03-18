@@ -29,6 +29,8 @@ import { RatingRequestComponent } from './components/rating-request/rating-reque
 import { NgbRatingModule } from '@ng-bootstrap/ng-bootstrap';
 import { UsersArchiveListComponent } from './components/users-archive-list/users-archive-list.component';
 import { DialogComponent } from './components/users-archive-list/dialog/dialog.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
 
 
 @NgModule({
@@ -43,7 +45,8 @@ import { DialogComponent } from './components/users-archive-list/dialog/dialog.c
         HighchartsChartModule,
         NgxPaginationModule,
         CsvModule,
-        NgbRatingModule
+        NgbRatingModule,
+        NgbModule
     ],
     declarations: [
         UsersListComponent,
