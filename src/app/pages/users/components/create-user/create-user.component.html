@@ -1,7 +1,7 @@
 <div class="card card-accent-primary">
     <div class="card-header">
         <h3 *ngIf="!userId">Create new user</h3>
-        <h3 *ngIf="userId">Edit user - {{profileForm.value.user.first_name + ' ' + profileForm.value.user.first_name }}</h3>
+        <h3 *ngIf="userId">Edit user - {{profileForm.value.user.first_name + ' ' + profileForm.value.user.last_name }}</h3>
     </div>
     <div class="card-body">
         <form [(formGroup)]="profileForm">
@@ -24,8 +24,8 @@
 
                             <div class="col-xs-12 col-sm-6">
                                 <label for="email" class="col-form-label">Email:</label>
-                                <div class="input-group">
-                                    <input type="text" class="form-control" [readonly]="!editEmail" formControlName="email" placeholder="" aria-label="email" aria-describedby="email" (blur)="validEmail()">
+                                <div *ngIf="userId" class="input-group">
+                                    <input type="text" class="form-control" [readonly]="!editEmail" formControlName="email" placeholder="" aria-label="email" pattern="/\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]{2,})\Z/i" aria-describedby="email">
                                     <div class="input-group-append">
                                         <span class="input-group-text" [ngClass]="{'disabled' : !userId, 'set-cursor' : userId}" id="email" (click)="userId ? (!editEmail ? editEmail=true : resetEmail()) : null">
                                             <i *ngIf="!editEmail" class="fas fa-edit"></i>
@@ -33,6 +33,15 @@
                                         </span>
                                     </div>
                                 </div>
+
+
+                                <!-- <label for="email" class="col-form-label">Email:</label> -->
+                                <div *ngIf="!userId" class="">
+                                    <input type="email" formControlName="email" class="form-control" id="email">
+                                    <!-- <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p> -->
+                                </div>
+                                <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p>
+
                             </div>
 
                             <div class="col-xs-12 col-sm-6">
@@ -244,14 +253,14 @@
             </ngb-accordion>
 
             <div class="form-group row margin-t20">
-                <div class="col-12" *ngIf="!created">
+                <div class="col-12">
                     <button type="submit" *ngIf="!userId" [disabled]="profileForm.invalid" class="btn btn-primary" (click)="onSubmit()">Create</button>
                     <button *ngIf="userId" [disabled]="profileForm.invalid || existsEmail" class="btn btn-primary" (click)="updateUser()">Update</button>
                     <a routerLink="/users/list" class="btn btn-secondary">Cancel</a>
                 </div>
-                <div class="col-12" *ngIf="created">
+                <!-- <div class="col-12" *ngIf="created">
                     <a routerLink="/users/list" class="btn btn-secondary">Back</a>
-                </div>
+                </div> -->
             </div>
 
         </form>

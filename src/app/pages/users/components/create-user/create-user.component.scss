@@ -11,7 +11,7 @@
         opacity: 0.5;
         background: #e1e6ef !important;
     }
-     ::ng-deep {
+    ::ng-deep {
         ng2-timezone-picker {
             .select2-container--disabled {
                 .selection {
@@ -23,18 +23,35 @@
             }
         }
     }
-        .card-header .btn{width: 100%; text-align: left; padding:0; text-decoration: none;}
-        .card-header .btn:hover{text-decoration: none;}
-        .b-arw {margin: 8px 0 0 0;}
-        .b-arw .fas{line-height: auto;}
-        .btn.btn-link .b-arw {
-            transform: rotate(0deg); transition: 0.3s;
-        }
-        .btn.btn-link.collapsed .b-arw {
-            transform: rotate(180deg); transition: 0.3s;
-        }
+    .card-header .btn {
+        width: 100%;
+        text-align: left;
+        padding: 0;
+        text-decoration: none;
+    }
+    .card-header .btn:hover {
+        text-decoration: none;
+    }
+    .b-arw {
+        margin: 8px 0 0 0;
+    }
+    .b-arw .fas {
+        line-height: auto;
+    }
+    .btn.btn-link .b-arw {
+        transform: rotate(0deg);
+        transition: 0.3s;
+    }
+    .btn.btn-link.collapsed .b-arw {
+        transform: rotate(180deg);
+        transition: 0.3s;
+    }
 }
 
+.exist-email {
+    font-size: smaller;
+    color: red;
+}
 
 // .range-accordion .btn-link {
 //     width: 100%;

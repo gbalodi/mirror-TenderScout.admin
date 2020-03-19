@@ -25,7 +25,10 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        this.spinner.show = true;
+        let noNeedSpinner: Array<string> = ['v2/admin/users/check_email'];
+        console.log(req.url);
+
+        if (noNeedSpinner.indexOf(req.url) < 0) this.spinner.show = true;
 
         let headers;
 
@@ -40,13 +43,13 @@ export class HttpInterceptorService implements HttpInterceptor {
             });
         }
 
-            req = req.clone({
-                // url: req.url.split('/')[0] !== 'channel' ? environment.apiUrl + req.url: environment.socket + req.url,
-                url: environment.apiUrl + req.url,
-                responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
-                headers
-                // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
-            });
+        req = req.clone({
+            // url: req.url.split('/')[0] !== 'channel' ? environment.apiUrl + req.url: environment.socket + req.url,
+            url: environment.apiUrl + req.url,
+            responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
+            headers
+            // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
+        });
         return next.handle(req)
             .do((res: HttpEvent<any>) => {
                 if (res instanceof HttpResponse) {
