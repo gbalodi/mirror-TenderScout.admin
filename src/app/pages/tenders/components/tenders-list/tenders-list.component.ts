@@ -4,6 +4,7 @@ import { DetailsComponent } from './details/details.component';
 import { DatePipe } from '@angular/common';
 import { LocalDataSource } from 'ng2-smart-table';
 import { ToastrService } from 'ngx-toastr';
+import { EditTenderButtonComponent } from './edit-tender-button/edit-tender-button.component';
 
 @Component({
     selector: 'app-tenders',
@@ -36,6 +37,14 @@ export class TendersListComponent implements OnInit {
             edit: false,
         },
         columns: {
+            editAction: {
+                title: 'Edit',
+                type: 'custom',
+                editable: false,
+                filter: false,
+                sort: false,
+                renderComponent: EditTenderButtonComponent,
+            },
             id: {
                 title: 'ID',
                 editable: false,

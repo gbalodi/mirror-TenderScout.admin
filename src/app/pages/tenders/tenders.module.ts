@@ -8,6 +8,8 @@ import { TendersListComponent } from './components/tenders-list/tenders-list.com
 import { DetailsComponent } from './components/tenders-list/details/details.component';
 import { TenderDetailsComponent } from './components/tender-details/tender-details.component';
 import { TenderService } from './services/tender.service';
+import { TenderEditComponent } from './components/tender-edit/tender-edit.component';
+import { EditTenderButtonComponent } from './components/tenders-list/edit-tender-button/edit-tender-button.component';
 
 @NgModule({
     imports: [
@@ -21,9 +23,12 @@ import { TenderService } from './services/tender.service';
         TendersListComponent,
         DetailsComponent,
         TenderDetailsComponent,
+        TenderEditComponent,
+        EditTenderButtonComponent,
     ],
     entryComponents: [
         DetailsComponent,
+        EditTenderButtonComponent
     ],
     providers: [
         TenderService

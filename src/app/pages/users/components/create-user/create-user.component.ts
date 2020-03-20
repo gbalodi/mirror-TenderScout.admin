@@ -5,6 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as moment from 'moment-timezone';
 import { debounceTime } from 'rxjs/operators';
+import { Utilities } from 'app/utilities';
 
 @Component({
     selector: 'app-create-user',
@@ -39,7 +40,7 @@ export class CreateUserComponent implements OnInit {
     ngOnInit() {
         this.profileForm = this.fb.group({
             user: this.fb.group({
-                email: ['', [Validators.required]],
+                email: ['', [Validators.required, Utilities.emailValidation]],
                 role: ['', [Validators.required]],
                 marketplace_status: ['', [Validators.required]],
                 assistance_credits: [''],
@@ -173,7 +174,7 @@ export class CreateUserComponent implements OnInit {
     }
 
     public validEmail() {
-        if (this.profileForm.value.user.email.length > 0 && this.userEmail !== this.profileForm.value.user.email) {
+        if (this.profileForm.controls['user'].controls['email'].valid && this.profileForm.value.user.email.length > 0 && this.userEmail !== this.profileForm.value.user.email) {
             this.request.postData(`v2/admin/users/check_email`, { email: this.profileForm.value.user.email }).subscribe((res: any) => {
                 res = JSON.parse(res);
                 this.existsEmail = res.exists;

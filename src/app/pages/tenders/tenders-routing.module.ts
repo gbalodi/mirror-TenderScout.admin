@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { TendersListComponent } from './components/tenders-list/tenders-list.component';
 import { TenderDetailsComponent } from './components/tender-details/tender-details.component';
+import { TenderEditComponent } from './components/tender-edit/tender-edit.component';
 
 const routes: Routes = [
     {
@@ -22,6 +23,13 @@ const routes: Routes = [
             {
                 path: 'details/:id',
                 component: TenderDetailsComponent,
+                data: {
+                    title: 'Tenders Details'
+                }
+            },
+            {
+                path: 'edit/:id',
+                component: TenderEditComponent,
                 data: {
                     title: 'Tenders Details'
                 }
