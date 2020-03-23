@@ -28,6 +28,7 @@ export class CreateUserComponent implements OnInit {
     public editEmail: boolean = true;
     public existsEmail: boolean = false;
     public userEmail: string = '';
+    public contactsTypes: string[] = ['phone', 'email', 'website', 'address'];
 
     constructor(
         private fb: FormBuilder,
@@ -190,9 +191,6 @@ export class CreateUserComponent implements OnInit {
         let fg = this.fb.group(this.contactsTypes);
         this.empFormArray.push(fg);
     }
-
-
-    public contactsTypes: string[] = ['phone', 'email', 'website', 'address'];
 
     public changeTimezone(countryIsoCode) {
         this.initTime(countryIsoCode);

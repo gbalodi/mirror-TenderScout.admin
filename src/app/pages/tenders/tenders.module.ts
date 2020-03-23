@@ -10,6 +10,9 @@ import { TenderDetailsComponent } from './components/tender-details/tender-detai
 import { TenderService } from './services/tender.service';
 import { TenderEditComponent } from './components/tender-edit/tender-edit.component';
 import { EditTenderButtonComponent } from './components/tenders-list/edit-tender-button/edit-tender-button.component';
+// import { DpDatePickerModule } from 'ng2-date-picker';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
     imports: [
@@ -18,6 +21,8 @@ import { EditTenderButtonComponent } from './components/tenders-list/edit-tender
         TendersRoutingModule,
         ModalModule,
         UiSwitchModule,
+        BsDatepickerModule.forRoot(),
+        NgSelectModule
     ],
     declarations: [
         TendersListComponent,
@@ -32,6 +37,9 @@ import { EditTenderButtonComponent } from './components/tenders-list/edit-tender
     ],
     providers: [
         TenderService
+    ],
+    exports: [
+        // DpDatePickerModule
     ]
 })
 export class TendersModule { }

@@ -7,29 +7,34 @@
 
             <div class="row" *ngIf="tender">
                 <div class="col-xs-12 col-sm-6" *ngFor="let key of object.keys(this.tenderForm.value)">
-                    <label [for]="key" class="col-form-label">{{replaceUnderscore(key)}}</label>
+
+                    <label [for]="key" class="col-form-label">
+                        {{replaceUnderscore(key)}}
+                        
+                        <span *ngIf="key === 'codes'" class="code-finder set-cursor"><a (click)="showCodeFinderPopup=true; callPopulate(codetype); addClassToBody()">Code Finder</a></span>
+                        
+                    </label>
 
                     <div class="" *ngIf="key === 'description'">
                         <textarea [formControlName]="key" class="form-control" [id]="key" row="6" placeholder=""></textarea>
                     </div>
 
-                    <div class="" *ngIf="key !== 'description' && numberType.indexOf(key)<0">
+                    <div class="" *ngIf="key !== 'description' && key !== 'codes' && numberType.indexOf(key)<0 && dateType.indexOf(key)<0">
                         <input type="text" [formControlName]="key" class="form-control" [id]="key" placeholder="">
+                    </div>
+                    <div class="" *ngIf="key === 'codes'">
+                        <ng-select id="codesDescription" [items]="industryCodes" bindLabel="codes" bindValue="codes" (keyup)="codesInput($event.target.value)" labelForId="state" [multiple]="true" placeholder="Search by Code" [hideSelected]="true" formControlName="codes" (ngModelChange)="setSearch($event)">
+                        </ng-select>
                     </div>
 
                     <div class="" *ngIf="numberType.indexOf(key) >-1">
                         <input type="number" [formControlName]="key" class="form-control" [id]="key" placeholder="">
                     </div>
 
+                    <div class="" *ngIf="dateType.indexOf(key) >-1">
+                        <input type="text" class="form-control" #dp="bsDatepicker" [formControlName]="key" bsDatepicker [bsConfig]="bsConfig">
+                    </div>
 
-                    <!-- <div [ngSwitch]="typeChecking(key)">
-                        <div *ngSwitchCase="'text'">
-                            <input type="text" class="form-control" [formControlName]="key" />
-                        </div>
-                        <div *ngSwitchCase="'textarea'">
-                            <textarea type="number" class="form-control" [formControlName]="key"></textarea>
-                        </div>
-                    </div> -->
                 </div>
 
             </div>
