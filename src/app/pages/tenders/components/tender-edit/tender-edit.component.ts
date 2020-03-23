@@ -45,10 +45,13 @@ class abc {
       awardValue: tender.awardValue,
       winnerNames: tender.winnerNames,
       classification: tender.classification,
-      tenderUrls: tender.tenderUrls ? tender.tenderUrls[0] : ''
+      tenderUrls: tender.tenderUrls ? tender.tenderUrls[0] : '',
+      createdAt: tender.createdAt
     }
   }
 };
+
+const NUMBER_TYPE: Array<string> = ['estimated_high_value', 'estimated_low_value', 'award_value'];
 
 @Component({
   selector: 'app-tender-edit',
@@ -59,6 +62,7 @@ export class TenderEditComponent implements OnInit {
   public tenderForm: FormGroup;
   public object = Object;
   public tender: any;
+  public numberType = NUMBER_TYPE;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -77,7 +81,8 @@ export class TenderEditComponent implements OnInit {
       award_value: [''],
       winner_names: [''],
       classification: [''],
-      tender_urls: ['']
+      tender_urls: [''],
+      created_at: ['']
     });
     this.activatedRoute.params.subscribe(param => {
       console.log(param);
@@ -98,7 +103,7 @@ export class TenderEditComponent implements OnInit {
             winner_names: this.tender.winnerNames,
             classification: this.tender.classification,
             tender_urls: this.tender.tenderUrls
-          })
+          });
 
         }, error => {
           console.error(error);
@@ -119,7 +124,7 @@ export class TenderEditComponent implements OnInit {
         return 'textarea';
       default:
         return 'text'
-        // alert('Default case');
+      // alert('Default case');
     }
   }
 

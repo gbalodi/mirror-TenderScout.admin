@@ -8,12 +8,17 @@
             <div class="row" *ngIf="tender">
                 <div class="col-xs-12 col-sm-6" *ngFor="let key of object.keys(this.tenderForm.value)">
                     <label [for]="key" class="col-form-label">{{replaceUnderscore(key)}}</label>
+
                     <div class="" *ngIf="key === 'description'">
                         <textarea [formControlName]="key" class="form-control" [id]="key" row="6" placeholder=""></textarea>
                     </div>
 
-                    <div class="" *ngIf="key !== 'description'">
+                    <div class="" *ngIf="key !== 'description' && numberType.indexOf(key)<0">
                         <input type="text" [formControlName]="key" class="form-control" [id]="key" placeholder="">
+                    </div>
+
+                    <div class="" *ngIf="numberType.indexOf(key) >-1">
+                        <input type="number" [formControlName]="key" class="form-control" [id]="key" placeholder="">
                     </div>
 
 

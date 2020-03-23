@@ -42,6 +42,7 @@
                                     <!-- <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p> -->
                                 </div>
                                 <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p>
+                                <p *ngIf="profileForm.controls['user'].controls['email'].invalid" class="exist-email"> No a valid Email Id! </p>
 
                             </div>
 
