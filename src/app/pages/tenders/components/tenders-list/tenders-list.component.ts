@@ -53,10 +53,6 @@ export class TendersListComponent implements OnInit {
                 title: 'Title',
                 editable: false,
             },
-            organization_name: {
-                title: 'Buyer',
-                editable: false,
-            },
             status_cd: {
                 title: 'Status',
                 editable: false,

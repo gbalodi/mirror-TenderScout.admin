@@ -115,7 +115,7 @@ export class TenderService {
    * @param tenderId 
    */
   public getTenderDetails(tenderId: number | string) {
-    return this.httpClient.get(`v1/marketplace/tenders/${tenderId}`).pipe(
+    return this.httpClient.get(`v2/admin/tenders/${tenderId}`).pipe(
       map((tender: any) => {
         tender = JSON.parse(tender)
         return this.handleTender(tender)
@@ -123,4 +123,17 @@ export class TenderService {
       )
     )
   }
+
+  public updateTender(reqParam) {
+    return this.httpClient.patch('v2/admin/tenders', reqParam);
+  }
+
+  /**
+ * Get all Codes string from assert...
+ * @param filename 
+ */
+  public getJSON(filename) {
+    return this.httpClient.get("assets/" + filename + ".json");
+  }
+
 }
