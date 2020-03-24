@@ -94,6 +94,7 @@ export class TenderEditComponent implements OnInit {
   public dateType = DATE_TYPE;
   public bsValue;
   public industryCodes: IIndustryCode[] = [];
+  public copyIndustryCodes: IIndustryCode[] = [];
   public countries: { [key: string]: string } = {};
   private codesInput$: Subject<string> = new Subject();
   private codes = [];
@@ -136,7 +137,7 @@ export class TenderEditComponent implements OnInit {
       questioning_deadline: [''],
       cancelled_on: [''],
       // industry: [''],
-      // codes: [[]]
+      codes: [[]]
     });
     this.activatedRoute.params.subscribe(param => {
       console.log(param);
@@ -154,10 +155,7 @@ export class TenderEditComponent implements OnInit {
             organization_name: this.tender.organizationName,
             // estimated_high_value: this.tender.estimatedHighValue,
             // estimated_low_value: this.tender.estimatedLowValue,
-            // award_value: this.tender.awardValue,
-            // winner_names: this.tender.winnerNames,
-            // classification: this.tender.classification,
-            tender_urls: this.tender.tenderUrls ? this.tender.tenderUrls : [],
+            // award_value: this.tender.awardValue,disscurtionenderUrls : [],
             // created_at: this.tender.createdAt,
             submission_date: this.tender.submissionDate,
             // deadline_date: this.tender.deadlineDate,
@@ -168,7 +166,7 @@ export class TenderEditComponent implements OnInit {
             questioning_deadline: this.tender.questioning_deadline,
             cancelled_on: this.tender.cancelledOn,
             // industry: this.tender.industry !== "" ? this.tender.industry : null,
-            // codes: []
+            codes: []
           });
 
         }, error => {
@@ -214,12 +212,110 @@ export class TenderEditComponent implements OnInit {
         return res.data;
       })
     ).subscribe((val: IIndustryCode[]) => {
+      this.copyIndustryCodes = val;
       this.industryCodes = _.map(val, obj => {
         return _.assign(obj.data, {
           codes: obj.code + ": " + obj.description
         });
       });
     });
+
+  /**
+ * Form value handler according to form value just changed...
+ * @param formValue
+ * @param keepEmpty
+ */
+  private formValueHandler(formValue) {
+    const draft = {};
+
+    if (formValue.codes || (formValue.hasOwnProperty("codes"))) {
+      var typesName = {
+        ic_cpvs: [],
+        ic_naicses: [],
+        ic_ngips: [],
+        ic_unspsces: [],
+        ic_gsins: [],
+        ic_nhs_e_classes: [],
+        ic_pro_classes: []
+      };
+      formValue.codes.map((id: string) => {
+        id = id.split(': ')[0];
+        let searchForm = {};
+        var found: any = this.copyIndustryCodes.find((element: any) => {
+          element = element.split(': ')[0];
+          return element.code === id;
+        });
+        if (found) {
+          typesName[found.type].push(found.code.toString());
+        } else if (this.selectedCodeFinderArray.length > 0) {
+          var found: any = this.selectedCodeFinderArray.find((element: any) => {
+            return element === id;
+          });
+          if (found) {
+            typesName[this.codetype].push(id.toString());
+          } else {
+            // if (searchForm.code_list) {
+            //   let get_code_list_keys = Object.keys(searchForm.code_list);
+            //   get_code_list_keys.forEach(key => {
+            //     searchForm.code_list[key].forEach(code => {
+            //       if (code === found) {
+            //         var matched = typesName[key].find(function (element) {
+            //           return element === found;
+            //         });
+            //         if (!matched) {
+            //           typesName[key].push(found);
+            //         }
+            //       } else {
+            //         var matched = typesName[key].find(function (element) {
+            //           return element === code;
+            //         });
+            //         if (!matched) {
+            //           typesName[key].push(code);
+            //         }
+            //       }
+            //     });
+            //   });
+            // }
+          }
+        }
+        // else if (this.monitorForm.value.codes.length > 0) {
+        //   var found: any = this.monitorForm.value.codes.find((element: any) => {
+        //     return element === id;
+        //   });
+        //   if (found) {
+        //     if (searchForm.code_list) {
+        //       var get_code_list_keys = Object.keys(searchForm.code_list);
+        //       get_code_list_keys.forEach(key => {
+        //         searchForm.code_list[key].forEach(code => {
+        //           if (code === found) {
+        //             var matched = typesName[key].find(function (element) {
+        //               return element === found;
+        //             });
+        //             if (!matched) {
+        //               typesName[key].push(found);
+        //             }
+        //           }
+        //         });
+        //       });
+        //     }
+        //   }
+        // }
+      });
+      for (let key in typesName) {
+        if (typesName[key].length === 0) {
+          delete typesName[key];
+        } else {
+          // Checking for unique code ids...
+          typesName[key] = _.uniqBy(typesName[key]);
+        }
+      }
+      // draft.codeList = typesName;
+      // draft.code_list = typesName;
+    }
+
+    // return draft;
+    console.log(typesName);
+  }
 
   public codesInput(value: string): void {
     this.codesInput$.next(value);
@@ -256,6 +352,7 @@ export class TenderEditComponent implements OnInit {
   }
 
   public submitTenderForm() {
+    this.formValueHandler(this.tenderForm.value)
     let tender = this.tenderForm.value;
     delete tender.organization_name;
 

@@ -12,12 +12,12 @@
                     <label [for]="key" class="col-form-label">
                         {{replaceUnderscore(key)}}
                         
-                        <span *ngIf="key === 'codes'" class="code-finder set-cursor"><a (click)="showCodeFinderPopup=true; callPopulate(codetype); addClassToBody()">Code Finder</a></span>
+                        <span *ngIf="key === 'codes'" class="code-finder set-cursor"><a>Code Finder</a></span>
                         
                     </label>
 
                     <div class="" *ngIf="key === 'description'">
-                        <textarea [formControlName]="key" rows="12" class="form-control" [id]="key" row="6" placeholder=""></textarea>
+                        <textarea [formControlName]="key" rows="6" class="form-control" [id]="key" placeholder=""></textarea>
                     </div>
 
                     <div class="" *ngIf="key !== 'description' && key !== 'codes' && key !== 'tender_urls' && numberType.indexOf(key)<0 && dateType.indexOf(key)<0">
