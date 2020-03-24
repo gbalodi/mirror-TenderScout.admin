@@ -31,7 +31,14 @@ const routes: Routes = [
                 path: 'edit/:id',
                 component: TenderEditComponent,
                 data: {
-                    title: 'Tenders Details'
+                    title: 'Tenders Edit'
+                }
+            },
+            {
+                path: 'create',
+                component: TenderEditComponent,
+                data: {
+                    title: 'Tenders Create'
                 }
             }
         ]

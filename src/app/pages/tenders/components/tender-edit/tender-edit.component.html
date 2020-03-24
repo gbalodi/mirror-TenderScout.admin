@@ -1,12 +1,13 @@
 <div class="card card-accent-primary">
     <div class="card-header">
-        <h3>Edit Tender Detaild</h3>
+        <h3> <span *ngIf="tender?.id"> Edit </span> Tender Details</h3>
+
     </div>
     <div class="card-body">
         <form [(formGroup)]="tenderForm">
 
-            <div class="row" *ngIf="tender">
-                <div class="col-xs-12 col-sm-6" *ngFor="let key of object.keys(this.tenderForm.value)">
+            <div class="row">
+                <div class="col-xs-12" *ngFor="let key of object.keys(this.tenderForm.value)" [ngClass]="(key === 'description' || key ==='title') ? 'col-sm-12' : 'col-sm-6'">
 
                     <label [for]="key" class="col-form-label">
                         {{replaceUnderscore(key)}}
@@ -16,14 +17,20 @@
                     </label>
 
                     <div class="" *ngIf="key === 'description'">
-                        <textarea [formControlName]="key" class="form-control" [id]="key" row="6" placeholder=""></textarea>
+                        <textarea [formControlName]="key" rows="12" class="form-control" [id]="key" row="6" placeholder=""></textarea>
                     </div>
 
-                    <div class="" *ngIf="key !== 'description' && key !== 'codes' && numberType.indexOf(key)<0 && dateType.indexOf(key)<0">
-                        <input type="text" [formControlName]="key" class="form-control" [id]="key" placeholder="">
+                    <div class="" *ngIf="key !== 'description' && key !== 'codes' && key !== 'tender_urls' && numberType.indexOf(key)<0 && dateType.indexOf(key)<0">
+                        <input type="text" [readOnly]="(key === 'organization_name' && tender?.id)? true : false" [formControlName]="key" class="form-control" [id]="key" placeholder="">
                     </div>
+
                     <div class="" *ngIf="key === 'codes'">
                         <ng-select id="codesDescription" [items]="industryCodes" bindLabel="codes" bindValue="codes" (keyup)="codesInput($event.target.value)" labelForId="state" [multiple]="true" placeholder="Search by Code" [hideSelected]="true" formControlName="codes" (ngModelChange)="setSearch($event)">
+                        </ng-select>
+                    </div>
+
+                    <div class="" *ngIf="key === 'tender_urls'">
+                        <ng-select id="tender_urls" [items]="[]" bindLabel="tender_urls" bindValue="tender_urls" labelForId="state" [multiple]="true" placeholder="Add Urls" [addTag]="true" [hideSelected]="true" formControlName="tender_urls">
                         </ng-select>
                     </div>
 
@@ -31,9 +38,29 @@
                         <input type="number" [formControlName]="key" class="form-control" [id]="key" placeholder="">
                     </div>
 
-                    <div class="" *ngIf="dateType.indexOf(key) >-1">
-                        <input type="text" class="form-control" #dp="bsDatepicker" [formControlName]="key" bsDatepicker [bsConfig]="bsConfig">
+                    <div class="input-group" *ngIf="dateType.indexOf(key) >-1">
+                        <input type="text" class="form-control" #dp="bsDatepicker" [formControlName]="key" bsDatepicker [bsConfig]="bsConfig" [attr.aria-label]="key" [attr.aria-describedby]="key">
+
+                        <div class="input-group-append" bsDatepicker>
+                            <span class="input-group-text" [id]="key">
+                                <i class="fas fa-calendar-alt"></i>
+                            </span>
+                        </div>
                     </div>
+
+
+
+                    <!-- <label for="email" class="col-form-label">Email:</label> -->
+                    <!-- <div class="input-group">
+                        <input type="text" class="form-control" formControlName="email" placeholder="" aria-label="email" aria-describedby="email">
+                        <div class="input-group-append">
+                            <span class="input-group-text" [ngClass]="{'disabled' : !userId, 'set-cursor' : userId}" id="email" (click)="userId ? (!editEmail ? editEmail=true : resetEmail()) : null">
+                                <i *ngIf="!editEmail" class="fas fa-edit"></i>
+                                <i *ngIf="editEmail" class="fas fa-undo"></i>
+                            </span>
+                        </div>
+                    </div> -->
+
 
                 </div>
 
@@ -41,8 +68,8 @@
 
             <div class="form-group row margin-t20">
                 <div class="col-12">
-                    <button type="submit" class="btn btn-primary">Create</button>
-                    <button class="btn btn-primary" (click)="submitTenderForm()">Update</button>
+                    <button *ngIf="!tender" type="submit" class="btn btn-primary" (click)="submitTenderForm()">Create</button>
+                    <button *ngIf="tender" class="btn btn-primary" (click)="submitTenderForm()">Update</button>
                     <a routerLink="/tenders/list" class="btn btn-secondary">Cancel</a>
                 </div>
             </div>

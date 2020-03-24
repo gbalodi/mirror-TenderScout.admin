@@ -115,37 +115,6 @@ export class TenderEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    //   {
-    //     "tender": {
-    //         "title": "Francesco",
-    //         "description": "Test",
-    //         "published_on": "",
-    //         "awarded_on": "",
-    //         "submission_date": "",
-    //         "deadline_date": "",
-    //         "cancelled_on": "",
-    //         "organization_name": "",
-    //         "tender_urls": ,
-    //         "answering_deadline": "",
-    //         "questioning_deadline": "",
-    //         "tender_cpvs_attributes": [
-    //             {
-    //                 "cpv_id": 14694,
-    //             }
-    //         ], 
-    //         "tender_naicses_attributes": [
-    //             {
-    //                 "naics_id": 3174
-    //             }
-    //         ]
-    //         "tender_unspsces_attributes": [
-    //             {
-    //                 "unspsc_id": 3174
-    //             }
-    //         ]
-    //     }
-    // }
-
     this.tenderForm = this.formBuilder.group({
       title: [''],
       description: [''],
@@ -156,10 +125,10 @@ export class TenderEditComponent implements OnInit {
       // award_value: [''],
       // winner_names: [''],
       // classification: [''],
-      tender_urls: [''],
+      tender_urls: [[]],
       // created_at: [''],
       submission_date: [''],
-      deadline_date: [''],
+      // deadline_date: [''],
       published_on: [''],
       awarded_on: [''],
       // re_tender_date: [''],
@@ -167,7 +136,7 @@ export class TenderEditComponent implements OnInit {
       questioning_deadline: [''],
       cancelled_on: [''],
       // industry: [''],
-      codes: [[]]
+      // codes: [[]]
     });
     this.activatedRoute.params.subscribe(param => {
       console.log(param);
@@ -188,10 +157,10 @@ export class TenderEditComponent implements OnInit {
             // award_value: this.tender.awardValue,
             // winner_names: this.tender.winnerNames,
             // classification: this.tender.classification,
-            tender_urls: this.tender.tenderUrls,
+            tender_urls: this.tender.tenderUrls ? this.tender.tenderUrls : [],
             // created_at: this.tender.createdAt,
-            // submission_date: this.tender.submissionDate,
-            deadline_date: this.tender.deadlineDate,
+            submission_date: this.tender.submissionDate,
+            // deadline_date: this.tender.deadlineDate,
             published_on: this.tender.publishedOn,
             awarded_on: this.tender.awardedOn,
             // re_tender_date: this.tender.reTenderDate,
@@ -199,7 +168,7 @@ export class TenderEditComponent implements OnInit {
             questioning_deadline: this.tender.questioning_deadline,
             cancelled_on: this.tender.cancelledOn,
             // industry: this.tender.industry !== "" ? this.tender.industry : null,
-            codes: []
+            // codes: []
           });
 
         }, error => {
@@ -287,7 +256,12 @@ export class TenderEditComponent implements OnInit {
   }
 
   public submitTenderForm() {
-    this.tenderService.updateTender(this.tender.id, { tender: this.tenderForm.value }).subscribe((res: any) => {
+    let tender = this.tenderForm.value;
+    delete tender.organization_name;
+
+    let method = this.tender.id ? 'updateTender' : 'createTender';
+
+    this.tenderService[method]({ tender: tender }, this.tender.id ? this.tender.id : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
     }, error => {
       console.error(error);
