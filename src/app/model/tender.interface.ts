@@ -4,7 +4,7 @@ import { ITenderContact } from "./tender-contact";
 import { ICodesType } from "./codes-type";
 
 export interface ITender {
-    id: number;
+  id: number;
   country: Country;
   country_name: string;
   average_score: number;
@@ -25,6 +25,7 @@ export interface ITender {
   published_on?: string;
   awarded_on?: string;
   retender_date?: string;
+  cancelled_on?: string;
   awards?: any;
   award_value?: string;
   region?: string;
@@ -50,8 +51,8 @@ export interface ITender {
   classification?: string;
   status?: string;
   city?: string;
-  questioning_deadline?: string;
   answering_deadline?: string;
+  questioning_deadline?: string;
   is_scrapped?: boolean;
   tender_urls?: string[];
   favourite?: boolean;

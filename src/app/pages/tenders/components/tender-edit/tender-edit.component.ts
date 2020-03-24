@@ -1,6 +1,5 @@
 import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TenderService } from '../../services/tender.service';
 import { TenderObj } from '../../../../model/tender-obj';
 import { FormGroup, FormBuilder } from '@angular/forms';
 import { IIndustryCode } from '../../../../../../../prehub/src/app/models/interfaces/industry-code.interface';
@@ -9,6 +8,12 @@ import { MainRequestService } from 'app/services/main-request.service';
 import { map, switchMap, mergeMap, debounceTime, distinctUntilChanged, pairwise } from 'rxjs/operators';
 import * as _ from 'lodash';
 import { DOCUMENT } from '@angular/common';
+import { TenderService } from '../../services/tender.service';
+import * as ic_cpvs from '../../../../ic_cpvs.json';
+import * as ic_naicses from '../../../../ic_naicses.json';
+import * as ic_unspsces from '../../../../ic_unspsces.json';
+
+
 declare var $: any;
 declare global {
   interface Window {
@@ -47,10 +52,11 @@ declare global {
 class abc {
   constructor(tender) {
     return {
+      id: tender.id,
       title: tender.title,
       description: tender.description,
       city: tender.city,
-      organization: tender.organization,
+      organizationName: tender.organizationName,
       estimatedHighValue: tender.estimatedHighValue,
       estimatedLowValue: tender.estimatedLowValue,
       awardValue: tender.awardValue,
@@ -59,9 +65,13 @@ class abc {
       tenderUrls: tender.tenderUrls ? tender.tenderUrls[0] : '',
       createdAt: tender.createdAt,
       submissionDate: tender.submissionDate,
+      deadlineDate: tender.deadlineDate,
       publishedOn: tender.publishedOn,
       awardedOn: tender.awardedOn,
       reTenderDate: tender.reTenderDate,
+      answeringDeadline: tender.answeringDeadline,
+      questioningDeadline: tender.questioningDeadline,
+      cancelledOn: tender.cancelledOn,
       industry: tender.industry ? tender.industry : '',
       codes: []
     }
@@ -69,7 +79,7 @@ class abc {
 };
 
 const NUMBER_TYPE: Array<string> = ['estimated_high_value', 'estimated_low_value', 'award_value'];
-const DATE_TYPE: Array<string> = ['created_at', 'submission_date', 'published_on', 'awarded_on', 're_tender_date'];
+const DATE_TYPE: Array<string> = ['created_at', 'submission_date', 'published_on', 'awarded_on', 're_tender_date', 'cancelled_on', 'deadline_date', 'answering_deadline', 'questioning_deadline'];
 
 @Component({
   selector: 'app-tender-edit',
@@ -88,6 +98,9 @@ export class TenderEditComponent implements OnInit {
   private codesInput$: Subject<string> = new Subject();
   private codes = [];
   public showCodeFinderPopup: boolean = false;
+  private ic_cpvs = ic_cpvs;
+  private ic_naicses = ic_naicses;
+  private ic_unspsces = ic_unspsces;
   public bsConfig: {
     dateInputFormat: 'DD/MM/YYYY'
   };
@@ -102,28 +115,64 @@ export class TenderEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    //   {
+    //     "tender": {
+    //         "title": "Francesco",
+    //         "description": "Test",
+    //         "published_on": "",
+    //         "awarded_on": "",
+    //         "submission_date": "",
+    //         "deadline_date": "",
+    //         "cancelled_on": "",
+    //         "organization_name": "",
+    //         "tender_urls": ,
+    //         "answering_deadline": "",
+    //         "questioning_deadline": "",
+    //         "tender_cpvs_attributes": [
+    //             {
+    //                 "cpv_id": 14694,
+    //             }
+    //         ], 
+    //         "tender_naicses_attributes": [
+    //             {
+    //                 "naics_id": 3174
+    //             }
+    //         ]
+    //         "tender_unspsces_attributes": [
+    //             {
+    //                 "unspsc_id": 3174
+    //             }
+    //         ]
+    //     }
+    // }
+
     this.tenderForm = this.formBuilder.group({
       title: [''],
       description: [''],
-      city: [''],
-      organization: [''],
-      estimated_high_value: [''],
-      estimated_low_value: [''],
-      award_value: [''],
-      winner_names: [''],
-      classification: [''],
+      // city: [''],
+      organization_name: [''],
+      // estimated_high_value: [''],
+      // estimated_low_value: [''],
+      // award_value: [''],
+      // winner_names: [''],
+      // classification: [''],
       tender_urls: [''],
-      created_at: [''],
+      // created_at: [''],
       submission_date: [''],
+      deadline_date: [''],
       published_on: [''],
       awarded_on: [''],
-      re_tender_date: [''],
-      industry: [''],
+      // re_tender_date: [''],
+      answering_deadline: [''],
+      questioning_deadline: [''],
+      cancelled_on: [''],
+      // industry: [''],
       codes: [[]]
     });
     this.activatedRoute.params.subscribe(param => {
       console.log(param);
       if (param.id) {
+
         this.tenderService.getTenderDetails(param.id).subscribe((res: TenderObj) => {
           console.log(res);
           let tender = new abc(res);
@@ -132,20 +181,24 @@ export class TenderEditComponent implements OnInit {
           this.tenderForm.patchValue({
             title: this.tender.title,
             description: this.tender.description,
-            city: this.tender.city,
-            organization: this.tender.organization,
-            estimated_high_value: this.tender.estimatedHighValue,
-            estimated_low_value: this.tender.estimatedLowValue,
-            award_value: this.tender.awardValue,
-            winner_names: this.tender.winnerNames,
-            classification: this.tender.classification,
+            // city: this.tender.city,
+            organization_name: this.tender.organizationName,
+            // estimated_high_value: this.tender.estimatedHighValue,
+            // estimated_low_value: this.tender.estimatedLowValue,
+            // award_value: this.tender.awardValue,
+            // winner_names: this.tender.winnerNames,
+            // classification: this.tender.classification,
             tender_urls: this.tender.tenderUrls,
-            created_at: this.tender.createdAt,
-            submission_date: this.tender.submissionDate,
+            // created_at: this.tender.createdAt,
+            // submission_date: this.tender.submissionDate,
+            deadline_date: this.tender.deadlineDate,
             published_on: this.tender.publishedOn,
             awarded_on: this.tender.awardedOn,
-            re_tender_date: this.tender.reTenderDate,
-            industry: this.tender.industry !== "" ? this.tender.industry : null,
+            // re_tender_date: this.tender.reTenderDate,
+            answering_deadline: this.tender.answeringDeadline,
+            questioning_deadline: this.tender.questioning_deadline,
+            cancelled_on: this.tender.cancelledOn,
+            // industry: this.tender.industry !== "" ? this.tender.industry : null,
             codes: []
           });
 
@@ -234,38 +287,7 @@ export class TenderEditComponent implements OnInit {
   }
 
   public submitTenderForm() {
-
-    //   {
-    //     "tender": {
-    //         "title": "Francesco",
-    //         "description": "Test",
-    //         "published_on": "",
-    //         "awarded_on": "",
-    //         "submission_date": "",
-    //         "deadline_date": "",
-    //         "cancelled_on": "",
-    //         "organization_name": "",
-    //         "tender_urls": ,
-    //         "answering_deadline": "",
-    //         "questioning_deadline": "",
-    //         "tender_cpvs_attributes": [
-    //             {
-    //                 "cpv_id": 14694,
-    //             }
-    //         ], 
-    //         "tender_naicses_attributes": [
-    //             {
-    //                 "naics_id": 3174
-    //             }
-    //         ]
-    //         "tender_unspsces_attributes": [
-    //             {
-    //                 "unspsc_id": 3174
-    //             }
-    //         ]
-    //     }
-    // }
-    this.tenderService.updateTender({ tender: this.tenderForm.value }).subscribe((res: any) => {
+    this.tenderService.updateTender(this.tender.id, { tender: this.tenderForm.value }).subscribe((res: any) => {
       res = JSON.parse(res);
     }, error => {
       console.error(error);
@@ -290,6 +312,17 @@ export class TenderEditComponent implements OnInit {
       }, 100);
     } else {
       this.document.body.classList.remove("fix-bg-flow");
+    }
+  }
+
+  /**
+  * Event to close opened popup...
+  * @param className
+  */
+  public closePopupEvent(className) {
+    if (className === "ng-tns-c8-0 overlay2") {
+      this.showCodeFinderPopup = false;
+      this.addClassToBody();
     }
   }
 
@@ -757,24 +790,28 @@ export class TenderEditComponent implements OnInit {
   public save() {
     this.selectedCodeFinderArray = [];
     let opts = window.MyNamespace.picklist,
-      textContent = this.tenderForm.controls["code"].value
-        ? this.tenderForm.controls["code"].value
+      textContent = this.tenderForm.controls["codes"].value
+        ? this.tenderForm.controls["codes"].value
         : [],
       arr = [];
     arr = this.tenderForm.controls["codes"].value
       ? this.tenderForm.controls["codes"].value
       : [];
     for (var i = 0; i < opts.length; i++) {
-      if (opts[i].value) {
-        arr.push(opts[i].value);
+      let value = opts[i].value;
+      if (value) {
+        arr.push(value);
         this.selectedCodeFinderArray.push(opts[i].value);
         textContent.push(opts[i].textContent);
       }
     }
-
-    this.codes = arr;
-    this.tenderForm.controls["code"].setValue(
-      _.uniqBy(textContent)
+    let arrCopy = []
+    arr.forEach(element => {
+      element.split(':').length > 1 ? arrCopy.push(element) : null;
+    });
+    this.codes = arrCopy;
+    this.tenderForm.controls["codes"].setValue(
+      _.uniqBy(arrCopy)
     );
     this.showCodeFinderPopup = false;
     this.addClassToBody();
@@ -812,54 +849,55 @@ export class TenderEditComponent implements OnInit {
   }
 
   public populate(fileName) {
-    this.tenderService.getJSON(fileName).subscribe((res: any) => {
-      this.codesOfFinder = res.codes;
-      window.MyNamespace = window.MyNamespace || {};
+    // console.log(this.example);
+    // this.tenderService.getJSON(fileName).subscribe((res: any) => {
+    this.codesOfFinder = this[fileName].codes;
+    window.MyNamespace = window.MyNamespace || {};
 
-      this.window.cb = new Object(); // Global
+    this.window.cb = new Object(); // Global
 
-      // Search Form
-      window.MyNamespace.searchtext = document.getElementById("searchtext");
-      window.MyNamespace.searchwhole = document.getElementById("searchwhole");
-      window.MyNamespace.resultslabel = document.getElementById("resultslabel");
-      window.MyNamespace.resultslist = document.getElementById("resultslist");
-      window.MyNamespace.resultsdiv = document.getElementById("resultsdiv");
-      window.MyNamespace.searchtext.onclick = window.MyNamespace.searchwhole.onclick = window.MyNamespace.searchtext.onkeyup = () => {
-        this.doSearch(window.MyNamespace.searchtext.value);
-      };
-      window.MyNamespace.resultslist.onchange = () => {
-        this.browseCodes(
-          window.MyNamespace.resultslist.options[
-            window.MyNamespace.resultslist.options.selectedIndex
-          ].value,
-          true
-        );
-      };
-      this.document.getElementById("searchclear").onclick = () => {
-        window.MyNamespace.searchtext.value = "";
-        this.doSearch("");
-      };
+    // Search Form
+    window.MyNamespace.searchtext = document.getElementById("searchtext");
+    window.MyNamespace.searchwhole = document.getElementById("searchwhole");
+    window.MyNamespace.resultslabel = document.getElementById("resultslabel");
+    window.MyNamespace.resultslist = document.getElementById("resultslist");
+    window.MyNamespace.resultsdiv = document.getElementById("resultsdiv");
+    window.MyNamespace.searchtext.onclick = window.MyNamespace.searchwhole.onclick = window.MyNamespace.searchtext.onkeyup = () => {
+      this.doSearch(window.MyNamespace.searchtext.value);
+    };
+    window.MyNamespace.resultslist.onchange = () => {
+      this.browseCodes(
+        window.MyNamespace.resultslist.options[
+          window.MyNamespace.resultslist.options.selectedIndex
+        ].value,
+        true
+      );
+    };
+    this.document.getElementById("searchclear").onclick = () => {
+      window.MyNamespace.searchtext.value = "";
+      this.doSearch("");
+    };
 
-      // Tree paths
-      window.MyNamespace.treelabel = this.document.getElementById("treelabel");
-      window.MyNamespace.treeview = this.document.getElementById("treeview");
+    // Tree paths
+    window.MyNamespace.treelabel = this.document.getElementById("treelabel");
+    window.MyNamespace.treeview = this.document.getElementById("treeview");
 
-      // Pick List
-      window.MyNamespace.picklist = this.document.getElementById("picklist");
-      window.MyNamespace.picklist.onchange = function () {
-        this.browseCodes(
-          window.MyNamespace.picklist.options[
-            window.MyNamespace.resultslist.options.selectedIndex
-          ].value,
-          true
-        );
-      };
+    // Pick List
+    window.MyNamespace.picklist = this.document.getElementById("picklist");
+    window.MyNamespace.picklist.onchange = function () {
+      this.browseCodes(
+        window.MyNamespace.picklist.options[
+          window.MyNamespace.resultslist.options.selectedIndex
+        ].value,
+        true
+      );
+    };
 
-      window.MyNamespace.submitform = this.document;
-      window.MyNamespace.submitcodes = document.getElementById("submitcodes");
+    window.MyNamespace.submitform = this.document;
+    window.MyNamespace.submitcodes = document.getElementById("submitcodes");
 
-      this.browseCodes("", undefined);
-    });
+    this.browseCodes("", undefined);
+    // });
   }
 
   // One-shot helper to determine which codes have children

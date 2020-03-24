@@ -4,3 +4,734 @@
     color: brown;
     margin-top: 12px;
 }
+
+
+/*****popup css starts here*****/
+
+.overlay1 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    // background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+    z-index: 99;
+}
+
+.overlay2 {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: visible;
+    opacity: 1;
+    z-index: 99;
+}
+
+.popup {
+    margin: 70px auto;
+    padding: 50px 0;
+    background: #fff;
+    border-radius: 5px;
+    width: 70%;
+    // transition: all 5s ease-in-out;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: 15%;
+    max-height: 350px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 1;
+}
+
+.popup .close {
+    position: absolute;
+    top: -18px;
+    right: -14px;
+    transition: all 200ms;
+    font-size: 28px;
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff;
+    background: #fb5d5d;
+    height: 40px;
+    width: 40px;
+    opacity: 1;
+    outline: none;
+    float: left;
+    padding: 5px;
+}
+
+.padd-space {
+    padding: 40px 0 0 0;
+}
+
+.content {
+    // display: flex;
+    // justify-content: center;
+    // align-items: center;
+    color: #ccc !important;
+    height: auto !important;
+}
+
+.popup_codesfinder .activity-holder.drag-bx {
+    padding: 0;
+    margin: 0;
+    box-shadow: none;
+    // background: url('../../../../../assets/img/dotted-bg.jpg');
+    background: transparent;
+}
+
+.activity-holder {
+    background: #fff;
+    float: left;
+    width: 100%;
+    margin: 15px 0 0;
+    // display: flex;
+    // flex-wrap: wrap;
+    height: 100%;
+    box-shadow: 0 8px 20px -8px rgba(0, 0, 0, 0.1);
+}
+
+.new-respository-holder {
+    padding: 30px 0;
+}
+
+.new-respository-holder .form-group {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.new-respository-holder label {
+    margin: 0 0 4px;
+}
+
+.new-respository-holder .form-group input,
+.new-respository-holder .form-group input.ng-touched.ng-invalid {
+    max-height: 38px;
+    border-color: rgba(151, 151, 151, 0.27);
+}
+
+.selectbx-999 label {
+    position: relative;
+    display: block;
+    padding: 0 10px;
+    line-height: 3em;
+    transition: background .3s;
+    cursor: pointer;
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid #ddd;
+    font-size: 12px;
+    color: #3f546f;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    margin: 0 0 4px;
+}
+
+ul,
+ul li {
+    list-style: none !important;
+}
+
+#browsetable input[type="checkbox"]+label:before {
+    float: left;
+    margin-left: -25px;
+}
+
+#browsetable input[type="checkbox"]:checked+label:before {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22 width%3D%2210%22 height%3D%227%22 viewBox%3D%220 0 10 7%22%3E %3Cpath fill%3D%22%23FFF%22 fill-rule%3D%22evenodd%22 d%3D%22M3.122 4.537L7.367.293a.996.996 0 0 1 1.412.001.999.999 0 0 1 .002 1.413L3.828 6.66a.996.996 0 0 1-1.413-.001L.294 4.537a.997.997 0 0 1 0-1.414.997.997 0 0 1 1.414 0l1.414 1.414z%22%2F%3E%3C%2Fsvg%3E");
+    background-repeat: no-repeat;
+    border: none;
+    background-color: #777777 !important;
+}
+
+#browsetable input[type="checkbox"]+label:before {
+    content: '';
+    vertical-align: -3px;
+    border-radius: 3px;
+    border: solid 1px rgba(206, 208, 218, 0.54);
+    background-color: #f7f9fb;
+    background-position: 4px 5px;
+    margin-right: 4px;
+}
+
+#browsetable input[type="checkbox"]+label:before,
+#browsetable input[type="radio"]+label:before {
+    display: inline-block;
+    content: '';
+    width: 16px;
+    height: 16px;
+    transition: 200ms;
+}
+
+.selected-code-holder {
+    /* float: left; */
+    /* width: 40%; */
+    background: #fff;
+    height: 100%;
+    border: 1px solid #ddd;
+    padding: 0 20px;
+}
+
+.pop-select-code-holder {
+    display: flex;
+    /* flex-wrap: wrap; */
+}
+
+.pop-drop-holder {
+    min-width: 35%;
+    margin-right: 30px;
+}
+
+.drop-input-holder {
+    display: flex;
+}
+
+.pop-drop-holder select {
+    width: 100%;
+    height: 38px;
+    margin-top: 32px;
+}
+
+.selected-code {
+    background-color: gainsboro;
+}
+
+.width35per button.btn {
+    padding: 10px 20px;
+    font-size: 12px;
+    background: transparent;
+    border: 1px solid #fff;
+    box-shadow: none;
+    border-radius: 6px;
+    margin-right: 0;
+    font-weight: 500;
+    width: 100%;
+}
+
+.width35per button.btn:hover {
+    background: #fff;
+    color: #222;
+}
+
+.pull-left.marginTop24 {
+    margin: 0;
+    float: left;
+    width: 100%;
+}
+
+#searchdiv .controlContainer.width45per {
+    width: 55%;
+    float: left;
+    padding: 0 15px;
+}
+
+#searchdiv #code_type {
+    float: left;
+    width: 100%;
+    padding: 14px 0;
+}
+
+#resultsdiv .drop-down-select {
+    float: left;
+    width: 100%;
+    margin-right: 0;
+}
+
+.clear-checkbx {
+    float: right;
+    width: 70%;
+    text-align: left;
+    padding-left: 15px;
+}
+
+.drop-down-select .search-cpv-label {
+    margin-bottom: 11px;
+}
+
+#resultslist {
+    width: 100%;
+    max-height: 45vh;
+    overflow-y: auto;
+    min-height: 44vh;
+    margin-top: 5px;
+    background: transparent;
+    border: none;
+}
+
+.clearfix.width100per {
+    float: left;
+    width: 100%;
+}
+
+.advanced-form.expanded label span a {
+    color: #bf53c5;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.form-fx-top {
+    .subheader {
+        width: 100%;
+        position: relative;
+        z-index: 999;
+    }
+}
+
+.popup.popup_codesfinder {
+    margin: 0 auto;
+    z-index: 21;
+    top: 50px;
+    height: auto;
+    min-height: auto;
+    padding: 0;
+    width: 85%;
+    max-height: 85vh;
+}
+
+.width35per.pull-right label h4 {
+    margin-top: 0;
+    font-size: 14px;
+    margin-bottom: 0;
+    color: #fff;
+}
+
+.clear-btn #searchclear {
+    padding: 11px 25px;
+    border-radius: 6px;
+    font-size: 14px;
+    background: #fff;
+    box-shadow: none;
+    color: #565656;
+    border: 1px solid #989898;
+    width: 100%;
+}
+
+.clear-btn #searchclear:hover {
+    background: #b052b3;
+    box-shadow: 0 3px 9px 0 rgba(219, 48, 48, 0.23);
+    color: #fff;
+    border: 1px solid #a044a2;
+}
+
+.clear-btn {
+    margin-left: 0;
+    float: left;
+    width: 40%;
+}
+
+.controlContainer.checkbox-inline.marginTop10 {
+    float: left;
+    width: 60%;
+}
+
+.check-disable {
+    cursor: not-allowed;
+    color: #b7b3b3;
+}
+
+.popup-bdy-holder {
+    background: #fff;
+    float: left;
+    width: 100%;
+    border: none;
+    padding-top: 0;
+}
+
+.width35per {
+    width: 33.3%;
+    float: left;
+    max-height: 84vh;
+    background: #b052b3;
+    padding: 45px 15px;
+    overflow-y: auto;
+}
+
+#resultsdiv {
+    float: left;
+    width: 33.3%;
+    margin-left: 0;
+    margin-bottom: 10px;
+    padding-top: 45px;
+}
+
+.width60per {
+    width: 33.3%;
+    float: left;
+    margin-right: 0;
+    margin-left: 0;
+    padding: 45px 15px 0;
+    position: relative;
+}
+
+#browsetable {
+    background: #fff;
+    overflow-y: auto;
+    border: 1px solid #a5a5a5;
+    min-height: auto;
+    max-height: 60vh;
+}
+
+.clear-checkbx #searchwhole {
+    margin: 0;
+}
+
+.form-to-vlu {
+    width: 100%;
+    display: inline-block;
+    margin: 5px 0 0 0;
+}
+
+.frm-select-box {
+    width: 49%;
+    display: inline-block;
+}
+
+.al-ryt {
+    float: right;
+}
+
+#industry {
+    margin-bottom: 10px;
+}
+
+.code-clear-btn {
+    width: 50%;
+    padding-right: 10px;
+    float: left;
+}
+
+.code-save-btn {
+    float: left;
+    width: 50%;
+}
+
+.width35per .code-save-btn button.btn {
+    background: #fff;
+    color: #222;
+}
+
+.width35per .code-save-btn button.btn:hover {
+    background: #682d8a;
+    color: #fff;
+    border-color: #682d8a;
+}
+
+.monitor-popup .activity-holder.drag-bx {
+    box-shadow: none;
+    padding: 0 25px;
+}
+
+.monitor-popup .close {
+    right: 25px;
+    top: 12px;
+    box-shadow: none;
+    color: #be54c4;
+    background: #f5f5f5;
+}
+
+.monitor-popup .close:hover {
+    color: #fff;
+    background: #fb5d5d;
+    box-shadow: 0 0 6px 3px inset rgba(0, 0, 0, 0.1) !important;
+}
+
+.controlContainer.checkbox-inline.marginTop10 label {
+    font-size: 14px;
+    color: #616161;
+}
+
+#resultsdiv #resultslabel,
+#treelabel,
+.width35per label {
+    min-height: 40px;
+    margin: 0;
+}
+
+#treeview {
+    float: left;
+    width: 100%;
+}
+
+.width60per #treelabel {
+    background: #666666;
+    color: #fff;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+}
+
+.use-checkbox {
+    font-size: 15px;
+    padding: 15px 20px 12px 8px;
+    line-height: 15px;
+    color: #222;
+    margin: 0;
+}
+
+
+/****Gurjant CSS starts here****/
+
+.popup.popup_codesfinder .close {
+    top: 30px !important;
+    right: 10px !important;
+    background: transparent !important;
+    box-shadow: none !important;
+    color: #fff !important;
+    font-size: 45px;
+    padding: 0;
+    line-height: 35px;
+    z-index: 1;
+}
+
+.popup.popup_codesfinder .close:hover {
+    color: #fb5d5d !important;
+    background: transparent !important;
+}
+
+.cancel-btn {
+    position: relative;
+}
+
+.anchor-crsr {
+    cursor: pointer;
+    color: #565656 !important;
+    background-color: #fff;
+    display: inline-block;
+    padding: 11px 20px;
+    margin: 0 0 0 8px;
+    font-weight: 500;
+    border-radius: 6px;
+    outline: none;
+    position: static;
+    border: 1px solid #989898;
+    background: transparent;
+    text-transform: capitalize;
+    text-decoration: none;
+    letter-spacing: 1px;
+    font-size: 13px;
+    min-width: 90px;
+    text-align: center;
+}
+
+.anchor-crsr:hover {
+    background: #b052b3;
+    box-shadow: 0 3px 9px 0 rgba(219, 48, 48, 0.23);
+    color: #fff !important;
+    border: 1px solid #a044a2;
+}
+
+.geo_select-holder {
+    float: left;
+    width: 260px;
+}
+
+.submit-wrap.edit-reset-holder {
+    float: left;
+    width: calc(100% - 260px);
+    text-align: right;
+}
+
+.submit.reset-btn {
+    margin: 0;
+}
+
+@media only screen and (max-width:1100px) {
+    #searchdiv {
+        background: white;
+        float: left;
+        width: 100%;
+        padding-left: 0;
+        padding-right: 0;
+    }
+    .drop-down-select {
+        float: left;
+        width: 100%;
+        margin-right: 10px;
+    }
+    #searchdiv .controlContainer.width45per {
+        width: 100%;
+        float: left;
+        padding: 0;
+    }
+    .pull-left.marginTop24 {
+        margin: 0;
+        float: left;
+        width: 100%;
+    }
+    .clear-btn {
+        margin-left: 0;
+    }
+    .clear-checkbx {
+        width: 100%;
+        padding: 10px 0 0;
+    }
+    .activity-holder.drag-bx .modal-body .clearfix.width100per {
+        margin-top: 20px;
+        padding: 0 15px;
+    }
+    #resultsdiv {
+        float: left;
+        width: 100%;
+        margin-left: 0;
+        margin-bottom: 10px;
+        padding-top: 45px;
+    }
+    .width60per {
+        width: 100%;
+        margin-right: 0;
+        margin-left: 0;
+        padding: 45px 0 0;
+    }
+    .width35per {
+        width: 100%;
+        padding: 45px 15px;
+        margin-top: 45px;
+    }
+    /****Gurjant media starts here****/
+    .popup.popup_codesfinder .close {
+        top: -20px !important;
+        right: 10px !important;
+        color: #b052b3 !important;
+    }
+}
+
+.set-nodata-found {
+    text-align: center;
+    font-size: 22px;
+}
+
+.monitor-placeholder {
+    text-align: center;
+    // position: absolute;
+    top: 45%;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    i {
+        &.monitor-icon {
+            // color: $colorDusk;
+            opacity: 0.4;
+            font-size: 62px;
+            margin-top: 0;
+            margin-bottom: 25px;
+        }
+    }
+    .description-title {
+        opacity: 0.4;
+        font-size: 24px;
+        font-weight: bold;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: 1.04;
+        letter-spacing: 0.1px;
+        // color: $colorDusk;
+    }
+    .description-text {
+        font-size: 16px;
+        font-weight: normal;
+        font-style: normal;
+        font-stretch: normal;
+        line-height: normal;
+        letter-spacing: normal;
+        text-align: center;
+        // color: $colorSlate;
+        margin: 16px 0 30px;
+    }
+}
+
+.change-open-to-close {
+    cursor: pointer;
+    color: blue;
+}
+
+.advanced-form.expanded select {
+    padding: 5px 20px;
+    width: 100%;
+    font-size: 14px;
+    color: #7d7d7d;
+    border-color: rgba(151, 151, 151, 0.27);
+    background: #fff;
+    height: 36px;
+    border-radius: 5px;
+}
+
+.advanced-form.expanded select .disabled-select {
+    cursor: not-allowed !important;
+}
+
+.advanced-form.expanded {
+    display: block;
+    margin-bottom: 10px;
+}
+
+.submit {
+    margin-bottom: 0 !important;
+}
+
+.edit-tender-holder {
+    .container {
+        padding-left: 15px;
+        padding-right: 20px;
+    }
+}
+
+.edit-tender-holder.collapsed-down {
+    padding-top: 10px;
+}
+
+.rt-lbl span {
+    float: right;
+}
+
+.edit-tender-holder {
+    padding-top: 0;
+    transition: 0.3s ease padding;
+}
+
+// @media only screen and (max-width:1500px) {
+//     .search-code-holder {
+//         margin-top: 22px;
+//     }
+// }
+@media only screen and (max-width:1200px) {
+    .submission-date,
+    .value {
+        margin-top: 30px;
+    }
+}
+
+@media only screen and (max-width:768px) {
+    .edit-close .material-icons {
+        color: #8341a9;
+    }
+    input {
+        color: #777;
+        background: #ffffff;
+        border: 1px solid #ddd;
+    }
+    .popup.popup_codesfinder .close {
+        top: 20px !important;
+    }
+    #resultslist {
+        max-height: 138px;
+        min-height: auto;
+    }
+    .width60per #treelabel {
+        color: #fff !important;
+    }
+    .width60per {
+        padding: 20px 0 0;
+    }
+}

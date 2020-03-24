@@ -48,5 +48,89 @@
             </div>
 
         </form>
+
+        <div [ngClass]="{'overlay2': showCodeFinderPopup===true}" (mouseup)="closePopupEvent($event.target.className)">
+            <div class="popup popup_codesfinder" *ngIf="showCodeFinderPopup===true">
+                <div class="cancel-btn">
+                    <button class="close" (click)="showCodeFinderPopup=false; addClassToBody()">×</button>
+                </div>
+                <div class="">
+
+                    <div class="drop-zone"></div>
+                    <div class="content">
+                        <div class="activity-holder drag-bx">
+                            <div class="popup-bdy-holder">
+                                <div class="row">
+                                    <div class="col-12">
+                                        <div class="modal-body">
+
+                                            <div class="clearfix width100per">
+                                                <div id="resultsdiv">
+
+                                                    <div class="drop-down-select">
+
+                                                        <app-select class="input-styles" id="industry" [(ngModel)]="codeTypeName" [ngModelOptions]="{standalone: true}" (ngModelChange)="callPopulate(codeTypeName)" placeholder="Please Select" [items]="['European Codes - CPV', 'US Codes - NAICS', 'UN Codes - UNSPSC']">
+                                                        </app-select>
+                                                    </div>
+
+                                                    <div class="controlContainer width45per">
+                                                        <label class="search-cpv-label" for="searchCPV">
+
+                                                    </label>
+                                                        <input id="searchtext" type="text" name="" class="inputBlue width100per" />
+                                                    </div>
+
+                                                    <div class="pull-left marginTop24">
+                                                        <div class="controlContainer checkbox-inline marginTop10">
+                                                            <input type="checkbox" id="searchwhole" />
+                                                            <label for="searchwhole">Exact Match</label>
+                                                        </div>
+                                                        <div class="clear-btn">
+                                                            <button type="button" id="searchclear" class="btn btn-default marginTop-7">Clear</button>
+                                                        </div>
+                                                    </div>
+
+                                                    <label for="searchresults" id="resultslabel"></label>
+                                                    <div class="lineGrey"></div>
+                                                    <select id="resultslist" size="8"></select>
+                                                </div>
+
+                                                <div class="width60per pull-left">
+
+                                                    <label for="treelabel" id="treelabel">Codes stemming from 00000000
+
+
+                                                </label>
+                                                    <div class="cpvContainer" id="browsetable">
+
+                                                        <p class="use-checkbox">
+                                                            <strong>Use the checkbox to add a code</strong> or click on a code to see sub-codes
+                                                        </p>
+                                                        <a title="Top" class="btn btn-default anchor-crsr" id="browsetop" (click)="browseCodes('')">Top</a>
+                                                        <div id="treeview"></div>
+                                                    </div>
+                                                </div>
+                                                <div class="width35per pull-right">
+                                                    <label for="picklist">
+                                                    <h4>Selected codes</h4>
+                                                </label>
+                                                    <select class="selectedCPV" id="picklist" multiple="multiple" size="10"></select>
+                                                    <div class="code-clear-btn">
+                                                        <button type="button" class="btn btn-danger" (click)="removeSelected()">Clear</button>
+                                                    </div>
+                                                    <div class="code-save-btn">
+                                                        <button type="button" class="btn btn-primary" (click)="save()">Save</button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>

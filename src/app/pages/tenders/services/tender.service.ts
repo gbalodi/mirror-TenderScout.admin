@@ -92,9 +92,12 @@ export class TenderService {
       res.published_on ? new Date(res.published_on) : null,
       res.awarded_on ? new Date(res.awarded_on) : null,
       res.retender_date ? new Date(res.retender_date) : null,
+      res.cancelled_on ? new Date(res.cancelled_on) : null,
       res.awards,
       res.award_value,
+      res.deadline_date,
       res.answering_deadline ? new Date(res.answering_deadline) : null,
+      res.questioning_deadline ? new Date(res.questioning_deadline) : null,
       res.keywords,
       res.naicses,
       res.ngips,
@@ -124,8 +127,8 @@ export class TenderService {
     )
   }
 
-  public updateTender(reqParam) {
-    return this.httpClient.patch('v2/admin/tenders', reqParam);
+  public updateTender(tenderId, reqParam) {
+    return this.httpClient.patch(`v2/admin/tenders/${tenderId}`, reqParam);
   }
 
   /**
