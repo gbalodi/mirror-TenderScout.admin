@@ -81,6 +81,16 @@ export class GroupsListComponent implements OnInit {
     })
   }
 
+  private _getOrbidalGroupDetails(groupId) {
+    this.orbidalGroupService.getOrbidalGroupDetails(groupId).subscribe((res: any) => {
+      res = JSON.parse(res);
+      let companyIds: Array<number> = _.map(res, 'id');
+      this.selectedCompanies = _.filter(this.companies, (company) => _.indexOf(companyIds, company.id) > -1);
+    }, error => {
+      console.error(error);
+    })
+  }
+
   /**
    * Open Modal for Create/Edit ORB Group...
    */
@@ -88,6 +98,10 @@ export class GroupsListComponent implements OnInit {
     this.editGroup = group ? group : null;
     this.ORBGroupForm.controls['name'].setValue(group ? group.name : null);
     this.createORBGroupModalRef = this.bsModalService.show(template, this.ngbModalOptions);
+    if (this.editGroup) {
+      this._getOrbidalGroupDetails(this.editGroup.id);
+    }
+    // console.log(_.filter(this.companies, ['id', 30]));
   }
 
   public openConfirmDeleteORBGroupModal(template: TemplateRef<any>, group: IOrbidalGroup) {
@@ -128,18 +142,18 @@ export class GroupsListComponent implements OnInit {
   }
 
   public includeCompaniesORBGroup() {
-    console.log(_.map(this.selectedCompanies, 'id'));
+    let companyIds: Array<number> = _.map(this.selectedCompanies, 'id');
 
     let criteria = {
       company: {
-        company_id: [1, 2, 3]
+        company_id: companyIds
       }
     };
-    // this.orbidalGroupService.includeCompaniesORBGroup(this.editGroup.id, criteria).subscribe((res: any) => {
-    //   res = JSON.parse(res);
-    // }, error => {
-    //   console.error(error);
-    // })
+    this.orbidalGroupService.includeCompaniesORBGroup(this.editGroup.id, criteria).subscribe((res: any) => {
+      res = JSON.parse(res);
+    }, error => {
+      console.error(error);
+    });
   }
 
   public onItemSelect(item: any) {

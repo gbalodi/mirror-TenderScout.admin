@@ -112,7 +112,7 @@ export class CreateUserComponent implements OnInit {
                             last_name: res.last_name,
                         },
                         profiles_attributes: {
-                            id: this.userId,
+                            id: profiles.id ? profiles.id : undefined,
                             city: profiles ? profiles.city : '',
                             company_size: profiles ? profiles.company_size : '',
                             country_id: profiles ? (profiles.country ? profiles.country.id : '') : [],
@@ -214,9 +214,7 @@ export class CreateUserComponent implements OnInit {
             }
         });
 
-        let res = { ...this.profileForm.value };
-
-        res.profiles_attributes = [res.profiles_attributes];
+        let res = this._makeCriteria();
 
         res.user.password === "" ? delete res.user.password : null
 
@@ -227,15 +225,35 @@ export class CreateUserComponent implements OnInit {
     }
 
     public updateUser() {
-        let res = { ...this.profileForm.value };
-        res.profiles_attributes = [res.profiles_attributes];
+        let res = this._makeCriteria();
 
         res.user.password === "" ? delete res.user.password : null
-        this.request.putData(`v2/admin/users/${this.userId}`, res).subscribe((res: any) => {
+        this.request.patchData(`v2/admin/users/${this.userId}`, res).subscribe((res: any) => {
             res = JSON.parse(res)
             this.toasterService.success(res.success, 'Success');
         }, error => {
             this.toasterService.error('Ooops, error', 'Try again');
         });
+    }
+
+    private _makeCriteria() {
+        let res = this.profileForm.value;
+        !res.profiles_attributes.id ? delete res.profiles_attributes.id : null;
+        delete res.profiles_attributes.user_id;
+        res.profiles_attributes.fullname = res.user.first_name + (res.user.last_name ? ' ' + res.user.last_name : '');
+        res.profiles_attributes.contacts_attributes = res.contacts_attributes;
+        return {
+            user: {
+                email: res.user.email,
+                password: res.user.password,
+                role: res.user.role,
+                marketplace_status: res.user.marketplace_status,
+                assistance_credits: res.user.assistance_credits,
+                fullname: res.user.first_name + (res.user.last_name ? ' ' + res.user.last_name : ''),
+                first_name: res.user.first_name,
+                last_name: res.user.last_name,
+                profiles_attributes: [res.profiles_attributes]
+            }
+        }
     }
 }
