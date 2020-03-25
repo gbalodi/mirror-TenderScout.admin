@@ -9,9 +9,9 @@ import { map, switchMap, mergeMap, debounceTime, distinctUntilChanged, pairwise 
 import * as _ from 'lodash';
 import { DOCUMENT } from '@angular/common';
 import { TenderService } from '../../services/tender.service';
-import * as ic_cpvs from '../../../../ic_cpvs.json';
-import * as ic_naicses from '../../../../ic_naicses.json';
-import * as ic_unspsces from '../../../../ic_unspsces.json';
+// import * as ic_cpvs from '../../../../ic_cpvs.json';
+// import * as ic_naicses from '../../../../ic_naicses.json';
+// import * as ic_unspsces from '../../../../ic_unspsces.json';
 
 
 declare var $: any;
@@ -99,9 +99,9 @@ export class TenderEditComponent implements OnInit {
   private codesInput$: Subject<string> = new Subject();
   private codes = [];
   public showCodeFinderPopup: boolean = false;
-  private ic_cpvs = ic_cpvs;
-  private ic_naicses = ic_naicses;
-  private ic_unspsces = ic_unspsces;
+  // private ic_cpvs = ic_cpvs;
+  // private ic_naicses = ic_naicses;
+  // private ic_unspsces = ic_unspsces;
   public bsConfig: {
     dateInputFormat: 'DD/MM/YYYY'
   };
@@ -242,7 +242,6 @@ export class TenderEditComponent implements OnInit {
         id = id.split(': ')[0];
         let searchForm = {};
         var found: any = this.copyIndustryCodes.find((element: any) => {
-          element = element.split(': ')[0];
           return element.code === id;
         });
         if (found) {
@@ -315,6 +314,7 @@ export class TenderEditComponent implements OnInit {
 
     // return draft;
     console.log(typesName);
+    return typesName;
   }
 
   public codesInput(value: string): void {
@@ -352,11 +352,27 @@ export class TenderEditComponent implements OnInit {
   }
 
   public submitTenderForm() {
-    this.formValueHandler(this.tenderForm.value)
+    let codesType = this.formValueHandler(this.tenderForm.value);
     let tender = this.tenderForm.value;
     delete tender.organization_name;
 
     let method = this.tender.id ? 'updateTender' : 'createTender';
+
+    // "tender_cpvs_attributes": [
+    //   {
+    //   "cpv_id": 14694,
+    //   }
+    //   ],
+    //   "tender_naicses_attributes": [
+    //   {
+    //   "naics_id": 3174
+    //   }
+    //   ]
+    //   "tender_unspsces_attributes": [
+    //   {
+    //   "unspsc_id": 3174
+    //   }
+    //   ]"
 
     this.tenderService[method]({ tender: tender }, this.tender.id ? this.tender.id : undefined).subscribe((res: any) => {
       res = JSON.parse(res);

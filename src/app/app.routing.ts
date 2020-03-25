@@ -51,6 +51,10 @@ export const routes: Routes = [
         loadChildren: "./pages/documents/documents.module#DocumentsModule"
       },
       {
+        path: "orbidal-group",
+        loadChildren: "./pages/orbidal-group/orbidal-group.module#OrbidalGroupModule"
+      },
+      {
         path: "training-documents",
         loadChildren: "./pages/training-documents/training-documents.module#TrainingDocumentsModule"
       },

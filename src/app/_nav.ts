@@ -96,6 +96,11 @@ export const navigation = [
         icon: 'fas fa-list-ul',
     },
     {
+        name: 'Orbidal Group',
+        url: '/orbidal-group',
+        icon: 'fas fa-users',
+    },
+    {
         name: 'Training Docs',
         url: '/training-documents',
         icon: 'fas fa-list-alt'

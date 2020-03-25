@@ -216,6 +216,8 @@ export class CreateUserComponent implements OnInit {
 
         let res = { ...this.profileForm.value };
 
+        res.profiles_attributes = [res.profiles_attributes];
+
         res.user.password === "" ? delete res.user.password : null
 
         this.request.postData('v2/admin/users', res).subscribe((res: any) => {
@@ -226,6 +228,7 @@ export class CreateUserComponent implements OnInit {
 
     public updateUser() {
         let res = { ...this.profileForm.value };
+        res.profiles_attributes = [res.profiles_attributes];
 
         res.user.password === "" ? delete res.user.password : null
         this.request.putData(`v2/admin/users/${this.userId}`, res).subscribe((res: any) => {
