@@ -167,4 +167,11 @@ export class CompanyService {
   public getCompaniesContact(data, page) {
     return this.httpClient.get(`v2/contacts?contact[country_ids]=${data.country_ids}&contact[company_names]=${data.company_names}&page=${page}&page_size=20`);
   }
+
+  /**
+   * API server call to get all Companies Statistics....
+   */
+  public getCompanyStatistics(filter) {
+    return this.httpClient.post(`v2/admin/companies/company_statistics`, filter);
+  }
 }

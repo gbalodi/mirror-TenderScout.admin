@@ -42,7 +42,7 @@
                                     <!-- <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p> -->
                                 </div>
                                 <p *ngIf="existsEmail" class="exist-email"> Email already exist! </p>
-                                <p *ngIf="profileForm.controls['user'].controls['email'].invalid" class="exist-email"> No a valid Email Id! </p>
+                                <p *ngIf="profileForm.controls['user'].controls['email'].invalid" class="exist-email"> Not a valid Email Id! </p>
 
                             </div>
 
@@ -243,7 +243,8 @@
                                     <div *ngIf="contact.value.contact_type == type">
                                         <div class="contact-line" [formGroupName]="i">
                                             <!-- <input class="form-control" type="{{(type == 'phone') ? 'tel' : 'email'}}" formControlName="value"> -->
-                                            <input class="form-control" type="text" formControlName="value" value="{{contact.value.value}}" [placeholder]="contact.value.contact_type">
+                                            <input class="form-control" [type]="contact.value.contact_type === 'email' ? 'email' : 'text'" formControlName="value" value="{{contact.value.value}}" [placeholder]="contact.value.contact_type">
+                                            <p *ngIf="contact.value.contact_type === 'email'" class="exist-email"> {{ emailValidateCheck(contact.value.value)}} </p>
                                         </div>
                                     </div>
                                 </div>

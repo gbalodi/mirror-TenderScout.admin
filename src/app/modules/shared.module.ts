@@ -25,6 +25,7 @@ import { MessageComponent } from './components/chat-box/message/message.componen
 import { MessageTypeComponent } from './components/chat-box/message-type/message-type.component';
 import { CustomTitlePipe } from 'app/pipe/custom-title.pipe';
 import { WebSocketService } from 'app/services/web-socket.service';
+// import { CustomTosterComponent } from './components/custom-toster/custom-toster.component';
 
 @NgModule({
     imports: [
@@ -83,7 +84,8 @@ import { WebSocketService } from 'app/services/web-socket.service';
         ChatBoxComponent,
         MessageComponent,
         MessageTypeComponent,
-        CustomTitlePipe
+        CustomTitlePipe,
+        // CustomTosterComponent
     ],
 })
 export class SharedModule { }

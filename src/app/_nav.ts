@@ -115,18 +115,23 @@ export const navigation = [
         url: '/ingestors/list',
         icon: 'fa fa-indent',
     },
-    // {
+    {
 
-    //     name: 'Companies',
-    //     icon: 'fas fa-users-cog',
-    //     children: [
-    //         {
-    //             name: 'Companies list',
-    //             url: '/companies/list',
-    //             icon: 'fas fa-users',
-    //         }
-    //     ]
-    // }, 
+        name: 'Companies',
+        icon: 'fas fa-users-cog',
+        children: [
+            // {
+            //     name: 'Companies list',
+            //     url: '/companies/list',
+            //     icon: 'fas fa-users',
+            // },
+            {
+                name: 'Companies Statistics',
+                url: '/companies/statistics',
+                icon: 'fas fa-chart-bar',
+            }
+        ]
+    }, 
     {
         name: 'Companies-Contacts',
         url: '/companies-contacts',

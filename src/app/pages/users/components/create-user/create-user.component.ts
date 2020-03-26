@@ -112,7 +112,7 @@ export class CreateUserComponent implements OnInit {
                             last_name: res.last_name,
                         },
                         profiles_attributes: {
-                            id: profiles.id ? profiles.id : undefined,
+                            id: profiles ? profiles.id : undefined,
                             city: profiles ? profiles.city : '',
                             company_size: profiles ? profiles.company_size : '',
                             country_id: profiles ? (profiles.country ? profiles.country.id : '') : [],
@@ -255,5 +255,21 @@ export class CreateUserComponent implements OnInit {
                 profiles_attributes: [res.profiles_attributes]
             }
         }
+    }
+
+    public emailValidateCheck(email) {
+        let isValid = true;
+        try {
+            const name = email;
+            const regex = new RegExp(
+                "^([\\w-]+(?:\\.[\\w-]+)*)@((?:[\\w-]+\\.)*\\w[\\w-]{0,66})\\.([A-Za-z]{2,6}(?:\\.[A-Za-z]{2,6})?)$"
+            );
+            if (!regex.test(name) && name !== "" && name !== null) {
+                isValid = false;
+            }
+        } catch {
+            isValid = false;
+        }
+        return isValid ? null : 'Not a valid Email Id!';
     }
 }

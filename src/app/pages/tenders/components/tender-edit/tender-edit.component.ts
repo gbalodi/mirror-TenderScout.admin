@@ -73,7 +73,9 @@ class abc {
       questioningDeadline: tender.questioningDeadline,
       cancelledOn: tender.cancelledOn,
       industry: tender.industry ? tender.industry : '',
-      codes: []
+      unspsces: tender.unspsces,
+      cpvs: tender.cpvs,
+      naicses: tender.naicses
     }
   }
 };
@@ -99,6 +101,7 @@ export class TenderEditComponent implements OnInit {
   private codesInput$: Subject<string> = new Subject();
   private codes = [];
   public showCodeFinderPopup: boolean = false;
+  private codesTypesName: any;
   // private ic_cpvs = ic_cpvs;
   // private ic_naicses = ic_naicses;
   // private ic_unspsces = ic_unspsces;
@@ -148,6 +151,19 @@ export class TenderEditComponent implements OnInit {
           let tender = new abc(res);
           this.tender = tender;
 
+          // unspsces: []
+          // cpvs: [{ id: 10408, description: "Building construction work.", type: "ic_cpvs", code: "45210000" }]
+          // naicses: []
+
+          let codeTypes: Array<string> = ['unspsces', 'cpvs', 'naicses'];
+          let codes: Array<string> = [];
+          codeTypes.forEach(key => {
+            if (tender[key].length > 0) {
+              console.log(_.map(tender[key], (code) => { return code.code + ': ' + code.description }))
+              codes = [...codes, ..._.map(tender[key], (code) => { return code.code + ': ' + code.description })]
+            }
+          });
+
           this.tenderForm.patchValue({
             title: this.tender.title,
             description: this.tender.description,
@@ -166,7 +182,7 @@ export class TenderEditComponent implements OnInit {
             questioning_deadline: this.tender.questioning_deadline,
             cancelled_on: this.tender.cancelledOn,
             // industry: this.tender.industry !== "" ? this.tender.industry : null,
-            codes: []
+            codes: codes
           });
 
         }, error => {
@@ -240,12 +256,12 @@ export class TenderEditComponent implements OnInit {
       };
       formValue.codes.map((id: string) => {
         id = id.split(': ')[0];
-        let searchForm = {};
+        // let searchForm = {};
         var found: any = this.copyIndustryCodes.find((element: any) => {
           return element.code === id;
         });
         if (found) {
-          typesName[found.type].push(found.code.toString());
+          typesName[found.type].push(found.id);
         } else if (this.selectedCodeFinderArray.length > 0) {
           var found: any = this.selectedCodeFinderArray.find((element: any) => {
             return element === id;
@@ -277,28 +293,48 @@ export class TenderEditComponent implements OnInit {
             // }
           }
         }
-        // else if (this.monitorForm.value.codes.length > 0) {
-        //   var found: any = this.monitorForm.value.codes.find((element: any) => {
-        //     return element === id;
-        //   });
-        //   if (found) {
-        //     if (searchForm.code_list) {
-        //       var get_code_list_keys = Object.keys(searchForm.code_list);
-        //       get_code_list_keys.forEach(key => {
-        //         searchForm.code_list[key].forEach(code => {
-        //           if (code === found) {
-        //             var matched = typesName[key].find(function (element) {
-        //               return element === found;
-        //             });
-        //             if (!matched) {
-        //               typesName[key].push(found);
-        //             }
-        //           }
-        //         });
-        //       });
-        //     }
-        //   }
-        // }
+        else if (this.tenderForm.value.codes.length > 0) {
+          var found: any = this.tenderForm.value.codes.find((element: any) => {
+            return element.split(': ')[0] === id;
+          });
+          if (found) {
+            let codeTypes: Array<string> = ['unspsces', 'cpvs', 'naicses'];
+            // let codes: Array<string> = [];
+            codeTypes.forEach(key => {
+              if (this.tender[key].length > 0) {
+                // console.log(_.map(this.tender[key], (code) => { return code.id + ': ' + code.description }))
+                found = _.find(this.tender[key], (code) => parseInt(code.code) === parseInt(id))
+                if (found) {
+                  typesName[found.type].push(found.id)
+                }
+              }
+            });
+          }
+        }
+
+        if (this.codesTypesName) {
+          let get_code_list_keys = Object.keys(this.codesTypesName);
+          get_code_list_keys.forEach(key => {
+            this.codesTypesName[key].forEach(code => {
+              code; id;
+              // if (code === id) {
+              //   var matched = typesName[key].find(function (element) {
+              //     return element === found;
+              //   });
+              //   if (!matched) {
+              //     typesName[key].push(found);
+              //   }
+              // } else {
+              //   var matched = typesName[key].find(function (element) {
+              //     return element === code;
+              //   });
+              //   if (!matched) {
+              //     typesName[key].push(code);
+              //   }
+              // }
+            });
+          });
+        }
       });
       for (let key in typesName) {
         if (typesName[key].length === 0) {
@@ -314,6 +350,7 @@ export class TenderEditComponent implements OnInit {
 
     // return draft;
     console.log(typesName);
+    this.codesTypesName = typesName;
     return typesName;
   }
 
@@ -353,26 +390,30 @@ export class TenderEditComponent implements OnInit {
 
   public submitTenderForm() {
     let codesType = this.formValueHandler(this.tenderForm.value);
-    let tender = this.tenderForm.value;
+    let tender = {...this.tenderForm.value};
     delete tender.organization_name;
 
     let method = this.tender.id ? 'updateTender' : 'createTender';
 
-    // "tender_cpvs_attributes": [
+    tender.tender_cpvs_attributes = _.map(codesType['ic_cpvs'], (code) => { return { cpv_id: code } });
+    // [
     //   {
-    //   "cpv_id": 14694,
+    //     cpv_id: 14694,
     //   }
-    //   ],
-    //   "tender_naicses_attributes": [
+    // ];
+    tender.tender_naicses_attributes = _.map(codesType['ic_naicses'], (code) => { return { naics_id: code } });
+    // [
     //   {
-    //   "naics_id": 3174
+    //     naics_id: 3174
     //   }
-    //   ]
-    //   "tender_unspsces_attributes": [
+    // ];
+    tender.tender_unspsces_attributes = _.map(codesType['ic_unspsces'], (code) => { return { naics_id: code } });
     //   {
-    //   "unspsc_id": 3174
+    //     unspsc_id: 3174
     //   }
-    //   ]"
+    // ]
+
+    delete tender.codes;
 
     this.tenderService[method]({ tender: tender }, this.tender.id ? this.tender.id : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
@@ -937,54 +978,54 @@ export class TenderEditComponent implements OnInit {
 
   public populate(fileName) {
     // console.log(this.example);
-    // this.tenderService.getJSON(fileName).subscribe((res: any) => {
-    this.codesOfFinder = this[fileName].codes;
-    window.MyNamespace = window.MyNamespace || {};
+    this.tenderService.getJSON(fileName).subscribe((res: any) => {
+      this.codesOfFinder = res.codes;
+      window.MyNamespace = window.MyNamespace || {};
 
-    this.window.cb = new Object(); // Global
+      this.window.cb = new Object(); // Global
 
-    // Search Form
-    window.MyNamespace.searchtext = document.getElementById("searchtext");
-    window.MyNamespace.searchwhole = document.getElementById("searchwhole");
-    window.MyNamespace.resultslabel = document.getElementById("resultslabel");
-    window.MyNamespace.resultslist = document.getElementById("resultslist");
-    window.MyNamespace.resultsdiv = document.getElementById("resultsdiv");
-    window.MyNamespace.searchtext.onclick = window.MyNamespace.searchwhole.onclick = window.MyNamespace.searchtext.onkeyup = () => {
-      this.doSearch(window.MyNamespace.searchtext.value);
-    };
-    window.MyNamespace.resultslist.onchange = () => {
-      this.browseCodes(
-        window.MyNamespace.resultslist.options[
-          window.MyNamespace.resultslist.options.selectedIndex
-        ].value,
-        true
-      );
-    };
-    this.document.getElementById("searchclear").onclick = () => {
-      window.MyNamespace.searchtext.value = "";
-      this.doSearch("");
-    };
+      // Search Form
+      window.MyNamespace.searchtext = document.getElementById("searchtext");
+      window.MyNamespace.searchwhole = document.getElementById("searchwhole");
+      window.MyNamespace.resultslabel = document.getElementById("resultslabel");
+      window.MyNamespace.resultslist = document.getElementById("resultslist");
+      window.MyNamespace.resultsdiv = document.getElementById("resultsdiv");
+      window.MyNamespace.searchtext.onclick = window.MyNamespace.searchwhole.onclick = window.MyNamespace.searchtext.onkeyup = () => {
+        this.doSearch(window.MyNamespace.searchtext.value);
+      };
+      window.MyNamespace.resultslist.onchange = () => {
+        this.browseCodes(
+          window.MyNamespace.resultslist.options[
+            window.MyNamespace.resultslist.options.selectedIndex
+          ].value,
+          true
+        );
+      };
+      this.document.getElementById("searchclear").onclick = () => {
+        window.MyNamespace.searchtext.value = "";
+        this.doSearch("");
+      };
 
-    // Tree paths
-    window.MyNamespace.treelabel = this.document.getElementById("treelabel");
-    window.MyNamespace.treeview = this.document.getElementById("treeview");
+      // Tree paths
+      window.MyNamespace.treelabel = this.document.getElementById("treelabel");
+      window.MyNamespace.treeview = this.document.getElementById("treeview");
 
-    // Pick List
-    window.MyNamespace.picklist = this.document.getElementById("picklist");
-    window.MyNamespace.picklist.onchange = function () {
-      this.browseCodes(
-        window.MyNamespace.picklist.options[
-          window.MyNamespace.resultslist.options.selectedIndex
-        ].value,
-        true
-      );
-    };
+      // Pick List
+      window.MyNamespace.picklist = this.document.getElementById("picklist");
+      window.MyNamespace.picklist.onchange = function () {
+        this.browseCodes(
+          window.MyNamespace.picklist.options[
+            window.MyNamespace.resultslist.options.selectedIndex
+          ].value,
+          true
+        );
+      };
 
-    window.MyNamespace.submitform = this.document;
-    window.MyNamespace.submitcodes = document.getElementById("submitcodes");
+      window.MyNamespace.submitform = this.document;
+      window.MyNamespace.submitcodes = document.getElementById("submitcodes");
 
-    this.browseCodes("", undefined);
-    // });
+      this.browseCodes("", undefined);
+    });
   }
 
   // One-shot helper to determine which codes have children

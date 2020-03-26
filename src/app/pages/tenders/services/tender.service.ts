@@ -45,7 +45,7 @@ export class TenderService {
       res.awards,
       res.award_value,
       res.deadline_date,
-      res.naicses,
+      res.naicses, // 'unspsces', 'cpvs', 'naicses'
       res.ngips,
       res.nhs_e_classes,
       res.pro_classes,

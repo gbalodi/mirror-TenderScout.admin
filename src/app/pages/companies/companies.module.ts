@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
+import { CompaniesStatisticsComponent } from './components/companies-statistics/companies-statistics.component';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { Ng2SmartTableModule } from 'ng2-smart-table';
   declarations: [
     CompaniesListComponent,
     CreateCompanyComponent,
-    TenderCompaniesInfoListComponent
+    TenderCompaniesInfoListComponent,
+    CompaniesStatisticsComponent
   ]
 })
 export class CompaniesModule { }

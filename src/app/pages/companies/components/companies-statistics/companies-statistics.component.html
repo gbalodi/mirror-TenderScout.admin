@@ -1,0 +1,85 @@
+<div class="com-tndr-lsthldr">
+
+    <!-- <div class="exp_csvbtn-holder">
+      <button (click)="getCSV()" class="btn btn-primary">Export CSV</button>
+
+      <a #abc csvLink filename="User-Statistics.csv" [data]="csvData" style="visibility: hidden;width: 1px !important;display: inline-block;">Download</a>
+  </div> -->
+
+    <!-- For filter -->
+    <div class="com-tndr-formhldr">
+
+        <form [formGroup]="statisticFilterForm" novalidate>
+            <div class="row top-bar">
+                <div class="col-md-5">
+                    <input type="text" formControlName="search_text" (input)="page=1" placeholder="Search by username/email" class="form-control">
+                </div>
+
+                <div class="col-md-5">
+                    <!-- <label for="days" class="col-form-label">Days:</label> -->
+                    <select class="form-control" id="days" formControlName="days">
+                  <option value="all">All Days</option >
+                  <option value="30">Past 30 days</option >
+                  <option value="60"> Past 60 days</option >
+                  <option value="90" > Past 90 days</option >
+              </select>
+
+                    <!-- <input id="all" name="days" type="radio" formControlName="days" value=""> -->
+                    <!-- <label for="all" class="radio-label">ALL</label> -->
+                </div>
+
+                <!-- <div class="radio">
+              <input id="30days" name="days" type="radio" formControlName="days" value="30">
+              <label for="30days" class="radio-label">Past 30 Days</label>
+          </div> -->
+
+                <div class="col-md-2"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
+            </div>
+        </form>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index" (click)="setSortEventHandler(item)">
+                        {{item.title}}
+                        <span *ngIf="i>0"><span class="set-cursor"
+              *ngIf="statisticFilterForm.controls[item.key].value === '' || statisticFilterForm.controls[item.key].value === 'asc'"><i
+                class="fa fa-arrow-up" aria-hidden="true"></i></span><span class="set-cursor" *ngIf="statisticFilterForm.controls[item.key].value === 'desc'"><i class="fa fa-arrow-down"
+                aria-hidden="true"></i></span>
+                        </span>
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let item of companiesStatistics | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
+                    <td>{{item.full_name}} <span class="email-set">{{'<' + item.email + '>'}}</span> </td>
+                    <td>{{item.company}}</td>
+                    <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
+                    <td>{{item.tenders_submitted}}</td>
+                    <td>{{item.moved_to_compete}}</td>
+                    <td>{{item.move_to_qualify}}</td>
+                    <td>{{item.added_to_perform}}</td>
+                    <td>{{item.login_sessions}}</td>
+                    <td>{{item.emails_sent}}</td>
+                    <td>{{item.emails_opened}}</td>
+                    <td>{{item.monitors_count}}</td>
+                    <td>{{item.searches_executed}}</td>
+                    <td>{{item.support_requests}}</td>
+                    <td>{{item.tenders_viewed}}</td>
+                    <td>{{item.blocks_created}}</td>
+                    <td>{{item.bid_hub_docs_downloaded}}</td>
+                    <td>{{item.bid_academy_docs_downloaded}}</td>
+                </tr>
+            </tbody>
+            <span *ngIf="companiesStatistics.length === 0">No Data Found!</span>
+
+        </table>
+    </div>
+
+    <div class="marketplace-pagi-holder" *ngIf="totalData>0">
+        <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next" screenReaderCurrentLabel="You're on page">
+        </pagination-controls>
+    </div>
+</div>

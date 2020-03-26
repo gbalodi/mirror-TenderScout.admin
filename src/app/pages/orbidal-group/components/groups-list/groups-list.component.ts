@@ -84,7 +84,7 @@ export class GroupsListComponent implements OnInit {
   private _getOrbidalGroupDetails(groupId) {
     this.orbidalGroupService.getOrbidalGroupDetails(groupId).subscribe((res: any) => {
       res = JSON.parse(res);
-      let companyIds: Array<number> = _.map(res, 'id');
+      let companyIds: Array<number> = _.map(res.companies, 'id');
       this.selectedCompanies = _.filter(this.companies, (company) => _.indexOf(companyIds, company.id) > -1);
     }, error => {
       console.error(error);
@@ -98,15 +98,16 @@ export class GroupsListComponent implements OnInit {
     this.editGroup = group ? group : null;
     this.ORBGroupForm.controls['name'].setValue(group ? group.name : null);
     this.createORBGroupModalRef = this.bsModalService.show(template, this.ngbModalOptions);
-    if (this.editGroup) {
-      this._getOrbidalGroupDetails(this.editGroup.id);
-    }
     // console.log(_.filter(this.companies, ['id', 30]));
   }
 
-  public openConfirmDeleteORBGroupModal(template: TemplateRef<any>, group: IOrbidalGroup) {
+  public openConfirmDeleteORBGroupModal(template: TemplateRef<any>, group: IOrbidalGroup, getDetail: string) {
     this.editGroup = group;
     this.createORBGroupModalRef = this.bsModalService.show(template, this.ngbModalOptions);
+    if (this.editGroup && getDetail) {
+      this.selectedCompanies = [];
+      this._getOrbidalGroupDetails(this.editGroup.id);
+    }
     //  ********************** DO NOT DELETE *********************
     // this.bsModalService.onHide.subscribe(result => {
     //   console.log('results', result);
@@ -123,7 +124,14 @@ export class GroupsListComponent implements OnInit {
     this.orbidalGroupService[method](criteria, (!this.editGroup ? undefined : this.editGroup.id)).subscribe((res: any) => {
       res = JSON.parse(res);
       this._getOrbidalGroups();
-      this.toasterService.success(`${res.success}`, 'Success');
+      // this.toasterService.success(`${res.success}`, 'Success');
+      this.toasterService.show("Test", null, {
+        disableTimeOut: true,
+        tapToDismiss: false,
+        toastClass: "toast border-red",
+        closeButton: true,
+        positionClass: 'bottom-left'
+      });
       this.createORBGroupModalRef.hide();
     }, error => {
       console.error(error);
@@ -146,11 +154,14 @@ export class GroupsListComponent implements OnInit {
 
     let criteria = {
       company: {
-        company_id: companyIds
+        company_ids: companyIds
       }
     };
     this.orbidalGroupService.includeCompaniesORBGroup(this.editGroup.id, criteria).subscribe((res: any) => {
       res = JSON.parse(res);
+      this.toasterService.success(`${res.success}`, 'Success');
+      this._getOrbidalGroups();
+      this.createORBGroupModalRef.hide();
     }, error => {
       console.error(error);
     });
