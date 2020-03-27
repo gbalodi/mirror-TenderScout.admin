@@ -1,12 +1,4 @@
 <div class="card-header">
-    <!-- <h3>Orbidal Group List</h3>
-
-    <div class="row">
-        <div class="col-sm-2">
-            <label for="role" class="col-form-label">&nbsp;</label>
-            <button type="button" class="create-user btn btn-primary float-right" (click)="openAddEditModal(createORBGroup, undefined)"><i class="fas fa-user-plus"></i>Create new Group</button>
-        </div>
-    </div> -->
 
     <div class="row">
         <div class="col-sm-6">
@@ -28,7 +20,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr *ngFor="let item of groups">
+            <tr *ngFor="let item of groups | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
                 <td>
                     <i class="fas fa-pencil-alt set-cursor" title="Edit Group Name" (click)="openAddEditModal(createORBGroup, item)"></i>
                 </td>
@@ -45,6 +37,11 @@
     </table>
 </div>
 
+<div class="marketplace-pagi-holder" *ngIf="totalData>0">
+    <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Prev" nextLabel="Next" screenReaderCurrentLabel="You're on page">
+    </pagination-controls>
+</div>
+
 <!-- Modal for Create New Orbidal Group -->
 <ng-template #createORBGroup>
     <div class="modal-header">
@@ -56,17 +53,6 @@
     <div class="modal-body">
         <div class="used-selectbr repo-used-selectbr">
             <form [formGroup]="ORBGroupForm">
-                <!-- <div class="row">
-                    <div class="col-xs-12 col-sm-6">
-
-                        <label class="col-form-label">Group Name</label>
-
-                        <div class="">
-                            <input type="text" class="form-control" placeholder="" formControlName="name">
-                        </div>
-                    </div>
-                </div> -->
-
 
                 <div class="row">
                     <div class="col-sm-4">

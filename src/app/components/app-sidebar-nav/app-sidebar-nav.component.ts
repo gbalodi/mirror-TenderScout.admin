@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, OnInit, Renderer2 } from '@angular/core';
+import { Component, ElementRef, Input, OnInit, Renderer2, Inject } from '@angular/core';
 
 // Import navigation elements
 import { navigation } from './../../_nav';
@@ -36,6 +36,7 @@ export class AppSidebarNavComponent {
 }
 
 import { Router } from '@angular/router';
+import { DOCUMENT } from '@angular/common';
 
 @Component({
   selector: 'app-sidebar-nav-item',
@@ -45,7 +46,7 @@ import { Router } from '@angular/router';
     </li>
     <ng-template #dropdown>
       <li [ngClass]="hasClass() ? 'nav-item nav-dropdown ' + item.class : 'nav-item nav-dropdown'"          
-          routerLinkActive="open"
+          routerLinkActive="active"
           [class.open]="isActive()"
           appNavDropdown>
         <app-sidebar-nav-dropdown [link]='item'></app-sidebar-nav-dropdown>
@@ -65,7 +66,7 @@ export class AppSidebarNavItemComponent {
   }
 
   public thisUrl() {
-    return this.item.url
+    return this.item.url;
   }
 
   public isDictionariesURL() {
@@ -73,10 +74,19 @@ export class AppSidebarNavItemComponent {
   }
 
   public isActive() {
-    return this.router.isActive(this.thisUrl(), this.isDictionariesURL());
+    // var els = document.querySelectorAll('.open')
+    // for (const li of this.document.querySelectorAll('li')) {
+    //   li.classList.remove("open");
+    // }
+    // event.currentTarget.classList.add("active");
+    // return this.router.isActive(this.thisUrl(), this.isDictionariesURL());
+    return this.router.url.includes((this.item.name.split(' ')[0] === 'Dictionaries' ? 'Dictionaries' : this.item.name.split(' ')[0]).toLowerCase())
   }
 
-  constructor( private router: Router )  { }
+  constructor(
+    @Inject(DOCUMENT) public document: Document | any,
+    public router: Router
+  ) { }
 
 }
 
@@ -174,12 +184,12 @@ export class AppSidebarNavTitleComponent implements OnInit {
 
     this.renderer.addClass(li, 'nav-title');
 
-    if ( this.title.class ) {
+    if (this.title.class) {
       const classes = this.title.class;
       this.renderer.addClass(li, classes);
     }
 
-    if ( this.title.wrapper ) {
+    if (this.title.wrapper) {
       const wrapper = this.renderer.createElement(this.title.wrapper.element);
 
       this.renderer.appendChild(wrapper, name);

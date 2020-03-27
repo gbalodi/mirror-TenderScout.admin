@@ -39,20 +39,12 @@ export const routes: Routes = [
         loadChildren: "./pages/companies/companies.module#CompaniesModule"
       },
       {
-        path: "companies-contacts",
-        loadChildren: "./pages/companies-contacts/companies-contacts.module#CompaniesContactsModule"
-      },
-      {
         path: "tenders",
         loadChildren: "./pages/tenders/tenders.module#TendersModule"
       },
       {
         path: "orbidal-documents",
         loadChildren: "./pages/documents/documents.module#DocumentsModule"
-      },
-      {
-        path: "orbidal-group",
-        loadChildren: "./pages/orbidal-group/orbidal-group.module#OrbidalGroupModule"
       },
       {
         path: "training-documents",

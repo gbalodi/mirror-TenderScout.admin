@@ -29,6 +29,8 @@ export class GroupsListComponent implements OnInit {
   public editGroup: IOrbidalGroup;
   public companies: ICompany[] = [];
   public selectedCompanies = [];
+  public totalData: number = 0;
+  public page: number = 1;
   public tableHeadNames: Array<{ title: string; key: string; }> = [
     { title: '', key: 'edit' },
     { title: 'Name', key: 'name' },
@@ -67,6 +69,7 @@ export class GroupsListComponent implements OnInit {
     this.orbidalGroupService.getOrbidalGroups().subscribe((res: any) => {
       res = JSON.parse(res);
       this.groups = res;
+      this.totalData = res.length;
     }, error => {
       console.error(error);
     });
@@ -170,8 +173,18 @@ export class GroupsListComponent implements OnInit {
   public onItemSelect(item: any) {
     console.log(item);
   }
+
   public onSelectAll(items: any) {
     console.log(items);
+  }
+
+  /**
+ * Pagination handler...
+ * @param event 
+ */
+  public pageChanged(event) {
+    this.page = event;
+    this._getOrbidalGroups();
   }
 
 }

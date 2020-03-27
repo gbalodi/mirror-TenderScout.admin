@@ -25,12 +25,8 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url !== 'assets/ic_cpvs.json' && req.url !== 'assets/ic_naicses.json' && req.url !== 'assets/ic_unspsces.json') {
-            let noNeedSpinner: Array<string> = ['v2/admin/users/check_email'];
-            console.log(req.url);
-
-            if (noNeedSpinner.indexOf(req.url) < 0) this.spinner.show = true;
-
-            let noNeedSpinnerEndPoints: Array<string> = [];
+            let noNeedSpinnerEndPoints: Array<string> = ['v2/admin/users/check_email', 'v1/dictionaries/all_codes'];
+            this.spinner.show = true;
 
             if (noNeedSpinnerEndPoints.indexOf(req.url.split("?", 2)[0]) >= 0) this.spinner.show = false;
 
@@ -48,11 +44,9 @@ export class HttpInterceptorService implements HttpInterceptor {
             }
 
             req = req.clone({
-                // url: req.url.split('/')[0] !== 'channel' ? environment.apiUrl + req.url: environment.socket + req.url,
                 url: environment.apiUrl + req.url,
-                responseType: 'text',//needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
+                responseType: 'text', //needed to avoid problem witch shows 201 status as error. don't forget to JSON.parse data
                 headers
-                // headers: req.headers.set('Authorization', 'Bearer ' + this.localStorage.retrieve('access_token'))
             });
             return next.handle(req)
                 .do((res: HttpEvent<any>) => {
@@ -110,7 +104,6 @@ export class HttpInterceptorService implements HttpInterceptor {
         } else {
             return next.handle(req);
         }
-        // return next.handle(req);
     }
 
     cachedRequests: Array<HttpRequest<any>> = [];

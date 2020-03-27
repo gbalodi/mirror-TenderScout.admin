@@ -81,7 +81,7 @@ class abc {
 };
 
 const NUMBER_TYPE: Array<string> = ['estimated_high_value', 'estimated_low_value', 'award_value'];
-const DATE_TYPE: Array<string> = ['created_at', 'submission_date', 'published_on', 'awarded_on', 're_tender_date', 'cancelled_on', 'deadline_date', 'answering_deadline', 'questioning_deadline'];
+const DATE_TYPE: Array<string> = ['created_at', 'submission_date', 'published_on', 'awarded_on', 're_tender_date', 'cancelled_on', 'deadline_date', 'answering_deadline', 'query_deadline'];
 
 @Component({
   selector: 'app-tender-edit',
@@ -137,7 +137,7 @@ export class TenderEditComponent implements OnInit {
       awarded_on: [''],
       // re_tender_date: [''],
       answering_deadline: [''],
-      questioning_deadline: [''],
+      query_deadline: [''],
       cancelled_on: [''],
       // industry: [''],
       codes: [[]]
@@ -179,7 +179,7 @@ export class TenderEditComponent implements OnInit {
             awarded_on: this.tender.awardedOn,
             // re_tender_date: this.tender.reTenderDate,
             answering_deadline: this.tender.answeringDeadline,
-            questioning_deadline: this.tender.questioning_deadline,
+            query_deadline: this.tender.questioning_deadline,
             cancelled_on: this.tender.cancelledOn,
             // industry: this.tender.industry !== "" ? this.tender.industry : null,
             codes: codes

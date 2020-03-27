@@ -138,8 +138,8 @@ export class CompaniesStatisticsComponent implements OnInit {
   public pageChanged(event) {
     this.page = event;
     this.statisticFilterForm.controls['page'].setValue(this.page);
-    let param = this.statisticFilterForm.controls['days'].value === '30days' ? '30' : '';
-    this._getCompanyStatistics();
+    // let param = this.statisticFilterForm.controls['days'].value === '30days' ? '30' : '';
+    // this._getCompanyStatistics();
   }
 
   /**

@@ -17,17 +17,14 @@ export const navigation = [
                 icon: 'fas fa-users',
             },
             {
+                name: 'Archived Users List',
+                url: '/users/archives',
+                icon: 'fas fa-user-times'
+            },
+            {
                 name: 'Users Statistics',
                 url: '/users/statistics',
                 icon: 'fas fa-users',
-            },
-            {
-                name: 'Sign-Up Requests',
-                url: '/users/signup-requests',
-                icon: 'fas fa-user-plus',
-                badge: {
-                    variant: 'info',
-                }
             },
             {
                 name: 'Assistance Requests',
@@ -51,9 +48,51 @@ export const navigation = [
             //     icon: 'fas fa-users',
             // },
             {
-                name: 'Archived Users List',
-                url: '/users/archives',
-                icon: 'fas fa-user-times'
+                name: 'Sign-Up Requests',
+                url: '/users/signup-requests',
+                icon: 'fas fa-user-plus',
+                badge: {
+                    variant: 'info',
+                }
+            }
+        ]
+    },
+    {
+
+        name: 'Companies',
+        icon: 'fas fa-users-cog',
+        children: [
+            // {
+            //     name: 'Companies list',
+            //     url: '/companies/list',
+            //     icon: 'fas fa-users',
+            // },
+            {
+                name: 'Orbidal Group',
+                url: '/companies/orbidal-group',
+                icon: 'fas fa-users',
+            },
+            {
+                name: 'Companies Statistics',
+                url: '/companies/statistics',
+                icon: 'fas fa-chart-bar',
+            },
+            {
+                name: 'Companies Contacts',
+                url: '/companies/companies-contacts',
+                icon: 'fas fa-users',
+            }
+        ]
+    },
+    {
+        name: 'Tenders',
+        // url: '/tenders',
+        icon: 'fas fa-gavel',
+        children: [
+            {
+                name: 'Tenders List',
+                url: '/tenders/list',
+                icon: 'fas fa-gavel',
             }
         ]
     },
@@ -79,26 +118,9 @@ export const navigation = [
         ]
     },
     {
-        name: 'Tenders',
-        // url: '/tenders',
-        icon: 'fas fa-gavel',
-        children: [
-            {
-                name: 'Tenders List',
-                url: '/tenders/list',
-                icon: 'fas fa-gavel',
-            }
-        ]
-    },
-    {
         name: 'Orbidal Documents List',
         url: '/orbidal-documents',
         icon: 'fas fa-list-ul',
-    },
-    {
-        name: 'Orbidal Group',
-        url: '/orbidal-group',
-        icon: 'fas fa-users',
     },
     {
         name: 'Training Docs',
@@ -114,29 +136,8 @@ export const navigation = [
         name: 'Ingestors Status',
         url: '/ingestors/list',
         icon: 'fa fa-indent',
-    },
-    {
+    }
 
-        name: 'Companies',
-        icon: 'fas fa-users-cog',
-        children: [
-            // {
-            //     name: 'Companies list',
-            //     url: '/companies/list',
-            //     icon: 'fas fa-users',
-            // },
-            {
-                name: 'Companies Statistics',
-                url: '/companies/statistics',
-                icon: 'fas fa-chart-bar',
-            }
-        ]
-    }, 
-    {
-        name: 'Companies-Contacts',
-        url: '/companies-contacts',
-        icon: 'fas fa-users',
-    },
     // {
     //     name: 'Company Claims',
     //     url: '/claims',

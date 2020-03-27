@@ -4,6 +4,7 @@ import { CompaniesListComponent } from './components/companies-list/companies-li
 import { CreateCompanyComponent } from './components/create-company/create-company.component';
 import { TenderCompaniesInfoListComponent } from './components/tender-companies-info-list/tender-companies-info-list.component';
 import { CompaniesStatisticsComponent } from './components/companies-statistics/companies-statistics.component';
+import { GroupsListComponent } from './components/groups-list/groups-list.component';
 
 const routes: Routes = [
     {
@@ -33,6 +34,20 @@ const routes: Routes = [
                     title: 'Companies Statistics'
                 }
             },
+            {
+                path: 'orbidal-group',
+                component: GroupsListComponent,
+                data: {
+                    title: 'Orbidal Group'
+                }
+            },
+            {
+                path: 'companies-contacts',
+                component: TenderCompaniesInfoListComponent,
+                data: {
+                    title: 'Companies Contact'
+                }
+            }
             //   {
             //     path: 'companies-contacts',
             //     component: TenderCompaniesInfoListComponent,

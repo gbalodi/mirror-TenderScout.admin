@@ -14,6 +14,7 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { CsvModule } from '@ctrl/ngx-csv';
 import { Ng2SmartTableModule } from 'ng2-smart-table';
 import { CompaniesStatisticsComponent } from './components/companies-statistics/companies-statistics.component';
+import { GroupsListComponent } from './components/groups-list/groups-list.component';
 
 
 @NgModule({
@@ -33,7 +34,8 @@ import { CompaniesStatisticsComponent } from './components/companies-statistics/
     CompaniesListComponent,
     CreateCompanyComponent,
     TenderCompaniesInfoListComponent,
-    CompaniesStatisticsComponent
+    CompaniesStatisticsComponent,
+    GroupsListComponent
   ]
 })
 export class CompaniesModule { }
