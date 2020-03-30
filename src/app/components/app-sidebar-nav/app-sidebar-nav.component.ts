@@ -74,17 +74,12 @@ export class AppSidebarNavItemComponent {
   }
 
   public isActive() {
-    // var els = document.querySelectorAll('.open')
-    // for (const li of this.document.querySelectorAll('li')) {
-    //   li.classList.remove("open");
-    // }
     // event.currentTarget.classList.add("active");
     // return this.router.isActive(this.thisUrl(), this.isDictionariesURL());
     return this.router.url.includes((this.item.name.split(' ')[0] === 'Dictionaries' ? 'Dictionaries' : this.item.name.split(' ')[0]).toLowerCase())
   }
 
   constructor(
-    @Inject(DOCUMENT) public document: Document | any,
     public router: Router
   ) { }
 
