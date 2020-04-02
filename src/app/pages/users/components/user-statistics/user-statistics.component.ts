@@ -25,6 +25,7 @@ interface IUserStatistics {
   full_name: string;
   email: string;
   created_at: string;
+  last_login_date: string;
   tenders_submitted: number;
   move_to_qualify: number;
   added_to_perform: number;
@@ -56,6 +57,7 @@ export class UserStatisticsComponent implements OnInit {
   public tableHeadNames: Array<any> = [
     { title: 'User Name', key: 'full_name' },
     { title: 'Origin Date', key: 'created_at' },
+    { title: 'Last Login Date', key: 'last_login_date' },
     { title: 'Added To Perform', key: 'added_to_perform' },
     { title: 'Blocks Created', key: 'blocks_created' },
     { title: 'Emails Sent', key: 'emails_sent' },
@@ -81,6 +83,7 @@ export class UserStatisticsComponent implements OnInit {
       days: ['all', [Validators.required]],
       search_text: [''],
       created_at: [''],
+      last_login_date: [''],
       tenders_submitted: [''],
       move_to_qualify: [''],
       added_to_perform: [''],

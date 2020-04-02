@@ -56,6 +56,7 @@
                 <tr *ngFor="let item of userStatistics | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
                     <td>{{item.full_name}} <span class="email-set">{{'<' + item.email + '>'}}</span> </td>
                     <td>{{item.created_at | date: 'dd/MM/yyyy'}}</td>
+                    <td class="text-center">{{item.last_login_date ? (item.last_login_date | date: 'dd/MM/yyyy') : '-'}}</td>
                     <td>{{item.added_to_perform}}</td>
                     <td>{{item.blocks_created}}</td>
                     <td>{{item.emails_sent}}</td>
