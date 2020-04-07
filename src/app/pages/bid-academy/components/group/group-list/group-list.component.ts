@@ -3,6 +3,8 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { GroupService } from '../group.service';
 import { ToastrService } from 'ngx-toastr';
+import { DocumentsListService } from 'app/pages/documents/components/documents-list/documents-list.service';
+import * as _ from 'lodash';
 
 @Component({
   selector: 'app-group-list',
@@ -13,22 +15,54 @@ export class GroupListComponent implements OnInit {
   public groups: any;
   public bsModalRef: BsModalRef;
   public groupForm: FormGroup;
+  public includeUsersForm: FormGroup;
+  public usersList: Array<any> = [];
+  public selectedUsers = [];
   public tableHeadNames: Array<string> = ['Edit', 'Name', 'Action'];
+  public dropdownSettings = {
+    singleSelection: false,
+    idField: 'id',
+    textField: 'name',
+    selectAllText: 'Select All',
+    unSelectAllText: 'UnSelect All',
+    itemsShowLimit: 3,
+    allowSearchFilter: true
+  };
 
   constructor(
     private bsModalService: BsModalService,
     private formBuilder: FormBuilder,
     private groupService: GroupService,
-    private toastrService: ToastrService
+    private toastrService: ToastrService,
+    private documentsListService: DocumentsListService
   ) {
     this.groupForm = formBuilder.group({
       id: [null],
       name: ['', Validators.required]
+    });
+
+    this.includeUsersForm = formBuilder.group({
+      story_ids: ['', Validators.required],
+      user_ids: ['', Validators.required]
     })
   }
 
   ngOnInit() {
     this._getAllGroups();
+    this._getUsersInfoService();
+  }
+
+  /**
+ * Service call to get users Info list...
+ */
+  private _getUsersInfoService() {
+    this.documentsListService.getUsersInfo().subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.usersList = res.data;
+    }, error => {
+      this.usersList = [];
+      console.log(error);
+    });
   }
 
   private _getAllGroups() {
@@ -53,7 +87,7 @@ export class GroupListComponent implements OnInit {
 
   public submitGroup() {
     let method: string = !this.groupForm.value.id ? 'createStories' : 'updateStories';
-    let req = {...this.groupForm.value};
+    let req = { ...this.groupForm.value };
     delete req.id;
 
     this.groupService[method]({ story: req }, this.groupForm.value.id ? this.groupForm.value.id : undefined).subscribe((res: any) => {
@@ -75,6 +109,32 @@ export class GroupListComponent implements OnInit {
     }, error => {
       console.error(error);
     });
+  }
+
+  public includeUsersEvent() {
+    console.log(this.includeUsersForm.value);
+
+    let req = {
+      user: {
+        user_ids: _.map(this.includeUsersForm.value.user_ids, 'id'),
+        story_ids: _.map(this.includeUsersForm.value.story_ids, 'id')
+      }
+    };
+
+    this.groupService.includeUsers(req).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.toastrService.success(res.success, 'Success');
+      this.bsModalRef.hide();
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  public onItemSelect(item: any) {
+    console.log(item);
+  }
+  public onSelectAll(items: any) {
+    console.log(items);
   }
 
 }

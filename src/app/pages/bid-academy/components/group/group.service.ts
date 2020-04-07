@@ -49,4 +49,12 @@ export class GroupService {
   public deleteStories(id) {
     return this.httpClient.delete(`v2/admin/stories/${id}`);
   }
+
+  /**
+   * API server call to include users according to selected Story Groups...
+   * @param params 
+   */
+  public includeUsers(params) {
+    return this.httpClient.post(`v2/admin/stories/include_users`, params);
+  }
 }

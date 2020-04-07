@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { BidAcademyRoutingModule } from './bid-academy-routing.module';
 import { StoryBoardComponent } from './components/story-board/story-board.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { BidAcademyService } from './services/bid-academy.service';
 import { StoryBoardsListComponent } from './components/story-boards-list/story-boards-list.component';
 // import { StoryListComponent } from './components/story-list/story-list.component';
@@ -15,7 +15,8 @@ import { GroupListComponent } from './components/group/group-list/group-list.com
     CommonModule,
     BidAcademyRoutingModule,
     ReactiveFormsModule,
-    NgMultiSelectDropDownModule
+    FormsModule,
+    NgMultiSelectDropDownModule.forRoot()
   ],
   declarations: [
     StoryBoardComponent,
