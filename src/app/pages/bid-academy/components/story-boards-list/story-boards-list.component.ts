@@ -2,6 +2,7 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 import { BidAcademyService } from '../../services/bid-academy.service';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap';
 import { ToastrService } from 'ngx-toastr';
+import * as _ from 'lodash';
 
 interface IStoryBoard {
   id: number;
@@ -55,6 +56,12 @@ export class StoryBoardsListComponent implements OnInit {
     }, error => {
       console.error(error);
     });
+  }
+
+  private tagHandler(tags) {
+    let t = _.map(tags, 'name');
+
+    return t.join(', ')
   }
 
 }
