@@ -136,6 +136,17 @@ export const navigation = [
         name: 'Ingestors Status',
         url: '/ingestors/list',
         icon: 'fa fa-indent',
+    },
+    {
+        name: 'Bid Academy',
+        icon: 'fas fa-book',
+        children: [
+            {
+                name: 'Story Boards List',
+                url: '/bid-academy/story-boards-list',
+                icon: 'fas fa-globe-asia',
+            }
+        ]
     }
 
     // {

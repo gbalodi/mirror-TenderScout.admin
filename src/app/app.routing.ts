@@ -61,6 +61,10 @@ export const routes: Routes = [
       {
         path: "claims",
         loadChildren: "./pages/claimed-companies/claimed-companies.module#ClaimedCompaniesModule"
+      },
+      {
+        path: "bid-academy",
+        loadChildren: "./pages/bid-academy/bid-academy.module#BidAcademyModule"
       }
     ]
   }
