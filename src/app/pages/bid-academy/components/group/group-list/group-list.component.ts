@@ -41,6 +41,7 @@ export class GroupListComponent implements OnInit {
   }
 
   public openModal(template: TemplateRef<any>, item: any) {
+    this.groupForm.reset();
     if (item) {
       this.groupForm.patchValue({
         id: item.id,
@@ -52,12 +53,10 @@ export class GroupListComponent implements OnInit {
 
   public submitGroup() {
     let method: string = !this.groupForm.value.id ? 'createStories' : 'updateStories';
-    let req = this.groupForm.value;
-    if (method === 'createStories') {
-      delete req.id;
-    }
+    let req = {...this.groupForm.value};
+    delete req.id;
 
-    this.groupService[method]({story : this.groupForm.value}, this.groupForm.value.id ? this.groupForm.value.id : undefined).subscribe((res: any) => {
+    this.groupService[method]({ story: req }, this.groupForm.value.id ? this.groupForm.value.id : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
       this.bsModalRef.hide();

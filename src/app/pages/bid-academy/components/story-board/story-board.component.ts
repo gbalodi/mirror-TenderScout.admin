@@ -84,6 +84,7 @@ export class StoryBoardComponent implements OnInit {
     let method: string = !this.boardId ? 'createStoryBoard' : 'updateStoryBoard';
     let req = this.storyBoardForm.value;
     delete req.id;
+    req.story_id = parseInt(req.story_id);
     this.bidAcademyService[method]({ story_board: this.storyBoardForm.value }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
