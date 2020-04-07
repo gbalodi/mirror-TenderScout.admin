@@ -4,6 +4,7 @@ import { BidAcademyService } from '../../services/bid-academy.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
+import { GroupService } from '../group/group.service';
 
 interface ITags {
   id: number;
@@ -19,6 +20,7 @@ export class StoryBoardComponent implements OnInit {
   public storyBoardForm: FormGroup | any;
   public boardId: number;
   public tags: ITags[];
+  public groups: any;
   public dropDownSettings = {
     singleSelection: false,
     idField: "id",
@@ -34,13 +36,15 @@ export class StoryBoardComponent implements OnInit {
     private bidAcademyService: BidAcademyService,
     private router: Router,
     private toastrService: ToastrService,
-    private activatedRoute: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private groupService: GroupService
   ) {
     this.storyBoardForm = formBuilder.group({
       id: [''],
+      story_id: ['', Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      tags_attributes: ['', Validators.required]
+      tags_attributes: [[], Validators.required]
     });
 
     this.bidAcademyService.getAllTagLabels().subscribe((res: any) => {
@@ -48,7 +52,14 @@ export class StoryBoardComponent implements OnInit {
       this.tags = res;
     }, error => {
       console.error(error);
-    })
+    });
+
+    this.groupService.getAllStories().subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.groups = res;
+    }, error => {
+      console.error(error);
+    });
   }
 
   ngOnInit() {
@@ -59,9 +70,10 @@ export class StoryBoardComponent implements OnInit {
           res = JSON.parse(res);
           this.storyBoardForm.patchValue({
             id: res.id,
+            story_id: res.story_id,
             title: res.title,
             description: res.description,
-            tags_attributes: _.filter(this.tags, (tag) => _.includes(res.tags_attributes, tag.id))
+            tags_attributes: res.tags_attributes
           });
         })
       }
@@ -72,7 +84,6 @@ export class StoryBoardComponent implements OnInit {
     let method: string = !this.boardId ? 'createStoryBoard' : 'updateStoryBoard';
     let req = this.storyBoardForm.value;
     delete req.id;
-    req.tags_attributes = _.map(this.storyBoardForm.value.tags_attributes, 'id');
     this.bidAcademyService[method]({ story_board: this.storyBoardForm.value }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');

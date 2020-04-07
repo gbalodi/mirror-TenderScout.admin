@@ -142,6 +142,11 @@ export const navigation = [
         icon: 'fas fa-book',
         children: [
             {
+                name: 'Story Groups List',
+                url: '/bid-academy/story-groups-list',
+                icon: 'fas fa-globe-asia',
+            },
+            {
                 name: 'Story Boards List',
                 url: '/bid-academy/story-boards-list',
                 icon: 'fas fa-globe-asia',

@@ -1,0 +1,98 @@
+<div class="card-header">
+
+    <h3>Story Groups List</h3>
+
+    <div class="row">
+        <div class="col-sm-12">
+            <label for="role" class="col-form-label">&nbsp;</label>
+            <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create new Story Group</button>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive padd>ing-bottom-250">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index">
+                    {{item}}
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of groups">
+                <td>
+                    <i class="fas fa-pencil-alt set-cursor" (click)="openModal(addEditGroupModal, item)" title="Edit Group"></i>
+                </td>
+                <td>{{item?.name }}</td>
+                <td>
+                    <span class="iconn"><i class="fas fa-archive set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Story Group"></i></span>
+                </td>
+            </tr>
+        </tbody>
+        <span *ngIf="groups?.length === 0">No Data Found!</span>
+
+    </table>
+</div>
+
+<!-- <div class="marketplace-pagi-holder" *ngIf="totalItems>0">
+  <pagination-controls (pageChange)="pageChanged($event)" maxSize="5" previousLabel="Previous" nextLabel="Next" screenReaderCurrentLabel="You're on page">
+  </pagination-controls>
+</div> -->
+
+<!-- Modal for ADD/EDIT Story Group -->
+
+<ng-template #addEditGroupModal>
+
+
+    <div class="modal-header">
+
+        <h4 class="modal-title">{{selectedGroup ? 'Edit' : 'Create'}} Story Group</h4>
+
+        <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+
+    <div class="row modal-body">
+        <form [formGroup]="groupForm" class="static_form-holder" novalidate>
+
+            <div class="row info">
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Story Group Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+            </div>
+
+            <div class="row info">
+                <div class="col-xs-12 col-sm-12 text-left">
+                    <!-- <button class="btn" (click)="bsModalRef.hide()">Close</button> -->
+                    <button class="btn btn-yes-margin33" [disabled]="groupForm.invalid" (click)="submitGroup()">Save</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</ng-template>
+
+<!-- Modal for Delete Story Group -->
+<ng-template #deleteGroupModal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+    </div>
+    <div class="modal-body"><label>Are you sure you want to Delete this  - {{ selectedGroup.title }} ?</label></div>
+
+    <div class="row info">
+        <div class="col-xs-12 col-sm-12 text-left">
+            <button class="btn" (click)="bsModalRef.hide()">No</button>
+            <button class="btn btn-yes-margin33" (click)="deleteGroupEvent()">Yes</button>
+        </div>
+    </div>
+</ng-template>

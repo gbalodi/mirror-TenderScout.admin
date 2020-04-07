@@ -8,6 +8,7 @@ import { BidAcademyService } from './services/bid-academy.service';
 import { StoryBoardsListComponent } from './components/story-boards-list/story-boards-list.component';
 // import { StoryListComponent } from './components/story-list/story-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
+import { GroupListComponent } from './components/group/group-list/group-list.component';
 
 @NgModule({
   imports: [
@@ -19,6 +20,7 @@ import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
   declarations: [
     StoryBoardComponent,
     StoryBoardsListComponent,
+    GroupListComponent,
   ],
   providers: [
     BidAcademyService
