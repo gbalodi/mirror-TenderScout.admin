@@ -41,7 +41,7 @@ export class StoryBoardComponent implements OnInit {
   ) {
     this.storyBoardForm = formBuilder.group({
       id: [''],
-      story_id: ['', Validators.required],
+      story_id: [null, Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
       tags_attributes: [[], Validators.required]

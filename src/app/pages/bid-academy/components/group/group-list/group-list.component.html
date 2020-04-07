@@ -47,7 +47,7 @@
 
     <div class="modal-header">
 
-        <h4 class="modal-title">{{selectedGroup ? 'Edit' : 'Create'}} Story Group</h4>
+        <h4 class="modal-title">{{groupForm.value.id ? 'Edit' : 'Create'}} Story Group</h4>
 
         <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -87,7 +87,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to Delete this  - {{ selectedGroup.title }} ?</label></div>
+    <div class="modal-body"><label>Are you sure you want to Delete this  - {{ groupForm.value.title }} ?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">
