@@ -75,7 +75,7 @@ export class StoryBoardComponent implements OnInit {
             story_id: res.story_id,
             title: res.title,
             description: res.description,
-            tags_attributes: res.tags_attributes
+            tags_attributes: _.map(res.tags_attributes, 'name')
           });
         })
       }
