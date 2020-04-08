@@ -20,6 +20,7 @@ export class StoryBoardComponent implements OnInit {
   public storyBoardForm: FormGroup | any;
   public boardId: number;
   public tags: ITags[];
+  public tagsArray: string[];
   public groups: any;
   public dropDownSettings = {
     singleSelection: false,
@@ -50,6 +51,7 @@ export class StoryBoardComponent implements OnInit {
     this.bidAcademyService.getAllTagLabels().subscribe((res: any) => {
       res = JSON.parse(res);
       this.tags = res;
+      this.tagsArray = _.map(this.tags, 'name');
     }, error => {
       console.error(error);
     });

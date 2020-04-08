@@ -9,6 +9,7 @@ import { StoryBoardsListComponent } from './components/story-boards-list/story-b
 // import { StoryListComponent } from './components/story-list/story-list.component';
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { GroupListComponent } from './components/group/group-list/group-list.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -16,7 +17,8 @@ import { GroupListComponent } from './components/group/group-list/group-list.com
     BidAcademyRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    NgMultiSelectDropDownModule.forRoot()
+    NgMultiSelectDropDownModule.forRoot(),
+    NgSelectModule
   ],
   declarations: [
     StoryBoardComponent,

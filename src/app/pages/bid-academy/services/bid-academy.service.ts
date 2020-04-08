@@ -54,6 +54,6 @@ export class BidAcademyService {
    * API server call to get all Tags Labels...
    */
   public getAllTagLabels() {
-    return this.httpClient.get(`v2/admin/story_board/tags`);
+    return this.httpClient.get(`v2/admin/stroy_boards/tags`);
   }
 }

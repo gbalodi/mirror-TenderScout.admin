@@ -46,8 +46,10 @@
                             <option *ngFor="let tag of tags" [value]="tag.id">{{tag.name}}</option>
                         </select> -->
 
-                        <ng-multiselect-dropdown [placeholder]="'Please select multiple'" [data]="tags" formControlName="tags_attributes" [settings]="dropDownSettings" (onSelectAll)="onSelectAll($event)">
-                        </ng-multiselect-dropdown>
+                        <ng-select [items]="tagsArray" formControlName="tags_attributes" [multiple]="true" [addTag]="true"></ng-select>
+
+                        <!-- <ng-multiselect-dropdown [placeholder]="'Please select multiple'" [data]="tags" formControlName="tags_attributes" [settings]="dropDownSettings" (onSelectAll)="onSelectAll($event)">
+                        </ng-multiselect-dropdown> -->
                     </div>
                 </div>
 
