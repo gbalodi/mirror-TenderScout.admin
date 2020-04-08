@@ -72,10 +72,10 @@ export class StoryBoardComponent implements OnInit {
           res = JSON.parse(res);
           this.storyBoardForm.patchValue({
             id: res.id,
-            story_id: res.story_id,
+            story_id: res.story.id,
             title: res.title,
             description: res.description,
-            tags_attributes: _.map(res.tags_attributes, 'name')
+            tags_attributes: _.map(res.tags, 'name')
           });
         })
       }
@@ -84,10 +84,18 @@ export class StoryBoardComponent implements OnInit {
 
   public submitForm() {
     let method: string = !this.boardId ? 'createStoryBoard' : 'updateStoryBoard';
-    let req = this.storyBoardForm.value;
-    delete req.id;
-    req.story_id = parseInt(req.story_id);
-    this.bidAcademyService[method]({ story_board: this.storyBoardForm.value }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
+    let existingTags = _.filter(this.tags, (tag) => _.indexOf(this.storyBoardForm.value.tags_attributes, tag.name) > -1),
+      story_boards_tags_attributes = _.map(existingTags, (tag) => { return { tag_id: tag.id } }),
+      newTags = _.filter(this.storyBoardForm.value.tags_attributes, (tag) => _.indexOf(this.tagsArray, tag) === -1),
+      tags_attributes = _.map(newTags, (tag) => { return { name: tag } }),
+      req = {
+        title: this.storyBoardForm.value.title,
+        description: this.storyBoardForm.value.description,
+        story_id: parseInt(this.storyBoardForm.value.story_id),
+        tags_attributes: tags_attributes, // [{ name: "Test" }, { name: "Test" }],
+        story_boards_tags_attributes: story_boards_tags_attributes // [{ tag_id: 43 }, { tag_id: 44 }]
+      };
+    this.bidAcademyService[method]({ story_board: req }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
       this.router.navigate(['/bid-academy/story-boards-list']);
