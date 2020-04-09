@@ -9,6 +9,8 @@ interface IStoryBoard {
   title: string;
   description: string;
   tags: Array<string>;
+  read: boolean;
+  story_board_assets: Array<any>;
 }
 
 @Component({
@@ -20,7 +22,7 @@ export class StoryBoardsListComponent implements OnInit {
   public storyBoardsList: IStoryBoard[] = [];
   public selectedBoard: IStoryBoard;
   public approveModal: BsModalRef;
-  public tableHeadNames: Array<string> = ['Edit', 'Title', 'Description', 'Tags', 'Action'];
+  public tableHeadNames: Array<string> = ['Edit', 'Title', 'Description', 'Tags', 'Read', '# Attach(s)', 'Action'];
 
   constructor(
     private bidAcademyService: BidAcademyService,
@@ -58,7 +60,7 @@ export class StoryBoardsListComponent implements OnInit {
     });
   }
 
-  private tagHandler(tags) {
+  public tagHandler(tags) {
     let t = _.map(tags, 'name');
 
     return t.join(', ')

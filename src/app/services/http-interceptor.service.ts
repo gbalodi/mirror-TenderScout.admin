@@ -9,6 +9,7 @@ import { Router } from '@angular/router';
 import { AuthenticationService } from '../modules/authorization/services';
 import { SpinnerService } from '../modules/spinner/spinner.service';
 import { environment } from '../../environments/environment';
+import * as _ from 'lodash';
 
 @Injectable()
 export class HttpInterceptorService implements HttpInterceptor {
@@ -25,10 +26,18 @@ export class HttpInterceptorService implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         if (req.url !== 'assets/ic_cpvs.json' && req.url !== 'assets/ic_naicses.json' && req.url !== 'assets/ic_unspsces.json') {
-            let noNeedSpinnerEndPoints: Array<string> = ['v2/admin/users/check_email', 'v1/dictionaries/all_codes'];
+            let noNeedSpinnerEndPoints: Array<string> = ['v2/admin/users/check_email', 'v1/dictionaries/all_codes', 'v2/admin/story_boards/upload_asset_file', 'v2/admin/story_boards/delete_asset_file'];
             this.spinner.show = true;
 
             if (noNeedSpinnerEndPoints.indexOf(req.url.split("?", 2)[0]) >= 0) this.spinner.show = false;
+
+            if (this.spinner.show) {
+                noNeedSpinnerEndPoints.forEach(element => {
+                    let found = req.url.includes(element);
+                    if (found) this.spinner.show = false;
+                    return;
+                });
+            }
 
             let headers;
 

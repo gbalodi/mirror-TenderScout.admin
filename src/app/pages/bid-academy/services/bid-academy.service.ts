@@ -56,4 +56,20 @@ export class BidAcademyService {
   public getAllTagLabels() {
     return this.httpClient.get(`v2/admin/story_boards/tags`);
   }
+
+  /**
+   * API server call to save file...
+   * @param file 
+   */
+  public uploadStoryBoardAssetFile(file) {
+    return this.httpClient.post(`v2/admin/story_boards/upload_asset_file`, file);
+  }
+
+  /**
+   * API server call to delete a file...
+   * @param id 
+   */
+  public deleteStoryBoardAssetFile(id) {
+    return this.httpClient.delete(`v2/admin/story_boards/delete_asset_file/${id}`);
+  }
 }

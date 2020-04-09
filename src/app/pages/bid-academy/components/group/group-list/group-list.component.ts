@@ -6,19 +6,25 @@ import { ToastrService } from 'ngx-toastr';
 import { DocumentsListService } from 'app/pages/documents/components/documents-list/documents-list.service';
 import * as _ from 'lodash';
 
+interface IStoryGroup {
+  id: number;
+  name: string;
+  story_boards_count: number;
+}
+
 @Component({
   selector: 'app-group-list',
   templateUrl: './group-list.component.html',
   styleUrls: ['./group-list.component.scss']
 })
 export class GroupListComponent implements OnInit {
-  public groups: any;
+  public groups: IStoryGroup[];
   public bsModalRef: BsModalRef;
   public groupForm: FormGroup;
   public includeUsersForm: FormGroup;
   public usersList: Array<any> = [];
   public selectedUsers = [];
-  public tableHeadNames: Array<string> = ['Edit', 'Name', 'Action'];
+  public tableHeadNames: Array<string> = ['Edit', 'Name', '#Story Board(s)' 'Action'];
   public dropdownSettings = {
     singleSelection: false,
     idField: 'id',

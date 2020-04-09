@@ -55,6 +55,40 @@
 
             </div>
 
+            <div class="row">
+
+                <div class="col-xs-12 col-sm-6">
+                    <!-- <label for="description" class="col-form-label">Attach Document(s): </label>
+                    <div class="">
+                        <textarea rows="6" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
+                    </div> -->
+
+                    <label for="file-upload" class="col-form-label">
+                        <i class="fas fa-paperclip paper set-cursor"></i> Attach Document(s):
+                        </label>
+                    <input #attachInput multiple type="file" accept=".jpg, .jpeg, .png, .xls, .xlsx, .pdf, .csv, .doc, .docx, .pptx, .ppt" class="upload-file-input" id="file-upload" (change)="handlerAttachFile()">
+
+                    <span *ngIf="uploadedFiles.length>0" class="loading-fl">{{uploadedFiles.length}} File(s) Uploading...</span>
+
+                    <ngx-spinner class="set-ngx-spinner" bdColor="rgba(255,255,255,0.8)" size="small" color="#d66166" type="ball-clip-rotate" fullScreen="false">
+                        <!-- <p style="color: white"> Loading... </p> -->
+                    </ngx-spinner>
+
+                    <div *ngIf="attachFiles.length>0" class="attach-lm">
+                        <ng-container *ngFor="let item of attachFiles; let i = index">
+                            <label class="pop-request-attach">
+                      <span class="fl-name">{{item.name}} - Uploaded</span>  
+                      <span class="pop-attach-ico">
+                        <i *ngIf="!spinLoadHandler(item.name)" (click)="deleteAssistanceFile(i, item)" class="far fa-window-close set-cursor cancel-color"></i> 
+                        <!-- <mat-spinner *ngIf="spinLoadHandler(item.name)" diameter="13" class="o-spin"></mat-spinner> -->
+                      </span>
+                    </label>
+                        </ng-container>
+                    </div>
+                </div>
+
+            </div>
+
             <div class="form-group row margin-t20">
                 <div class="col-12">
                     <button type="submit" [disabled]="storyBoardForm.invalid" class="btn btn-primary" (click)="submitForm()">Submit</button>

@@ -10,6 +10,10 @@ import { StoryBoardsListComponent } from './components/story-boards-list/story-b
 import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 import { GroupListComponent } from './components/group/group-list/group-list.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+// import { DragDropModule } from '@angular/cdk/drag-drop';
+// import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
+import { TreeModule } from 'angular-tree-component';
+import { NgxSpinnerModule } from "ngx-spinner";
 
 @NgModule({
   imports: [
@@ -18,12 +22,15 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ReactiveFormsModule,
     FormsModule,
     NgMultiSelectDropDownModule.forRoot(),
-    NgSelectModule
+    NgSelectModule,
+    TreeModule,
+    NgxSpinnerModule
   ],
   declarations: [
     StoryBoardComponent,
     StoryBoardsListComponent,
     GroupListComponent,
+    // TreeViewComponent
   ],
   providers: [
     BidAcademyService

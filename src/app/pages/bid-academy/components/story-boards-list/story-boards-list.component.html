@@ -27,8 +27,10 @@
                 <td>{{item?.title }}</td>
                 <td>{{item?.description}}</td>
                 <td>{{tagHandler(item?.tags)}}</td>
+                <td>{{item.read ? 'Yes' : 'No'}}</td>
+                <td>{{item.story_board_assets.length}}</td>
                 <td>
-                    <span class="iconn"><i class="fas fa-archive set-cursor" (click)="openModal(deleteBoardModal, item)" title="Delete Story Board"></i></span>
+                    <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteBoardModal, item)" title="Delete Story Board"></i></span>
                 </td>
             </tr>
         </tbody>

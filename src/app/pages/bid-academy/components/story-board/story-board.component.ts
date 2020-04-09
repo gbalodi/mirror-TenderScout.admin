@@ -1,10 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BidAcademyService } from '../../services/bid-academy.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import { GroupService } from '../group/group.service';
+import { NgxSpinnerService } from 'ngx-spinner';
+
+interface IAttachFile {
+  name: string;
+  id?: number;
+}
 
 interface ITags {
   id: number;
@@ -17,11 +23,15 @@ interface ITags {
   styleUrls: ['./story-board.component.scss']
 })
 export class StoryBoardComponent implements OnInit {
+  @ViewChild('attachInput') public attachInput: ElementRef;
   public storyBoardForm: FormGroup | any;
   public boardId: number;
   public tags: ITags[];
   public tagsArray: string[];
   public groups: any;
+  public uploadedFiles: Array<string> = [];
+  public attachFiles: Array<IAttachFile> = [];
+  public attachLoading: boolean = false;
   public dropDownSettings = {
     singleSelection: false,
     idField: "id",
@@ -31,6 +41,7 @@ export class StoryBoardComponent implements OnInit {
     itemsShowLimit: 5,
     allowSearchFilter: true
   };
+  public fileTypes: string[] = ['xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -38,7 +49,8 @@ export class StoryBoardComponent implements OnInit {
     private router: Router,
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
-    private groupService: GroupService
+    private groupService: GroupService,
+    private spinner: NgxSpinnerService
   ) {
     this.storyBoardForm = formBuilder.group({
       id: [''],
@@ -65,6 +77,7 @@ export class StoryBoardComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.spinner.show();
     this.activatedRoute.params.subscribe(params => {
       if (params['id']) {
         this.boardId = params.id;
@@ -88,12 +101,14 @@ export class StoryBoardComponent implements OnInit {
       story_boards_tags_attributes = _.map(existingTags, (tag) => { return { tag_id: tag.id } }),
       newTags = _.filter(this.storyBoardForm.value.tags_attributes, (tag) => _.indexOf(this.tagsArray, tag) === -1),
       tags_attributes = _.map(newTags, (tag) => { return { name: tag } }),
+      story_boards_story_board_assets_attributes = _.map(this.attachFiles, (file) => { return { story_board_asset_id: file.id } }),
       req = {
         title: this.storyBoardForm.value.title,
         description: this.storyBoardForm.value.description,
         story_id: parseInt(this.storyBoardForm.value.story_id),
         tags_attributes: tags_attributes, // [{ name: "Test" }, { name: "Test" }],
-        story_boards_tags_attributes: story_boards_tags_attributes // [{ tag_id: 43 }, { tag_id: 44 }]
+        story_boards_tags_attributes: story_boards_tags_attributes, // [{ tag_id: 43 }, { tag_id: 44 }]
+        story_boards_story_board_assets_attributes: story_boards_story_board_assets_attributes
       };
     this.bidAcademyService[method]({ story_board: req }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
@@ -106,5 +121,67 @@ export class StoryBoardComponent implements OnInit {
 
   public onSelectAll(items: any) {
     console.log(items);
+  }
+
+  /**
+ * Handler attaching files type are valid/Not and request to be sent to upload those valid files...
+ */
+  public handlerAttachFile() {
+    console.log(this.attachInput.nativeElement.files);
+    const fileBrowser = this.attachInput.nativeElement;
+    for (let i = 0; i < fileBrowser.files.length; i++) {
+      let fileName = fileBrowser.files[i].name, getExtension = fileName.split("."),
+        formData: FormData = new FormData(),
+        validFile: boolean = this.validFileType(getExtension);
+      if (validFile) {
+        this.uploadedFiles.push(fileName.replace(/\s/g, "_"));
+        this.attachFiles.push({ name: fileName.replace(/\s/g, "_"), id: null });
+        formData.append(`story_board_asset[file]`, fileBrowser.files[i]);
+        this.uploadAssistanceFile(formData);
+      } else {
+        this.toastrService.warning("File type should be any of these 'xls', 'xlsx', 'jpg', 'jpeg', 'png', 'pdf', 'csv', 'doc', 'docx', 'pptx', 'ppt'", 'Warning');
+      }
+    }
+  }
+
+  public validFileType(getExtension) {
+    if (this.fileTypes.find(fileType => fileType === getExtension[getExtension.length - 1].toLocaleLowerCase()) !== undefined) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  public spinLoadHandler(item) {
+    return _.includes(this.uploadedFiles, item);
+  }
+
+  public deleteAssistanceFile(index, item) {
+    this.attachFiles.splice(index, 1);
+    this.attachInput.nativeElement.value = "";
+    this.uploadedFiles = _.remove(this.uploadedFiles, item.name);
+    this.bidAcademyService.deleteStoryBoardAssetFile(item.id).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.toastrService.success(res.success, 'Success');
+    }, error => {
+      console.error(error);
+    });
+  }
+
+  public uploadAssistanceFile(formData) {
+    this.attachLoading = true;
+    this.bidAcademyService.uploadStoryBoardAssetFile(formData).subscribe((res: any) => {
+      res = JSON.parse(res);
+      let fileIds: Array<number> = this.attachFiles.length ? _.map(this.attachFiles, 'id') : [];
+      fileIds.push(res.id)
+      _.set(_.find(this.attachFiles, { name: res.file_name }), 'id', res.id);
+      this.uploadedFiles = _.pull(this.uploadedFiles, res.file_name);
+      if (this.uploadedFiles.length === 0) {
+        this.attachLoading = false;
+      }
+    }, error => {
+      this.attachLoading = false;
+      console.error(error);
+    });
   }
 }
