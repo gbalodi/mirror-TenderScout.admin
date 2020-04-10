@@ -1,3 +1,39 @@
 .set-save-btn {
     margin: 12px 0 0 7px;
 }
+
+.stroy-list-head {
+    display: flex;
+    align-items: center;
+}
+.stroy-list-head .buton-holder {
+    flex: 0 0 500px;
+    text-align: right;
+}
+.stroy-list-head h3 {
+    flex: 0 0 calc(100% - 500px);
+}
+.stroy-list-head .buton-holder i {
+    margin-right: 10px;
+}
+.width20 {
+    width: 20%;
+}
+.width10 {
+    width: 10%;
+}
+.width30 {
+    width: 30%;
+}
+.transparent {
+    background: #fff;
+    text-align: center;
+}
+.no-data {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
+}

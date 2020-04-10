@@ -65,4 +65,12 @@ export class GroupService {
   public includeUsers(params) {
     return this.httpClient.post(`v2/admin/stories/include_users`, params);
   }
+
+  /**
+   * API server call to get Users of a Story Group...
+   * @param id 
+   */
+  public getStoryUsers(id) {
+    return this.httpClient.get(`v2/admin/stories/${id}/story_users`);
+  }
 }

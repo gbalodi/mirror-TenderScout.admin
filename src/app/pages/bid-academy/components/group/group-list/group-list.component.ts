@@ -11,6 +11,7 @@ interface IStoryGroup {
   name: string;
   story_boards_count: number;
   archive: boolean;
+  story_users_count: number;
 }
 
 @Component({
@@ -45,7 +46,8 @@ export class GroupListComponent implements OnInit {
   ) {
     this.groupForm = formBuilder.group({
       id: [null],
-      name: ['', Validators.required]
+      name: ['', Validators.required],
+      archive: [false]
     });
 
     this.includeUsersForm = formBuilder.group({
@@ -86,7 +88,8 @@ export class GroupListComponent implements OnInit {
     if (item) {
       this.groupForm.patchValue({
         id: item.id,
-        name: item.name
+        name: item.name,
+        archive: item.archive
       });
     }
     this.bsModalRef = this.bsModalService.show(template, { class: `modal-lg archieve-modal` });
@@ -108,7 +111,7 @@ export class GroupListComponent implements OnInit {
   }
 
   public archiveStory() {
-    this.groupService.archiveStory(this.groupForm.value.id, { story: { archive: true } }).subscribe((res: any) => {
+    this.groupService.archiveStory(this.groupForm.value.id, { story: { archive: !this.groupForm.value.archive } }).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
       this.bsModalRef.hide();
@@ -142,6 +145,14 @@ export class GroupListComponent implements OnInit {
   }
   public onSelectAll(items: any) {
     console.log(items);
+  }
+
+  public getStoryUsers(id) {
+    this.groupService.getStoryUsers(id).subscribe((res: any) => {
+      res = JSON.parse(res);
+    }, error => {
+      console.error(error);
+    });
   }
 
 }
