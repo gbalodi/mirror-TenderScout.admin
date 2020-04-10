@@ -17,46 +17,45 @@
             <div class="row">
 
                 <div class="col-xs-12 col-sm-6">
-                    <label for="title" class="col-form-label">Title: </label>
-                    <div class="">
-                        <input type="text" formControlName="title" class="form-control" id="title">
+
+                    <div class="group-container">
+                        <label for="story_id" class="col-form-label">Select Group: </label>
+                        <div class="group-tags-holder">
+                            <span class="arrow-wrapper"></span>
+                            <select formControlName="story_id" id="story_id" class="form-control">
+                                <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
+                            </select>
+                        </div>
                     </div>
+                    <div class="title-container">
+                        <label for="title" class="col-form-label">Title: </label>
+                        <div class="">
+                            <input type="text" formControlName="title" class="form-control" id="title">
+                        </div>
+                    </div>
+                    <div class="tags-container">
+                        <label for="tags" class="col-form-label">Select Tags: </label>
+                        <div class="">
+                            <!-- <select formControlName="tags_attributes" id="tags" class="form-control">
+                                <option *ngFor="let tag of tags" [value]="tag.id">{{tag.name}}</option>
+                            </select> -->
+
+                            <ng-select [items]="tagsArray" formControlName="tags_attributes" [multiple]="true" [addTag]="true"></ng-select>
+
+                            <!-- <ng-multiselect-dropdown [placeholder]="'Please select multiple'" [data]="tags" formControlName="tags_attributes" [settings]="dropDownSettings" (onSelectAll)="onSelectAll($event)">
+                            </ng-multiselect-dropdown> -->
+                        </div>
+                    </div>
+                    
+
                 </div>
 
                 <div class="col-xs-12 col-sm-6">
                     <label for="description" class="col-form-label">Description: </label>
                     <div class="">
-                        <textarea rows="6" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
+                        <textarea rows="8" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
                     </div>
                 </div>
-            </div>
-
-            <div class="row">
-
-                <div class="col-xs-12 col-sm-6">
-                    <label for="story_id" class="col-form-label">Select Group: </label>
-                    <div class="">
-
-                        <select formControlName="story_id" id="story_id" class="form-control">
-                            <option *ngFor="let group of groups" [value]="group.id">{{group.name}}</option>
-                        </select>
-
-                    </div>
-                </div>
-                <div class="col-xs-12 col-sm-6">
-                    <label for="tags" class="col-form-label">Select Tags: </label>
-                    <div class="">
-                        <!-- <select formControlName="tags_attributes" id="tags" class="form-control">
-                            <option *ngFor="let tag of tags" [value]="tag.id">{{tag.name}}</option>
-                        </select> -->
-
-                        <ng-select [items]="tagsArray" formControlName="tags_attributes" [multiple]="true" [addTag]="true"></ng-select>
-
-                        <!-- <ng-multiselect-dropdown [placeholder]="'Please select multiple'" [data]="tags" formControlName="tags_attributes" [settings]="dropDownSettings" (onSelectAll)="onSelectAll($event)">
-                        </ng-multiselect-dropdown> -->
-                    </div>
-                </div>
-
             </div>
 
             <div class="row">

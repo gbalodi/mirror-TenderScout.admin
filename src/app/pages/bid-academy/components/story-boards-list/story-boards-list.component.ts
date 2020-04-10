@@ -22,7 +22,7 @@ export class StoryBoardsListComponent implements OnInit {
   public storyBoardsList: IStoryBoard[] = [];
   public selectedBoard: IStoryBoard;
   public approveModal: BsModalRef;
-  public tableHeadNames: Array<string> = ['Edit', 'Title', 'Description', 'Tags', '# Attach(s)', 'Action'];
+  // public tableHeadNames: Array<string> = ['Edit', 'Title', 'Description', 'Tags', '# Attach(s)', 'Action'];
 
   constructor(
     private bidAcademyService: BidAcademyService,

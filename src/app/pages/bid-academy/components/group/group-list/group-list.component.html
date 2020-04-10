@@ -1,17 +1,16 @@
 <div class="card-header">
 
-    <h3>Story Groups List</h3>
-
     <div class="row">
         <div class="col-sm-12">
-            <label for="role" class="col-form-label">&nbsp;</label>
-            <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create new Story Group</button>
-            <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(includeUsers, undefined)"><i class="fas fa-plus-square"></i>Include Users</button>
+            <div class="stroy-list-head">
+                <h3>Story Groups List</h3>
+                <div class="buton-holder">
+                    <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
+                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create new Story Group</button>
+                    <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(includeUsers, undefined)"><i class="fas fa-plus-square"></i>Include Users</button>
+                </div>
+            </div>
         </div>
-
-        <!-- <div class="col-sm-6">
-            <label for="role" class="col-form-label">&nbsp;</label>
-        </div> -->
     </div>
 </div>
 
@@ -35,8 +34,13 @@
                     <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Story Group"></i></span>
                 </td>
             </tr>
+            <tr>
+                <td colspan="4" class="transparent">
+                    <div *ngIf="groups?.length === 0" class="no-data">No Data Found!</div>
+                </td>
+            </tr>
         </tbody>
-        <span *ngIf="groups?.length === 0">No Data Found!</span>
+        
 
     </table>
 </div>
