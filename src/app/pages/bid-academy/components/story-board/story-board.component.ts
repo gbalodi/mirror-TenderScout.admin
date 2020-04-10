@@ -32,6 +32,8 @@ export class StoryBoardComponent implements OnInit {
   public uploadedFiles: Array<string> = [];
   public attachFiles: Array<IAttachFile> = [];
   public attachLoading: boolean = false;
+  public Object: any = Object;
+  public actions: { [key: string]: string } = {};
   public dropDownSettings = {
     singleSelection: false,
     idField: "id",
@@ -57,7 +59,8 @@ export class StoryBoardComponent implements OnInit {
       story_id: [null, Validators.required],
       title: ['', Validators.required],
       description: ['', Validators.required],
-      tags_attributes: [[], Validators.required]
+      tags_attributes: [[], Validators.required],
+      story_board_assets: [[]]
     });
 
     this.bidAcademyService.getAllTagLabels().subscribe((res: any) => {
@@ -88,11 +91,24 @@ export class StoryBoardComponent implements OnInit {
             story_id: res.story.id,
             title: res.title,
             description: res.description,
-            tags_attributes: _.map(res.tags, 'name')
+            tags_attributes: _.map(res.tags, 'name'),
+            story_board_assets: res.story_board_assets
           });
+
+          //  Set to Download/Attached files in the chat box...
+          this._getActionDropDown();
         })
       }
     })
+  }
+
+  private _getActionDropDown() {
+    if (this.storyBoardForm.value.story_board_assets) {
+      this.actions = {};
+      this.storyBoardForm.value.story_board_assets.forEach(element => {
+        this.actions[element.file_name] = element.file_name;
+      });
+    }
   }
 
   public submitForm() {
@@ -160,7 +176,21 @@ export class StoryBoardComponent implements OnInit {
     this.attachFiles.splice(index, 1);
     this.attachInput.nativeElement.value = "";
     this.uploadedFiles = _.remove(this.uploadedFiles, item.name);
-    this.bidAcademyService.deleteStoryBoardAssetFile(item.id).subscribe((res: any) => {
+    this.deleteStoryBoardAssetFile(item.id);
+  }
+
+  public findSelectedFile(file) {
+    let found = _.find(this.storyBoardForm.value.story_board_assets, ['file_name', file]);
+    let deletedFile = _.pull(this.storyBoardForm.value.story_board_assets, found);
+
+    this.storyBoardForm.controls['story_board_assets'].setValue(deletedFile);
+
+    this.deleteStoryBoardAssetFile(found.id);
+    this._getActionDropDown();
+  }
+
+  public deleteStoryBoardAssetFile(id) {
+    this.bidAcademyService.deleteStoryBoardAssetFile(id).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
     }, error => {
@@ -183,5 +213,14 @@ export class StoryBoardComponent implements OnInit {
       this.attachLoading = false;
       console.error(error);
     });
+  }
+
+  /**
+* To Download Attached file...
+* @param file 
+*/
+  public downloadFile(file) {
+    let found = _.find(this.storyBoardForm.value.story_board_assets, ['file_name', file]);
+    window.open(found.file_url, '_blank');
   }
 }

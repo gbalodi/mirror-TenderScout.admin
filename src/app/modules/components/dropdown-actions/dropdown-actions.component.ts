@@ -27,7 +27,8 @@ export class DropdownActionsComponent {
 
   constructor(private el: ElementRef) { }
 
-  @Output() onSelect: EventEmitter<string> = new EventEmitter();
+  @Output() public onSelect: EventEmitter<string> = new EventEmitter();
+  @Output() public deleteSelect: EventEmitter<string> = new EventEmitter();
 
   @HostListener('window:click', ['$event.target'])
   private onWindowClick(target: HTMLElement): void {
@@ -41,6 +42,7 @@ export class DropdownActionsComponent {
 
   @Input() public disabled: boolean = false;
   @Input() public selectedItem: any;
+  @Input() public deleteIcon: boolean = false;
 
   @HostBinding('class.show') public show: boolean = false;
 

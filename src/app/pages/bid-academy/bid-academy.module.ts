@@ -14,6 +14,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 // import { TreeViewComponent } from '@syncfusion/ej2-angular-navigations';
 import { TreeModule } from 'angular-tree-component';
 import { NgxSpinnerModule } from "ngx-spinner";
+import { SharedModule } from 'app/modules/shared.module';
+
 
 @NgModule({
   imports: [
@@ -24,7 +26,8 @@ import { NgxSpinnerModule } from "ngx-spinner";
     NgMultiSelectDropDownModule.forRoot(),
     NgSelectModule,
     TreeModule,
-    NgxSpinnerModule
+    NgxSpinnerModule,
+    SharedModule
   ],
   declarations: [
     StoryBoardComponent,
