@@ -2,7 +2,7 @@ import { Component, OnInit, ElementRef, Inject } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { TenderObj } from '../../../../model/tender-obj';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { IIndustryCode } from '../../../../../../../prehub/src/app/models/interfaces/industry-code.interface';
+// import { IIndustryCode } from '../../../../../../../prehub/src/app/models/interfaces/industry-code.interface';
 import { Subscription, from, zip, Subject } from 'rxjs';
 import { MainRequestService } from 'app/services/main-request.service';
 import { map, switchMap, mergeMap, debounceTime, distinctUntilChanged, pairwise } from 'rxjs/operators';
@@ -12,6 +12,15 @@ import { TenderService } from '../../services/tender.service';
 // import * as ic_cpvs from '../../../../ic_cpvs.json';
 // import * as ic_naicses from '../../../../ic_naicses.json';
 // import * as ic_unspsces from '../../../../ic_unspsces.json';
+
+
+interface IIndustryCode {
+  code: string;
+  description: string;
+  id: number;
+  fullCodeName: string;
+}
+
 
 
 declare var $: any;
@@ -390,7 +399,7 @@ export class TenderEditComponent implements OnInit {
 
   public submitTenderForm() {
     let codesType = this.formValueHandler(this.tenderForm.value);
-    let tender = {...this.tenderForm.value};
+    let tender = { ...this.tenderForm.value };
     delete tender.organization_name;
 
     let method = this.tender.id ? 'updateTender' : 'createTender';
