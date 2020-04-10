@@ -1,15 +1,16 @@
 <div class="wrap" (click)="toggle()">
-  <ng-content></ng-content>
+    <ng-content></ng-content>
 </div>
 <div class="dropdown" *ngIf="show" @dropdown>
-  <div class="label">
-    {{label}}
-  </div>
-  <ul>
-    <li *ngFor="let actionKey of (actions | keys)">
-      <button (click)="select(actionKey)">
+    <div class="label">
+        {{label}}
+    </div>
+    <ul>
+        <li *ngFor="let actionKey of (actions | keys)">
+            <button (click)="select(actionKey)">
         {{actions[actionKey]}}
       </button>
-    </li>
-  </ul>
+            <i *ngIf="deleteIcon" class="fas fa-trash-alt set-cursor" (click)="deleteSelect.emit(actionKey)"></i>
+        </li>
+    </ul>
 </div>

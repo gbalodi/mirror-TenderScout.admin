@@ -1,7 +1,14 @@
 <div class="card card-accent-primary">
     <div class="card-header">
 
-        <h3>{{!boardId ? 'Create New' : 'Edit'}} Story Board</h3>
+        <h3>{{!boardId ? 'Create New' : 'Edit'}} Story Board
+
+            <app-dropdown-actions title="Download Attached" [deleteIcon]="true" *ngIf="Object.keys(actions).length" label="Download File" [fileDownload]="true" class="op-dots" [actions]="actions" (onSelect)="downloadFile($event)" (deleteSelect)="findSelectedFile($event)"
+                (mouseleave)="toggle=false">
+                <button class="actions" (mouseleave)="toggle=false"><i class="fas fa-cloud-download-alt"></i></button>
+            </app-dropdown-actions>
+
+        </h3>
 
     </div>
     <div class="card-body">
