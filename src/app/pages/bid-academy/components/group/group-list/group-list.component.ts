@@ -10,6 +10,7 @@ interface IStoryGroup {
   id: number;
   name: string;
   story_boards_count: number;
+  archive: boolean;
 }
 
 @Component({
@@ -106,8 +107,8 @@ export class GroupListComponent implements OnInit {
     });
   }
 
-  public deleteGroupEvent() {
-    this.groupService.deleteStories(this.groupForm.value.id).subscribe((res: any) => {
+  public archiveStory() {
+    this.groupService.archiveStory(this.groupForm.value.id, { story: { archive: true } }).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
       this.bsModalRef.hide();

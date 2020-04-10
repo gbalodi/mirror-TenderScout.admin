@@ -15,6 +15,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { TreeModule } from 'angular-tree-component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from 'app/modules/shared.module';
+import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
+
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { SharedModule } from 'app/modules/shared.module';
     StoryBoardComponent,
     StoryBoardsListComponent,
     GroupListComponent,
+    GroupTreeComponent,
     // TreeViewComponent
   ],
   providers: [

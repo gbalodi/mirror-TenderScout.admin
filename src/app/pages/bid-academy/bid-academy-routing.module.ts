@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { StoryBoardComponent } from './components/story-board/story-board.component';
 import { StoryBoardsListComponent } from './components/story-boards-list/story-boards-list.component';
 import { GroupListComponent } from './components/group/group-list/group-list.component';
+import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
 
 const routes: Routes = [
   {
@@ -16,6 +17,13 @@ const routes: Routes = [
         component: GroupListComponent,
         data: {
           title: 'Story Groups List'
+        }
+      },
+      {
+        path: 'story-groups-tree',
+        component: GroupTreeComponent,
+        data: {
+          title: 'Story Groups Tree'
         }
       },
 

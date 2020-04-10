@@ -51,6 +51,14 @@ export class GroupService {
   }
 
   /**
+   * API server call to Archive Group by id...
+   * @param id 
+   */
+  public archiveStory(id, params) {
+    return this.httpClient.patch(`v2/admin/stories/${id}/archive_story`, params);
+  }
+
+  /**
    * API server call to include users according to selected Story Groups...
    * @param params 
    */

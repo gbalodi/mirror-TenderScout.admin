@@ -32,7 +32,9 @@
                 <td>{{item?.name }}</td>
                 <td>{{item?.story_boards_count }}</td>
                 <td>
-                    <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Story Group"></i></span>
+                    <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" title="Delete Story Group"></i></span>
+                    <span class="iconn"><i class="fas fa-undo set-cursor" (click)="openModal(archiveGroupModal, item)" title="Delete Story Group"></i></span>
+                    <a class="iconn"><i class="fas fa-users"></i></a>
                 </td>
             </tr>
         </tbody>
@@ -85,7 +87,7 @@
 </ng-template>
 
 <!-- Modal for Delete Story Group -->
-<ng-template #deleteGroupModal>
+<ng-template #archiveGroupModal>
 
     <div class="modal-header">
         <h4 class="modal-title">Confirm</h4>
@@ -93,7 +95,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to Delete this  - {{ groupForm.value.title }} ?</label></div>
+    <div class="modal-body"><label>Are you sure you want to Archive this?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">

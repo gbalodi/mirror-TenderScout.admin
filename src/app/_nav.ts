@@ -146,6 +146,11 @@ export const navigation = [
                 url: '/bid-academy/story-groups-list',
                 icon: 'fas fa-globe-asia',
             },
+            // {
+            //     name: 'Story Groups Tree',
+            //     url: '/bid-academy/story-groups-tree',
+            //     icon: 'fas fa-globe-asia',
+            // },
             {
                 name: 'Story Boards List',
                 url: '/bid-academy/story-boards-list',
