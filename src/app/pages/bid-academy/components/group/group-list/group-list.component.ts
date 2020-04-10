@@ -24,7 +24,7 @@ export class GroupListComponent implements OnInit {
   public includeUsersForm: FormGroup;
   public usersList: Array<any> = [];
   public selectedUsers = [];
-  public tableHeadNames: Array<string> = ['Edit', 'Name', '#Story Board(s)', 'Action'];
+  // public tableHeadNames: Array<string> = ['Edit', 'Name', '#Story Board(s)', 'Action'];
   public dropdownSettings = {
     singleSelection: false,
     idField: 'id',
