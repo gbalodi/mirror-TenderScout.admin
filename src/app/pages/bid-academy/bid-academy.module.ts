@@ -16,6 +16,7 @@ import { TreeModule } from 'angular-tree-component';
 import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from 'app/modules/shared.module';
 import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
+import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
 
 
 
@@ -36,6 +37,7 @@ import { GroupTreeComponent } from './components/group/group-tree/group-tree.com
     StoryBoardsListComponent,
     GroupListComponent,
     GroupTreeComponent,
+    GroupUsersListComponent,
     // TreeViewComponent
   ],
   providers: [

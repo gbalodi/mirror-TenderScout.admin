@@ -147,12 +147,12 @@ export class GroupListComponent implements OnInit {
     console.log(items);
   }
 
-  public getStoryUsers(id) {
-    this.groupService.getStoryUsers(id).subscribe((res: any) => {
-      res = JSON.parse(res);
-    }, error => {
-      console.error(error);
-    });
-  }
+  // public getStoryUsers(id) {
+  //   this.groupService.getStoryUsers(id).subscribe((res: any) => {
+  //     res = JSON.parse(res);
+  //   }, error => {
+  //     console.error(error);
+  //   });
+  // }
 
 }

@@ -44,7 +44,7 @@
                 <td class="text-center">{{item?.story_boards_count }}</td>
                 <td class="text-center">
                     <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" title="Delete Story Group"></i></span>
-                    <a class="iconn" [title]="item.story_users_count +  ' User(s)'" (click)="getStoryUsers(item.id)"><i class="fas fa-users"></i></a>
+                    <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a>
                 </td>
 
 

@@ -1,0 +1,52 @@
+<div class="card-header">
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="stroy-list-head">
+                <h3>Story Groups List</h3>
+                <div class="buton-holder">
+                    <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
+                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create new Story Group</button>
+                    <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(includeUsers, undefined)"><i class="fas fa-plus-square"></i>Include Users</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive padding-bottom-250">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <!-- <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index">
+                  {{item}}
+              </th> -->
+                <th class="set-cursor width80">
+                    Users
+                </th>
+                <th class="set-cursor text-center width20">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of groupUsers">
+                <td>{{item?.name }}</td>
+                <td class="text-center">{{item?.story_boards_count }}</td>
+                <td class="text-center">
+                    <!-- <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" title="Delete Story Group"></i></span> -->
+                    <!-- <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a> -->
+                </td>
+
+
+            </tr>
+            <tr>
+                <td colspan="4" class="transparent">
+                    <div *ngIf="groups?.length === 0" class="no-data">No Data Found!</div>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>

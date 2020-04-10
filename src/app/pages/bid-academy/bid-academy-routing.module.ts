@@ -4,6 +4,7 @@ import { StoryBoardComponent } from './components/story-board/story-board.compon
 import { StoryBoardsListComponent } from './components/story-boards-list/story-boards-list.component';
 import { GroupListComponent } from './components/group/group-list/group-list.component';
 import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
+import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,13 @@ const routes: Routes = [
         component: GroupListComponent,
         data: {
           title: 'Story Groups List'
+        }
+      },
+      {
+        path: 'story-group/:id/users',
+        component: GroupUsersListComponent,
+        data: {
+          title: 'Story Group Users List'
         }
       },
       {
