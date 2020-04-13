@@ -27,8 +27,11 @@
                 <th class="set-cursor width50">
                     Name
                 </th>
-                <th class="set-cursor text-center width20">
+                <th class="set-cursor text-center width10">
                     #Story Board(s)
+                </th>
+                <th class="set-cursor text-center width10">
+                    Archive
                 </th>
                 <th class="set-cursor text-center width20">
                     Action
@@ -42,8 +45,9 @@
                 </td>
                 <td>{{item?.name }}</td>
                 <td class="text-center">{{item?.story_boards_count }}</td>
+                <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
-                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" title="Delete Story Group"></i></span>
+                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Story Group' : 'Withdraw Story Group'"></i></span>
                     <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a>
                 </td>
 
