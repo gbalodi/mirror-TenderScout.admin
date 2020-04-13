@@ -33,7 +33,7 @@
               <label for="30days" class="radio-label">Past 30 Days</label>
           </div> -->
 
-                <div class="col-md-2"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
+                <div class="col-md-2 text-right"> <button (click)="ngOnInit()" class="btn btn-primary">Reset</button></div>
             </div>
         </form>
     </div>
@@ -72,8 +72,13 @@
                     <td>{{item.bid_hub_docs_downloaded}}</td>
                     <td>{{item.bid_academy_docs_downloaded}}</td>
                 </tr>
+                <tr>
+                    <td colspan="17" class="transparent">
+                        <div *ngIf="companiesStatistics.length === 0" class="no-data">No Data Found!</div>
+                    </td>
+                </tr>
             </tbody>
-            <span *ngIf="companiesStatistics.length === 0">No Data Found!</span>
+            
 
         </table>
     </div>
