@@ -43,7 +43,7 @@
         <tbody>
             <tr *ngFor="let item of userData | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalItems }">
                 <td>
-                    <i class="fas fa-pencil-alt set-cursor" [routerLink]="['/users',item.id, 'edit']" title="Edit User"></i>
+                    <i class="fas fa-edit set-cursor" [routerLink]="['/users',item.id, 'edit']" title="Edit User"></i>
                 </td>
                 <td>{{item?.email }}</td>
                 <td>{{item?.profile_type ? item?.profile_type[0] : '--'}}</td>

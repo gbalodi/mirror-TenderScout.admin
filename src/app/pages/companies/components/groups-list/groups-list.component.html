@@ -22,7 +22,7 @@
         <tbody>
             <tr *ngFor="let item of groups | paginate: { itemsPerPage: 20, currentPage: page, totalItems: totalData }">
                 <td>
-                    <i class="fas fa-pencil-alt set-cursor" title="Edit Group Name" (click)="openAddEditModal(createORBGroup, item)"></i>
+                    <i class="fas fa-edit set-cursor" title="Edit Group Name" (click)="openAddEditModal(createORBGroup, item)"></i>
                 </td>
                 <td>{{item?.name }}</td>
                 <td>{{item?.company_count}}</td>

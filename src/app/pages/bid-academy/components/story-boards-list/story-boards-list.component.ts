@@ -8,7 +8,7 @@ interface IStoryBoard {
   id: number;
   title: string;
   description: string;
-  tags: Array<string>;
+  tags: Array<any>;
   read: boolean;
   story_board_assets: Array<any>;
 }
@@ -60,10 +60,10 @@ export class StoryBoardsListComponent implements OnInit {
     });
   }
 
-  public tagHandler(tags) {
-    let t = _.map(tags, 'name');
+  // public tagHandler(tags) {
+  //   let t = _.map(tags, 'name');
 
-    return t.join(', ')
-  }
+  //   return t.join(', ')
+  // }
 
 }

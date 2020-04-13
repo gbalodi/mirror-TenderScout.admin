@@ -26,6 +26,7 @@ export class GroupListComponent implements OnInit {
   public includeUsersForm: FormGroup;
   public usersList: Array<any> = [];
   public selectedUsers = [];
+  public loading: boolean = false;
   // public tableHeadNames: Array<string> = ['Edit', 'Name', '#Story Board(s)', 'Action'];
   public dropdownSettings = {
     singleSelection: false,
@@ -85,6 +86,7 @@ export class GroupListComponent implements OnInit {
 
   public openModal(template: TemplateRef<any>, item: any) {
     this.groupForm.reset();
+    this.includeUsersForm.reset();
     if (item) {
       this.groupForm.patchValue({
         id: item.id,
@@ -96,12 +98,14 @@ export class GroupListComponent implements OnInit {
   }
 
   public submitGroup() {
+    this.loading = true;
     let method: string = !this.groupForm.value.id ? 'createStories' : 'updateStories';
     let req = { ...this.groupForm.value };
     delete req.id;
 
     this.groupService[method]({ story: req }, this.groupForm.value.id ? this.groupForm.value.id : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
+      this.loading = false;
       this.toastrService.success(res.success, 'Success');
       this.bsModalRef.hide();
       this._getAllGroups();

@@ -41,7 +41,7 @@
         <tbody>
             <tr *ngFor="let item of groups">
                 <td>
-                    <i class="fas fa-pencil-alt set-cursor" (click)="openModal(addEditGroupModal, item)" title="Edit Group"></i>
+                    <i class="fas fa-edit set-cursor" (click)="openModal(addEditGroupModal, item)" title="Edit Group"></i>
                 </td>
                 <td>{{item?.name }}</td>
                 <td class="text-center">{{item?.story_boards_count }}</td>
@@ -97,7 +97,7 @@
             <div class="row info">
                 <div class="col-xs-12 col-sm-12">
                     <!-- <button class="btn" (click)="bsModalRef.hide()">Close</button> -->
-                    <button class="btn btn-yes-margin33" [ngClass]="{'disabled': groupForm.invalid}" [disabled]="groupForm.invalid" (click)="submitGroup()">Save</button>
+                    <button class="btn btn-yes-margin33" [ngClass]="{'disabled': (groupForm.invalid || loading) }" [disabled]="groupForm.invalid || loading" (click)="submitGroup()">Save</button>
                 </div>
             </div>
 
