@@ -169,6 +169,7 @@ export class StoryBoardComponent implements OnInit {
   }
 
   public spinLoadHandler(item) {
+    console.log(_.includes(this.uploadedFiles, item));
     return _.includes(this.uploadedFiles, item);
   }
 

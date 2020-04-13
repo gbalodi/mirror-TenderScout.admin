@@ -54,7 +54,7 @@
 
             </tr>
             <tr>
-                <td colspan="4" class="transparent">
+                <td colspan="5" class="transparent">
                     <div *ngIf="groups?.length === 0" class="no-data">No Data Found!</div>
                 </td>
             </tr>
@@ -83,7 +83,7 @@
         </button>
     </div>
 
-    <div class="row modal-body">
+    <div class="row modal-body create_modal-body">
         <form [formGroup]="groupForm" class="static_form-holder" novalidate>
 
             <div class="row info">
@@ -95,9 +95,9 @@
             </div>
 
             <div class="row info">
-                <div class="col-xs-12 col-sm-12 text-left">
+                <div class="col-xs-12 col-sm-12">
                     <!-- <button class="btn" (click)="bsModalRef.hide()">Close</button> -->
-                    <button class="btn btn-yes-margin33" [disabled]="groupForm.invalid" (click)="submitGroup()">Save</button>
+                    <button class="btn btn-yes-margin33" [ngClass]="{'disabled': groupForm.invalid}" [disabled]="groupForm.invalid" (click)="submitGroup()">Save</button>
                 </div>
             </div>
 
@@ -116,12 +116,12 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to Archive this?</label></div>
+    <div class="modal-body"><label>Are you sure you want to {{!groupForm.value.archive ? 'Archive' : 'Withdraw'}} this?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">
-            <button class="btn" (click)="bsModalRef.hide()">No</button>
-            <button class="btn btn-yes-margin33" (click)="archiveStory()">Yes</button>
+            <button class="btn btn-secondary" (click)="bsModalRef.hide()">No</button>
+            <button class="btn btn-yes-margin33 btn-primary" (click)="archiveStory()">Yes</button>
         </div>
     </div>
 </ng-template>
@@ -134,18 +134,18 @@
         <span aria-hidden="true">&times;</span>
       </button>
     </div>
-    <div class="modal-body">
+    <div class="modal-body include_modal-body">
         <form [formGroup]="includeUsersForm" novalidate>
 
             <div class="used-selectbr repo-used-selectbr">
-                <p>Select Stories: </p>
+                <label>Select Stories: </label>
 
                 <ng-multiselect-dropdown [placeholder]="'Select Stories'" [data]="groups" formControlName="story_ids" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                 </ng-multiselect-dropdown>
             </div>
 
             <div class="used-selectbr repo-used-selectbr">
-                <p>Select Users: </p>
+                <label>Select Users: </label>
 
                 <ng-multiselect-dropdown [placeholder]="'Select Users'" [data]="usersList" formControlName="user_ids" [settings]="dropdownSettings" (onSelect)="onItemSelect($event)" (onSelectAll)="onSelectAll($event)">
                 </ng-multiselect-dropdown>

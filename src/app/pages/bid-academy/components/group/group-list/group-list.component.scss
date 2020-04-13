@@ -1,7 +1,3 @@
-.set-save-btn {
-    margin: 12px 0 0 7px;
-}
-
 .stroy-list-head {
     display: flex;
     align-items: center;
@@ -28,16 +24,30 @@
 .width50 {
     width: 50%;
 }
-.transparent {
-    background: #fff;
-    text-align: center;
-    border: none;
+
+.include_modal-body p {
+    margin: 0 0 2px;
+    font-weight: 500;
+    color: #333333;
 }
-.no-data {
-    min-height: 320px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 24px;
-    font-weight: 600;
+.include_modal-body .used-selectbr {
+    margin-bottom: 12px;
+}
+.include_modal-body .button-holder {
+    margin-top: 20px;
+}
+.include_modal-body .button-holder button {
+    min-height: 35px;
+    background: #d66166;
+    color: #fff;
+    border-color: transparent;
+}
+.card-header {
+    border: 1px solid #c0cadd;
+    border-bottom: none;
+}
+.create_modal-body .btn {
+    margin: 0 !important;
+    min-height: 35px;
+    min-width: 80px;
 }

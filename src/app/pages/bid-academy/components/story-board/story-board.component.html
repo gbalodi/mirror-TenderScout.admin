@@ -71,13 +71,13 @@
                         </label>
                     <input #attachInput multiple type="file" accept=".jpg, .jpeg, .png, .xls, .xlsx, .pdf, .csv, .doc, .docx, .pptx, .ppt" class="upload-file-input" id="file-upload" (change)="handlerAttachFile()">
 
-                    <span *ngIf="uploadedFiles.length>0" class="loading-fl">{{uploadedFiles.length}} File(s) Uploading...</span>
+                    <span *ngIf="uploadedFiles.length>0" class="loading-fl loading-text">{{uploadedFiles.length}} File(s) Uploading...</span>
 
-                    <ngx-spinner class="set-ngx-spinner" bdColor="rgba(255,255,255,0.8)" size="small" color="#d66166" type="ball-clip-rotate" fullScreen="false">
-                        <!-- <p style="color: white"> Loading... </p>  -->
-                    </ngx-spinner>
+                    <!-- <ngx-spinner class="set-ngx-spinner" bdColor="rgba(255,255,255,0.8)" size="small" color="#d66166" type="ball-clip-rotate" fullScreen="false">
+                         <p style="color: white"> Loading... </p> 
+                    </ngx-spinner> -->
 
-                    <div *ngIf="attachFiles.length>0" class="attach-lm">
+                    <div *ngIf="attachFiles.length>0" class="attach-lm" style="position: relative;">
                         <ng-container *ngFor="let item of attachFiles; let i = index">
                             <label class="pop-request-attach" style="position: relative;">
                                 <span class="fl-name">{{item.name}} - Uploaded</span>  
@@ -85,7 +85,7 @@
                                     <i *ngIf="!spinLoadHandler(item.name)" (click)="deleteAssistanceFile(i, item)" class="far fa-window-close set-cursor cancel-color"></i> 
                                     <!-- <mat-spinner *ngIf="spinLoadHandler(item.name)" diameter="13" class="o-spin"></mat-spinner> -->
                                 </span>
-                                
+                                <div class="spinner-border text-danger" *ngIf="spinLoadHandler(item.name)"></div>
                             </label>
                         </ng-container>
                     </div>
