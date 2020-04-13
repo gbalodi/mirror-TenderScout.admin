@@ -40,6 +40,9 @@
 .set-margin-left10 {
     margin-left: 10px;
 }
+.table-striped {
+    border: 1px solid #c0cadd;
+}
 
 .email-set {
     font-size: 12px;
@@ -69,4 +72,41 @@
 .static_form-holder {
     width: 100%;
     padding: 0 15px;
+}
+.spinner-border {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    vertical-align: text-bottom;
+    border: 1px solid currentColor;
+    border-right-color: transparent;
+    border-radius: 50%;
+    -webkit-animation: spinner-border .75s linear infinite;
+    animation: spinner-border .75s linear infinite;
+}
+
+@keyframes spinner-border {
+    to { transform: rotate(360deg); }
+  }
+
+.include_modal-body .dropdown-list {
+    border-radius: 0 0 3px 3px !important;
+    padding-top: 0 !important;
+    margin-top: -2px !important;
+    box-shadow: none !important;
+    position: relative !important;
+}
+.transparent {
+    background: #fff;
+    text-align: center;
+    border: none !important;
+    padding: 0 !important;
+}
+.no-data {
+    min-height: 320px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 24px;
+    font-weight: 600;
 }

@@ -32,7 +32,7 @@
         <tbody>
             <tr *ngFor="let item of groupUsers">
                 <td>{{item.user.full_name }}
-                    <{{item.user.email}}>
+                    {{item.user.email}}
                 </td>
                 <!-- <td class="text-center">{{item?.story_boards_count }}</td> -->
                 <td class="text-center">
@@ -40,7 +40,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="transparent">
+                <td colspan="2" class="transparent">
                     <div *ngIf="groupUsers?.length === 0" class="no-data text-center">No Data Found!</div>
                 </td>
             </tr>
@@ -63,8 +63,8 @@
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">
-            <button class="btn" (click)="bsModalRef.hide()">No</button>
-            <button class="btn btn-yes-margin33" (click)="deleteStoryUser()">Yes</button>
+            <button class="btn btn-secondary" (click)="bsModalRef.hide()">No</button>
+            <button class="btn btn-yes-margin33 btn-primary" (click)="deleteStoryUser()">Yes</button>
         </div>
     </div>
 </ng-template>

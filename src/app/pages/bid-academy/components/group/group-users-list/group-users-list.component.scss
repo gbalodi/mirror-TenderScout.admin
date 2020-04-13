@@ -6,3 +6,19 @@
 .buton-holder i {
     margin-right: 10px;
 }
+.card-header {
+    border: 1px solid #c0cadd;
+    border-bottom: none;
+}
+.stroy-list-head {
+    display: flex;
+    align-items: center;
+}
+.stroy-list-head h3 {
+    margin: 0;
+    flex: 0 0 calc(100% - 500px);
+}
+.stroy-list-head .buton-holder a {
+    color: #fff;
+    margin: 0;
+}

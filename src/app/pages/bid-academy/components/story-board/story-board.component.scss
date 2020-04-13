@@ -1,4 +1,4 @@
-.set-ngx-spinner {
+.set-ngx-spinner, .spinner-border {
     position: absolute;
     top: 25px;
     left: 240px;
@@ -17,7 +17,7 @@
 .col-form-label ~ input#file-upload {
     opacity: 0;
     height: 0;
-    width: 30px;
+    width: 0;
 }
 .atch_doc {
     display: flex;
@@ -51,4 +51,14 @@
     right: 10px;
     bottom: 12px;
     z-index: 1;
+}
+.pop-request-attach .spinner-border {
+    top: 6px;
+    right: 0;
+    left: auto;
+}
+.loading-fl.loading-text {
+    margin-bottom: 10px;
+    display: inline-block;
+    font-weight: 600;
 }
