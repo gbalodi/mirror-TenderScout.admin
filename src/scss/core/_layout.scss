@@ -305,6 +305,7 @@ app-root {
 }
 .breadcrumb {
   transition: left $layout-transition-speed, right $layout-transition-speed, width $layout-transition-speed;
+  margin-bottom: 6px;
 }
 
 //

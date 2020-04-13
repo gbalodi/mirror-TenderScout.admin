@@ -1,8 +1,8 @@
 <div class="card-header">
 
-    <div class="row">
+    <div class="row align-items-center">
         <div class="col-sm-6">
-            <h3>Orbidal Group List</h3>
+            <h3 style="margin: 0;">Orbidal Group List</h3>
         </div>
         <div class="col-sm-6">
             <button type="button" class="create-user btn btn-primary float-right" (click)="openAddEditModal(createORBGroup, undefined)"><i class="fas fa-user-plus"></i>Create new Group</button>
@@ -31,9 +31,10 @@
                     <span class="iconn"><i class="fas fa-trash-alt set-cursor" title="Delete Group" (click)="openConfirmDeleteORBGroupModal(deleteORBGroupModal, item, undefined)"></i></span>
                 </td>
             </tr>
+            <td colspan="4" class="transparent">
+                <div *ngIf="groups?.length === 0" class="no-data">No Groups to show!</div>
+            </td>
         </tbody>
-        <span *ngIf="groups?.length === 0">No Groups to show!</span>
-
     </table>
 </div>
 
