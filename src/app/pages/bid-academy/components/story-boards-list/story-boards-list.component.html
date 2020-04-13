@@ -38,7 +38,19 @@
                 </td>
                 <td>{{item?.title }}</td>
                 <td>{{item?.description}}</td>
-                <td>{{tagHandler(item?.tags)}}</td>
+                <!-- <td><span class="review-tags">{{tagHandler(item?.tags)}}</span></td> -->
+                <td>
+                    <span class="review-tags">testing tag</span>
+                    <span class="review-tags">hello wednesday 08 tag</span>
+                    <span class="review-tags">additional test tag Wednesday</span>
+                    <span class="review-tags">health</span>
+                    <span class="review-tags">medical</span>
+                    <span class="review-tags">testing tag</span>
+                    <span class="review-tags">hello wednesday 08 tag</span>
+                    <span class="review-tags">additional test tag Wednesday</span>
+                    <span class="review-tags">health</span>
+                    <span class="review-tags">medical</span>
+                </td>
                 <td class="text-center">{{item.story_board_assets.length}}</td>
                 <td class="text-center">
                     <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteBoardModal, item)" title="Delete Story Board"></i></span>
