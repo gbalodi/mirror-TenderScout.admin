@@ -73,4 +73,13 @@ export class GroupService {
   public getStoryUsers(id) {
     return this.httpClient.get(`v2/admin/stories/${id}/story_users`);
   }
+
+  /**
+   * API server call to delete a Group 
+   * @param groupId 
+   * @param storyUserId 
+   */
+  public deleteStoryUser(groupId, storyUserId) {
+    return this.httpClient.delete(`v2/admin/stories/${groupId}/delete_story_user/${storyUserId}`);
+  }
 }
