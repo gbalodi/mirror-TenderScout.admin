@@ -129,7 +129,7 @@ export class StoryBoardComponent implements OnInit {
     this.bidAcademyService[method]({ story_board: req }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
       this.toastrService.success(res.success, 'Success');
-      this.router.navigate(['/bid-academy/story-boards-list']);
+      this.router.navigate(['/bid-academy/pathways-list']);
     }, error => {
       console.error(error);
     });

@@ -3,10 +3,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="stroy-list-head">
-                <h3>Story Group User(s) List</h3>
+                <h3>Sector Group User(s) List</h3>
 
                 <div class="buton-holder">
-                    <a class="create-user btn btn-primary float-right" [routerLink]="['/bid-academy/story-groups-list']"><i class="fas fa-external-link-alt"></i>Story Group List</a>
+                    <a class="create-user btn btn-primary float-right" [routerLink]="['/bid-academy/sector-groups-list']"><i class="fas fa-external-link-alt"></i>Sector Group List</a>
                 </div>
 
             </div>
@@ -31,8 +31,7 @@
         </thead>
         <tbody>
             <tr *ngFor="let item of groupUsers">
-                <td>{{item.user.full_name }}
-                    {{item.user.email}}
+                <td>{{item.user.full_name }} {{item.user.email}}
                 </td>
                 <!-- <td class="text-center">{{item?.story_boards_count }}</td> -->
                 <td class="text-center">
@@ -59,7 +58,7 @@
                   <span aria-hidden="true">&times;</span>
               </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to Delete this User from this Story Group?</label></div>
+    <div class="modal-body"><label>Are you sure you want to Delete this User from this Sector Group?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">

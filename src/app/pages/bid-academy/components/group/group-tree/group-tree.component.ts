@@ -36,7 +36,8 @@ export class GroupTreeComponent implements OnInit {
     allowDrag: true,
     allowDrop(element , to){
       const isSameParent = element.parent.id === to.parent.id;
-      return false || isSameParent;
+      // return false || isSameParent;
+      return true;
     }
   };
 

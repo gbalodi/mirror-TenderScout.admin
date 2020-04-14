@@ -142,18 +142,18 @@ export const navigation = [
         icon: 'fas fa-book',
         children: [
             {
-                name: 'Story Groups List',
-                url: '/bid-academy/story-groups-list',
+                name: 'Sector Groups List',
+                url: '/bid-academy/sector-groups-list',
                 icon: 'fas fa-globe-asia',
             },
             // {
-            //     name: 'Story Groups Tree',
+            //     name: 'Sector Groups Tree',
             //     url: '/bid-academy/story-groups-tree',
             //     icon: 'fas fa-globe-asia',
             // },
             {
-                name: 'Story Boards List',
-                url: '/bid-academy/story-boards-list',
+                name: 'Pathways List',
+                url: '/bid-academy/pathways-list',
                 icon: 'fas fa-globe-asia',
             }
         ]

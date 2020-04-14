@@ -125,6 +125,17 @@ export class GroupListComponent implements OnInit {
     });
   }
 
+  public deleteStory() {
+    this.groupService.deleteStories(this.groupForm.value.id).subscribe((res: any) => {
+      res = JSON.parse(res);
+      this.toastrService.success(res.success, 'Success');
+      this.bsModalRef.hide();
+      this._getAllGroups();
+    }, error => {
+      console.error(error);
+    });
+  }
+
   public includeUsersEvent() {
     console.log(this.includeUsersForm.value);
 

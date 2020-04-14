@@ -5,10 +5,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="stroy-list-head">
-                <h3>Story Boards List</h3>
+                <h3>Pathways List</h3>
                 <div class="buton-holder">
                     <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
-                    <button type="button" class="create-user btn btn-primary float-right" [routerLink]="['/bid-academy/create-story-board']"><i class="fas fa-plus-square"></i>Create new Story Board</button>
+                    <button type="button" class="create-user btn btn-primary float-right" [routerLink]="['/bid-academy/create-story-board']"><i class="fas fa-plus-square"></i>Create New Pathway</button>
                 </div>
             </div>
         </div>
@@ -53,11 +53,11 @@
                 </td>
                 <td class="text-center">{{item.story_board_assets.length}}</td>
                 <td class="text-center">
-                    <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteBoardModal, item)" title="Delete Story Board"></i></span>
+                    <span class="iconn"><i class="fas fa-trash-alt set-cursor" (click)="openModal(deleteBoardModal, item)" title="Delete Pathway"></i></span>
                 </td>
             </tr>
             <tr>
-                <td colspan="4" class="transparent">
+                <td colspan="6" class="transparent">
                     <div *ngIf="storyBoardsList?.length === 0" class="no-data">No Data Found!</div>
                 </td>
             </tr>
@@ -80,7 +80,7 @@
                       <span aria-hidden="true">&times;</span>
                   </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to Delete this Story Board ?</label></div>
+    <div class="modal-body"><label>Are you sure you want to Delete this Pathway ?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">

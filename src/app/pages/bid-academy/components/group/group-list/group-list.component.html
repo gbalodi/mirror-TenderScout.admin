@@ -3,10 +3,10 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="stroy-list-head">
-                <h3>Story Groups List</h3>
+                <h3>Sector Groups List</h3>
                 <div class="buton-holder">
                     <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
-                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create new Story Group</button>
+                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create New Sector Group</button>
                     <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(includeUsers, undefined)"><i class="fas fa-plus-square"></i>Include Users</button>
                 </div>
             </div>
@@ -28,7 +28,7 @@
                     Name
                 </th>
                 <th class="set-cursor text-center width10">
-                    #Story Board(s)
+                    #Pathway(s)
                 </th>
                 <th class="set-cursor text-center width10">
                     Archive
@@ -47,7 +47,8 @@
                 <td class="text-center">{{item?.story_boards_count }}</td>
                 <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
-                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Story Group' : 'Withdraw Story Group'"></i></span>
+                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Sector Group' : 'Withdraw Sector Group'"></i></span>
+                    <span class="iconn"><i class="fas fa-trash set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Permanently"></i></span>
                     <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a>
                 </td>
 
@@ -76,7 +77,7 @@
 
     <div class="modal-header">
 
-        <h4 class="modal-title">{{groupForm.value.id ? 'Edit' : 'Create'}} Story Group</h4>
+        <h4 class="modal-title">{{groupForm.value.id ? 'Edit' : 'Create'}} Sector Group</h4>
 
         <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
             <span aria-hidden="true">&times;</span>
@@ -89,7 +90,7 @@
             <div class="row info">
 
                 <div class="col-xs-12 col-sm-12 form-group">
-                    <label>Story Group Name</label>
+                    <label>Sector Group Name</label>
                     <input type="text" class="form-control" formControlName="name">
                 </div>
             </div>
@@ -126,10 +127,29 @@
     </div>
 </ng-template>
 
+<!-- Modal for Delete Story Group -->
+<ng-template #deleteGroupModal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+    </div>
+    <div class="modal-body"><label>Are you sure you want to Delete this?</label></div>
+
+    <div class="row info">
+        <div class="col-xs-12 col-sm-12 text-left">
+            <button class="btn btn-secondary" (click)="bsModalRef.hide()">No</button>
+            <button class="btn btn-yes-margin33 btn-primary" (click)="deleteStory()">Yes</button>
+        </div>
+    </div>
+</ng-template>
+
 <!-- Modal for Include Users -->
 <ng-template #includeUsers>
     <div class="modal-header">
-        <h4 class="modal-title pull-left">INCLUDE USERS FOR STORY GROUP(S)</h4>
+        <h4 class="modal-title pull-left">INCLUDE USERS FOR SECTOR GROUP(S)</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>
       </button>
