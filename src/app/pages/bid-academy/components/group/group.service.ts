@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -81,5 +82,12 @@ export class GroupService {
    */
   public deleteStoryUser(groupId, storyUserId) {
     return this.httpClient.delete(`v2/admin/stories/${groupId}/delete_story_user/${storyUserId}`);
+  }
+
+  /**
+   * API server call to get Sectors with there pathways...
+   */
+  public getSectorsTreeListing() {
+    return this.httpClient.get(`${environment.apiUrl}v2/admin/stories/group_tree_listing`);
   }
 }

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import * as _ from "lodash";
+import { GroupService } from '../group.service';
 
 @Component({
   selector: 'app-group-tree',
@@ -43,9 +44,16 @@ export class GroupTreeComponent implements OnInit {
     }
   };
 
-  constructor() { }
+  constructor(
+    private groupService: GroupService
+  ) { }
 
   ngOnInit() {
+    this.groupService.getSectorsTreeListing().subscribe((res: any) => {
+      // res = JSON.parse(res);
+    }, error => {
+      console.log(error);
+    });
   }
 
   onMoveNode($event) {
@@ -56,16 +64,6 @@ export class GroupTreeComponent implements OnInit {
       $event.to.parent.name,
       "at index",
       $event.to.index);
-  }
-
-  onDrop($event) {
-    // Dropped $event.element
-    console.log(event);
-  }
-
-  allowDrop(element) {
-    // Return true/false based on element
-    console.log(element);
   }
 
 }
