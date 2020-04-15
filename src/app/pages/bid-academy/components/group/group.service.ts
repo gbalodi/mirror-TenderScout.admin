@@ -90,4 +90,12 @@ export class GroupService {
   public getSectorsTreeListing() {
     return this.httpClient.get(`v2/admin/stories/group_tree_listing`);
   }
+
+  /**
+   * API server call to update tree...
+   * @param params 
+   */
+  public updateTree(params) {
+    return this.httpClient.patch(`v2/admin/stories/update_tree`, params);
+  }
 }

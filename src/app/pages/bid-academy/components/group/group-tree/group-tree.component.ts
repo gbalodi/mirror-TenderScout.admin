@@ -70,6 +70,30 @@ export class GroupTreeComponent implements OnInit {
 
   public save() {
     console.log(this.nodes);
+
+    let story_boards_attributes = _.map(this.nodes, (node) => {
+      return _.map(node.children, (child) => {
+        let obj = {
+          id: child.id,
+          story_id: node.id,
+          link_id: child.link_id,
+          position: child.position
+        };
+        return obj;
+      })
+    })
+
+    let req = {
+      story: {
+        story_boards_attributes: story_boards_attributes
+      }
+    };
+
+    this.groupService.updateTree(req).subscribe((res: any) => {
+      res = JSON.parse(res);
+    }, error => {
+      console.log(error);
+    });
   }
 
 }
