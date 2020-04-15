@@ -26,9 +26,9 @@
 }
 
 .atch_doc {
-    display: flex;
+    display: inline-flex;
     cursor: pointer;
-    padding-right: 20px;
+    padding-right: 0;
     align-items: center;
 }
 
@@ -40,8 +40,8 @@
     align-items: center;
     justify-content: center;
     color: #fff;
-    margin-right: 10px;
-    margin-left: 4px;
+    margin-right: 0px;
+    margin-left: 10px;
 }
 
 .group-tags-holder select {
