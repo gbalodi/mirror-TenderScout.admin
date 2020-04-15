@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import * as _ from "lodash";
 
 @Component({
   selector: 'app-group-tree',
@@ -21,22 +22,23 @@ export class GroupTreeComponent implements OnInit {
     {
       name: 'root2',
       children: [
-        { name: 'child2.1', children: [] },
-        { name: 'child2.2', children: [] },
-        { name: 'child2.3', children: [] },
-        { name: 'child2.4', children: [] },
-        { name: 'child2.5', children: [
-          {name: 'grandchild2.5.1'}
-        ] }
+        { name: 'child2.1' },
+        { name: 'child2.2' },
+        { name: 'child2.3' },
+        { name: 'child2.4' },
+        {
+          name: 'child2.5'
+        }
       ]
     }
   ];
 
   options = {
     allowDrag: true,
-    allowDrop(element , to){
+    allowDrop(element, to) {
       const isSameParent = element.parent.id === to.parent.id;
-      // return false || isSameParent;
+      if (_.find(element.parent.data.children, ['name', to.parent.data.name]))
+        return false;
       return true;
     }
   };
@@ -44,6 +46,26 @@ export class GroupTreeComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
+  }
+
+  onMoveNode($event) {
+    console.log(
+      "Moved",
+      $event.node.name,
+      "to",
+      $event.to.parent.name,
+      "at index",
+      $event.to.index);
+  }
+
+  onDrop($event) {
+    // Dropped $event.element
+    console.log(event);
+  }
+
+  allowDrop(element) {
+    // Return true/false based on element
+    console.log(element);
   }
 
 }

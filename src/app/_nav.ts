@@ -146,11 +146,11 @@ export const navigation = [
                 url: '/bid-academy/sector-groups-list',
                 icon: 'fas fa-globe-asia',
             },
-            // {
-            //     name: 'Sector Groups Tree',
-            //     url: '/bid-academy/story-groups-tree',
-            //     icon: 'fas fa-globe-asia',
-            // },
+            {
+                name: 'Sector Groups Tree',
+                url: '/bid-academy/story-groups-tree',
+                icon: 'fas fa-globe-asia',
+            },
             {
                 name: 'Pathways',
                 url: '/bid-academy/pathways-list',
