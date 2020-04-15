@@ -142,7 +142,7 @@ export const navigation = [
         icon: 'fas fa-book',
         children: [
             {
-                name: 'Sector Groups List',
+                name: 'Sectors',
                 url: '/bid-academy/sector-groups-list',
                 icon: 'fas fa-globe-asia',
             },
@@ -152,7 +152,7 @@ export const navigation = [
             //     icon: 'fas fa-globe-asia',
             // },
             {
-                name: 'Pathways List',
+                name: 'Pathways',
                 url: '/bid-academy/pathways-list',
                 icon: 'fas fa-globe-asia',
             }

@@ -45,8 +45,12 @@
     display: inline-block;
     background: #d66166;
     margin: 2px 2px;
-    padding: 0px 3px 3px;
+    padding: 2px 8px 5px;
     font-size: 13px;
     color: #fff;
     border-radius: 2px;
+    white-space: nowrap;
+    max-width: 180px;
+    text-overflow: ellipsis;
+    overflow: hidden;
 }
