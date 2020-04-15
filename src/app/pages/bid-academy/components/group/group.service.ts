@@ -88,6 +88,6 @@ export class GroupService {
    * API server call to get Sectors with there pathways...
    */
   public getSectorsTreeListing() {
-    return this.httpClient.get(`${environment.apiUrl}v2/admin/stories/group_tree_listing`);
+    return this.httpClient.get(`v2/admin/stories/group_tree_listing`);
   }
 }
