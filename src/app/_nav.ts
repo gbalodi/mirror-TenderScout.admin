@@ -147,7 +147,7 @@ export const navigation = [
                 icon: 'fas fa-globe-asia',
             },
             {
-                name: 'Sector Groups Tree',
+                name: 'Sector Grouping',
                 url: '/bid-academy/story-groups-tree',
                 icon: 'fas fa-globe-asia',
             },

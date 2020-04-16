@@ -9,6 +9,7 @@ import * as _ from 'lodash';
 interface IStoryGroup {
   id: number;
   name: string;
+  description: string;
   story_boards_count: number;
   archive: boolean;
   story_users_count: number;
@@ -48,6 +49,8 @@ export class GroupListComponent implements OnInit {
     this.groupForm = formBuilder.group({
       id: [null],
       name: ['', Validators.required],
+      description: ['', Validators.required],
+      default: [false],
       archive: [false]
     });
 
@@ -91,6 +94,8 @@ export class GroupListComponent implements OnInit {
       this.groupForm.patchValue({
         id: item.id,
         name: item.name,
+        description: item.description,
+        default: item.default,
         archive: item.archive
       });
     }

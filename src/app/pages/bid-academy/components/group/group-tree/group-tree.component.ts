@@ -72,7 +72,7 @@ export class GroupTreeComponent implements OnInit {
     console.log(this.nodes);
 
     let story_boards_attributes = _.map(this.nodes, (node) => {
-      return _.map(node.children, (child) => {
+      return  _.map(node.children, (child) => {
         let obj = {
           id: child.id,
           story_id: node.id,
@@ -81,6 +81,10 @@ export class GroupTreeComponent implements OnInit {
         };
         return obj;
       })
+    });
+
+    _.map(this.nodes, (node) =>{
+      return 
     })
 
     let req = {
