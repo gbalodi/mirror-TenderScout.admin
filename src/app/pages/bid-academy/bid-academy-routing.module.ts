@@ -10,50 +10,50 @@ const routes: Routes = [
   {
     path: '',
     data: {
-      title: 'Pathway'
+      title: 'Documents'
     },
     children: [
       {
-        path: 'sector-groups-list',
+        path: 'pathway-groups-list',
         component: GroupListComponent,
         data: {
-          title: 'Sector Groups List'
+          title: 'Pathway Groups List'
         }
       },
       {
         path: 'story-group/:id/users',
         component: GroupUsersListComponent,
         data: {
-          title: 'Sector Group Users List'
+          title: 'Pathway Group Users List'
         }
       },
       {
         path: 'story-groups-tree',
         component: GroupTreeComponent,
         data: {
-          title: 'Sector Groups Tree'
+          title: 'Pathway Groups Tree'
         }
       },
 
       {
-        path: 'pathways-list',
+        path: 'documents-list',
         component: StoryBoardsListComponent,
         data: {
-          title: 'Pathways List'
+          title: 'Documents List'
         }
       },
       {
         path: 'create-story-board',
         component: StoryBoardComponent,
         data: {
-          title: 'Create Pathway'
+          title: 'Create Document'
         }
       },
       {
         path: 'edit-story-board/:id',
         component: StoryBoardComponent,
         data: {
-          title: 'Edit Pathway'
+          title: 'Edit Document'
         }
       }
     ]

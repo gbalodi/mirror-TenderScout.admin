@@ -1,7 +1,7 @@
 <div class="card">
     <div class="card-header">
 
-        <h3>{{!boardId ? 'Create New' : 'Edit'}} Pathway
+        <h3>{{!boardId ? 'Create New' : 'Edit'}} Document
 
             <app-dropdown-actions title="Download Attached" [deleteIcon]="true" *ngIf="Object.keys(actions).length" label="Download File" [fileDownload]="true" class="op-dots" [actions]="actions" (onSelect)="downloadFile($event)" (deleteSelect)="findSelectedFile($event)"
                 (mouseleave)="toggle=false">
@@ -98,7 +98,7 @@
             <div class="form-group row subcanc-btn">
                 <div class="col-12">
                     <button type="submit" [disabled]="storyBoardForm.invalid" class="btn btn-primary" (click)="submitForm()">Submit</button>
-                    <a class="btn btn-secondary set-margin-left10" routerLink="/bid-academy/pathways-list">Cancel</a>
+                    <a class="btn btn-secondary set-margin-left10" routerLink="/bid-academy/documents-list">Cancel</a>
                 </div>
                 <!-- <div class="col-12" *ngIf="created">
                   <a routerLink="/users/list" class="btn btn-secondary">Back</a>
