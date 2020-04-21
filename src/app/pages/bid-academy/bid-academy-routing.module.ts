@@ -14,10 +14,10 @@ const routes: Routes = [
     },
     children: [
       {
-        path: 'pathway-groups-list',
+        path: 'pathway-list',
         component: GroupListComponent,
         data: {
-          title: 'Pathway Groups List'
+          title: 'Pathway List'
         }
       },
       {

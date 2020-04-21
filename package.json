@@ -29,6 +29,8 @@
         "@angular/platform-browser-dynamic": "^6.1.0",
         "@angular/router": "^6.1.0",
         "@angular/upgrade": "5.2.1",
+        "@ckeditor/ckeditor5-angular": "^1.2.3",
+        "@ckeditor/ckeditor5-build-classic": "^18.0.0",
         "@ctrl/ngx-csv": "^2.0.0",
         "@ng-bootstrap/ng-bootstrap": "^4.1.0",
         "@ng-select/ng-select": "^2.20.0",

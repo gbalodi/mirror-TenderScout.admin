@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-sm-12">
             <div class="stroy-list-head">
-                <h3>Pathway Groups List</h3>
+                <h3>Pathway List</h3>
                 <div class="buton-holder">
                     <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
                     <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create New Pathway Group</button>
@@ -27,11 +27,14 @@
                 <th class="set-cursor width20">
                     Name
                 </th>
-                <th class="set-cursor width30">
+                <th class="set-cursor width20">
                     Description
                 </th>
                 <th class="set-cursor text-center width10">
                     #Pathway(s)
+                </th>
+                <th class="set-cursor text-center width10">
+                    Default
                 </th>
                 <th class="set-cursor text-center width10">
                     Archive
@@ -49,6 +52,7 @@
                 <td>{{item?.name }}</td>
                 <td>{{item?.description }}</td>
                 <td class="text-center">{{item?.story_boards_count }}</td>
+                <td class="text-center">{{item?.default ? 'Yes' : 'No' }}</td>
                 <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
                     <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway Group' : 'Withdraw Pathway Group'"></i></span>
@@ -57,7 +61,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="6" class="transparent">
+                <td colspan="7" class="transparent">
                     <div *ngIf="groups?.length === 0" class="no-data">No Data Found!</div>
                 </td>
             </tr>

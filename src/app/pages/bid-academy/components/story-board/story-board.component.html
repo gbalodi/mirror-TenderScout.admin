@@ -10,6 +10,12 @@
 
         </h3>
 
+        <div class="buton-holder">
+
+            <button type="submit" [disabled]="storyBoardForm.invalid" class="create-user btn btn-primary float-right set-margin-left10" (click)="submitForm()">Save</button>
+            <a class="btn btn-secondary create-user float-right set-margin" routerLink="/bid-academy/documents-list">Back</a>
+        </div>
+
     </div>
     <div class="card-body">
         <form [formGroup]="storyBoardForm" novalidate>
@@ -46,6 +52,7 @@
 
                             <!-- <ng-multiselect-dropdown [placeholder]="'Please select multiple'" [data]="tags" formControlName="tags_attributes" [settings]="dropDownSettings" (onSelectAll)="onSelectAll($event)">
                             </ng-multiselect-dropdown> -->
+
                         </div>
                     </div>
 
@@ -55,7 +62,9 @@
                 <div class="col-xs-12 col-sm-6">
                     <label for="description" class="col-form-label">Description: </label>
                     <div class="">
-                        <textarea rows="8" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
+                        <!-- <textarea rows="8" formControlName="description" class="form-control" id="description" placeholder=""></textarea> -->
+
+                        <ckeditor [editor]="Editor" *ngIf="Editor" data="<p>Hello, world!</p>" formControlName="description" [config]="ckEditorConfig"></ckeditor>
                     </div>
                 </div>
             </div>
@@ -95,14 +104,20 @@
 
             </div>
 
-            <div class="form-group row subcanc-btn">
+            <!-- <div class="form-group row subcanc-btn">
                 <div class="col-12">
                     <button type="submit" [disabled]="storyBoardForm.invalid" class="btn btn-primary" (click)="submitForm()">Submit</button>
                     <a class="btn btn-secondary set-margin-left10" routerLink="/bid-academy/documents-list">Cancel</a>
                 </div>
-                <!-- <div class="col-12" *ngIf="created">
-                  <a routerLink="/users/list" class="btn btn-secondary">Back</a>
-              </div> -->
+            </div> -->
+            <div class="card-header">
+
+
+                <div class="buton-holder">
+
+                    <button type="submit" [disabled]="storyBoardForm.invalid" class="create-user btn btn-primary float-right set-margin-left10" (click)="submitForm()">Save</button>
+                    <a class="btn btn-secondary create-user float-right set-margin" routerLink="/bid-academy/documents-list">Back</a>
+                </div>
             </div>
 
         </form>

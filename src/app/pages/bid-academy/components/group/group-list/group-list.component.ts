@@ -13,6 +13,7 @@ interface IStoryGroup {
   story_boards_count: number;
   archive: boolean;
   story_users_count: number;
+  default: boolean;
 }
 
 @Component({

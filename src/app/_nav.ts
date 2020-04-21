@@ -143,7 +143,7 @@ export const navigation = [
         children: [
             {
                 name: 'Pathways',
-                url: '/bid-academy/pathway-groups-list',
+                url: '/bid-academy/pathway-list',
                 icon: 'fas fa-globe-asia',
             },
             {

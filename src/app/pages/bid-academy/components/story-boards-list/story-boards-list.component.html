@@ -37,7 +37,7 @@
                     <i class="fas fa-edit set-cursor" [routerLink]="['/bid-academy/edit-story-board',item.id]" title="Edit Board"></i>
                 </td>
                 <td>{{item?.title }}</td>
-                <td>{{item?.description}}</td>
+                <td [innerHTML]="item?.description"></td>
                 <!-- <td><span class="review-tags">{{tagHandler(item?.tags)}}</span></td> -->
                 <td>
                     <span class="review-tags" *ngFor="let tag of item.tags">{{tag.name}}</span>

@@ -6,6 +6,10 @@ import { ToastrService } from 'ngx-toastr';
 import * as _ from 'lodash';
 import { GroupService } from '../group/group.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import * as ClassicEditor from '@ckeditor/ckeditor5-build-classic';
+import { LocalStorageService } from 'ngx-webstorage';
+import { environment } from 'environments/environment';
+
 
 interface IAttachFile {
   name: string;
@@ -34,6 +38,36 @@ export class StoryBoardComponent implements OnInit {
   public attachLoading: boolean = false;
   public Object: any = Object;
   public actions: { [key: string]: string } = {};
+  public Editor = ClassicEditor;
+  public ckEditorConfig: Object = {
+    // placeholder: 'Now write something brilliant',
+    // alignment: {
+    //   options: ['left', 'right']
+    // },
+    // toolbar: {
+    //   items: [
+    //     'Undo', 'Redo', '|', 'bold', 'italic', '|', 'NumberedList', 'BulletedList',
+    //     'Outdent', 'Indent', '|', 'imageUpload', '|', 'insertTable', 'tableColumn', 'tableRow', 'mergeTableCells', '|',
+    //   ]
+    // },
+    ckfinder: {
+      imageUrl: `${environment.apiUrl}ckeditor/pictures`,
+      // Upload the images to the server using the CKFinder QuickUpload command.
+      uploadUrl: `${environment.apiUrl}ckeditor/pictures?access_token=${this.localStorage.retrieve('access_token')}`,
+      options: {
+        resourceType: "Images",
+        connectorPath: `ckeditor/pictures/`,
+        connectorInfo: `access_token=${this.localStorage.retrieve('access_token')}`
+      },
+      define: {
+        init: finder => {
+          finder.on("app:start", () => {
+            finder.request("dialog:info", { msg: "It works!" });
+          });
+        }
+      }
+    }
+  };
   public dropDownSettings = {
     singleSelection: false,
     idField: "id",
@@ -52,7 +86,8 @@ export class StoryBoardComponent implements OnInit {
     private toastrService: ToastrService,
     private activatedRoute: ActivatedRoute,
     private groupService: GroupService,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private localStorage: LocalStorageService,
   ) {
     this.storyBoardForm = formBuilder.group({
       id: [''],

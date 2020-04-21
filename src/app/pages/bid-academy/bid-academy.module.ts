@@ -17,6 +17,7 @@ import { NgxSpinnerModule } from "ngx-spinner";
 import { SharedModule } from 'app/modules/shared.module';
 import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
 import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
+import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 
 
 
@@ -30,7 +31,8 @@ import { GroupUsersListComponent } from './components/group/group-users-list/gro
     NgSelectModule,
     TreeModule,
     NgxSpinnerModule,
-    SharedModule
+    SharedModule,
+    CKEditorModule
   ],
   declarations: [
     StoryBoardComponent,
