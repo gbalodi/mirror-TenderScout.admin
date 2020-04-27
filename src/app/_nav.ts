@@ -155,6 +155,11 @@ export const navigation = [
                 name: 'Documents',
                 url: '/bid-academy/documents-list',
                 icon: 'fas fa-globe-asia',
+            },
+            {
+                name: 'Categories',
+                url: '/bid-academy/categories-list',
+                icon: 'fas fa-globe-asia',
             }
         ]
     }

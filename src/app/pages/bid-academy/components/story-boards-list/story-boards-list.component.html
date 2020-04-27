@@ -24,9 +24,9 @@
                 </th> -->
 
                 <th class="set-cursor width10"> Edit </th>
-                <th class="set-cursor width20"> Title </th>
-                <th class="set-cursor width30"> Description </th>
-                <th class="set-cursor width20"> Tags </th>
+                <th class="set-cursor width30"> Title </th>
+                <!-- <th class="set-cursor width30"> Description </th> -->
+                <th class="set-cursor width40"> Tags </th>
                 <th class="set-cursor width10 text-center"> # Attach(s) </th>
                 <th class="set-cursor width10 text-center"> Action </th>
             </tr>
@@ -37,7 +37,7 @@
                     <i class="fas fa-edit set-cursor" [routerLink]="['/bid-academy/edit-story-board',item.id]" title="Edit Board"></i>
                 </td>
                 <td>{{item?.title }}</td>
-                <td [innerHTML]="item?.description"></td>
+                <!-- <td [innerHTML]="item?.description"></td> -->
                 <!-- <td><span class="review-tags">{{tagHandler(item?.tags)}}</span></td> -->
                 <td>
                     <span class="review-tags" *ngFor="let tag of item.tags">{{tag.name}}</span>
@@ -57,7 +57,7 @@
                 </td>
             </tr>
             <tr>
-                <td colspan="6" class="transparent">
+                <td colspan="5" class="transparent">
                     <div *ngIf="storyBoardsList?.length === 0" class="no-data">No Data Found!</div>
                 </td>
             </tr>

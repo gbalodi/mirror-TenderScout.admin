@@ -1,0 +1,99 @@
+<page-header [headerName]="'Categories List'" [buttons]="buttons" (openModal)="openModal(this[$event[0]], $event[1])"></page-header>
+
+<div class="table-responsive padding-bottom-250">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <!-- <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index">
+                    {{item}}
+                </th> -->
+                <th class="set-cursor width10">
+                    Edit
+                </th>
+                <th class="set-cursor width80">
+                    Name
+                </th>
+                <th class="set-cursor text-center width10">
+                    Action
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of categories">
+                <td>
+                    <i class="fas fa-edit set-cursor" (click)="openModal(createCategoryModal, item)" title="Edit Group"></i>
+                </td>
+                <td>{{item?.name }}</td>
+                <td class="text-center">
+                    <span class="iconn"><i class="fas fa-trash set-cursor" (click)="openModal(deleteCategoryModal, item)" title="Delete Permanently"></i></span>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="3" class="transparent">
+                    <div *ngIf="categories?.length === 0" class="no-data">No Data Found!</div>
+                </td>
+            </tr>
+        </tbody>
+
+
+    </table>
+</div>
+
+<!-- Modal for ADD/EDIT Category -->
+
+<ng-template #createCategoryModal>
+
+
+    <div class="modal-header">
+
+        <h4 class="modal-title">{{categoryForm.value.id ? 'Edit' : 'Create'}} Category</h4>
+
+        <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+      </button>
+
+    </div>
+
+    <div class="row modal-body create_modal-body">
+        <form [formGroup]="categoryForm" class="static_form-holder" novalidate>
+
+            <div class="row info">
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Category Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+
+            </div>
+
+            <div class="row info">
+                <div class="col-xs-12 col-sm-12">
+                    <!-- <button class="btn" (click)="bsModalRef.hide()">Close</button> -->
+                    <button class="btn btn-yes-margin33" [ngClass]="{'disabled': (categoryForm.invalid || loading) }" [disabled]="categoryForm.invalid || loading" (click)="submit()">Save</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</ng-template>
+
+<!-- Modal for Delete Story Group -->
+<ng-template #deleteCategoryModal>
+
+    <div class="modal-header">
+        <h4 class="modal-title">Confirm</h4>
+        <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+    </div>
+    <div class="modal-body"><label>Are you sure you want to Delete this Category?</label></div>
+
+    <div class="row info">
+        <div class="col-xs-12 col-sm-12 text-left">
+            <button class="btn btn-secondary" (click)="bsModalRef.hide()">No</button>
+            <button class="btn btn-yes-margin33 btn-primary" (click)="deleteCategory()">Yes</button>
+        </div>
+    </div>
+</ng-template>

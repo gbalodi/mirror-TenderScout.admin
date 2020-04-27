@@ -25,6 +25,7 @@ import { MessageComponent } from './components/chat-box/message/message.componen
 import { MessageTypeComponent } from './components/chat-box/message-type/message-type.component';
 import { CustomTitlePipe } from 'app/pipe/custom-title.pipe';
 import { WebSocketService } from 'app/services/web-socket.service';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 // import { CustomTosterComponent } from './components/custom-toster/custom-toster.component';
 
 @NgModule({
@@ -68,7 +69,8 @@ import { WebSocketService } from 'app/services/web-socket.service';
         ChatBoxComponent,
         MessageComponent,
         MessageTypeComponent,
-        CustomTitlePipe
+        CustomTitlePipe,
+        PageHeaderComponent
     ],
     declarations: [
         DocumentsComponent,
@@ -85,6 +87,7 @@ import { WebSocketService } from 'app/services/web-socket.service';
         MessageComponent,
         MessageTypeComponent,
         CustomTitlePipe,
+        PageHeaderComponent,
         // CustomTosterComponent
     ],
 })

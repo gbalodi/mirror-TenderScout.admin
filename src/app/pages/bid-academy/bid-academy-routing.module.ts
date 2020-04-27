@@ -5,6 +5,7 @@ import { StoryBoardsListComponent } from './components/story-boards-list/story-b
 import { GroupListComponent } from './components/group/group-list/group-list.component';
 import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
 import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
+import { CategoriesListComponent } from './components/categories/categories-list/categories-list.component';
 
 const routes: Routes = [
   {
@@ -55,7 +56,15 @@ const routes: Routes = [
         data: {
           title: 'Edit Document'
         }
-      }
+      },
+
+      {
+        path: 'categories-list',
+        component: CategoriesListComponent,
+        data: {
+          title: 'Categories List'
+        }
+      },
     ]
   }
 ];

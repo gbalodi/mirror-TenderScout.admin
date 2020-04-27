@@ -32,7 +32,7 @@
                     </div>
 
                     <div class="group-container">
-                        <label for="story_id" class="col-form-label">Select Group: </label>
+                        <label for="story_id" class="col-form-label">Select Pathway: </label>
                         <div class="group-tags-holder">
                             <span class="arrow-wrapper"></span>
                             <select formControlName="story_id" id="story_id" class="form-control">
@@ -69,13 +69,9 @@
                 </div>
             </div>
 
-            <div class="row">
+            <!-- <div class="row">
 
                 <div class="col-xs-12 col-sm-6">
-                    <!-- <label for="description" class="col-form-label">Attach Document(s): </label>
-                    <div class="">
-                        <textarea rows="6" formControlName="description" class="form-control" id="description" placeholder=""></textarea>
-                    </div> -->
 
                     <label for="file-upload" class="col-form-label atch_doc">
                          Attach Document(s): <span><i class="fas fa-paperclip paper set-cursor"></i></span>
@@ -84,17 +80,12 @@
 
                     <span *ngIf="uploadedFiles.length>0" class="loading-fl loading-text">{{uploadedFiles.length}} File(s) Uploading...</span>
 
-                    <!-- <ngx-spinner class="set-ngx-spinner" bdColor="rgba(255,255,255,0.8)" size="small" color="#d66166" type="ball-clip-rotate" fullScreen="false">
-                         <p style="color: white"> Loading... </p> 
-                    </ngx-spinner> -->
-
                     <div *ngIf="attachFiles.length>0" class="attach-lm" style="position: relative;">
                         <ng-container *ngFor="let item of attachFiles; let i = index">
                             <label class="pop-request-attach" style="position: relative;">
                                 <span class="fl-name">{{item.name}} - Uploaded</span>  
                                 <span class="pop-attach-ico">
                                     <i *ngIf="!spinLoadHandler(item.name)" (click)="deleteAssistanceFile(i, item)" class="far fa-window-close set-cursor cancel-color"></i> 
-                                    <!-- <mat-spinner *ngIf="spinLoadHandler(item.name)" diameter="13" class="o-spin"></mat-spinner> -->
                                 </span>
                                 <div class="spinner-border text-danger" *ngIf="spinLoadHandler(item.name)"></div>
                             </label>
@@ -102,7 +93,7 @@
                     </div>
                 </div>
 
-            </div>
+            </div> -->
 
             <!-- <div class="form-group row subcanc-btn">
                 <div class="col-12">
