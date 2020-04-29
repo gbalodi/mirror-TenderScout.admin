@@ -52,7 +52,10 @@ export class GroupListComponent implements OnInit {
       name: ['', Validators.required],
       description: ['', Validators.required],
       default: [false],
-      archive: [false]
+      archive: [false],
+      approach: ['', Validators.required],
+      target_audience: ['', Validators.required],
+      curriculum_overview: ['', Validators.required]
     });
 
     this.includeUsersForm = formBuilder.group({
@@ -97,7 +100,10 @@ export class GroupListComponent implements OnInit {
         name: item.name,
         description: item.description,
         default: item.default,
-        archive: item.archive
+        archive: item.archive,
+        approach: item.approach,
+        target_audience: item.target_audience,
+        curriculum_overview: item.curriculum_overview
       });
     }
     this.bsModalRef = this.bsModalService.show(template, { class: `modal-lg archieve-modal` });

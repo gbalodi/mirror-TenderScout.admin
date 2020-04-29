@@ -95,7 +95,12 @@ export class StoryBoardComponent implements OnInit {
       title: ['', Validators.required],
       description: ['', Validators.required],
       tags_attributes: [[], Validators.required],
-      story_board_assets: [[]]
+      story_board_assets: [[]],
+      objectives: ["", Validators.required],
+      plan: ["", Validators.required],
+      expected_outcomes: ["", Validators.required],
+      process: ["", Validators.required],
+      review: ["", Validators.required]
     });
 
     this.bidAcademyService.getAllTagLabels().subscribe((res: any) => {
@@ -127,7 +132,13 @@ export class StoryBoardComponent implements OnInit {
             title: res.title,
             description: res.description,
             tags_attributes: _.map(res.tags, 'name'),
-            story_board_assets: res.story_board_assets
+            story_board_assets: res.story_board_assets,
+            objectives: res.objectives,
+            plan: res.plan,
+            expected_outcomes: res.expected_outcomes,
+            process: res.process,
+            review: res.review
+
           });
 
           //  Set to Download/Attached files in the chat box...
@@ -159,7 +170,12 @@ export class StoryBoardComponent implements OnInit {
         story_id: parseInt(this.storyBoardForm.value.story_id),
         tags_attributes: tags_attributes, // [{ name: "Test" }, { name: "Test" }],
         story_boards_tags_attributes: story_boards_tags_attributes, // [{ tag_id: 43 }, { tag_id: 44 }]
-        story_boards_story_board_assets_attributes: story_boards_story_board_assets_attributes
+        story_boards_story_board_assets_attributes: story_boards_story_board_assets_attributes,
+        objectives: this.storyBoardForm.value.objectives,
+        plan: this.storyBoardForm.value.plan,
+        expected_outcomes: this.storyBoardForm.value.expected_outcomes,
+        process: this.storyBoardForm.value.process,
+        review: this.storyBoardForm.value.review
       };
     this.bidAcademyService[method]({ story_board: req }, this.boardId ? this.boardId : undefined).subscribe((res: any) => {
       res = JSON.parse(res);
