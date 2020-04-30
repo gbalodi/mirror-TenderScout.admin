@@ -6,6 +6,7 @@ import { GroupListComponent } from './components/group/group-list/group-list.com
 import { GroupTreeComponent } from './components/group/group-tree/group-tree.component';
 import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
 import { CategoriesListComponent } from './components/categories/categories-list/categories-list.component';
+import { AddEditPathwayComponent } from './components/group/add-edit-pathway/add-edit-pathway.component';
 
 const routes: Routes = [
   {
@@ -33,6 +34,20 @@ const routes: Routes = [
         component: GroupTreeComponent,
         data: {
           title: 'Pathway Groups Tree'
+        }
+      },
+      {
+        path: 'edit-pathway/:id',
+        component: AddEditPathwayComponent,
+        data: {
+          title: 'Edit Pathway'
+        }
+      },
+      {
+        path: 'create-pathway',
+        component: AddEditPathwayComponent,
+        data: {
+          title: 'Create Pathway'
         }
       },
 

@@ -19,6 +19,7 @@ import { GroupTreeComponent } from './components/group/group-tree/group-tree.com
 import { GroupUsersListComponent } from './components/group/group-users-list/group-users-list.component';
 import { CKEditorModule } from '@ckeditor/ckeditor5-angular';
 import { CategoriesListComponent } from './components/categories/categories-list/categories-list.component';
+import { AddEditPathwayComponent } from './components/group/add-edit-pathway/add-edit-pathway.component';
 
 
 
@@ -42,6 +43,7 @@ import { CategoriesListComponent } from './components/categories/categories-list
     GroupTreeComponent,
     GroupUsersListComponent,
     CategoriesListComponent,
+    AddEditPathwayComponent,
     // TreeViewComponent
   ],
   providers: [

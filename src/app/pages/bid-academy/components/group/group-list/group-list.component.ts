@@ -14,6 +14,7 @@ interface IStoryGroup {
   archive: boolean;
   story_users_count: number;
   default: boolean;
+  story_category: { id: number, name: string };
 }
 
 @Component({
@@ -107,23 +108,6 @@ export class GroupListComponent implements OnInit {
       });
     }
     this.bsModalRef = this.bsModalService.show(template, { class: `modal-lg archieve-modal` });
-  }
-
-  public submitGroup() {
-    this.loading = true;
-    let method: string = !this.groupForm.value.id ? 'createStories' : 'updateStories';
-    let req = { ...this.groupForm.value };
-    delete req.id;
-
-    this.groupService[method]({ story: req }, this.groupForm.value.id ? this.groupForm.value.id : undefined).subscribe((res: any) => {
-      res = JSON.parse(res);
-      this.loading = false;
-      this.toastrService.success(res.success, 'Success');
-      this.bsModalRef.hide();
-      this._getAllGroups();
-    }, error => {
-      console.error(error);
-    });
   }
 
   public archiveStory() {

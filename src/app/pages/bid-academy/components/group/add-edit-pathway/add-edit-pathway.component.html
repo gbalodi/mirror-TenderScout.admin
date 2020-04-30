@@ -1,0 +1,66 @@
+<div class="card">
+    <div class="card-header">
+
+        <h4 class="modal-title">{{groupForm.value.id ? 'Edit' : 'Create'}} Pathway Group</h4>
+
+        <div class="buton-holder">
+
+            <button type="submit" [disabled]="groupForm.invalid" class="create-user btn btn-primary float-right set-margin-left10" (click)="submitGroup()">Save</button>
+            <a class="btn btn-secondary create-user float-right set-margin" routerLink="/bid-academy/pathway-list">Back</a>
+        </div>
+
+    </div>
+    <div class="card-body">
+        <form [formGroup]="groupForm" class="static_form-holder" novalidate>
+
+            <div class="row info">
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Pathway Group Name</label>
+                    <input type="text" class="form-control" formControlName="name">
+                </div>
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Introduction</label>
+                    <textarea rows="5" class="form-control" formControlName="description"></textarea>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Select Pathway's Category</label>
+                    <!-- <input type="checkbox" class="form-control" formControlName="default"> -->
+
+                    <select class="form-control" formControlName="default">
+                        <option value="">Make Default</option >
+                        <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option >
+                    </select>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Approach</label>
+                    <textarea rows="5" class="form-control" formControlName="approach"></textarea>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Target Audience</label>
+                    <textarea rows="5" class="form-control" formControlName="target_audience"></textarea>
+                </div>
+
+                <div class="col-xs-12 col-sm-12 form-group">
+                    <label>Curriculum Overview</label>
+                    <textarea rows="6" type="text" class="form-control" formControlName="curriculum_overview"></textarea>
+                </div>
+            </div>
+
+            <div class="card-header">
+
+                <div class="buton-holder">
+
+                    <button type="submit" [ngClass]="{'disabled': (groupForm.invalid || loading) }" [disabled]="groupForm.invalid || loading" class="create-user btn btn-primary float-right set-margin-left10" (click)="submitGroup()">Save</button>
+                    <a class="btn btn-secondary create-user float-right set-margin" routerLink="/bid-academy/pathway-list">Back</a>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+</div>

@@ -145,7 +145,7 @@ export class StoryBoardComponent implements OnInit {
           this._getActionDropDown();
         })
       }
-    })
+    });
   }
 
   private _getActionDropDown() {

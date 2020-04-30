@@ -157,7 +157,7 @@ export const navigation = [
                 icon: 'fas fa-globe-asia',
             },
             {
-                name: 'Categories',
+                name: 'Pathway\'s Categories',
                 url: '/bid-academy/categories-list',
                 icon: 'fas fa-globe-asia',
             }

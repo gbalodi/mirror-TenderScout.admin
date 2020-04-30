@@ -6,7 +6,7 @@
                 <h3>Pathway List</h3>
                 <div class="buton-holder">
                     <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
-                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" (click)="openModal(addEditGroupModal, undefined)"><i class="fas fa-plus-square"></i>Create New Pathway Group</button>
+                    <button type="button" class="create-user btn btn-primary float-right set-margin-left10" routerLink="/bid-academy/create-pathway"><i class="fas fa-plus-square"></i>Create New Pathway Group</button>
                     <button type="button" class="create-user btn btn-primary float-right" (click)="openModal(includeUsers, undefined)"><i class="fas fa-plus-square"></i>Include Users</button>
                 </div>
             </div>
@@ -47,12 +47,12 @@
         <tbody>
             <tr *ngFor="let item of groups">
                 <td>
-                    <i class="fas fa-edit set-cursor" (click)="openModal(addEditGroupModal, item)" title="Edit Group"></i>
+                    <i class="fas fa-edit set-cursor" [routerLink]="['/bid-academy/edit-pathway',item.id]" title="Edit Group"></i>
                 </td>
                 <td>{{item?.name }}</td>
                 <!-- <td>{{item?.description }}</td> -->
                 <td class="text-center">{{item?.story_boards_count }}</td>
-                <td class="text-center">{{item?.default ? 'Yes' : 'No' }}</td>
+                <td class="text-center">{{item?.story_category ? 'Yes' : 'No' }}</td>
                 <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
                     <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway Group' : 'Withdraw Pathway Group'"></i></span>
@@ -78,7 +78,7 @@
 
 <!-- Modal for ADD/EDIT Story Group -->
 
-<ng-template #addEditGroupModal>
+<!-- <ng-template #addEditGroupModal>
 
 
     <div class="modal-header">
@@ -129,7 +129,6 @@
 
             <div class="row info">
                 <div class="col-xs-12 col-sm-12">
-                    <!-- <button class="btn" (click)="bsModalRef.hide()">Close</button> -->
                     <button class="btn btn-yes-margin33" [ngClass]="{'disabled': (groupForm.invalid || loading) }" [disabled]="groupForm.invalid || loading" (click)="submitGroup()">Save</button>
                 </div>
             </div>
@@ -138,7 +137,7 @@
 
     </div>
 
-</ng-template>
+</ng-template> -->
 
 <!-- Modal for Delete Story Group -->
 <ng-template #archiveGroupModal>
