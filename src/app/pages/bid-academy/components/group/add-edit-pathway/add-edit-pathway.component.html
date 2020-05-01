@@ -29,7 +29,7 @@
                     <label>Select Pathway's Category</label>
                     <!-- <input type="checkbox" class="form-control" formControlName="default"> -->
 
-                    <select class="form-control" formControlName="default">
+                    <select class="form-control" formControlName="story_category_id">
                         <option value="">Make Default</option >
                         <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option >
                     </select>
