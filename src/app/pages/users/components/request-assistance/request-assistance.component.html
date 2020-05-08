@@ -15,10 +15,12 @@
             </div>
             <div class="col-md-3">
                 <select class="form-control" id="days" formControlName="all" (change)="this.searchFilterForm.controls['page'].setValue(1)">
-                <option value="">Select Type of Request</option >
-                <option value="kr">Knowledge Request</option >
-                <option value="tender"> Tender Request</option >
-            </select>
+                    <option value="">Select Type of Request</option >
+                   <option value="KnowledgeRequest">Knowledge Request</option >
+                   <option value="TenderRequest"> Tender Request</option >
+                   <option value="BidAcademyRequest"> Bid Academy Request</option >
+                </select>
+
 
             </div>
 

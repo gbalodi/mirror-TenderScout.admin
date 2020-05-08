@@ -25,7 +25,7 @@ export class RequestAssistanceComponent implements OnInit {
     public tableHeadNames: Array<{ title: string; key: string; }> = [
         { title: 'User', key: 'user' },
         { title: 'Message', key: 'message' },
-        { title: 'Tender/Knowledge Request', key: 'tender' },
+        { title: '(Tender/Knowledge/Academy) Request', key: 'tender' },
         { title: 'Tender Closing Date', key: 'submissionDate' },
         { title: 'Attachments', key: 'attachments' },
         { title: 'Status', key: 'status' },

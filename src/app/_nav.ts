@@ -146,11 +146,11 @@ export const navigation = [
                 url: '/bid-academy/pathway-list',
                 icon: 'fas fa-globe-asia',
             },
-            {
-                name: 'Pathway Grouping',
-                url: '/bid-academy/story-groups-tree',
-                icon: 'fas fa-globe-asia',
-            },
+            // {
+            //     name: 'Pathway Grouping',
+            //     url: '/bid-academy/story-groups-tree',
+            //     icon: 'fas fa-globe-asia',
+            // },
             {
                 name: 'Documents',
                 url: '/bid-academy/documents-list',
