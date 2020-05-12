@@ -26,7 +26,7 @@ const routes: Routes = [
         path: 'story-group/:id/users',
         component: GroupUsersListComponent,
         data: {
-          title: 'Pathway Group Users List'
+          title: 'Pathway Users List'
         }
       },
       {
