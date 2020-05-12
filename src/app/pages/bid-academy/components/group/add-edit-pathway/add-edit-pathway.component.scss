@@ -1,0 +1,24 @@
+.card-top-heading{
+display: flex; align-items: center; padding: 10px 15px;
+
+.modal-title{
+    flex: 0 0 50%;
+}
+.buton-holder {
+    flex: 0 0 50%;
+}
+.btn{margin-top: 0;}
+}
+
+.card-bottom{
+display: flex;
+align-items: center;
+justify-content: flex-end;
+
+.buton-holder{flex: 0 0 50%;}
+
+.btn{margin-top: 0;}
+
+}
+
+

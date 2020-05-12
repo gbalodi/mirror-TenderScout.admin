@@ -74,3 +74,28 @@
     display: inline-block;
     font-weight: 600;
 }
+
+.edit-top{
+    display: flex;
+    align-items: center;
+h3{flex: 0 0 50%; margin: 0;}
+.buton-holder{flex:0 0 50%;
+.btn{margin-top: 0;}
+}
+
+}
+
+.story-bottom{
+    display: flex;
+    align-items: center; justify-content: flex-end;
+    .buton-holder{flex:0 0 50%;
+    .btn{margin-top: 0;}
+    }
+}
+
+
+
+
+
+
+
