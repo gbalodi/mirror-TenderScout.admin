@@ -41,13 +41,21 @@
 }
 
 .note-set {
-    color: mediumvioletred;
+    color:#586d79;
     margin: 0 auto;
     display: table;
     padding: 10px;
-    text-align: center;
+    text-align: left;
 }
 
 .note-set span {
-    color: #3331b9 !important;
+    color: #d66166 !important;
 }
+
+.confirm-pop{ align-items: center;
+.close{margin: 0; padding: 0;
+span{line-height: 1;}
+}
+
+}
+.deny-btn{margin:0 15px 0 0;}

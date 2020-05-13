@@ -55,7 +55,7 @@
                 <td class="text-center">{{item?.story_category ? 'Yes' : 'No' }}</td>
                 <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
-                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway Group' : 'Withdraw Pathway Group'"></i></span>
+                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway' : 'Withdraw Pathway'"></i></span>
                     <span class="iconn"><i class="fas fa-trash set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Permanently"></i></span>
                     <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a>
                 </td>
@@ -142,7 +142,7 @@
 <!-- Modal for Delete Story Group -->
 <ng-template #archiveGroupModal>
 
-    <div class="modal-header">
+    <div class="modal-header del-con">
         <h4 class="modal-title">Confirm</h4>
         <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -161,7 +161,7 @@
 <!-- Modal for Delete Story Group -->
 <ng-template #deleteGroupModal>
 
-    <div class="modal-header">
+    <div class="modal-header  del-con">
         <h4 class="modal-title">Confirm</h4>
         <button type="button" class="close" (click)="bsModalRef.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -179,7 +179,7 @@
 
 <!-- Modal for Include Users -->
 <ng-template #includeUsers>
-    <div class="modal-header">
+    <div class="modal-header path-list">
         <h4 class="modal-title pull-left">INCLUDE USERS FOR PATHWAY GROUP(S)</h4>
         <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
         <span aria-hidden="true">&times;</span>

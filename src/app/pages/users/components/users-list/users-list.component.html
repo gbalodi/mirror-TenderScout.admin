@@ -204,7 +204,7 @@
 
 <!--For Edit Role of the User... -->
 <ng-template #editRoleModal>
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
         <h4 class="modal-title">Change role Of User - {{ rowData.fullname ? rowData.fullname : rowData.email }}</h4>
         <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -213,7 +213,7 @@
     <form [formGroup]="changeRoleForm" novalidate>
         <div class="row info">
 
-            <div class="col-xs-12 col-sm-6 form-group">
+            <div class="col-xs-12 col-sm-12 form-group">
                 <label>Role</label>
                 <select formControlName="role">
                     <option *ngFor="let role of roles" [value]="role.type" [disabled]="role.disabled">{{role.type}}</option>
@@ -274,7 +274,7 @@
 
 <ng-template #uploadResultsModal>
 
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
 
         <h4 *ngIf="!uploadToOrbidal" class="modal-title">Upload Results -
             <div class="email-name-holder">
@@ -376,7 +376,7 @@
 <!-- Modal for Archive user -->
 <ng-template #archiveUserModal>
 
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
         <h4 class="modal-title">Confirm</h4>
         <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
@@ -387,8 +387,8 @@
 
         <div class="row info">
             <div class="col-xs-12 col-sm-12 text-left">
-                <button (click)="approveModal.hide()">No</button>
-                <button class="btn-yes-margin33" (click)="archiveUserEvent()">Yes</button>
+                <button class="deny-btn" (click)="approveModal.hide()">No</button>
+                <button class="btn-yes-margin33 " (click)="archiveUserEvent()">Yes</button>
             </div>
         </div>
     </form>
@@ -398,7 +398,7 @@
 
 <ng-template #adminAccessUserAccountModal>
 
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
         <h4 class="modal-title">Confirm</h4>
         <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
@@ -409,7 +409,7 @@
 
         <div class="row info">
             <div class="col-xs-12 col-sm-12 text-left">
-                <button (click)="approveModal.hide()">No</button>
+                <button class="deny-btn" (click)="approveModal.hide()">No</button>
                 <button class="btn-yes-margin33" (click)="adminSession()">Yes</button>
             </div>
         </div>
@@ -421,7 +421,7 @@
 
 <ng-template #confirmUserModal>
 
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
         <h4 class="modal-title">Confirm</h4>
         <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -432,7 +432,7 @@
 
         <div class="row info">
             <div class="col-xs-12 col-sm-12 text-left">
-                <button (click)="approveModal.hide()">No</button>
+                <button class="deny-btn" (click)="approveModal.hide()">No</button>
                 <button class="btn-yes-margin33" (click)="confirmUser()">Yes</button>
             </div>
         </div>
@@ -441,7 +441,7 @@
 
 <ng-template #assistCreditIncreaseModal>
 
-    <div class="modal-header">
+    <div class="modal-header confirm-pop">
         <h4 class="modal-title">Set Assistance Credits</h4>
         <button type="button" class="close" (click)="approveModal.hide()" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
@@ -449,7 +449,7 @@
     </div>
     <!-- <div class="modal-body"><label>Are you sure you want to Confirm this User - {{ rowData.email }} ?</label></div> -->
     <form novalidate>
-        <div class="col-xs-12 col-sm-6">
+        <div class="col-xs-12 col-sm-12">
             <label for="assistance_credits" class="col-form-label">Assistance Credits:</label>
             <div class="">
                 <input type="number" [(ngModel)]="selectedUser.assistance_credits" [ngModelOptions]="{standalone: true}" class="form-control" id="assistance_credits" placeholder="">
@@ -457,7 +457,7 @@
         </div>
         <div class="row info">
             <div class="col-xs-12 col-sm-12 text-left">
-                <button (click)="approveModal.hide()">No</button>
+                <button class="deny-btn" (click)="approveModal.hide()">No</button>
                 <button class="btn-yes-margin33" (click)="setCredits()">Send</button>
             </div>
         </div>
