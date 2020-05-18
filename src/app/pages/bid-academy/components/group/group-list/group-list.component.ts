@@ -13,7 +13,6 @@ interface IStoryGroup {
   story_boards_count: number;
   archive: boolean;
   story_users_count: number;
-  default: boolean;
   story_category: { id: number, name: string };
 }
 
@@ -52,7 +51,6 @@ export class GroupListComponent implements OnInit {
       id: [null],
       name: ['', Validators.required],
       description: ['', Validators.required],
-      default: [false],
       archive: [false],
       approach: ['', Validators.required],
       target_audience: ['', Validators.required],
@@ -100,7 +98,6 @@ export class GroupListComponent implements OnInit {
         id: item.id,
         name: item.name,
         description: item.description,
-        default: item.default,
         archive: item.archive,
         approach: item.approach,
         target_audience: item.target_audience,
