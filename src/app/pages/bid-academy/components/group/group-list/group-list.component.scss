@@ -2,25 +2,32 @@
     display: flex;
     align-items: center;
 }
+
 .stroy-list-head .buton-holder {
     flex: 0 0 500px;
     text-align: right;
 }
+
 .stroy-list-head h3 {
     flex: 0 0 calc(100% - 500px);
 }
+
 .stroy-list-head .buton-holder i {
     margin-right: 10px;
 }
+
 .width20 {
     width: 20%;
 }
+
 .width10 {
     width: 10%;
 }
+
 .width30 {
     width: 30%;
 }
+
 .width50 {
     width: 50%;
 }
@@ -30,31 +37,69 @@
     font-weight: 500;
     color: #333333;
 }
+
 .include_modal-body .used-selectbr {
     margin-bottom: 12px;
 }
+
 .include_modal-body .button-holder {
     margin-top: 20px;
 }
+
 .include_modal-body .button-holder button {
     min-height: 35px;
     background: #d66166;
     color: #fff;
     border-color: transparent;
 }
+
 .card-header {
     border: 1px solid #c0cadd;
     border-bottom: none;
 }
+
 .create_modal-body .btn {
     margin: 0 !important;
     min-height: 35px;
     min-width: 80px;
 }
-.path-list{
-    span{line-height: 0;}
-}
-.del-con{
-    .close{margin: 0; padding: 0;}
+
+.path-list {
+    span {
+        line-height: 0;
+    }
 }
 
+.del-con {
+    .close {
+        margin: 0;
+        padding: 0;
+    }
+}
+
+.set-note-label {
+    color: red;
+}
+
+
+/* Tell the list-items to not display numbers, but keep track of what the numbers should be */
+
+ol li {
+    counter-increment: list;
+    list-style-type: none;
+    position: relative;
+    color: red;
+    ;
+}
+
+
+/* Output the numbers using the counter() function, but use a custom color, and position the numbers how we want */
+
+ol li:before {
+    color: red;
+    content: counter(list) ".";
+    left: -32px;
+    position: absolute;
+    text-align: right;
+    width: 26px;
+}

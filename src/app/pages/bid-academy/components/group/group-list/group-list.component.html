@@ -31,10 +31,10 @@
                     Description
                 </th> -->
                 <th class="set-cursor text-center width10">
-                    #Pathway(s)
+                    #Document(s)
                 </th>
                 <th class="set-cursor text-center width10">
-                    Default
+                    Category
                 </th>
                 <th class="set-cursor text-center width10">
                     Archive
@@ -52,11 +52,11 @@
                 <td>{{item?.name }}</td>
                 <!-- <td>{{item?.description }}</td> -->
                 <td class="text-center">{{item?.story_boards_count }}</td>
-                <td class="text-center">{{item?.story_category ? 'Yes' : 'No' }}</td>
+                <td class="text-center">{{item?.story_category ? item?.story_category.name : 'Default' }}</td>
                 <td class="text-center">{{item?.archive ? 'Yes' : 'No' }}</td>
                 <td class="text-center">
-                    <span class="iconn"><i [ngClass]="{'fa-trash-alt' : !item.archive, 'fa-undo' : item.archive }" class="fas fa-trash-alt set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway' : 'Withdraw Pathway'"></i></span>
-                    <span class="iconn"><i class="fas fa-trash set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Permanently"></i></span>
+                    <span *ngIf="item?.story_boards_count>0" class="iconn"><i [ngClass]="{'fa-archive' : !item.archive, 'fa-undo' : item.archive }" class="fas set-cursor" (click)="openModal(archiveGroupModal, item)" [title]="!item.archive ? 'Archive Pathway' : 'Withdraw Pathway'"></i></span>
+                    <span *ngIf="item?.story_boards_count === 0" class="iconn"><i class="fas fa-trash set-cursor" (click)="openModal(deleteGroupModal, item)" title="Delete Permanently"></i></span>
                     <a class="iconn" [title]="item.story_users_count +  ' User(s)'" [routerLink]="['/bid-academy/story-group', item.id, 'users']"><i class="fas fa-users"></i></a>
                 </td>
             </tr>
@@ -69,6 +69,15 @@
 
 
     </table>
+
+    <div>
+
+        <label class="set-note-label">Note:</label>
+        <ol>
+            <li> Direct pathway deletion is only possible for pathways that doesn't have any documents associated with them.</li>
+            <li>Pathways associated with documents are not allowed to be deleted.</li>
+        </ol>
+    </div>
 </div>
 
 <!-- <div class="marketplace-pagi-holder" *ngIf="totalItems>0">
@@ -148,7 +157,7 @@
                     <span aria-hidden="true">&times;</span>
                 </button>
     </div>
-    <div class="modal-body"><label>Are you sure you want to {{!groupForm.value.archive ? 'Archive' : 'Withdraw'}} this Pathway?</label></div>
+    <div class="modal-body"><label>Are you sure you want to {{!groupForm.value.archive ? 'Archive' : 'Unarchive'}} this Pathway?</label></div>
 
     <div class="row info">
         <div class="col-xs-12 col-sm-12 text-left">
