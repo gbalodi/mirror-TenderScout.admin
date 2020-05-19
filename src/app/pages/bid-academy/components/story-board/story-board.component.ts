@@ -1,4 +1,4 @@
-import { Component, OnInit, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, ElementRef, ViewChild,ViewEncapsulation } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { BidAcademyService } from '../../services/bid-academy.service';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -24,7 +24,8 @@ interface ITags {
 @Component({
   selector: 'app-story-board',
   templateUrl: './story-board.component.html',
-  styleUrls: ['./story-board.component.scss']
+  styleUrls: ['./story-board.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StoryBoardComponent implements OnInit {
   @ViewChild('attachInput') public attachInput: ElementRef;

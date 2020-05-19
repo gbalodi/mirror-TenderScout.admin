@@ -22,8 +22,7 @@
 
             <div class="row">
 
-                <div class="col-xs-12 col-sm-6">
-
+                <div class="col-sm-4">
                     <div class="title-container">
                         <label for="title" class="col-form-label">Title: </label>
                         <div class="">
@@ -32,9 +31,7 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-6">
-
-
+                <div class="col-sm-4">
                     <div class="group-container">
                         <label for="story_id" class="col-form-label">Select Pathway: </label>
                         <div class="group-tags-holder">
@@ -46,9 +43,7 @@
                     </div>
                 </div>
 
-                <div class="col-xs-12 col-sm-6">
-
-
+                <div class="col-sm-4">
                     <div class="tags-container">
                         <label for="tags" class="col-form-label">Select Tags: </label>
                         <div class="">
@@ -116,9 +111,7 @@
 
                 </div>
 
-                <div class="col-xs-12 col-sm-6">
-
-
+                <div class="col-sm-12">
                     <div class="title-container">
                         <label for="review" class="col-form-label">Review: </label>
                         <div class="">
@@ -133,7 +126,7 @@
                     <div class="tx-editor">
                         <!-- <textarea rows="8" formControlName="description" class="form-control" id="description" placeholder=""></textarea> -->
 
-                        <ckeditor [editor]="Editor" *ngIf="Editor" data="<p>Hello, world!</p>" formControlName="description" [config]="ckEditorConfig"></ckeditor>
+                        <ckeditor [editor]="Editor" class="cdc-editor" *ngIf="Editor" data="<p>Hello, world!</p>" formControlName="description" [config]="ckEditorConfig"></ckeditor>
                     </div>
                 </div>
             </div>
