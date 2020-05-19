@@ -62,7 +62,7 @@ export class GroupListComponent implements OnInit {
     this.includeUsersForm = formBuilder.group({
       story_ids: ['', Validators.required],
       user_ids: ['', Validators.required]
-    })
+    });
   }
 
   ngOnInit() {
