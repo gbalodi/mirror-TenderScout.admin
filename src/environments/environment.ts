@@ -4,22 +4,14 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-    // production: false,
-    // // apiUrl: 'http://api.dev.tenderscout.braincode.xyz/',
-    // // apiUrl: 'https://hub.tenderscout.com/api/',
-    // apiUrl: 'https://api.tshub.matrixmarketers.com/api/',
-    // // apiUrl: 'http://192.168.10.110:3000/', //@Gaurav
-    // // apiUrl: 'http://192.168.10.133:3000/', //@Akshita
-    // // frontEnd: 'http://localhost:4200'
-    // frontEnd: 'https://prehub.matrixmarketers.com',
-    // // socket: "ws://192.168.10.133:3000/"
-    // socket: 'wss://api.tshub.matrixmarketers.com/'
-
-    production: true,
-    // apiUrl: 'https://hub.tenderscout.com/api/'
-    // apiUrl: 'https://admin.orbidalgroup.com/api/'
-    apiUrl: 'https://app.orbidalgroup.com/api/',
-    frontEnd: 'https://app.orbidalgroup.com',
-    // apiUrl: 'https://api.tshub.matrixmarketers.com/api/'
-    socket: "wss://app.orbidalgroup.com/"
+    production: false,
+    // apiUrl: 'http://api.dev.tenderscout.braincode.xyz/',
+    // apiUrl: 'https://hub.tenderscout.com/api/',
+    apiUrl: 'https://api.tshub.matrixmarketers.com/api/',
+    // apiUrl: 'http://192.168.10.110:3000/', //@Gaurav
+    // apiUrl: 'http://192.168.10.133:3000/', //@Akshita
+    // frontEnd: 'http://localhost:4200'
+    frontEnd: 'https://prehub.matrixmarketers.com',
+    // socket: "ws://192.168.10.133:3000/"
+    socket: 'wss://api.tshub.matrixmarketers.com/'
 };
