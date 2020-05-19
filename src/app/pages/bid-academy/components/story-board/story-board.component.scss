@@ -6,8 +6,8 @@
 }
 
 .attach-lm .pop-request-attach {
-    padding: 6px 0px;
-    border-bottom: 1px solid #ddd;
+    padding: 6px;
+    border: 1px solid #ddd;
 }
 
 .attach-lm .pop-request-attach:last-child {
@@ -65,7 +65,7 @@
 
 .pop-request-attach .spinner-border {
     top: 6px;
-    right: 0;
+    right: 6px;
     left: auto;
 }
 
