@@ -130,7 +130,7 @@
 
                 <div class="col-xs-12 col-sm-12">
                     <label for="description" class="col-form-label">Overview: </label>
-                    <div class="">
+                    <div class="tx-editor">
                         <!-- <textarea rows="8" formControlName="description" class="form-control" id="description" placeholder=""></textarea> -->
 
                         <ckeditor [editor]="Editor" *ngIf="Editor" data="<p>Hello, world!</p>" formControlName="description" [config]="ckEditorConfig"></ckeditor>
