@@ -1,13 +1,10 @@
 <div class="card-header">
 
-
-
     <div class="row">
         <div class="col-sm-12">
             <div class="stroy-list-head">
                 <h3>Documents List</h3>
                 <div class="buton-holder">
-                    <!-- <label for="role" class="col-form-label">&nbsp;</label> -->
                     <button type="button" class="create-user btn btn-primary float-right" [routerLink]="['/bid-academy/create-story-board']"><i class="fas fa-plus-square"></i>Create New Document</button>
                 </div>
             </div>
@@ -19,13 +16,8 @@
     <table class="table table-striped">
         <thead>
             <tr>
-                <!-- <th class="set-cursor" *ngFor="let item of tableHeadNames; let i=index">
-                    {{item}}
-                </th> -->
-
                 <th class="set-cursor width10"> Edit </th>
                 <th class="set-cursor width30"> Title </th>
-                <!-- <th class="set-cursor width30"> Description </th> -->
                 <th class="set-cursor width40"> Tags </th>
                 <th class="set-cursor width10 text-center"> # Attach(s) </th>
                 <th class="set-cursor width10 text-center"> Action </th>
@@ -37,19 +29,8 @@
                     <i class="fas fa-edit set-cursor" [routerLink]="['/bid-academy/edit-story-board',item.id]" title="Edit Board"></i>
                 </td>
                 <td>{{item?.title }}</td>
-                <!-- <td [innerHTML]="item?.description"></td> -->
-                <!-- <td><span class="review-tags">{{tagHandler(item?.tags)}}</span></td> -->
                 <td>
                     <span class="review-tags" *ngFor="let tag of item.tags">{{tag.name}}</span>
-                    <!-- <span class="review-tags">hello wednesday 08 tag</span>
-                    <span class="review-tags">additional test tag Wednesday</span>
-                    <span class="review-tags">health</span>
-                    <span class="review-tags">medical</span>
-                    <span class="review-tags">testing tag</span>
-                    <span class="review-tags">hello wednesday 08 tag</span>
-                    <span class="review-tags">additional test tag Wednesday</span>
-                    <span class="review-tags">health</span>
-                    <span class="review-tags">medical</span> -->
                 </td>
                 <td class="text-center">{{item.story_board_assets.length}}</td>
                 <td class="text-center">
